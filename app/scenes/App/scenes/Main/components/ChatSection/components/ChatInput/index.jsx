@@ -1,12 +1,25 @@
 import Inferno from 'inferno'
 import Component from 'inferno-component'
-import {container, padding} from './styles'
 import {observable, action, computed} from 'mobx'
-import TextFieldMUI from 'material-ui/TextField'
 import TextField from './components/TextField'
 import SendButton from './components/SendButton'
 import {observer} from 'inferno-mobx'
+import styled from 'styled-components'
 
+
+const padding = 10;
+
+const OuterWrapper = styled.div`
+	height: ${props => `${props.height}px`};
+	min-height: ${props => `${props.height}px`};
+	border-top: 1px solid rgb(217, 217, 217);
+	padding-left: ${padding}px;
+	padding-right: ${padding}px;
+	transition: height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+`;
 
 class ChatInput extends Component {
 	@observable value  = '';
@@ -35,7 +48,7 @@ class ChatInput extends Component {
 
 	render() {
 		return (
-			<div style={container({height: this.height})}>
+			<OuterWrapper height={this.height}>
 				<TextField
 					fullWidth={true}
 					value={this.value}
@@ -47,7 +60,7 @@ class ChatInput extends Component {
 					hasValue={this.hasValue}
 				/>
 				<SendButton disabled={!this.hasValue}/>
-			</div>
+			</OuterWrapper>
 		);
 		// return (
 		// 	<div style={container({height: this.height})}>

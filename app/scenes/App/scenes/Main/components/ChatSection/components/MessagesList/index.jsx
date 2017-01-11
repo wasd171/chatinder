@@ -1,13 +1,30 @@
 import Inferno from 'inferno'
 import Component from 'inferno-component'
 import {observer} from 'inferno-mobx'
-import {action, observable, computed, asStructure, autorun, when, reaction} from 'mobx'
-import {container, wrapper} from './styles'
+import {action, observable, computed, reaction} from 'mobx'
 import Promise from 'bluebird'
 import forEach from 'lodash/forEach'
 import MessagesGroup from './components/MessagesGroup'
 import linkref from 'linkref'
 import Waypoint from 'react-waypoint'
+import styled from 'styled-components'
+
+
+const OuterWrapper = styled.div`
+	height: 100%;
+	max-height: 100%;
+	overflow-y: scroll;
+	position: relative;
+	padding-bottom: 10px;
+	will-change: transform;
+`;
+
+const InnerWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	min-height: 100%;
+`;
 
 class MessagesList extends Component {
 	disposer;
@@ -154,12 +171,12 @@ class MessagesList extends Component {
 		let nodes = this.messageNodes ? this.messageNodes : [];
 
 		return (
-			<div style={container} ref={linkref(this, 'container')}>
+			<OuterWrapper innerRef={linkref(this, 'container')}>
 				<Waypoint onEnter={this.showMoreMessages}/>
-				<div style={wrapper} hasKeyedChildren>
+				<InnerWrapper hasKeyedChildren>
 					{nodes}
-				</div>
-			</div>
+				</InnerWrapper>
+			</OuterWrapper>
 		)
 	}
 }

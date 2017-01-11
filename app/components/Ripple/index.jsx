@@ -2,10 +2,22 @@ import Inferno from 'inferno'
 import Component from 'inferno-component'
 import {action, observable, asStructure} from 'mobx'
 import {observer} from 'inferno-mobx'
-import {container} from './styles'
 import Promise from 'bluebird'
 import linkref from 'linkref'
+import styled from 'styled-components'
 
+
+const CanvasWrapper = styled.div`
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+`;
+
+const RippleCanvas = styled.canvas`
+	width: ${props => props.width}px;
+	height: ${props => props.height}px;
+`;
 
 class Ripple extends Component {
 	componentDidMount() {
@@ -102,15 +114,14 @@ class Ripple extends Component {
 		const {width, height} = this.canvasSize;
 
 		return (
-			<div ref={linkref(this, 'wrapper')} style={container}>
-				<canvas
-					ref={linkref(this, 'canvas')}
+			<CanvasWrapper innerRef={linkref(this, 'wrapper')}>
+				<RippleCanvas
+					innerRef={linkref(this, 'canvas')}
 					onMouseDown={this.handleClick}
 					width={width}
 					height={height}
-					style={{width: `${width}px`, height: `${height}px`}}
 				/>
-			</div>
+			</CanvasWrapper>
 		)
 	}
 }

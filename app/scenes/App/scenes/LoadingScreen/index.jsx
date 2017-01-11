@@ -1,22 +1,41 @@
 import Inferno from 'inferno'
-import {wrapper, titleWrapper} from './styles'
 import {observer} from 'inferno-mobx'
 import CircularProgress from 'material-ui/CircularProgress'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import compose from 'recompose/compose'
+import styled from 'styled-components'
 
+
+const OuterWrapper = styled.div`
+	height: 100vh;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+`;
+
+const TitleWrapper = styled.h2`
+	color: ${props => props.theme.palette.textColor}
+`;
+
+const ProgressWrapper = styled.div`
+	width: 100px;
+	margin: auto;
+`;
 
 export function LoadingScreen({store, title, muiTheme}) {
 	console.log('LoadingScreen render');
 	return (
-		<div style={wrapper}>
+		<OuterWrapper>
 			<div>
-				<h2 style={titleWrapper(muiTheme)}>{title || store.currentView.params.title}</h2>
-				<div style={{width: '100px', margin: 'auto'}}>
+				<TitleWrapper theme={muiTheme}>{title || store.currentView.params.title}</TitleWrapper>
+				<ProgressWrapper>
 					<CircularProgress size={100} thickness={3}/>
-				</div>
+				</ProgressWrapper>
 			</div>
-		</div>
+		</OuterWrapper>
 	);
 	// return (
 	// 	<div style={wrapper}>

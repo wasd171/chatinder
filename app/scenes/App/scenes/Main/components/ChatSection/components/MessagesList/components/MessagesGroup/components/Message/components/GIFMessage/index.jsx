@@ -1,12 +1,45 @@
 import Inferno from 'inferno'
 import Component from 'inferno-component'
-import {container, image, loaderContainer, canvasContainer, canvasPosition} from './styles'
+import CircularProgress from 'material-ui/CircularProgress'
 import {getNormalizedSizeOfGIPHY} from 'app/utils'
-import {observable, computed, action} from 'mobx'
+import {observable, action} from 'mobx'
 import {observer} from 'inferno-mobx'
-// import {Progress} from 'md-components'
 import linkref from 'linkref'
+import styled from 'styled-components'
 
+
+const OuterWrapper = styled.div`
+	padding-top: 10px;
+	padding-bottom: 10px;
+`;
+
+const AnimatedGIPHY = styled.img`
+	max-height: 300px;
+	max-width: 100%;
+`;
+
+const BaseContainer = styled.div`
+	height: ${props => props.height}px;
+	width: ${props => props.width}px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
+const CanvasWrapper = styled(BaseContainer)`
+	position: relative;
+	cursor: pointer;
+`;
+
+const CanvasPreview = styled.canvas`
+	position: absolute;
+	left: 0;
+	top: 0;
+`;
+
+const LoaderWrapper = styled(BaseContainer)`
+	background-color: black;
+`;
 
 class GIFMessage extends Component {
 	blob;
@@ -17,40 +50,32 @@ class GIFMessage extends Component {
 	@observable animated = false;
 	@observable loadComplete = false;
 
-	@computed get loaderStyle() {
-		return loaderContainer({height: this.height, width: this.width})
-	}
-
-	@computed get canvasStyle() {
-		return canvasContainer({height: this.height, width: this.width})
-	}
-
 	@action setProgress = (event) => {
 		if (event.lengthComputable) {
 			this.progress = 100*event.loaded/event.total;
 		} else {
-			//TODO: add indeterminate loader
+			this.progress = 'none';
 		}
-	}
+	};
 
 	@action setLoadComplete = (load) => {
 		this.loadComplete = load;
-	}
+	};
 
 	@action setDimensions = () => {
 		const calculated = getNormalizedSizeOfGIPHY(this.props.message);
 		this.height = calculated.height;
 		this.width = calculated.width;
-	}
+	};
 
 	handleLoad = (e) => {
 		this.blob = e.currentTarget.response;
 		this.setLoadComplete(true);
-	}
+	};
 
 	drawOnCanvas = () => {
 		this.refs.canvas.getContext('2d').drawImage(this.giphy, 0, 0, this.width, this.height);
-	}
+	};
 
 	constructor(props) {
 		super(props);
@@ -86,33 +111,37 @@ class GIFMessage extends Component {
 	}
 
 	renderLoader = () => {
-		const loaderDiameter = 0.5*Math.min(this.height, this.width);
+		const loaderDiameter = 0.3*Math.min(this.height, this.width);
+		let loader;
+		if (typeof this.progress === 'string') {
+			loader = <CircularProgress size={loaderDiameter}/>
+		} else {
+			loader = <CircularProgress size={loaderDiameter} mode='determinate' value={this.progress}/>
+		}
 		return (
-			<div style={this.loaderStyle}>
-				<div style={{height: loaderDiameter, width: loaderDiameter}}>
-					<span>Loading {this.progress}%</span>
-				</div>
-			</div>
+			<LoaderWrapper height={this.height} width={this.width}>
+				{loader}
+			</LoaderWrapper>
 		)
-	}
+	};
 
 	renderCanvas = () => {
 		return (
-			<div style={this.canvasStyle}>
-				<canvas style={canvasPosition} ref={linkref(this, 'canvas')}/>
-			</div>
+			<CanvasWrapper height={this.height} width={this.width}>
+				<CanvasPreview innerRef={linkref(this, 'canvas')}/>
+			</CanvasWrapper>
 		)
-	}
+	};
 
 	renderGIPHY = () => {
-		return (<img src={this.props.message} style={image}/>)
+		return <AnimatedGIPHY src={this.props.message}/>
 	};
 
 	render() {
 		console.log({message: this.props.message});
 
 		return (
-			<div style={container}>
+			<OuterWrapper>
 				{
 					this.animated
 						? this.renderGIPHY()
@@ -120,7 +149,7 @@ class GIFMessage extends Component {
 							? this.renderCanvas()
 							: this.renderLoader()
 				}
-			</div>
+			</OuterWrapper>
 		)
 	}
 }

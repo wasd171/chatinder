@@ -1,14 +1,16 @@
 import Inferno from 'inferno'
-import {container} from './styles'
 import emojione from 'emojione'
+import styled from 'styled-components'
+
+
+const TextSpan = styled.span`
+	display: inline-block;
+`;
 
 
 function TextMessage({message}) {
 	return (
-		<span
-			style={container}
-			dangerouslySetInnerHTML={{__html: emojione.shortnameToImage(message)}}
-		/>
+		<TextSpan dangerouslySetInnerHTML={{__html: emojione.shortnameToImage(message)}}/>
 	)
 }
 
