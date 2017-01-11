@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Chatinder</title>
+		<link rel="stylesheet" href="../node_modules/roboto-fontface/css/roboto/roboto-fontface.css"/>
+		<link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css"/>
+		<link rel="stylesheet" href="./app.global.css">
+		<script>
+			if (!process.env.HOT) {
+				const link = document.createElement('link');
+				link.rel   = 'stylesheet';
+				link.href  = '../dist/style.css';
+				document.write(link.outerHTML);
+			}
+		</script>
+	</head>
+	<body>
+		<div id="svg-sprite" style="display: none"></div>
+		<div id="loading-screen"></div>
+		<div id="root"></div>
+		<script>
+			{
+				if (process.env.HOT) {
+					const script = document.createElement('script');
+					const port   = process.env.PORT || 3000;
+					script.src   = `http://localhost:${port}/dist/vendor.js`;
+					document.write(script.outerHTML);
+				}
+			}
+		</script>
+		<script>
+			{
+				const script = document.createElement('script');
+				const port   = process.env.PORT || 3000;
+				script.src   = (process.env.HOT) ? `http://localhost:${port}/dist/bundle.js` : '../dist/bundle.js';
+				document.write(script.outerHTML);
+			}
+		</script>
+	</body>
+</html>
