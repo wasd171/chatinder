@@ -2510,6 +2510,13 @@ inferno-create-element@1.1.2:
   dependencies:
     inferno "1.1.2"
 
+inferno-devtools@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/inferno-devtools/-/inferno-devtools-1.1.2.tgz#5d3432b31febfeaa3689c63d0c1327eb8c913449"
+  dependencies:
+    inferno "1.1.2"
+    inferno-component "1.1.2"
+
 inferno-mobx@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/inferno-mobx/-/inferno-mobx-1.1.2.tgz#92adbd37b938dbebf2eaf3bfb6af1c7075212a16"

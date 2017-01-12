@@ -26,8 +26,7 @@ const installExtensions = async () => {
 		const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
 
 		const extensions = [
-			'REACT_DEVELOPER_TOOLS',
-			'REACT_PERF'
+			installer.REACT_DEVELOPER_TOOLS
 		];
 		const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
 		for (const name of extensions) {

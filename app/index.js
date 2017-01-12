@@ -3,8 +3,10 @@ import {useStrict} from 'mobx'
 import Promise from 'bluebird'
 
 import Inferno from 'inferno'
-window.Inferno = Inferno;
 import {Provider} from 'inferno-mobx'
+if (process.env.NODE_ENV === 'development') {
+	require('inferno-devtools');
+}
 
 import * as Stores from './stores'
 import configureStores from './configureStores'
@@ -78,8 +80,7 @@ async function configureAndRender() {
 		})
 	}
 
-	loader.style = {display: 'none'};
-	loader.innerHTML = '';
+	Inferno.render(null, loader);
 }
 
 configureAndRender();
