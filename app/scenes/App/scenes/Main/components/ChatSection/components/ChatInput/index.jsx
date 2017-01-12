@@ -3,6 +3,8 @@ import Component from 'inferno-component'
 import {observable, action, computed} from 'mobx'
 import TextField from './components/TextField'
 import SendButton from './components/SendButton'
+import muiThemeable from 'material-ui/styles/muiThemeable'
+import transitions from 'material-ui/styles/transitions'
 import {observer} from 'inferno-mobx'
 import styled from 'styled-components'
 
@@ -12,15 +14,17 @@ const padding = 10;
 const OuterWrapper = styled.div`
 	height: ${props => `${props.height}px`};
 	min-height: ${props => `${props.height}px`};
-	border-top: 1px solid rgb(217, 217, 217);
+	border-top: 1px solid ${props => props.theme.palette.borderColor};
 	padding-left: ${padding}px;
 	padding-right: ${padding}px;
-	transition: height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+	transition: ${transitions.easeOut('200ms', 'height')};
 	display: flex;
 	flex-direction: row;
 	align-items: flex-end;
 `;
 
+@muiThemeable()
+@observer(['store'])
 class ChatInput extends Component {
 	@observable value  = '';
 	@observable rows = 1;
@@ -48,7 +52,7 @@ class ChatInput extends Component {
 
 	render() {
 		return (
-			<OuterWrapper height={this.height}>
+			<OuterWrapper height={this.height} theme={this.props.muiTheme}>
 				<TextField
 					fullWidth={true}
 					value={this.value}
@@ -84,4 +88,4 @@ class ChatInput extends Component {
 	}
 }
 
-export default observer(ChatInput)
+export default ChatInput

@@ -21,7 +21,7 @@ const MatchContainer = styled.div`
 	width: 100%;
 	overflow-x: hidden;
 	box-sizing: border-box;
-	${props => props.isSelected ? `background-color: ${fade(props.theme.palette.textColor, 0.2)};` : null}
+	${props => props.isSelected && `background-color: ${fade(props.theme.palette.textColor, 0.2)};`}
 `;
 
 const TextContainer = styled.div`
@@ -33,7 +33,7 @@ const TextContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	border-top: 1px solid rgba(217, 217, 217, ${props => props.showBorder ? '0' : '100'});
+	border-top: 1px solid ${props => props.showBorder ? props.theme.palette.borderColor : 'rgba(0, 0, 0, 0)'};
 	box-sizing: border-box;
 `;
 
@@ -66,7 +66,7 @@ class Match extends Component {
 	}
 
 	@computed get showBorder() {
-		return this.isSelected || this.isPreviousSelected || this.props.firstVisible
+		return !(this.isSelected || this.isPreviousSelected || this.props.firstVisible)
 	}
 
 	@computed get formattedMessage() {
@@ -93,7 +93,7 @@ class Match extends Component {
 		return (
 			<MatchContainer theme={muiTheme} style={style} isSelected={this.isSelected} onClick={this.handleClick}>
 				<Avatar match={match} size={46}/>
-				<TextContainer showBorder={this.showBorder}>
+				<TextContainer showBorder={this.showBorder} theme={muiTheme}>
 					<NameContainer theme={muiTheme}>{match.person.name}</NameContainer>
 					<MessageContainer theme={muiTheme}>{this.formattedMessage}</MessageContainer>
 				</TextContainer>
