@@ -15,7 +15,7 @@ class App extends Component {
 	}
 
 	render() {
-		console.log('App render', name);
+		console.log('App render', this.name);
 		switch (this.name) {
 			case VIEW_AUTH:
 				return <Auth/>;
