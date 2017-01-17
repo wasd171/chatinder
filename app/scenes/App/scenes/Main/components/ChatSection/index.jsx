@@ -4,7 +4,7 @@ import MessagesList from './components/MessagesList'
 import ChatInput from './components/ChatInput'
 
 
-function ChatSection({show, MainSection, HeaderContainer}) {
+function ChatSection({show, MainSection, HeaderContainer, theme}) {
 	const children = show
 		?
 			[
@@ -19,7 +19,7 @@ function ChatSection({show, MainSection, HeaderContainer}) {
 		;
 
 	return (
-		<MainSection>{children}</MainSection>
+		<MainSection theme={theme}>{children}</MainSection>
 	)
 }
 
