@@ -22,7 +22,7 @@ import {
 
 class TinderApi {
 	constructor() {
-		this.client = new tinder.TinderClient();
+		this.resetClient();
 	}
 
 	@observable actions = [];
@@ -39,6 +39,10 @@ class TinderApi {
 
 	@action deleteFirstAction = () => {
 		this.actions.splice(0, 1);
+	};
+
+	resetClient = () => {
+		this.client = new tinder.TinderClient();
 	};
 
 	sendToRenderer = (type, arg) => {
@@ -78,7 +82,10 @@ class TinderApi {
 		}
 
 		if (error) {
-			console.log(error);
+			console.log('error was caught');
+			console.error(error);
+
+			this.resetClient();
 			this.setWaitingFlag(true);
 			this.sendToRenderer(API_REQUIRE_AUTHORIZATION, null);
 			const promise = new Promise((resolve, reject) => {
