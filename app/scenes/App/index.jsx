@@ -9,18 +9,6 @@ import Main from './scenes/Main'
 import LoadingScreen from './scenes/LoadingScreen'
 
 
-// function App({store}) {
-// 	const name = expr(() => store.currentView.name);
-//
-// 	switch (name) {
-// 		case VIEW_AUTH:
-// 			return <Auth/>;
-// 		case VIEW_MAIN:
-// 			return <Main/>;
-// 		case VIEW_LOADING:
-// 			return <LoadingScreen/>
-// 	}
-// }
 class App extends Component {
 	@computed get name() {
 		return this.props.store.currentView.name;
