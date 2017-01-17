@@ -12,7 +12,6 @@ import * as Stores from './stores'
 import configureStores from './configureStores'
 
 import '!style!css!react-virtualized/styles.css'
-import './index.scss'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import theme from './configureTheme'
 window.muiTheme = theme;
@@ -25,15 +24,13 @@ emojione.imageType = 'svg';
 emojione.sprites = true;
 emojione.imagePathSVGSprites = '';
 
-function renderApp({container, store, theme}) {
+function renderApp({node, children}) {
 	console.log('renderApp called');
 	Inferno.render(
-		<Provider store={store}>
-			<MuiThemeProvider muiTheme={theme}>
-				<App/>
-			</MuiThemeProvider>
-		</Provider>,
-		container
+		<MuiThemeProvider muiTheme={theme}>
+			{children}
+		</MuiThemeProvider>,
+		node
 	);
 }
 
@@ -42,41 +39,40 @@ async function configureAndRender() {
 	const loader = document.getElementById('loading-screen');
 
 	loader.style = loadingFullScreen;
-	Inferno.render(
-		<MuiThemeProvider muiTheme={theme}>
+	renderApp({
+		node: loader, 
+		children: (
 			<LoadingScreen title="App is loading" muiTheme={theme}/>
-		</MuiThemeProvider>,
-		loader
-	);
+		)
+	})
 
 	console.log('start configure');
 	const store = await configureStores(Stores);
 	console.log('end configure');
 	useStrict(true);
 
-	renderApp({container, store, theme});
-	// Inferno.render(
-	// 	<Provider store={store}>
-	// 		<MuiThemeProvider muiTheme={theme}>
-	// 			<App/>
-	// 		</MuiThemeProvider>
-	// 	</Provider>,
-	// 	container
-	// );
+	renderApp({
+		node: container, 
+		children: (
+			<Provider store={store}>
+				<App/>
+			</Provider>
+		)
+	});
 
 	await Promise.delay(1000);
 
 	if (module.hot) {
 		module.hot.accept('./scenes/App', () => {
 			const NewApp = require('./scenes/App');
-			Inferno.render(
-				<Provider store={store}>
-					<MuiThemeProvider muiTheme={theme}>
+			renderApp({
+				node: container,
+				children: (
+					<Provider store={store}>
 						<NewApp/>
-					</MuiThemeProvider>
-				</Provider>,
-				container
-			);
+					</Provider>
+				)
+			});
 		})
 	}
 

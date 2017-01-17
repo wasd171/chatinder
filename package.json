@@ -81,7 +81,7 @@
     "inferno": "^1.1.2",
     "inferno-compat": "^1.1.2",
     "inferno-component": "^1.1.2",
-    "inferno-devtools": "^1.1.2",
+    "inferno-devtools": "^1.2.0",
     "inferno-mobx": "^1.1.2",
     "inject-loader": "^3.0.0-beta3",
     "inline-loader": "^0.1.1",
