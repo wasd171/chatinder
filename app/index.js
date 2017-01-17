@@ -41,7 +41,9 @@ async function configureAndRender() {
 	loader.style = loadingFullScreen;
 	renderApp({
 		node: loader, 
-		children: <LoadingScreen title="App is loading" muiTheme={theme}/>
+		children: (
+			<LoadingScreen title="App is loading" muiTheme={theme}/>
+		)
 	})
 
 	console.log('start configure');
