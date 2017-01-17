@@ -24,15 +24,13 @@ emojione.imageType = 'svg';
 emojione.sprites = true;
 emojione.imagePathSVGSprites = '';
 
-function renderApp({container, store, theme}) {
+function renderApp({node, children}) {
 	console.log('renderApp called');
 	Inferno.render(
-		<Provider store={store}>
-			<MuiThemeProvider muiTheme={theme}>
-				<App/>
-			</MuiThemeProvider>
-		</Provider>,
-		container
+		<MuiThemeProvider muiTheme={theme}>
+			{children}
+		</MuiThemeProvider>,
+		node
 	);
 }
 
@@ -41,33 +39,38 @@ async function configureAndRender() {
 	const loader = document.getElementById('loading-screen');
 
 	loader.style = loadingFullScreen;
-	Inferno.render(
-		<MuiThemeProvider muiTheme={theme}>
-			<LoadingScreen title="App is loading" muiTheme={theme}/>
-		</MuiThemeProvider>,
-		loader
-	);
+	renderApp({
+		node: loader, 
+		children: <LoadingScreen title="App is loading" muiTheme={theme}/>
+	})
 
 	console.log('start configure');
 	const store = await configureStores(Stores);
 	console.log('end configure');
 	useStrict(true);
 
-	renderApp({container, store, theme});
+	renderApp({
+		node: container, 
+		children: (
+			<Provider store={store}>
+				<App/>
+			</Provider>
+		)
+	});
 
 	await Promise.delay(1000);
 
 	if (module.hot) {
 		module.hot.accept('./scenes/App', () => {
 			const NewApp = require('./scenes/App');
-			Inferno.render(
-				<Provider store={store}>
-					<MuiThemeProvider muiTheme={theme}>
+			renderApp({
+				node: container,
+				children: (
+					<Provider store={store}>
 						<NewApp/>
-					</MuiThemeProvider>
-				</Provider>,
-				container
-			);
+					</Provider>
+				)
+			});
 		})
 	}
 
