@@ -1,4 +1,4 @@
-export default async function login() {
+export default async function login(force) {
 	await this.api.loginWithFB();
-	await this.api.authorize();
+	await this.api.authorize(force);
 }

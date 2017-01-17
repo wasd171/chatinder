@@ -61,6 +61,7 @@ export class Facade {
 	startAutoUpdate = startAutoUpdate.bind(this);
 	startAutoUpdatePerson = startAutoUpdatePerson.bind(this);
 	login = login.bind(this);
+	loginForce = login.bind(this, true);
 	goToMain = goToMain.bind(this);
 	goToAuth = goToAuth.bind(this);
 	goToLoading = goToLoading.bind(this);

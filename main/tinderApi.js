@@ -95,6 +95,7 @@ class TinderApi {
 				)
 			});
 			await promise;
+			console.log('Authorized again');
 		} else {
 			const responseType = this.getSuccessfulResponseType(action.type);
 			this.sendToRenderer(responseType, result);
@@ -104,6 +105,8 @@ class TinderApi {
 		if (this.actions.length) {
 			this.processActions();
 		}
+		
+		return null;
 	};
 
 	getSuccessfulResponseType = (type) => {
