@@ -12,7 +12,6 @@ import * as Stores from './stores'
 import configureStores from './configureStores'
 
 import '!style!css!react-virtualized/styles.css'
-import './index.scss'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import theme from './configureTheme'
 window.muiTheme = theme;
@@ -55,14 +54,6 @@ async function configureAndRender() {
 	useStrict(true);
 
 	renderApp({container, store, theme});
-	// Inferno.render(
-	// 	<Provider store={store}>
-	// 		<MuiThemeProvider muiTheme={theme}>
-	// 			<App/>
-	// 		</MuiThemeProvider>
-	// 	</Provider>,
-	// 	container
-	// );
 
 	await Promise.delay(1000);
 
