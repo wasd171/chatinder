@@ -12,20 +12,14 @@ export default {
 		loaders: [{
 			test:    /\.jsx?$/,
 			loaders: ['babel-loader'],
-			exclude: /node_modules(?!\/md-components)/
+			exclude: /node_modules/
 		}, {
 			test:   /\.json$/,
 			loader: 'json-loader'
 		}, {
-			test: /\.(scss|sass)$/,
-			loaders: ['style-loader', 'css-loader', 'sass-loader?sourceMap']
-		}, {
 			test: /\.(eot|ttf|woff|woff2)$/,
 			loader: 'file?name=public/fonts/[name].[ext]'
 		}]
-	},
-	sassLoader: {
-		includePaths: [path.resolve(__dirname, "./node_modules")]
 	},
 	output:    {
 		path:          path.join(__dirname, 'dist'),
@@ -43,8 +37,6 @@ export default {
 			'superagent': 'superagent/lib/client.js',
 			'emitter': 'component-emitter',
 			'reduce': 'reduce-component'
-			// dirty hack to couple material-ui with Inferno
-			// 'material-ui/TextField/EnhancedTextarea.js': 'app/components/InfernoEnhancedTextarea'
 		}
 	},
 	plugins:   [
