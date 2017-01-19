@@ -21,6 +21,7 @@ export class Facade {
 	clock;
 	save;
 	ipc;
+	db;
 	updateDisposer;
 	updatePersonWrappedDisposer;
 	updatePersonDisposer;
@@ -51,8 +52,8 @@ export class Facade {
 	}
 
 
-	constructor({api, view, tinder, clock, save = defaultSave, ipc = ipcRenderer}) {
-		Object.assign(this, {api, view, tinder, clock, save, ipc});
+	constructor({api, view, tinder, clock, save = defaultSave, ipc = ipcRenderer, db}) {
+		Object.assign(this, {api, view, tinder, clock, save, ipc, db});
 	}
 
 	start = start.bind(this);
@@ -68,6 +69,6 @@ export class Facade {
 	handleLoginButtonClick = handleLoginButtonClick.bind(this);
 }
 
-export function FacadeFactory({api, view, tinder, clock}) {
-	return new Facade({api, view, tinder, clock})
+export function FacadeFactory({api, view, tinder, clock, db}) {
+	return new Facade({api, view, tinder, clock, db})
 }

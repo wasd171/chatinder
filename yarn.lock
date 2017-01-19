@@ -1546,6 +1546,10 @@ devtron@^1.4.0:
     highlight.js "^9.3.0"
     humanize-plus "^1.8.1"
 
+dexie@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/dexie/-/dexie-1.5.1.tgz#ac3ad5a0ebaf7e6e42760db58710418d4a756624"
+
 discontinuous-range@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/discontinuous-range/-/discontinuous-range-1.0.0.tgz#e38331f0844bba49b9a9cb71c771585aab1bc65a"
@@ -2497,6 +2501,12 @@ inferno-component@1.1.2, inferno-component@^1.1.2:
   dependencies:
     inferno "1.1.2"
 
+inferno-component@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inferno-component/-/inferno-component-1.2.1.tgz#e250421373912ccd846378857fc028973d466c32"
+  dependencies:
+    inferno "1.2.1"
+
 inferno-create-class@1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/inferno-create-class/-/inferno-create-class-1.1.2.tgz#0f0300304b5a62e02d274340df3044842fec5451"
@@ -2510,12 +2520,12 @@ inferno-create-element@1.1.2:
   dependencies:
     inferno "1.1.2"
 
-inferno-devtools@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/inferno-devtools/-/inferno-devtools-1.1.2.tgz#5d3432b31febfeaa3689c63d0c1327eb8c913449"
+inferno-devtools@^1.2.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inferno-devtools/-/inferno-devtools-1.2.1.tgz#e2cac46d8d3ba18f40288476d06c5f952e8b90e3"
   dependencies:
-    inferno "1.1.2"
-    inferno-component "1.1.2"
+    inferno "1.2.1"
+    inferno-component "1.2.1"
 
 inferno-mobx@^1.1.2:
   version "1.1.2"
@@ -2542,6 +2552,10 @@ inferno-vnode-flags@^1.0.7:
 inferno@1.1.2, inferno@^1.1.1, inferno@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/inferno/-/inferno-1.1.2.tgz#7809927546f8e5eb8163fb61b314df0cf0517f54"
+
+inferno@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/inferno/-/inferno-1.2.1.tgz#154799226298deca6cd561c8da88a5e5f30a2369"
 
 inflight@^1.0.4:
   version "1.0.6"

@@ -67,6 +67,7 @@
     "date-fns": "^1.25.0",
     "del": "^2.2.2",
     "devtron": "^1.4.0",
+    "dexie": "^1.5.1",
     "electron": "^1.4.14",
     "electron-devtools-installer": "^2.0.1",
     "electron-packager": "^8.5.0",
