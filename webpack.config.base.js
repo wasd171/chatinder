@@ -6,8 +6,8 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin'
 export default {
 	module:    {
 		noParse: [
-			/node_modules\/localforage\/dist\/localforage.js/,
-			/node_modules\/json-schema\/lib\/validate\.js/
+			/node_modules[\/\\]localforage[\/\\]dist[\/\\]localforage\.js/,
+			/node_modules[\/\\]json-schema[\/\\]lib[\/\\]validate\.js/
 		],
 		loaders: [{
 			test:    /\.jsx?$/,
