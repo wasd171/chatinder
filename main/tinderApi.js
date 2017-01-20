@@ -149,9 +149,7 @@ class TinderApi {
 				};
 			case API_GET_USER:
 				return async () => {
-					const res = await Promise.fromCallback(this.client.getUser.bind(null, action.userId));
-					res.matchId = action.matchId;
-					return res;
+					return Promise.fromCallback(this.client.getUser.bind(null, action.userId));
 				};
 			case API_GET_PROFILE:
 				return async () => {

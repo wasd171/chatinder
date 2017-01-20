@@ -18,11 +18,11 @@ export class PersonStore {
 		return {
 			_id: person._id,
 			bio: person.bio,
-			birthDate: person.birthDate || person.birth_date,
+			birthDate: person.birthDate,
 			name: person.name,
-			pingTime: person.pingTime || person.ping_time,
-			smallPhoto: person.smallPhoto || person.photos[0].processedFiles[3].url,
-			largePhoto: person.largePhoto || person.photos[0].processedFiles[0].url
+			pingTime: person.pingTime,
+			smallPhoto: person.smallPhoto,
+			largePhoto: person.largePhoto
 		}
 	}
 

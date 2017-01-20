@@ -5,21 +5,16 @@ export class MessageStore {
 	_id;
 	message;
 	from;
-	sentDate;
+	timestamp;
 	messageGroup;
 
-	constructor({message: messageObj, previousMessage, raw}) {
+	constructor(messageObj) {
 		Object.assign(this, {
 			_id: messageObj._id,
-			message: raw ? emojione.toShort(messageObj.message) : messageObj.message,
+			message: messageObj.formattedMessage,
 			from: messageObj.from,
-			sentDate: messageObj.sentDate || messageObj.sent_date
+			timestamp: messageObj.timestamp,
+			messageGroup: messageObj.messageGroup
 		});
-
-		if (previousMessage && previousMessage.from === messageObj.from) {
-			this.messageGroup = previousMessage.messageGroup
-		} else {
-			this.messageGroup = `${this.from}_${this._id}`;
-		}
 	}
 }

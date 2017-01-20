@@ -2687,6 +2687,10 @@ is-primitive@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/is-primitive/-/is-primitive-2.0.0.tgz#207bab91638499c07b2adf240a41a87210034575"
 
+is-promise@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/is-promise/-/is-promise-2.1.0.tgz#79a2a9ece7f096e80f36d2b2f3bc16c1ff4bf3fa"
+
 is-property@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/is-property/-/is-property-1.0.2.tgz#57fe1c4e48474edd65b09911f26b1cd4095dda84"
@@ -2847,7 +2851,7 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-lie@3.0.2:
+lie@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/lie/-/lie-3.0.2.tgz#ffda21d7bba26f377cad865d3649b2fc8ce39fea"
   dependencies:
@@ -2887,12 +2891,6 @@ loader-utils@0.2.x, loader-utils@^0.2.11, loader-utils@^0.2.16, loader-utils@^0.
     emojis-list "^2.0.0"
     json5 "^0.5.0"
     object-assign "^4.0.1"
-
-localforage@^1.4.3:
-  version "1.4.3"
-  resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.4.3.tgz#a212543c39c7c76424edd12bf474c489aaca494c"
-  dependencies:
-    lie "3.0.2"
 
 lodash._baseassign@^3.0.0:
   version "3.2.0"
@@ -3922,6 +3920,13 @@ progress-stream@^1.1.0:
   dependencies:
     speedometer "~0.1.2"
     through2 "~0.2.3"
+
+promise-worker@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/promise-worker/-/promise-worker-1.1.1.tgz#c2b75d045d249625c02264e2dff9ad22e031c69b"
+  dependencies:
+    is-promise "^2.1.0"
+    lie "^3.0.2"
 
 promise@^7.1.1:
   version "7.1.1"

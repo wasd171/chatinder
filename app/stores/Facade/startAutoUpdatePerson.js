@@ -19,17 +19,7 @@ export default function startAutoUpdatePerson() {
 				this.view.setNewChatSelected(true);
 				this.updatePersonDisposer = reaction(
 					() => this.clock.getTime(),
-					async (time) => {
-						const userId = this.tinder.matches.get(matchId).person['_id'];
-						const res = await this.api.getUser({userId, matchId});
-						if (res) {
-							const match = this.tinder.matches.get(res.matchId);
-							match.person.updatePerson(res.results);
-							if (this.view.newChatSelected && match['_id'] === matchId) {
-								this.view.setNewChatSelected(false);
-							}
-						}
-					},
+					() => this.api.getUser(this.tinder.matches.get(matchId).person['_id']),
 					true
 				)
 			}

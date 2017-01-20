@@ -1,6 +1,5 @@
 import {ipcRenderer} from 'electron'
 import {TINDER_API, FB_GET_TOKEN_REQUEST, FB_GET_ID_REQUEST} from './constants'
-import localforage from 'localforage'
 import {toJS} from 'mobx'
 import Promise from 'bluebird'
 import parse from 'url-parse'
@@ -25,20 +24,12 @@ export function waitForIpc(type) {
 }
 
 export async function retrieveFromApi({req, params = null, res}) {
-	const promise = waitForIpc(res);
+	let promise;
+	if (res) {
+		promise = waitForIpc(res);
+	}
 	callApi(req, params);
 	return promise;
-}
-
-// export async function authFlow({actions}) {
-// 	'use strict';
-// 	await actions.loginWithFacebook();
-// 	await actions.authorizeTinder();
-// }
-
-export function save(key, data) {
-	'use strict';
-	localforage.setItem(key, toJS(data))
 }
 
 export function isGIPHY(message) {

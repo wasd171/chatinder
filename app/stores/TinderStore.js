@@ -10,13 +10,13 @@ export class TinderStore {
 	@observable profile;
 
 	constructor({matches, profile}) {
-		this.setMatches({matches, raw: false});
+		this.setMatches(matches);
 		this.setProfile(profile);
 	}
 
-	@action setMatches = ({matches, raw}) => {
+	@action setMatches = (matches) => {
 		forEach(matches, match => {
-			this.matches.set(match['_id'], new MatchStore({match, raw}))
+			this.matches.set(match['_id'], new MatchStore(match))
 		});
 	};
 

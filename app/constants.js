@@ -34,3 +34,9 @@ export const LF_TINDER_PROFILE			= 'LF_TINDER_PROFILE';
 export const VIEW_MAIN					= 'VIEW_MAIN';
 export const VIEW_AUTH					= 'VIEW_AUTH';
 export const VIEW_LOADING				= 'VIEW_LOADING';
+
+export const WORKER_SET_MATCHES         = 'WORKER_SET_MATCHES';
+export const WORKER_GET_MATCHES         = 'WORKER_GET_MATCHES';
+export const WORKER_SET_PROFILE         = 'WORKER_SET_PROFILE';
+export const WORKER_SET_PERSON          = 'WORKER_SET_PERSON';
+export const WORKER_GET_INITIAL         = 'WORKER_GET_INITIAL';

@@ -10,43 +10,26 @@ export class MatchStore {
 	@observable person;
 	@observable messages = asFlat([]);
 
-	constructor({match, raw}) {
+	constructor(match) {
 		this.init({
 			_id: match._id,
-			createdDate: match.createdDate || match.created_date,
-			lastActivityDate: match.lastActivityDate || match.last_activity_date,
+			lastActivityDate: match.lastActivityDate,
 			person: new PersonStore(match.person)
 		});
-		this.setMessages({messages: match.messages, raw});
+		this.setMessages(match.messages);
 	}
 
 	@action init = async (matchData) => {
 		Object.assign(this, matchData);
 	};
 
-	@action setId = (_id) => {
-		this._id = _id;
-	};
-
-	@action setCreatedDate = (createdDate) => {
-		this.createdDate = createdDate;
-	};
-
-	@action setLastActivityDate = (lastActivityDate) => {
-		this.lastActivityDate = lastActivityDate;
-	};
-
 	@action setPerson = (person) => {
 		this.person = new PersonStore(person);
 	};
 
-	@action setMessages = ({messages, raw}) => {
-		let previousMessage = null;
+	@action setMessages = (messages) => {
 		messages.forEach(message => {
-			const nextMessage = new MessageStore({message, previousMessage, raw});
-			this.messages.push(nextMessage);
-			previousMessage = nextMessage;
+			this.messages.push(new MessageStore(message));
 		});
-		previousMessage = null;
 	};
 }

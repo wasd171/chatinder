@@ -1,5 +1,4 @@
 import {computed, action, autorun} from 'mobx'
-import {save as defaultSave} from 'app/utils'
 import {ipcRenderer} from 'electron'
 
 import start from './start'
@@ -19,7 +18,6 @@ export class Facade {
 	view;
 	tinder;
 	clock;
-	save;
 	ipc;
 	db;
 	updateDisposer;
@@ -52,8 +50,8 @@ export class Facade {
 	}
 
 
-	constructor({api, view, tinder, clock, save = defaultSave, ipc = ipcRenderer, db}) {
-		Object.assign(this, {api, view, tinder, clock, save, ipc, db});
+	constructor({api, view, tinder, clock, ipc = ipcRenderer, db}) {
+		Object.assign(this, {api, view, tinder, clock, ipc, db});
 	}
 
 	start = start.bind(this);

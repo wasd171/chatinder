@@ -18,6 +18,6 @@ export default function startAutoSave(save) {
 	autorun(() => this.db.saveToDB('auth', LF_FB_ID, this.api.fbId));
 	autorun(() => this.db.saveToDB('auth', LF_TINDER_TOKEN, this.api.tinderToken));
 	autorun(() => this.db.saveToDB('saved', LF_CURRENT_VIEW, this.view.currentView));
-	autorun(() => save(LF_TINDER_MATCHES,		this.tinder.matches));
-	autorun(() => this.db.saveToDB('saved', LF_TINDER_PROFILE, this.tinder.profile));
+	// autorun(() => save(LF_TINDER_MATCHES,		this.tinder.matches));
+	// autorun(() => this.db.saveToDB('saved', LF_TINDER_PROFILE, this.tinder.profile));
 }
