@@ -25,6 +25,9 @@ const BaseSection = styled.section`
 	display: flex;
 	flex-direction: column;
 	overflow-x: hidden;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
 const MatchesSection = styled(BaseSection)`
