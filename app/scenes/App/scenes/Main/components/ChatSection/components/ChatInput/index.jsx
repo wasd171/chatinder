@@ -11,9 +11,11 @@ import styled from 'styled-components'
 
 const padding = 10;
 
+const HeightWrapper = styled.div`
+	display: inline-block;
+`;
+
 const OuterWrapper = styled.div`
-	height: ${props => `${props.height}px`};
-	min-height: ${props => `${props.height}px`};
 	border-top: 1px solid ${props => props.theme.palette.borderColor};
 	padding-left: ${padding}px;
 	padding-right: ${padding}px;
@@ -21,6 +23,9 @@ const OuterWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: flex-end;
+	justify-content: space-between;
+	max-width: 100%;
+	width: 100%;
 `;
 
 @muiThemeable()
@@ -28,7 +33,7 @@ const OuterWrapper = styled.div`
 class ChatInput extends Component {
 	@observable value  = '';
 	@observable rows = 1;
-	maxRows = 8;
+	maxRows = 10;
 
 	@computed get hasValue() {
 		return !!this.isValid(this.value)
@@ -38,8 +43,8 @@ class ChatInput extends Component {
 		return 24*(this.rows + 1)
 	}
 
-	@action handleChange = ({event, rows}) => {
-		this.value = event.target.value;
+	@action handleChange = ({text, rows}) => {
+		this.value = text;
 		if (this.maxRows >= rows) {
 			this.rows = rows
 		}
@@ -50,21 +55,26 @@ class ChatInput extends Component {
 	}
 
 
+	// TODO change ugly maxWidth
 	render() {
 		return (
+			<HeightWrapper>
 			<OuterWrapper height={this.height} theme={this.props.muiTheme}>
-				<TextField
-					fullWidth={true}
-					value={this.value}
-					hintText='Message'
-					rows={this.rows}
-					maxRows={this.maxRows}
-					multiLine={true}
-					onChange={this.handleChange}
-					hasValue={this.hasValue}
-				/>
+				<div style={{width: '100%', maxWidth: 'calc(100% - 98px)'}}>
+					<TextField
+						fullWidth={true}
+						value={this.value}
+						hintText='Message'
+						rows={this.rows}
+						maxRows={this.maxRows}
+						multiLine={true}
+						onChange={this.handleChange}
+						hasValue={this.hasValue}
+					/>
+				</div>
 				<SendButton disabled={!this.hasValue}/>
 			</OuterWrapper>
+			</HeightWrapper>
 		);
 		// return (
 		// 	<div style={container({height: this.height})}>

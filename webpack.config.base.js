@@ -45,7 +45,9 @@ export default {
 	plugins:   [
 		new webpack.ProvidePlugin({
 			"window.React": "inferno-compat",
-			'Inferno': 'inferno'
+			'Inferno': 'inferno',
+			'jQuery': 'jquery',
+			'window.emojione': 'app/shims/emojione.js'
 		})
 	],
 	externals: [

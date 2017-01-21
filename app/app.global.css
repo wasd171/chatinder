@@ -11,14 +11,40 @@ body {
 
 * {
     outline: none;
+    box-sizing: border-box
 }
 
 .emojione {
     zoom: calc(20/64);
     margin: 0 calc(64*.1em/20) 0 calc(64*.2em/20);
-    -webkit-user-select: all;
+    -webkit-user-select: text;
+    vertical-align: -.5em;
 }
 
-.emojione::selection {
-    background-color: yellow;
+.emojionearea {
+    border: none;
+    box-shadow: none;
+    margin-top: 12px;
+    margin-bottom: -12px;
+    max-width: 100%;
+    background-color: transparent;
+}
+
+.emojionearea.focused {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.emojionearea .emojionearea-editor {
+    min-height: 24px;
+    line-height: 24px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    max-width: 100%;
+}
+
+.emojionearea .emojionearea-button {
+    top: 1px;
 }

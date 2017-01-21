@@ -5,7 +5,6 @@ import {observer} from 'inferno-mobx'
 import Avatar from 'app/components/Avatar'
 import {isGIPHY} from 'app/utils'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import emojione from 'emojione'
 import styled from 'styled-components'
 import {fade} from 'material-ui/utils/colorManipulator'
 
@@ -79,7 +78,7 @@ class Match extends Component {
 		} else if (isGIPHY(msg)) {
 			return "GIPHY"
 		} else {
-			return <span dangerouslySetInnerHTML={{__html: emojione.shortnameToImage(msg)}}/>
+			return <span dangerouslySetInnerHTML={{__html: msg}}/>
 		}
 	}
 

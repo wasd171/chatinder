@@ -1,8 +1,12 @@
 import omit from 'lodash/omit'
 import emojione from 'emojione'
 
+// emojione.imageType = 'png';
+// emojione.sprites = true;
+
 emojione.imageType = 'png';
-emojione.sprites = true;
+emojione.sprites = false;
+emojione.imagePathPNG = '../node_modules/emojione/assets/png/';
 
 // emojione.imageType = 'svg';
 // emojione.sprites = true;

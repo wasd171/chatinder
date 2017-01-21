@@ -1658,9 +1658,17 @@ electron@^1.4.14:
     electron-download "^3.0.1"
     extract-zip "^1.0.3"
 
-emojione@2.2.7:
+emojione@2.2.7, emojione@>=2.0.1:
   version "2.2.7"
   resolved "https://registry.yarnpkg.com/emojione/-/emojione-2.2.7.tgz#46457cf6b9b2f8da13ae8a2e4e547de06ee15e96"
+
+emojionearea@3:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/emojionearea/-/emojionearea-3.1.5.tgz#64aeefd4530d53fe37a6281b51653a0a9de5ff3f"
+  dependencies:
+    emojione ">=2.0.1"
+    jquery ">=1.8.3"
+    jquery-textcomplete ">=1.3.4"
 
 emojis-list@^2.0.0:
   version "2.1.0"
@@ -1788,6 +1796,10 @@ exports-loader@^0.6.3:
   dependencies:
     loader-utils "0.2.x"
     source-map "0.1.x"
+
+expose-loader@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/expose-loader/-/expose-loader-0.7.1.tgz#411ee89443aa682f8ea9d9111accf41bfd7e94d9"
 
 express@^4.14.0:
   version "4.14.0"
@@ -2755,6 +2767,14 @@ jodid25519@^1.0.0:
   resolved "https://registry.yarnpkg.com/jodid25519/-/jodid25519-1.0.2.tgz#06d4912255093419477d425633606e0e90782967"
   dependencies:
     jsbn "~0.1.0"
+
+jquery-textcomplete@>=1.3.4:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/jquery-textcomplete/-/jquery-textcomplete-1.8.0.tgz#7c750fde843fb785a9ac083f599172bd867183d3"
+
+jquery@>=1.8.3, jquery@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.1.1.tgz#347c1c21c7e004115e0a4da32cece041fad3c8a3"
 
 js-base64@^2.1.9:
   version "2.1.9"

@@ -30,11 +30,14 @@ export function getStyles(props, context, state) {
 			fontFamily: baseTheme.fontFamily,
 			transition: transitions.easeOut('200ms', 'height'),
 			cursor: props.disabled ? 'not-allowed' : 'auto',
+			maxWidth: '100%',
+			boxSizing: 'border-box'
 		},
 		textareaWrapper: {
-			overflowY: 'hidden',
+			// overflowY: 'hidden',
 			transition: transitions.easeOut('250ms', 'height'),
-			height: (props.rows + 1)*24
+			// height: (props.rows + 1)*24,
+			maxWidth: '100%'
 		},
 		error: {
 			position: 'relative',

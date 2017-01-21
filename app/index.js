@@ -18,7 +18,8 @@ window.muiTheme = theme;
 import App from './scenes/App'
 import {LoadingScreen} from './scenes/App/scenes/LoadingScreen'
 import {loadingFullScreen} from './styles'
-import '!style-loader!css-loader!emojione/assets/sprites/emojione.sprites.css'
+// import '!style-loader!css-loader!emojione/assets/sprites/emojione.sprites.css'
+import '!style-loader!css-loader!emojionearea/dist/emojionearea.min.css'
 import './app.global.css'
 // import 'inline?parentId=svg-sprite!emojione/assets/sprites/emojione.sprites.svg'
 
