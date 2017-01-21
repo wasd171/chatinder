@@ -103,6 +103,7 @@
     "resolve-url-loader": "^1.6.1",
     "style-loader": "^0.13.1",
     "styled-components": "^1.2.1",
+    "url-loader": "^0.5.7",
     "url-parse": "^1.1.7",
     "warning": "^3.0.0",
     "webpack": "^1.14.0",

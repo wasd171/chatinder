@@ -19,6 +19,9 @@ export default {
 		}, {
 			test: /\.(eot|ttf|woff|woff2)$/,
 			loader: 'file?name=public/fonts/[name].[ext]'
+		}, {
+			test: /\.png$/,
+			loader: 'url-loader'
 		}]
 	},
 	output:    {

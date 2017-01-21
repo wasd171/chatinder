@@ -14,12 +14,11 @@ body {
 }
 
 .emojione {
-    height: 20px;
-    width: 20px;
-    margin: 0 .1em 0 .2em;
-    vertical-align: -0.3em;
-    display: inline-block;
-    cursor: text;
-    user-select: all;
+    zoom: calc(20/64);
+    margin: 0 calc(64*.1em/20) 0 calc(64*.2em/20);
     -webkit-user-select: all;
+}
+
+.emojione::selection {
+    background-color: yellow;
 }

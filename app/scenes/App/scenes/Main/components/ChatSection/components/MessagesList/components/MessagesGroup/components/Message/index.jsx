@@ -11,11 +11,6 @@ const MessageWrapper = styled.div`
 	margin-right: 43px;
 	padding-top: 6px;
 	padding-bottom: 7px;
-	font-size: 15px;
-	line-height: 20px;
-	font-weight: normal;
-	color: ${props => props.theme.palette.textColor};
-	user-select: text;
 	${props => props.first && `padding-top: 29px;`}
 `;
 

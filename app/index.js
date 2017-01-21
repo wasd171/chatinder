@@ -11,18 +11,16 @@ if (process.env.NODE_ENV === 'development') {
 import * as Stores from './stores'
 import configureStores from './configureStores'
 
-import '!style!css!react-virtualized/styles.css'
+import '!style-loader!css-loader!react-virtualized/styles.css'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import theme from './configureTheme'
 window.muiTheme = theme;
 import App from './scenes/App'
 import {LoadingScreen} from './scenes/App/scenes/LoadingScreen'
 import {loadingFullScreen} from './styles'
-import emojione from 'emojione'
-import 'inline?parentId=svg-sprite!emojione/assets/sprites/emojione.sprites.svg'
-emojione.imageType = 'svg';
-emojione.sprites = true;
-emojione.imagePathSVGSprites = '';
+import '!style-loader!css-loader!emojione/assets/sprites/emojione.sprites.css'
+import './app.global.css'
+// import 'inline?parentId=svg-sprite!emojione/assets/sprites/emojione.sprites.svg'
 
 function renderApp({node, children}) {
 	console.log('renderApp called');

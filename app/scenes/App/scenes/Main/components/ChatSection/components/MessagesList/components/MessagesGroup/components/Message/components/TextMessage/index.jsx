@@ -5,8 +5,14 @@ import styled from 'styled-components'
 
 
 const TextSpan = styled.span`
-	display: inline-block;
-	color: ${props => props.theme.palette.textColor}
+	display: inline;
+	color: ${props => props.theme.palette.textColor};
+	position: relative;
+	max-height: 20px;
+	font-size: 15px;
+	line-height: 20px;
+	font-weight: normal;
+	color: ${props => props.theme.palette.textColor};
 `;
 
 

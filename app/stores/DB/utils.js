@@ -1,8 +1,12 @@
 import omit from 'lodash/omit'
 import emojione from 'emojione'
-emojione.imageType = 'svg';
+
+emojione.imageType = 'png';
 emojione.sprites = true;
-emojione.imagePathSVGSprites = '';
+
+// emojione.imageType = 'svg';
+// emojione.sprites = true;
+// emojione.imagePathSVGSprites = '';
 
 
 export function normalizeMatch(match) {
