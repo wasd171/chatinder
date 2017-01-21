@@ -19,5 +19,7 @@ body {
     margin: 0 .1em 0 .2em;
     vertical-align: -0.3em;
     display: inline-block;
-    -webkit-user-select: text;
+    cursor: text;
+    user-select: all;
+    -webkit-user-select: all;
 }

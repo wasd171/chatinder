@@ -8,6 +8,7 @@ import MessagesGroup from './components/MessagesGroup'
 import linkref from 'linkref'
 import Waypoint from 'react-waypoint'
 import styled from 'styled-components'
+import {normalizeScrollbar} from 'app/styles'
 
 
 const OuterWrapper = styled.div`
@@ -18,6 +19,8 @@ const OuterWrapper = styled.div`
 	padding-bottom: 10px;
 	will-change: transform;
 `;
+
+const OuterWrapperWithScrollbar = normalizeScrollbar(OuterWrapper);
 
 const InnerWrapper = styled.div`
 	display: flex;
@@ -171,12 +174,12 @@ class MessagesList extends Component {
 		let nodes = this.messageNodes ? this.messageNodes : [];
 
 		return (
-			<OuterWrapper innerRef={linkref(this, 'container')}>
+			<OuterWrapperWithScrollbar innerRef={linkref(this, 'container')}>
 				<Waypoint onEnter={this.showMoreMessages}/>
 				<InnerWrapper hasKeyedChildren>
 					{nodes}
 				</InnerWrapper>
-			</OuterWrapper>
+			</OuterWrapperWithScrollbar>
 		)
 	}
 }

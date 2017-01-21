@@ -21,7 +21,7 @@ const MatchContainer = styled.div`
 	width: 100%;
 	overflow-x: hidden;
 	box-sizing: border-box;
-	${props => props.isSelected && `background-color: ${fade(props.theme.palette.textColor, 0.2)};`}
+	${props => props.isSelected && `background-color: ${fade(props.theme.palette.textColor, 0.2)};`};
 `;
 
 const TextContainer = styled.div`

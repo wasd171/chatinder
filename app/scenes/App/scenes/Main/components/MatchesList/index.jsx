@@ -5,6 +5,7 @@ import Match from './components/Match'
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
 import List from 'react-virtualized/dist/commonjs/List'
 import styled from 'styled-components'
+import {normalizeScrollbar} from 'app/styles'
 
 
 const widthNum = 270;
@@ -20,6 +21,8 @@ const MatchesListContainer = styled.div`
 	box-sizing: border-box;
 	user-select: none;
 `;
+
+const ListWithScrollbar = normalizeScrollbar(List);
 
 
 function MatchesList({store}) {
@@ -48,7 +51,7 @@ function MatchesList({store}) {
 		<MatchesListContainer>
 			<AutoSizer disableWidth={true}>
 				{({height}) => (
-					<List
+					<ListWithScrollbar
 						height={height}
 						width={widthNum}
 						rowCount={store.sortedIds.length}
