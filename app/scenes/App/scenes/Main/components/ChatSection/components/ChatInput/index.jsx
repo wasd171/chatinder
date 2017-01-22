@@ -11,10 +11,6 @@ import styled from 'styled-components'
 
 const padding = 10;
 
-const HeightWrapper = styled.div`
-	display: inline-block;
-`;
-
 const OuterWrapper = styled.div`
 	min-height: ${props => props.height}px;
 	max-height: ${props => props.height}px;
@@ -58,26 +54,21 @@ class ChatInput extends Component {
 	}
 
 
-	// TODO change ugly maxWidth
 	render() {
 		return (
-			<HeightWrapper>
 			<OuterWrapper height={this.height} theme={this.props.muiTheme}>
-				<div style={{width: '100%', maxWidth: 'calc(100% - 98px)'}}>
-					<TextField
-						fullWidth={true}
-						value={this.value}
-						hintText='Message'
-						rows={this.rows}
-						maxRows={this.maxRows}
-						multiLine={true}
-						onChange={this.handleChange}
-						hasValue={this.hasValue}
-					/>
-				</div>
+				<TextField
+					fullWidth={true}
+					value={this.value}
+					hintText='Message'
+					rows={this.rows}
+					maxRows={this.maxRows}
+					multiLine={true}
+					onChange={this.handleChange}
+					hasValue={this.hasValue}
+				/>
 				<SendButton disabled={!this.hasValue}/>
 			</OuterWrapper>
-			</HeightWrapper>
 		);
 		// return (
 		// 	<div style={container({height: this.height})}>
