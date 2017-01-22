@@ -16,6 +16,8 @@ const HeightWrapper = styled.div`
 `;
 
 const OuterWrapper = styled.div`
+	min-height: ${props => props.height}px;
+	max-height: ${props => props.height}px;
 	border-top: 1px solid ${props => props.theme.palette.borderColor};
 	padding-left: ${padding}px;
 	padding-right: ${padding}px;
@@ -33,7 +35,7 @@ const OuterWrapper = styled.div`
 class ChatInput extends Component {
 	@observable value  = '';
 	@observable rows = 1;
-	maxRows = 10;
+	maxRows = 6;
 
 	@computed get hasValue() {
 		return !!this.isValid(this.value)
@@ -44,6 +46,7 @@ class ChatInput extends Component {
 	}
 
 	@action handleChange = ({text, rows}) => {
+		console.log({text, rows});
 		this.value = text;
 		if (this.maxRows >= rows) {
 			this.rows = rows

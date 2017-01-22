@@ -21,20 +21,17 @@ class EmojiInput extends Component {
             sprite: false,
             events: {
                 focus: (editor, event) => this.props.onFocus(event),
-                blur: (editor, event) => this.props.onBlur(event)
+                blur: (editor, event) => this.props.onBlur(event),
+                keydown: (editor, event) => this.handleInput(event),
+                emojibtn_click: (button, event) =>  this.handleInput(event)
             }
         });
         this.emojioneArea = this.textarea[0].emojioneArea;
         this.editor = this.emojioneArea.editor[0];
-        
-        this.editor.addEventListener('input', this.handleInput.bind(this, this.editor));
-        this.editor.addEventListener('change', this.handleInput.bind(this, this.editor));
-        this.editor.addEventListener('paste', this.handleInput.bind(this, this.editor));
     }
 
-    handleInput = (editor, event) => {
-        console.log({editor, event});
-        this.props.onInput(editor, event, this.emojioneArea.getText.bind(this.emojioneArea))
+    handleInput = (event) => {
+        this.props.onInput(this.editor, event, this.emojioneArea.getText.bind(this.emojioneArea))
     }
 
     render() {
