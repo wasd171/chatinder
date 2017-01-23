@@ -27,7 +27,13 @@ async function handleGetUpdates(event, arg) {
 	if (arg && arg.matches && arg.matches.length > 0) {
 		const matches = await this.db.saveUpdates(arg);
 		matches.forEach(match => {
-			this.tinder.matches.get(match['_id']).setMessages(match.messages);
+			const localMatch = this.tinder.matches.get(match['_id']);
+			localMatch.setMessages(match.messages);
+			match.messages.forEach(message => {
+				if (message.from !== this.tinder.profile['_id']) {
+					this.api.notifyMessage(localMatch.person, message.originalMessage);
+				}
+			})
 		})
 	}
 	this.api.setUpdatePending(false);

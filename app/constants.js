@@ -23,6 +23,8 @@ export const API_GET_PROFILE_SUCCESS	= 'API_GET_PROFILE_SUCCESS';
 export const API_GET_REC				= 'API_GET_REC';
 export const API_GET_REC_SUCCESS		= 'API_GET_REC_SUCCESS';
 
+export const SHOW_NOTIFICATION          = 'SHOW_NOTIFICATION';
+
 export const LF_FB_TOKEN            	= 'LF_FB_TOKEN';
 export const LF_FB_ID               	= 'LF_FB_ID';
 export const LF_FB_TOKEN_EXPIRES_AT 	= 'LF_FB_TOKEN_EXPIRES_AT';

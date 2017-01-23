@@ -26,6 +26,7 @@ export function normalizeMatch(match) {
 export function normalizeMessage({message, previousMessage}) {
     let newMessage = message;
     newMessage = omit(newMessage, ['message', 'sent_date']);
+    newMessage.originalMessage = message.message;
     newMessage.formattedMessage = emojione.unicodeToImage(message.message);
     newMessage.sentDate = message['sent_date'];
     if (previousMessage && previousMessage.from === newMessage.from) {

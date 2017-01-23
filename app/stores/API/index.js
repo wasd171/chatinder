@@ -7,6 +7,7 @@ import getHistory from './getHistory'
 import getProfile from './getProfile'
 import getUpdates from './getUpdates'
 import getUser from './getUser'
+import notifyMessage from './notifyMessage'
 
 
 export class API {
@@ -50,6 +51,7 @@ export class API {
 	@action getProfile	= getProfile.bind(this);
 	@action getUpdates	= getUpdates.bind(this);
 	@action getUser		= getUser.bind(this);
+	@action notifyMessage = notifyMessage.bind(this);
 
 
 	constructor({clock, fbToken, fbTokenExpiresAt, fbId, tinderToken, retrieve}) {

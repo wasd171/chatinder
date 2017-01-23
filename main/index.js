@@ -3,7 +3,8 @@ import configureTemplate from './configureTemplate'
 import getToken from './getToken'
 import getId from './getId'
 import tinderApi from './tinderApi'
-import {FB_GET_TOKEN_REQUEST, FB_GET_ID_REQUEST, TINDER_API} from '../app/constants'
+import showNotification from './showNotification'
+import {FB_GET_TOKEN_REQUEST, FB_GET_ID_REQUEST, TINDER_API, SHOW_NOTIFICATION} from '../app/constants'
 
 let mainWindow = null;
 
@@ -51,6 +52,7 @@ app.on('ready', async () => {
 	ipcMain.on(FB_GET_TOKEN_REQUEST, getToken);
 	ipcMain.on(FB_GET_ID_REQUEST, getId);
 	ipcMain.on(TINDER_API, tinderApi.handleRequest);
+	ipcMain.on(SHOW_NOTIFICATION, showNotification)
 
 	if (process.env.NODE_ENV === 'development') {
 		mainWindow.loadURL(`file://${__dirname}/../app/index.html`);

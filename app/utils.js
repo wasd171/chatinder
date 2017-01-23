@@ -1,18 +1,17 @@
 import {ipcRenderer} from 'electron'
-import {TINDER_API, FB_GET_TOKEN_REQUEST, FB_GET_ID_REQUEST} from './constants'
+import {TINDER_API, FB_GET_TOKEN_REQUEST, FB_GET_ID_REQUEST, SHOW_NOTIFICATION} from './constants'
 import {toJS} from 'mobx'
 import Promise from 'bluebird'
 import parse from 'url-parse'
 
 
 export function callApi(type, params = {}) {
-	if (type !== FB_GET_TOKEN_REQUEST && type !== FB_GET_ID_REQUEST) {
+	if (type !== FB_GET_TOKEN_REQUEST && type !== FB_GET_ID_REQUEST && type !== SHOW_NOTIFICATION) {
 		ipcRenderer.send(TINDER_API, {type, ...params});
 	} else {
 		ipcRenderer.send(type, params)
 	}
 }
-window.callApi = callApi;
 
 export function waitForIpc(type) {
 	'use strict';
