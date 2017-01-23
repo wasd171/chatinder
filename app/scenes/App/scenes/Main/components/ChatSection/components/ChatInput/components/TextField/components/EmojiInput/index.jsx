@@ -31,7 +31,13 @@ class EmojiInput extends Component {
     }
 
     handleInput = (event) => {
-        this.props.onInput(this.editor, event, this.emojioneArea.getText.bind(this.emojioneArea))
+        if (event.which == 13 && !event.shiftKey) {
+            event.preventDefault();
+            this.props.onSubmit();
+            this.emojioneArea.setText('');
+        } else {
+            this.props.onInput(this.editor, event, this.emojioneArea.getText.bind(this.emojioneArea));
+        }
     }
 
     render() {

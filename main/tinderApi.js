@@ -16,7 +16,9 @@ import {
 	API_GET_PROFILE,
 	API_GET_PROFILE_SUCCESS,
 	API_GET_REC,
-	API_GET_REC_SUCCESS
+	API_GET_REC_SUCCESS,
+	API_SEND_MESSAGE,
+	API_SEND_MESSAGE_SUCCESS
 } from '../app/constants'
 
 
@@ -125,6 +127,8 @@ class TinderApi {
 				return API_GET_PROFILE_SUCCESS;
 			case API_GET_REC:
 				return API_GET_REC_SUCCESS;
+			case API_SEND_MESSAGE:
+				return API_SEND_MESSAGE_SUCCESS;
 		}
 	};
 
@@ -136,29 +140,33 @@ class TinderApi {
 					return this.client.getAuthToken();
 				};
 			case API_SET_TOKEN:
-				return async () => {
+				return () => {
 					return Promise.resolve(this.client.setAuthToken(action.tinderToken));
 				};
 			case API_GET_HISTORY:
-				return async () => {
+				return () => {
 					return Promise.fromCallback(this.client.getHistory)
 				};
 			case API_GET_UPDATES:
-				return async () => {
+				return () => {
 					return Promise.fromCallback(this.client.getUpdates)
 				};
 			case API_GET_USER:
-				return async () => {
+				return () => {
 					return Promise.fromCallback(this.client.getUser.bind(null, action.userId));
 				};
 			case API_GET_PROFILE:
-				return async () => {
+				return () => {
 					return Promise.fromCallback(this.client.getAccount)
 				};
 			case API_GET_REC:
-				return async () => {
+				return () => {
 					return Promise.fromCallback(this.client.getRecommendations.bind(null, 10000));
-				}
+				};
+			case API_SEND_MESSAGE:
+				return () => {
+					return Promise.fromCallback(this.client.sendMessage.bind(null, action.to, action.message))
+				};
 		}
 	};
 }

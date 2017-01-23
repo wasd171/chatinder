@@ -7,13 +7,14 @@ const buttonStyle = {
 	marginBottom: 7
 };
 
-function MDButton({disabled}) {
+function MDButton({disabled, onClick}) {
 	return (
 		<FlatButton
 			label='Send'
 			primary={true}
 			disabled={disabled}
 			style={buttonStyle}
+			onClick={onClick}
 		/>
 	)
 }

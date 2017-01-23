@@ -41,11 +41,18 @@ class ChatInput extends Component {
 	}
 
 	@action handleChange = ({text, rows}) => {
-		console.log({text, rows});
 		this.value = text;
 		if (this.maxRows >= rows) {
 			this.rows = rows
 		}
+	};
+
+	@action handleSubmit = () => {
+		console.log('Submit handler');
+		const {view, tinder, api} = this.props.store;
+		const currentMatch = tinder.matches.get(view.currentView.params.matchId);
+		api.sendMessage(currentMatch['_id'], this.value);
+		this.value = '';
 	};
 
 	isValid(value) {
@@ -65,29 +72,11 @@ class ChatInput extends Component {
 					multiLine={true}
 					onChange={this.handleChange}
 					hasValue={this.hasValue}
+					onSubmit={this.handleSubmit}
 				/>
-				<SendButton disabled={!this.hasValue}/>
+				<SendButton disabled={!this.hasValue} onClick={this.handleSubmit}/>
 			</OuterWrapper>
 		);
-		// return (
-		// 	<div style={container({height: this.height})}>
-		// 		<TextField
-		// 			rows={1}
-		// 			rowsMax={8}
-		// 			multiLine={true}
-		// 			value={this.value}
-		// 			onChange={this.handleChange}
-		// 			onFocus={this.handleFocus}
-		// 			onBlur={this.handleBlur}
-		// 			id="ChatInput-InfernoTextField"
-		// 			floatingLabelText="Message"
-		// 			fullWidth={true}
-		// 			onHeightChange={this.handleHeightChange}
-		// 			isValid={this.isValid}
-		// 		/>
-		// 		<SendButton enabled={this.enableSendButton}/>
-		// 	</div>
-		// )
 	}
 }
 

@@ -54,6 +54,7 @@ class TextField extends Component {
 						onFocus={this.handleFocus}
 						onBlur={this.handleBlur}
 						onInput={this.handleInput}
+						onSubmit={this.props.onSubmit}
 					/>
 				</div>
 				<TextFieldUnderline
