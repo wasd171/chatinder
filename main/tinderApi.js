@@ -173,11 +173,8 @@ class TinderApi {
 				};
 			case API_GET_DEFAULTS:
 				return () => {
-					const defaults = this.client.getDefaults();
-					console.log('Defaults');
-					console.log(defaults);
 					return Promise.resolve(this.client.getDefaults());
-				}
+				};
 		}
 	};
 }
