@@ -1,7 +1,7 @@
 import Promise from 'bluebird'
 import {when, action} from 'mobx'
 import {normalizePerson} from '../DB/utils'
-import {API_GET_PROFILE_SUCCESS, API_GET_USER_SUCCESS} from 'app/constants'
+import {API_GET_PROFILE_SUCCESS, API_GET_USER_SUCCESS, API_GET_UPDATES_SUCCESS} from 'app/constants'
 
 
 async function handleGetProfile(event, arg) {
@@ -23,9 +23,21 @@ async function handleGetPerson(event, arg) {
 	}
 }
 
+async function handleGetUpdates(event, arg) {
+	console.log({arg});
+	if (arg && arg.matches && arg.matches.length > 0) {
+		const matches = await this.db.saveUpdates(arg);
+		matches.forEach(match => {
+			this.tinder.matches.get(match['_id']).setMessages(match.messages);
+		})
+	}
+	this.api.setUpdatePending(false);
+}
+
 export default async function startListeners() {
 	this.ipc.on(API_GET_PROFILE_SUCCESS, handleGetProfile.bind(this));
 	this.ipc.on(API_GET_USER_SUCCESS, action(handleGetPerson.bind(this)));
+	this.ipc.on(API_GET_UPDATES_SUCCESS, action(handleGetUpdates.bind(this)));
 
 	if (!this.tinder.isProfilePresent) {
 		const promise = new Promise(resolve => when(() => this.tinder.isProfilePresent, resolve));

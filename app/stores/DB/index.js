@@ -1,7 +1,14 @@
 import defaultDB from './db'
 import PromiseWorker from 'promise-worker'
 import Worker from 'worker-loader?inline!babel-loader!./worker.js'
-import {WORKER_SET_MATCHES, WORKER_GET_MATCHES, WORKER_SET_PROFILE, WORKER_SET_PERSON, WORKER_GET_INITIAL} from 'app/constants'
+import {
+    WORKER_SET_MATCHES, 
+    WORKER_GET_MATCHES, 
+    WORKER_SET_PROFILE, 
+    WORKER_SET_PERSON, 
+    WORKER_GET_INITIAL, 
+    WORKER_SET_UPDATES
+} from 'app/constants'
 import {toJS} from 'mobx'
 
 
@@ -36,6 +43,10 @@ export class DB {
     }
 
     getInitial = () => {
-        return this.sendToWorker(WORKER_GET_INITIAL)
+        return this.sendToWorker(WORKER_GET_INITIAL);
+    }
+
+    saveUpdates = (updates) => {
+        return this.sendToWorker(WORKER_SET_UPDATES, updates);
     }
 }

@@ -1,7 +1,14 @@
 import Dexie from 'dexie'
 import db from './db'
 import registerPromiseWorker from 'promise-worker/register'
-import {WORKER_SET_MATCHES, WORKER_GET_MATCHES, WORKER_SET_PROFILE, WORKER_SET_PERSON, WORKER_GET_INITIAL} from 'app/constants'
+import {
+    WORKER_SET_MATCHES, 
+    WORKER_GET_MATCHES, 
+    WORKER_SET_PROFILE, 
+    WORKER_SET_PERSON, 
+    WORKER_GET_INITIAL,
+    WORKER_SET_UPDATES
+} from 'app/constants'
 import {
     LF_FB_TOKEN_EXPIRES_AT,
 	LF_FB_TOKEN,
@@ -110,6 +117,33 @@ function getInitial() {
     })
 }
 
+function setUpdates(updates) {
+    const {matches} = updates;
+    return db.transaction('rw', db.matches, db.messages, () => {
+        return Dexie.Promise.all(matches.map(async match => {
+            const resolvedMessages = await db.messages.where('match_id').equals(match['_id']).sortBy('timestamp');
+            let previousMessage = resolvedMessages[resolvedMessages.length - 1];
+            let putMessagePromises = [];
+            let normalizedMessages = [];
+            match.messages.forEach(message => {
+                const nextMessage = normalizeMessage({message, previousMessage});
+                putMessagePromises.push(db.messages.put(nextMessage));
+                normalizedMessages.push(nextMessage);
+                previousMessage = nextMessage;
+            });
+            const pushedMessageIds = await Dexie.Promise.all(putMessagePromises);
+            const currentMatch = await db.matches.get(match['_id']);
+            await db.matches.where('_id').equals(match['_id']).modify(
+                {messages: [...currentMatch.messages, ...pushedMessageIds]}
+            );
+            return {
+                _id: match['_id'],
+                messages: normalizedMessages
+            }        
+        }))
+    })
+}
+
 registerPromiseWorker(e => {
     switch (e.type) {
         case WORKER_SET_MATCHES:
@@ -122,5 +156,7 @@ registerPromiseWorker(e => {
             return setPerson(e.payload);
         case WORKER_GET_INITIAL:
             return getInitial();
+        case WORKER_SET_UPDATES:
+            return setUpdates(e.payload);
     }
 })

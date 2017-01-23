@@ -40,3 +40,4 @@ export const WORKER_GET_MATCHES         = 'WORKER_GET_MATCHES';
 export const WORKER_SET_PROFILE         = 'WORKER_SET_PROFILE';
 export const WORKER_SET_PERSON          = 'WORKER_SET_PERSON';
 export const WORKER_GET_INITIAL         = 'WORKER_GET_INITIAL';
+export const WORKER_SET_UPDATES         = 'WORKER_SET_UPDATES';

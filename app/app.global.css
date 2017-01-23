@@ -46,6 +46,7 @@ body {
     padding-left: 0;
     max-width: 100%;
     word-break: break-all;
+    overflow: hidden;
 }
 
 .emojionearea-editor::-webkit-scrollbar, .emojionearea-scroll-area::-webkit-scrollbar {
@@ -66,25 +67,6 @@ body {
     background: rgba(108, 110, 113, 0.7);
     background-clip: padding-box;
 }
-
-/*.emojionearea::-webkit-scrollbar {
-    width: 11px;
-    background-color: transparent;
-    overflow: visible;
-}
-
-.emojionearea::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-.emojionearea::-webkit-scrollbar-thumb {
-    border: 2px solid rgba(0, 0, 0, 0);
-    border-radius: 7px;
-    min-height: 14px;
-    transition: opacity 0.2s linear;
-    background: rgba(108, 110, 113, 0.7);
-    background-clip: padding-box;
-}*/
 
 .emojionearea .emojionearea-button {
     top: 1px;
