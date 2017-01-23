@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'development') {
 import * as Stores from './stores'
 import configureStores from './configureStores'
 
-import '!style-loader!css-loader!react-virtualized/styles.css'
+import 'react-virtualized/styles.css'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import theme from './configureTheme'
 window.muiTheme = theme;
@@ -19,7 +19,7 @@ import App from './scenes/App'
 import {LoadingScreen} from './scenes/App/scenes/LoadingScreen'
 import {loadingFullScreen} from './styles'
 // import '!style-loader!css-loader!emojione/assets/sprites/emojione.sprites.css'
-import '!style-loader!css-loader!emojionearea/dist/emojionearea.min.css'
+import 'emojionearea/dist/emojionearea.min.css'
 import './app.global.css'
 // import 'inline?parentId=svg-sprite!emojione/assets/sprites/emojione.sprites.svg'
 
