@@ -16,7 +16,8 @@ import {
 	LF_TINDER_TOKEN,
 	LF_CURRENT_VIEW,
 	LF_TINDER_MATCHES,
-	LF_TINDER_PROFILE
+	LF_TINDER_PROFILE,
+    LF_TINDER_DEFAULTS
 } from 'app/constants'
 import {normalizeMatch, normalizeMessage, normalizePerson} from './utils'
 
@@ -110,9 +111,10 @@ function getInitial() {
             db.auth.get(LF_TINDER_TOKEN),
             db.saved.get(LF_CURRENT_VIEW),
             db.saved.get(LF_TINDER_PROFILE),
-            queryMatches()
-        ]).then(([fbToken, fbTokenExpiresAt, fbId, tinderToken, currentView, profile, matches]) => {
-            return {fbToken, fbTokenExpiresAt, fbId, tinderToken, currentView, profile, matches}
+            queryMatches(),
+            db.saved.get(LF_TINDER_DEFAULTS)
+        ]).then(([fbToken, fbTokenExpiresAt, fbId, tinderToken, currentView, profile, matches, tinderDefaults]) => {
+            return {fbToken, fbTokenExpiresAt, fbId, tinderToken, currentView, profile, matches, tinderDefaults}
         })
     })
 }

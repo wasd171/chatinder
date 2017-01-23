@@ -18,7 +18,9 @@ import {
 	API_GET_REC,
 	API_GET_REC_SUCCESS,
 	API_SEND_MESSAGE,
-	API_SEND_MESSAGE_SUCCESS
+	API_SEND_MESSAGE_SUCCESS,
+	API_GET_DEFAULTS,
+	API_GET_DEFAULTS_SUCCESS
 } from '../app/constants'
 
 
@@ -129,6 +131,8 @@ class TinderApi {
 				return API_GET_REC_SUCCESS;
 			case API_SEND_MESSAGE:
 				return API_SEND_MESSAGE_SUCCESS;
+			case API_GET_DEFAULTS:
+				return API_GET_DEFAULTS_SUCCESS;
 		}
 	};
 
@@ -167,6 +171,13 @@ class TinderApi {
 				return () => {
 					return Promise.fromCallback(this.client.sendMessage.bind(null, action.to, action.message))
 				};
+			case API_GET_DEFAULTS:
+				return () => {
+					const defaults = this.client.getDefaults();
+					console.log('Defaults');
+					console.log(defaults);
+					return Promise.resolve(this.client.getDefaults());
+				}
 		}
 	};
 }

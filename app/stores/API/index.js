@@ -9,6 +9,7 @@ import getUpdates from './getUpdates'
 import getUser from './getUser'
 import notifyMessage from './notifyMessage'
 import sendMessage from './sendMessage'
+import getDefaults from './getDefaults'
 
 
 export class API {
@@ -18,6 +19,7 @@ export class API {
 	@observable tinderToken;
 	@observable tinderIsAuthorized = false;
 	@observable updatePending = false;
+	@observable tinderDefaults;
 	clock;
 	retrieve;
 
@@ -46,6 +48,10 @@ export class API {
 		this.updatePending = flag
 	};
 
+	@action setTinderDefaults = (defaults) => {
+		this.tinderDefaults = defaults;
+	}
+
 	@action loginWithFB	= loginWithFB.bind(this);
 	@action authorize	= authorize.bind(this);
 	@action getHistory	= getHistory.bind(this);
@@ -54,10 +60,11 @@ export class API {
 	@action getUser		= getUser.bind(this);
 	@action notifyMessage = notifyMessage.bind(this);
 	@action sendMessage = sendMessage.bind(this);
+	@action getDefaults = getDefaults.bind(this);
 
 
-	constructor({clock, fbToken, fbTokenExpiresAt, fbId, tinderToken, retrieve}) {
-		Object.assign(this, {clock, fbToken, fbTokenExpiresAt, fbId, tinderToken});
+	constructor({clock, fbToken, fbTokenExpiresAt, fbId, tinderToken, retrieve, tinderDefaults}) {
+		Object.assign(this, {clock, fbToken, fbTokenExpiresAt, fbId, tinderToken, tinderDefaults});
 		this.retrieve = retrieve || retrieveFromApi;
 	};
 }

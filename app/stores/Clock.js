@@ -1,35 +1,19 @@
-import {Atom} from 'mobx'
+import {observable, action, computed} from 'mobx'
+import mobxUtils from 'mobx-utils'
 
 
 export class Clock {
-	atom;
-	interval = null;
-	currentDateTime;
+	@observable interval;
 
-	constructor() {
-		this.atom = new Atom('Clock', this.startTicking, this.stopTicking)
+	@computed get time() {
+		return mobxUtils.now(this.interval);
 	}
 
-	getTime = () => {
-		if (this.atom.reportObserved()) {
-			return this.currentDateTime;
-		} else {
-			return new Date();
-		}
-	};
+	constructor(interval = 10000) {
+		this.updateInterval(interval);
+	}
 
-	tick = () => {
-		this.currentDateTime = new Date();
-		this.atom.reportChanged();
-	};
-
-	startTicking = () => {
-		this.tick();
-		this.interval = setInterval(this.tick, 10000);
-	};
-
-	stopTicking = () => {
-		clearInterval(this.interval);
-		this.interval = null;
-	};
+	@action updateInterval = (interval) => {
+		this.interval = interval;
+	}
 }

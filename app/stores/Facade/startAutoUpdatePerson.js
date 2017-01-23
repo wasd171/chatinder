@@ -18,7 +18,7 @@ export default function startAutoUpdatePerson() {
 			if (matchId) {
 				this.view.setNewChatSelected(true);
 				this.updatePersonDisposer = reaction(
-					() => this.clock.getTime(),
+					() => this.time,
 					() => this.api.getUser(this.tinder.matches.get(matchId).person['_id']),
 					true
 				)

@@ -24,6 +24,8 @@ export const API_GET_REC				= 'API_GET_REC';
 export const API_GET_REC_SUCCESS		= 'API_GET_REC_SUCCESS';
 export const API_SEND_MESSAGE           = 'API_SEND_MESSAGE';
 export const API_SEND_MESSAGE_SUCCESS   = 'API_SEND_MESSAGE_SUCCESS';
+export const API_GET_DEFAULTS           = 'API_GET_DEFAULTS';
+export const API_GET_DEFAULTS_SUCCESS   = 'API_GET_DEFAULTS_SUCCESS';
 
 export const SHOW_NOTIFICATION          = 'SHOW_NOTIFICATION';
 
@@ -34,6 +36,7 @@ export const LF_TINDER_TOKEN        	= 'LF_TINDER_TOKEN';
 export const LF_CURRENT_VIEW        	= 'LF_CURRENT_VIEW';
 export const LF_TINDER_MATCHES      	= 'LF_TINDER_MATCHES';
 export const LF_TINDER_PROFILE			= 'LF_TINDER_PROFILE';
+export const LF_TINDER_DEFAULTS			= 'LF_TINDER_DEFAULTS';
 
 export const VIEW_MAIN					= 'VIEW_MAIN';
 export const VIEW_AUTH					= 'VIEW_AUTH';

@@ -3348,6 +3348,10 @@ mobx-logger@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/mobx-logger/-/mobx-logger-0.3.1.tgz#7075b1130b510b53ed51b1da9a07794a2ee0e8f7"
 
+mobx-utils@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/mobx-utils/-/mobx-utils-2.0.1.tgz#6460d6436f991b2d3250d51995cbcae2c5707b67"
+
 mobx@*, mobx@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-2.7.0.tgz#cf3d82d18c0ca7f458d8f2a240817b3dc7e54a01"

@@ -13,11 +13,11 @@ import {FacadeFactory} from './stores/Facade'
 
 async function configureStores({API, Clock, TinderStore, ViewStore, DB}) {
 	const db = new DB();
-	const {fbToken, fbTokenExpiresAt, fbId, tinderToken, currentView, profile, matches} = await db.getInitial();
+	const {fbToken, fbTokenExpiresAt, fbId, tinderToken, currentView, profile, matches, tinderDefaults} = await db.getInitial();
 
 	const clock = new Clock();
 	const view = new ViewStore({currentView});
-	const api = new API({clock, fbToken, fbTokenExpiresAt, fbId, tinderToken});
+	const api = new API({clock, fbToken, fbTokenExpiresAt, fbId, tinderToken, tinderDefaults});
 	const tinder = new TinderStore({matches, profile});
 
 	const facade = FacadeFactory({clock, api, view, tinder, db});

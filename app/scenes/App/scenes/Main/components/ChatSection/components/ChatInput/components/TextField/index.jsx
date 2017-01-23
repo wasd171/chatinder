@@ -27,7 +27,6 @@ class TextField extends Component {
 	handleInput = async (node, event, getText) => {
 		await Promise.delay(50);
 		const text = getText();
-		console.log({node, event}, node.scrollHeight);
 		// const prevHeight = 24*this.props.rows;
 		// event.target.style.height = 'auto';
 		// event.target.rows = 1;

@@ -6,5 +6,5 @@ import {Facade} from './Facade'
 import {API} from './API'
 import {DB} from './DB'
 
-// export {AuthStore, ViewStore, TinderStore, Clock}
+
 export {API, Clock, TinderStore, ViewStore, DB}

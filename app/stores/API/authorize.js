@@ -9,7 +9,10 @@ export default async function authorize(force = false) {
 	} else if (!hasFbTokenExpired) {
 		const token = await this.retrieve({req: API_AUTHORIZE, params: {fbToken, fbId}, res: API_AUTHORIZE_SUCCESS});
 		this.setTinderToken(token);
+		const defaults = await this.getDefaults();
+		console.log({defaults});
+		this.setTinderDefaults(defaults);
 	}
-
+	
 	this.setTinderIsAuthorized(true);
 }

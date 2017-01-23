@@ -13,6 +13,8 @@ import goToLoading from './goToLoading'
 import handleLoginButtonClick from './handleLoginButtonClick'
 
 
+import {toJS} from 'mobx'
+
 export class Facade {
 	api;
 	view;
@@ -46,12 +48,15 @@ export class Facade {
 	}
 
 	@computed get time() {
-		return this.clock.getTime()
+		return this.clock.time
 	}
 
 
 	constructor({api, view, tinder, clock, ipc = ipcRenderer, db}) {
 		Object.assign(this, {api, view, tinder, clock, ipc, db});
+		if (this.api.tinderDefaults) {
+			this.clock.updateInterval(this.api.tinderDefaults.globals.updates_interval)
+		}
 	}
 
 	start = start.bind(this);
