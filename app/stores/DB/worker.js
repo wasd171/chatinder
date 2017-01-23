@@ -19,7 +19,7 @@ import {
 	LF_TINDER_PROFILE,
     LF_TINDER_DEFAULTS
 } from 'app/constants'
-import {normalizeMatch, normalizeMessage, normalizePerson} from './utils'
+import {validateMatch, normalizeMatch, normalizeMessage, normalizePerson} from './utils'
 
 
 function putPerson(person) {
@@ -51,7 +51,8 @@ function queryMatches(matches) {
 
 function setMatches(matches) {
     return db.transaction('rw', db.matches, db.messages, db.users, () => {
-        matches.forEach(match => {
+        const validMatches = matches.filter(validateMatch);
+        validMatches.forEach(match => {
             db.matches.put(normalizeMatch(match));
 
             let previousMessage = null;
@@ -69,7 +70,7 @@ function setMatches(matches) {
             }
         });
 
-        const matchIds = matches.map(match => match['_id']);
+        const matchIds = validMatches.map(match => match['_id']);
         return queryMatches(matchIds);
     })
 }
