@@ -8,7 +8,7 @@ export class MatchStore {
 	@observable createdDate;
 	@observable lastActivityDate;
 	@observable person;
-	@observable messages = asFlat([]);
+	messages = observable.shallowArray([]);
 
 	constructor(match) {
 		this.init({

@@ -6,7 +6,7 @@ import {PersonStore} from './PersonStore'
 
 
 export class TinderStore {
-	@observable matches = asMap();
+	@observable matches = new Map();
 	@observable profile;
 
 	constructor({matches, profile}) {
