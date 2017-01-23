@@ -136,7 +136,8 @@ class MessagesList extends Component {
 		this.setStartingFrom({initial: true});
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
+		await Promise.delay(10);
 		this.scrollToBottom();
 		this.setRenderFlag(false);
 
