@@ -1,6 +1,6 @@
 import Inferno from 'inferno'
 import Component from 'inferno-component'
-import {action, observable, asStructure} from 'mobx'
+import {action, observable} from 'mobx'
 import {observer} from 'inferno-mobx'
 import Promise from 'bluebird'
 import linkref from 'linkref'
@@ -31,7 +31,7 @@ class Ripple extends Component {
 
 	@observable mounted;
 	@observable batch = [];
-	@observable canvasSize = asStructure({
+	canvasSize = observable.struct({
 		width: 100,
 		height: 100
 	});

@@ -1,4 +1,4 @@
-import {observable, action, transaction, asMap, asFlat} from 'mobx'
+import {observable, action, transaction} from 'mobx'
 import {PersonStore} from './PersonStore'
 import {MessageStore} from './MessageStore'
 import last from 'lodash/last'
