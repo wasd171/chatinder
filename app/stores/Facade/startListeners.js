@@ -24,7 +24,6 @@ async function handleGetPerson(event, arg) {
 }
 
 async function handleGetUpdates(event, arg) {
-	console.log({arg});
 	if (arg && arg.matches && arg.matches.length > 0) {
 		const matches = await this.db.saveUpdates(arg);
 		matches.forEach(match => {
