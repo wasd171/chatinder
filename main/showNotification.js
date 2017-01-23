@@ -5,6 +5,7 @@ export default function showNotification(event, {title, message}) {
     const options = {
         title,
         message,
+        subtitle: `Chatinder`,
         sound: true
     };
 
