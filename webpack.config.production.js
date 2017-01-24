@@ -3,7 +3,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
-const config = merge(baseConfig, {
+export default merge(baseConfig, {
   entry: './app/index.js',
 
   output: {
@@ -11,13 +11,13 @@ const config = merge(baseConfig, {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader'
-        )
+        loader: ExtractTextPlugin.extract({
+          fallbackLoader: 'style-loader',
+          loader: 'css-loader'
+        })
       },
 
       // {
@@ -31,7 +31,6 @@ const config = merge(baseConfig, {
   },
 
   plugins: [
-    // new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
@@ -41,10 +40,11 @@ const config = merge(baseConfig, {
     //     warnings: false
     //   }
     // }),
-    new ExtractTextPlugin('style.css', { allChunks: true })
+    new ExtractTextPlugin({
+      filename: 'style.css', 
+      allChunks: true 
+    })
   ],
 
   target: 'electron-renderer'
 });
-
-export default config;

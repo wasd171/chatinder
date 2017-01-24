@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
-const config =  merge(baseConfig, {
+export default merge(baseConfig, {
 	devtool: 'source-map',
 
 	entry: './main/index.js',
@@ -25,10 +25,11 @@ const config =  merge(baseConfig, {
 		// 		warnings: false
 		// 	}
 		// }),
-		new webpack.BannerPlugin(
-			'require("source-map-support").install();',
-			{raw: true, entryOnly: false}
-		),
+		new webpack.BannerPlugin({
+			banner: 'require("source-map-support").install();',
+			raw: true, 
+			entryOnly: false
+		}),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('production')
@@ -54,5 +55,3 @@ const config =  merge(baseConfig, {
 
 
 });
-
-export default config

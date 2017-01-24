@@ -1,13 +1,19 @@
 {
   "plugins": [
-	"add-module-exports",
-	"syntax-export-extensions",
-	"transform-decorators-legacy",
-	"transform-class-properties",
-	"transform-es2015-modules-commonjs",
-	"transform-es2015-destructuring",
-	"transform-object-rest-spread",
-	["babel-plugin-inferno", {"imports": true}],
-	["fast-async"]
-  ]
+		"transform-decorators-legacy",
+		"transform-class-properties",
+		"transform-es2015-destructuring",
+		"transform-object-rest-spread",
+		["babel-plugin-inferno", {"imports": true}],
+		["fast-async"]
+  ],
+	"env": {
+		"node-development": {
+			"plugins": [
+				"add-module-exports",
+				"syntax-export-extensions",
+				"transform-es2015-modules-commonjs"
+			]
+		}
+	}
 }

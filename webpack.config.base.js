@@ -8,19 +8,31 @@ export default {
 		noParse: [
 			/node_modules[\/\\]json-schema[\/\\]lib[\/\\]validate\.js/
 		],
-		loaders: [{
+		rules: [{
 			test:    /\.jsx?$/,
-			loaders: ['babel-loader'],
+			use: [
+				{
+					loader: 'babel-loader'
+				}
+			],
 			exclude: /node_modules/
 		}, {
-			test:   /\.json$/,
-			loader: 'json-loader'
-		}, {
 			test: /\.(eot|ttf|woff|woff2)$/,
-			loader: 'file?name=public/fonts/[name].[ext]'
+			use: [
+				{
+					loader: 'file-loader',
+					options: {
+						name: 'public/fonts/[name].[ext]'
+					}
+				}
+			]
 		}, {
 			test: /\.png$/,
-			loader: 'url-loader'
+			use: [
+				{
+					loader: 'url-loader'
+				}
+			]
 		}]
 	},
 	output:    {
@@ -29,8 +41,8 @@ export default {
 		libraryTarget: 'commonjs2'
 	},
 	resolve:   {
-		extensions:   ['', '.js', '.jsx', '.json'],
-		packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main'],
+		extensions: ['.js', '.jsx', '.json'],
+		mainFields: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main'],
 		alias: {
 			'react': 'inferno-compat',
 			'react-dom': 'inferno-compat',

@@ -3,14 +3,11 @@ import webpack from 'webpack';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 import path from 'path'
+import BabiliPlugin from 'babili-webpack-plugin'
 
 const port = process.env.PORT || 3000;
 
 export default merge(baseConfig, {
-	debug: true,
-
-	// devtool: 'cheap-module-source-map',
-
 	entry: {
 		app: [
 			`webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr`,
@@ -23,12 +20,19 @@ export default merge(baseConfig, {
 	},
 
 	module: {
-		loaders: [
+		rules: [
 			{
 				test:    /\.css$/,
-				loaders: [
-					'style-loader',
-					'css-loader?sourceMap'
+				use: [
+					{
+						loader: 'style-loader'
+					},
+					{
+						loader: 'css-loader',
+						options: {
+							sourceMap: true
+						}
+					}
 				]
 			}
 		]
@@ -36,10 +40,11 @@ export default merge(baseConfig, {
 
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin(),
+		new webpack.NoEmitOnErrorsPlugin (),
 		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': JSON.stringify('development')
+			'process.env.NODE_ENV': JSON.stringify('production')
 		}),
+		// new BabiliPlugin(),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
 			filename: 'vendor.js',
@@ -47,7 +52,6 @@ export default merge(baseConfig, {
 				return (
 					module.resource &&
 					module.resource.indexOf(path.resolve('node_modules')) === 0
-					&& module.resource.indexOf(path.resolve('node_modules/md-components')) !== 0
 				)
 			}
 		}),
