@@ -5,12 +5,12 @@ import baseConfig from './webpack.config.base';
 export default merge(baseConfig, {
 	devtool: 'source-map',
 
-	entry: './main/index.js',
+	entry: '../main/index.js',
 	// entry: ['./main/index.js'],
 
 	output: {
 		path:     __dirname,
-		filename: './main.js'
+		filename: '../main.js'
 	},
 
 	resolve: {

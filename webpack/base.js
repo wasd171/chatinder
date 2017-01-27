@@ -12,7 +12,13 @@ export default {
 			test:    /\.jsx?$/,
 			use: [
 				{
-					loader: 'babel-loader'
+					loader: 'babel-loader',
+					options: {
+						query: {
+							babelrc: false,
+							extends: path.join(__dirname, '..', '.babelrc-webpack')
+						}
+					}
 				}
 			],
 			exclude: /node_modules/
@@ -36,7 +42,7 @@ export default {
 		}]
 	},
 	output:    {
-		path:          path.join(__dirname, 'dist'),
+		path:          path.join(__dirname, '..', 'dist'),
 		filename:      'bundle.js',
 		libraryTarget: 'commonjs2'
 	},
@@ -47,7 +53,7 @@ export default {
 			'react': 'inferno-compat',
 			'react-dom': 'inferno-compat',
 			'react-dom/server': 'inferno-compat',
-			'app': path.join(__dirname, 'app'),
+			'app': path.join(__dirname, '..', 'app'),
 			'superagent': 'superagent/lib/client.js',
 			'emitter': 'component-emitter',
 			'reduce': 'reduce-component'
