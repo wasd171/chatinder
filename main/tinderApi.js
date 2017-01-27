@@ -1,4 +1,3 @@
-import {observable, action, when} from 'mobx'
 import tinder from 'tinder'
 import Promise from 'bluebird'
 import {
@@ -29,52 +28,68 @@ class TinderApi {
 		this.resetClient();
 	}
 
-	@observable actions = [];
-	@observable waitingForAuthorization = false;
+	actions = new Map();
+	iterator = this.actions.keys();
+	waitingForAuthorization = false;
 	sender = null;
 
-	@action pushToActions = (action) => {
-		return this.actions.push(action)
+	pushToActions = (action) => {
+		let {type} = action;
+		if (type === API_GET_USER) {
+			type = `${API_GET_USER}_${action.userId}`
+		}
+
+		if (!this.actions.has(type)) {
+			this.actions.set(type, action)
+		}
+
+		return this.actions.size
 	};
 
-	@action setWaitingFlag = (arg) => {
+	setWaitingFlag = (arg) => {
 		this.waitingForAuthorization = arg;
-	};
-
-	@action deleteFirstAction = () => {
-		this.actions.splice(0, 1);
 	};
 
 	resetClient = () => {
 		this.client = new tinder.TinderClient();
+		console.log('Client was reseted');
 	};
 
 	sendToRenderer = (type, arg) => {
 		this.sender.send(type, arg)
 	};
 
-	handleRequest = (event, arg) => {
+	handleRequest = async (event, arg) => {
 		if (!this.sender) {
 			this.sender = event.sender;
 		}
 
 		if (arg.type === API_AUTHORIZE && this.waitingForAuthorization) {
-			this.manuallyAuthorize(arg);
+			await this.manuallyAuthorize(arg);
+			this.processActions();
 		} else if (this.pushToActions(arg) === 1) {
 			this.processActions();
 		}
 	};
 
 	manuallyAuthorize = async (action) => {
+		console.log('manually Authorize called', action);
 		const method = this.actionToMethod(action);
 		const token = await method();
+		console.log('token', token);
 		const responseType = this.getSuccessfulResponseType(action.type);
 		this.sendToRenderer(responseType, token);
 		this.setWaitingFlag(false);
 	};
 
 	processActions = async () => {
-		const action = this.actions[0];
+		while (this.actions.size > 0 && !this.waitingForAuthorization) {
+			await this.processAction();
+		}
+	};
+
+	processAction = async () => {
+		const {key, action} = this.getAction();
 		const method = this.actionToMethod(action);
 
 		let result, error;
@@ -92,26 +107,29 @@ class TinderApi {
 			this.resetClient();
 			this.setWaitingFlag(true);
 			this.sendToRenderer(API_REQUIRE_AUTHORIZATION, null);
-			const promise = new Promise((resolve, reject) => {
-				when(
-					() => !this.waitingForAuthorization,
-					resolve
-				)
-			});
-			await promise;
-			console.log('Authorized again');
 		} else {
 			const responseType = this.getSuccessfulResponseType(action.type);
 			this.sendToRenderer(responseType, result);
-			this.deleteFirstAction();
+			this.actions.delete(key);
 		}
+	}
 
-		if (this.actions.length) {
-			this.processActions();
+	getActionFormatter = (key) => {
+		return {key, action: this.actions.get(key)}
+	}
+
+	getAction = () => {
+		if (this.actions.has(API_AUTHORIZE)) {
+			return this.getActionFormatter(API_AUTHORIZE);
+		} else if (this.actions.has(API_SET_TOKEN)) {
+			return this.getActionFormatter(API_SET_TOKEN)
+		} else if (this.actions.has(API_GET_DEFAULTS)) {
+			return this.getActionFormatter(API_GET_DEFAULTS)
+		} else {
+			const key = this.iterator.next().value;
+			return this.getActionFormatter(key)
 		}
-		
-		return null;
-	};
+	}
 
 	getSuccessfulResponseType = (type) => {
 		switch (type) {
@@ -140,7 +158,7 @@ class TinderApi {
 		switch(action.type) {
 			case API_AUTHORIZE:
 				return async () => {
-					await Promise.fromCallback(this.client.authorize.bind(null, action.fbToken, action.fbId));
+					await Promise.fromCallback(this.client.authorize.bind(this.client, action.fbToken, action.fbId));
 					return this.client.getAuthToken();
 				};
 			case API_SET_TOKEN:
