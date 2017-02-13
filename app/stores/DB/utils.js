@@ -17,7 +17,6 @@ export function validateMatch(match) {
 }
 
 export function normalizeMatch(match) {
-    console.log({match});
     let newMatch = match;
     newMatch = omit(newMatch, ['messages', 'person', 'last_activity_date']);
     newMatch.messages = [];
@@ -43,7 +42,6 @@ export function normalizeMessage({message, previousMessage}) {
 }
 
 export function normalizePerson(person) {
-    console.log({person});
     let newPerson = person;
     newPerson = omit(newPerson, ['birth_date', 'ping_time', 'photos']);
     newPerson.birthDate = person['birth_date'];

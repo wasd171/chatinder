@@ -1,7 +1,19 @@
-import emojione from 'emojione'
-emojione.imageType = 'png';
-emojione.sprites = false;
-emojione.imagePathPNG = '../node_modules/emojione/assets/png/';
-window.emojioneVersion = "2.2.7";
+const emojione = require('emojione');
+const packageJSON = require('emojione/package.json');
+let configuredEmojione = Object.assign(
+    {},
+    emojione,
+    {
+        imageType: 'png',
+        sprites: false,
+        imagePathPNG: '../node_modules/emojione/assets/png/'
+    }
+)
+// emojione.imageType = 'png';
+// emojione.sprites = false;
+// emojione.imagePathPNG = '../node_modules/emojione/assets/png/';
+window.emojioneVersion = packageJSON.version;
+window.confE = configuredEmojione;
 
-export default emojione
+// Need this ugly fix for imports-loader
+module.exports = configuredEmojione

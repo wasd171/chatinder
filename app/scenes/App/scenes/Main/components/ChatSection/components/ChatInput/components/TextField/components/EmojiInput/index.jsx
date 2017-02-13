@@ -1,8 +1,10 @@
 import Inferno from 'inferno'
 import Component from 'inferno-component'
 import linkref from 'linkref'
-import $ from 'jquery'
-import 'emojionearea'
+import $ from 'app/shims/jquery'
+import Promise from 'bluebird'
+// import emojionearea from 'emojionearea'
+// $.emojioneArea = emojionearea;
 
 
 class EmojiInput extends Component {
@@ -23,26 +25,28 @@ class EmojiInput extends Component {
                 focus: (editor, event) => this.props.onFocus(event),
                 blur: (editor, event) => this.props.onBlur(event),
                 keydown: (editor, event) => this.handleInput(event),
-                emojibtn_click: (button, event) =>  this.handleInput(event)
+                'emojibtn.click': (button, event) =>  this.handleInput(event)
             }
         });
+        console.log({textarea: this.textarea});
         this.emojioneArea = this.textarea[0].emojioneArea;
-        this.editor = this.emojioneArea.editor[0];
     }
 
     handleInput = (event) => {
+        console.log({event});
         if (event.which == 13 && !event.shiftKey) {
             event.preventDefault();
             this.props.onSubmit();
             this.emojioneArea.setText('');
         } else {
-            this.props.onInput(this.editor, event, this.emojioneArea.getText.bind(this.emojioneArea));
+            console.log(this.emojioneArea);
+            this.props.onInput(event.target, event, this.emojioneArea.getText.bind(this.emojioneArea));
         }
     }
 
     render() {
        return (
-           <textarea ref={linkref(this, 'textarea')}/>
+           <textarea ref={linkref(this, 'textarea')} id="txt" onInput={console.log}/>
        ) 
     }
 }

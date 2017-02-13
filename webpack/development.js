@@ -1,7 +1,7 @@
 /* eslint max-len: 0 */
 import webpack from 'webpack';
 import merge from 'webpack-merge';
-import baseConfig from './webpack.config.base';
+import baseConfig from './base';
 import path from 'path'
 import BabiliPlugin from 'babili-webpack-plugin'
 
@@ -11,7 +11,7 @@ export default merge(baseConfig, {
 	entry: {
 		app: [
 			`webpack-hot-middleware/client?path=http://localhost:${port}/__webpack_hmr`,
-			'../app/index'
+			'./app/index'
 		]
 	},
 

@@ -14,10 +14,8 @@ export default {
 				{
 					loader: 'babel-loader',
 					options: {
-						query: {
-							babelrc: false,
-							extends: path.join(__dirname, '..', '.babelrc-webpack')
-						}
+						babelrc: false,
+						extends: path.join(__dirname, '..', '.babelrc-webpack')
 					}
 				}
 			],
@@ -33,10 +31,15 @@ export default {
 				}
 			]
 		}, {
-			test: /\.png$/,
+			test: require.resolve('emojionearea'),
 			use: [
 				{
-					loader: 'url-loader'
+					loader: 'imports-loader',
+					options: {
+						jQuery: 'jquery'
+					}
+				}, {
+					loader: 'exports-loader?jQuery'
 				}
 			]
 		}]
@@ -62,9 +65,7 @@ export default {
 	plugins:   [
 		new webpack.ProvidePlugin({
 			"window.React": "inferno-compat",
-			'Inferno': 'inferno',
-			'jQuery': 'jquery',
-			'window.emojione': 'app/shims/emojione.js'
+			'Inferno': 'inferno'
 		})
 	],
 	externals: [
