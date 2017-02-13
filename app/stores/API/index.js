@@ -10,6 +10,7 @@ import getUser from './getUser'
 import notifyMessage from './notifyMessage'
 import sendMessage from './sendMessage'
 import getDefaults from './getDefaults'
+import logOut from './logOut'
 
 
 export class API {
@@ -61,10 +62,12 @@ export class API {
 	@action notifyMessage = notifyMessage.bind(this);
 	@action sendMessage = sendMessage.bind(this);
 	@action getDefaults = getDefaults.bind(this);
+	logOut 				= logOut.bind(this);
 
 
 	constructor({clock, fbToken, fbTokenExpiresAt, fbId, tinderToken, retrieve, tinderDefaults}) {
 		Object.assign(this, {clock, fbToken, fbTokenExpiresAt, fbId, tinderToken, tinderDefaults});
 		this.retrieve = retrieve || retrieveFromApi;
+		window.retrieve = this.retrieve;
 	};
 }

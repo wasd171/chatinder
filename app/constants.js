@@ -26,6 +26,7 @@ export const API_SEND_MESSAGE           = 'API_SEND_MESSAGE';
 export const API_SEND_MESSAGE_SUCCESS   = 'API_SEND_MESSAGE_SUCCESS';
 export const API_GET_DEFAULTS           = 'API_GET_DEFAULTS';
 export const API_GET_DEFAULTS_SUCCESS   = 'API_GET_DEFAULTS_SUCCESS';
+export const API_LOGOUT                 = 'API_LOGOUT';
 
 export const SHOW_NOTIFICATION          = 'SHOW_NOTIFICATION';
 

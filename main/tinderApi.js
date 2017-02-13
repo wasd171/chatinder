@@ -19,17 +19,22 @@ import {
 	API_SEND_MESSAGE,
 	API_SEND_MESSAGE_SUCCESS,
 	API_GET_DEFAULTS,
-	API_GET_DEFAULTS_SUCCESS
+	API_GET_DEFAULTS_SUCCESS,
+	API_LOGOUT
 } from '../app/constants'
 
 
-class TinderApi {
-	constructor() {
+export class TinderApi {
+	constructor(logoutCallback) {
+		this.resetActions();
 		this.resetClient();
+		this.logoutCallback = logoutCallback;
 	}
 
-	actions = new Map();
-	iterator = this.actions.keys();
+	actions;
+	iterator;
+	client;
+	blockActions = false;
 	waitingForAuthorization = false;
 	sender = null;
 
@@ -46,6 +51,10 @@ class TinderApi {
 		return this.actions.size
 	};
 
+	setBlockFlag = (arg) => {
+		this.blockActions = arg;
+	};
+
 	setWaitingFlag = (arg) => {
 		this.waitingForAuthorization = arg;
 	};
@@ -53,6 +62,15 @@ class TinderApi {
 	resetClient = () => {
 		this.client = new tinder.TinderClient();
 		console.log('Client was reseted');
+	};
+
+	resetActions = () => {
+		this.actions = new Map();
+		this.resetIterator();
+	};
+
+	resetIterator = () => {
+		this.iterator = this.actions.keys();
 	};
 
 	sendToRenderer = (type, arg) => {
@@ -64,11 +82,13 @@ class TinderApi {
 			this.sender = event.sender;
 		}
 
-		if (arg.type === API_AUTHORIZE && this.waitingForAuthorization) {
-			await this.manuallyAuthorize(arg);
-			this.processActions();
-		} else if (this.pushToActions(arg) === 1) {
-			this.processActions();
+		if (!this.blockActions) {
+			if (arg.type === API_AUTHORIZE && this.waitingForAuthorization) {
+				await this.manuallyAuthorize(arg);
+				this.processActions();
+			} else if (this.pushToActions(arg) === 1) {
+				this.processActions();
+			}
 		}
 	};
 
@@ -94,7 +114,7 @@ class TinderApi {
 
 		let result, error;
 		try {
-			result = await method();
+			result = await method()		
 		} catch (err) {
 			// TODO: add proper check whether this is a token expiration error
 			error = err;
@@ -119,13 +139,16 @@ class TinderApi {
 	}
 
 	getAction = () => {
-		if (this.actions.has(API_AUTHORIZE)) {
+		if (this.actions.has(API_LOGOUT)) {
+			return this.getActionFormatter(API_LOGOUT);
+		}else if (this.actions.has(API_AUTHORIZE)) {
 			return this.getActionFormatter(API_AUTHORIZE);
 		} else if (this.actions.has(API_SET_TOKEN)) {
 			return this.getActionFormatter(API_SET_TOKEN)
 		} else if (this.actions.has(API_GET_DEFAULTS)) {
 			return this.getActionFormatter(API_GET_DEFAULTS)
 		} else {
+			this.resetIterator();
 			const key = this.iterator.next().value;
 			return this.getActionFormatter(key)
 		}
@@ -193,9 +216,14 @@ class TinderApi {
 				return () => {
 					return Promise.resolve(this.client.getDefaults());
 				};
+			case API_LOGOUT:
+				return async () => {
+					this.setBlockFlag(true);
+					this.resetActions();
+					this.resetClient();
+					await this.logoutCallback();
+					this.setBlockFlag(false);
+				};
 		}
 	};
 }
-
-const tinderApi = new TinderApi();
-export default tinderApi;
