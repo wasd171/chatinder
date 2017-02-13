@@ -1,7 +1,7 @@
 import Inferno from 'inferno'
 import Component from 'inferno-component'
 import {observer, inject} from 'inferno-mobx'
-import {expr, computed} from 'mobx'
+import {computed} from 'mobx'
 
 import {VIEW_AUTH, VIEW_MAIN, VIEW_LOADING} from 'app/constants'
 import Auth from './scenes/Auth'
