@@ -3,12 +3,14 @@ import Component from 'inferno-component'
 import {observer} from 'inferno-mobx'
 import {action, observable, computed, reaction} from 'mobx'
 import Promise from 'bluebird'
-import forEach from 'lodash/forEach'
 import MessagesGroup from './components/MessagesGroup'
 import linkref from 'linkref'
 import Waypoint from 'react-waypoint'
 import styled from 'styled-components'
 import {normalizeScrollbar} from 'app/styles'
+import compose from 'recompose/compose'
+import muiThemeable from 'material-ui/styles/muiThemeable'
+import DateGroup from './components/DateGroup'
 
 
 const OuterWrapper = styled.div`
@@ -16,7 +18,6 @@ const OuterWrapper = styled.div`
 	max-height: 100%;
 	overflow-y: scroll;
 	position: relative;
-	padding-bottom: 10px;
 	will-change: transform;
 `;
 
@@ -27,30 +28,52 @@ const InnerWrapper = styled.div`
 	flex-direction: column;
 	justify-content: flex-end;
 	min-height: 100%;
+	position: relative;
+	margin-bottom: 10px;
+`;
+
+const LoadingMessage = styled.div`
+	text-align: center;
+	margin-top: 10px;
+	color: ${props => props.theme.palette.secondaryTextColor};
+	font-size: 14px;
+	padding-left: 11px;
+`;
+
+const Anchor = styled.div`
+	height: 0;
 `;
 
 class MessagesList extends Component {
 	disposer;
+	interval;
+	timeout;
 	shouldScrollBottom;
 	forceScrollBottom = false;
 	shouldRestoreScrollPosition;
+	lastScrollTop;
 	nodeScrollTop;
 	nodeScrollHeight;
 	@observable initialRender = true;
 	@observable startingFrom = 0;
+	@observable keepDown = true;
+	@observable loadMore = false;
 
 	@action setRenderFlag = (flag) => {
 		this.initialRender = flag
 	};
 
 	@action setStartingFrom = ({initial}) => {
-		const length = this.messageGroups.length;
+		const length = this.rawMessages.length;
 		const startingIndex = initial ? length : this.startingFrom;
+
+
 		if (startingIndex === 0) {
 			return
 		}
 		let newIndex = startingIndex - 17;
 		newIndex = (newIndex < 0) ? 0 : newIndex;
+		console.log(initial, startingIndex, this.startingFrom, length, newIndex);
 
 		if (!initial) {
 			const {scrollTop, scrollHeight} = this.refs.container;
@@ -76,49 +99,85 @@ class MessagesList extends Component {
 		return this.currentMatch.messages
 	}
 
-	@computed get messageGroups() {
-		let messageGroups = [];
-		let tempGroup = [];
+	@computed get messagesExist() {
+		return this.rawMessages.length !== 0;
+	}
 
-		forEach(this.rawMessages, message => {
+	get filteredMessages() {
+		return this.rawMessages.slice(this.startingFrom)
+	}
+
+	get messageDateGroups() {
+		let dateGroups = [];
+		let tempGroup = [];
+		
+		this.filteredMessages.forEach(message => {
 			if (tempGroup.length !== 0) {
-				if (tempGroup[0].messageGroup === message.messageGroup) {
+				if (tempGroup[0].sentDay === message.sentDay) {
 					tempGroup.push(message)
 				} else {
-					messageGroups.push(tempGroup);
+					dateGroups.push(tempGroup);
 					tempGroup = [message];
 				}
 			} else {
 				tempGroup.push(message)
 			}
 		});
-		messageGroups.push(tempGroup);
+		dateGroups.push(tempGroup);
 
-		return messageGroups
+		return dateGroups
 	}
 
-	@computed get filteredMessages() {
-		if (this.messageGroups[0].length === 0) {
-			return null
-		} else {
-			return this.messageGroups.slice(this.startingFrom)
-		}
+	get messageGroups() {
+		return this.messageDateGroups.map(dateGroup => {
+			let messageGroups = [];
+			let tempGroup = [];
+
+			dateGroup.forEach(message => {
+				if (tempGroup.length !== 0) {
+					if (tempGroup[0].messageGroup === message.messageGroup) {
+						tempGroup.push(message)
+					} else {
+						messageGroups.push(tempGroup);
+						tempGroup = [message];
+					}
+				} else {
+					tempGroup.push(message)
+				}
+			});
+			messageGroups.push(tempGroup);
+
+			return messageGroups
+		})
 	}
 
 	@computed get messageNodes() {
-		if (!!this.filteredMessages) {
-			return this.filteredMessages.map(messagesGroup => {
-				return (
+		console.log(this.messageGroups);
+		return this.messageGroups.map(dateGroup => (
+			<DateGroup 
+				day={dateGroup[0][0].sentDay}
+				timestamp={dateGroup[0][0].timestamp}
+				key={`${this.matchId}-${dateGroup[0][0].timestamp}`}
+			>
+				{dateGroup.map(messagesGroup => (
 					<MessagesGroup
 						messagesGroup={messagesGroup}
 						currentMatch={this.currentMatch}
 						key={messagesGroup[0].messageGroup}
 					/>
-				)
-			});
-		} else {
-			return null
-		}
+				))}
+			</DateGroup>
+		))
+
+		/*return this.messageGroups.map(messagesGroup => {
+			return (
+				<MessagesGroup
+					messagesGroup={messagesGroup}
+					currentMatch={this.currentMatch}
+					key={messagesGroup[0].messageGroup}
+				/>
+			)
+		})*/
 	}
 
 	showMoreMessages = () => {
@@ -128,7 +187,26 @@ class MessagesList extends Component {
 	};
 
 	scrollToBottom = () => {
-		this.refs.container.scrollTop = this.refs.container.scrollHeight
+		this.refs.anchor.scrollIntoView({block: 'end', behaviour: 'smooth'});
+	};
+
+	@action stickBottom = () => {
+		this.keepDown = true;
+	};
+
+	@action unstickBottom = () => {
+		const node = this.refs.container;
+		if (this.keepDown && (node.scrollTop + node.offsetHeight !== node.scrollHeight)) {
+			this.keepDown = false;
+		}
+	};
+
+	@action triggerLoad = () => {
+		this.loadMore = true;
+	};
+
+	@action untriggerLoad = () => {
+		this.loadMore = false;
 	};
 
 	constructor(props) {
@@ -145,23 +223,36 @@ class MessagesList extends Component {
 			() => this.matchId,
 			() => {
 				this.setStartingFrom({initial: true});
+				this.untriggerLoad();
+				this.stickBottom();
 			}
 		);
-	}
 
-	componentWillUpdate() {
-		const node = this.refs.container;
-		this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
+		this.interval = setInterval(() => {
+			const node = this.refs.container;
+
+			if (this.keepDown && (node.scrollTop + node.offsetHeight !== node.scrollHeight)) {
+				this.scrollToBottom();
+			};
+
+			if (this.loadMore && !this.initialRender) {
+				if (!this.timeout) {
+					this.timeout = setTimeout(() => {
+						this.setStartingFrom({initial: false});
+						this.timeout = null;
+					}, 400);
+				}
+			}
+		}, 100);
 	}
 
 	componentDidUpdate() {
 		const node = this.refs.container;
-		console.log({shouldScrollBottom: this.shouldScrollBottom, forceScrollBottom: this.forceScrollBottom});
-		if (this.shouldScrollBottom || this.forceScrollBottom) {
-			this.shouldScrollBottom = false;
+		if (this.forceScrollBottom) {
 			this.forceScrollBottom = false;
 			this.scrollToBottom();
 		} else if (this.shouldRestoreScrollPosition) {
+			this.shouldRestoreScrollPosition = false;
 			node.scrollTop = node.scrollHeight - this.nodeScrollHeight + this.nodeScrollTop;
 		}
 	}
@@ -169,20 +260,43 @@ class MessagesList extends Component {
 	componentWillUnmount() {
 		this.disposer();
 		this.disposer = null;
+		clearInterval(this.interval);
+		this.interval = null;
+		clearTimeout(this.timeout);
+		this.timeout = null;
+	}
+
+	renderLoadingMessage = () => {
+		if (this.messagesExist) {
+			return (
+				<LoadingMessage key="loadingMessage" theme={this.props.muiTheme}>
+					{this.startingFrom !== 0 && "Loading messages…"}
+				</LoadingMessage>
+			)
+		} else {
+			return null;
+		}
 	}
 
 	render() {
-		let nodes = this.messageNodes ? this.messageNodes : [];
+		const nodes = this.messagesExist ? this.messageNodes : null;
 
 		return (
-			<OuterWrapperWithScrollbar innerRef={linkref(this, 'container')}>
-				<Waypoint onEnter={this.showMoreMessages}/>
+			<OuterWrapperWithScrollbar innerRef={linkref(this, 'container')} onScroll={this.unstickBottom}>
+				{this.messagesExist && <Waypoint onEnter={this.triggerLoad} onLeave={this.untriggerLoad} topOffset='-200px'/>}
+				{this.renderLoadingMessage()}
 				<InnerWrapper hasKeyedChildren>
-					{nodes}
+					{this.messagesExist && this.messageNodes}
 				</InnerWrapper>
+				<Waypoint onEnter={this.stickBottom}/>
+				<Anchor innerRef={linkref(this, 'anchor')}/>
 			</OuterWrapperWithScrollbar>
 		)
 	}
 }
 
-export default observer(['store'])(MessagesList)
+
+export default compose(
+	muiThemeable(),
+	observer(['store'])
+)(MessagesList)

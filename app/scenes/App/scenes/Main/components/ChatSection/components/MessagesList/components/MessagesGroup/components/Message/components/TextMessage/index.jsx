@@ -13,6 +13,7 @@ const TextSpan = styled.span`
 	line-height: 20px;
 	font-weight: normal;
 	color: ${props => props.theme.palette.textColor};
+	white-space: pre-line;
 `;
 
 

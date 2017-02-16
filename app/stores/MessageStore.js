@@ -1,4 +1,4 @@
-import emojione from 'emojione'
+import format from 'date-fns/format'
 
 
 export class MessageStore {
@@ -7,6 +7,8 @@ export class MessageStore {
 	from;
 	timestamp;
 	messageGroup;
+	sentTime;
+
 
 	constructor(messageObj) {
 		Object.assign(this, {
@@ -14,7 +16,9 @@ export class MessageStore {
 			message: messageObj.formattedMessage,
 			from: messageObj.from,
 			timestamp: messageObj.timestamp,
-			messageGroup: messageObj.messageGroup
+			messageGroup: messageObj.messageGroup,
+			sentTime: format(messageObj.timestamp, 'H:mm'),
+			sentDay: format(messageObj.timestamp, 'MMMM D')
 		});
 	}
 }
