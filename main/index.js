@@ -28,13 +28,16 @@ const installExtensions = async () => {
 		const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
 
 		const extensions = [
-			installer.REACT_DEVELOPER_TOOLS
+			'REACT_DEVELOPER_TOOLS'
 		];
 		const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-		for (const name of extensions) {
-			try {
-				await installer.default(installer[name], forceDownload);
-			} catch (e) {} // eslint-disable-line
+		if (forceDownload) {
+			for (const name of extensions) {
+				console.log(name);
+				try {
+					await installer.default(installer[name], forceDownload);
+				} catch (e) {} // eslint-disable-line
+			}
 		}
 	}
 };
@@ -75,7 +78,10 @@ app.on('ready', async () => {
 		width:  1024,
 		height: 728,
 		minWidth: 660,
-		minHeight: 340
+		minHeight: 340,
+		webPreferences: {
+			blinkFeatures: 'CSSStickyPosition'
+		}
 	});
 
 	const tinderApi = new TinderApi(() => logout(mainWindow));
