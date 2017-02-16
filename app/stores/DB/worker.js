@@ -136,11 +136,15 @@ function setUpdates(updates) {
             });
             const pushedMessageIds = await Dexie.Promise.all(putMessagePromises);
             const currentMatch = await db.matches.get(match['_id']);
-            await db.matches.where('_id').equals(match['_id']).modify(
-                {messages: [...currentMatch.messages, ...pushedMessageIds]}
-            );
+            await db.matches.where('_id').equals(match['_id']).modify({
+                lastActivityDate: match['last_activity_date'],
+                messages: [...currentMatch.messages, ...pushedMessageIds]
+            });
+
             return {
                 _id: match['_id'],
+                lastActivityDate: match['last_activity_date'],
+                isNewMessage: match['is_new_message'],
                 messages: normalizedMessages
             }        
         }))

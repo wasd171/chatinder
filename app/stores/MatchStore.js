@@ -19,7 +19,7 @@ export class MatchStore {
 		this.setMessages(match.messages);
 	}
 
-	@action init = async (matchData) => {
+	@action init = (matchData) => {
 		Object.assign(this, matchData);
 	};
 
@@ -31,5 +31,12 @@ export class MatchStore {
 		messages.forEach(message => {
 			this.messages.push(new MessageStore(message));
 		});
+	};
+
+	@action updateMatch = (match) => {
+		this.init({
+			lastActivityDate: match.lastActivityDate
+		});
+		this.setMessages(match.messages);
 	};
 }

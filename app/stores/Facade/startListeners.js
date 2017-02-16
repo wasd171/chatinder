@@ -25,10 +25,11 @@ async function handleGetPerson(event, arg) {
 
 async function handleGetUpdates(event, arg) {
 	if (arg && arg.matches && arg.matches.length > 0) {
+		console.log(arg.matches);
 		const matches = await this.db.saveUpdates(arg);
 		matches.forEach(match => {
 			const localMatch = this.tinder.matches.get(match['_id']);
-			localMatch.setMessages(match.messages);
+			localMatch.updateMatch(match);
 			match.messages.forEach(message => {
 				if (message.from !== this.tinder.profile['_id']) {
 					this.api.notifyMessage(localMatch.person, message.originalMessage);

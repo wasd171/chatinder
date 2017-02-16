@@ -52,23 +52,23 @@ const MessageContainer = styled.div`
 @muiThemeable()
 @observer(['store'])
 class Match extends Component {
-	@computed get isSelected() {
+	get isSelected() {
 		const {store, match} = this.props;
 
-		return store.currentView.params && (store.currentView.params.matchId === match['_id'])
+		return store.currentView.params && (store.currentView.params.matchId === match._id)
 	}
 
-	@computed get isPreviousSelected() {
+	get isPreviousSelected() {
 		const {store, index} = this.props;
 
 		return store.currentView.params && (store.currentView.params.matchIndex + 1 === index)
 	}
 
-	@computed get showBorder() {
+	get showBorder() {
 		return !(this.isSelected || this.isPreviousSelected || this.props.firstVisible)
 	}
 
-	@computed get formattedMessage() {
+	get formattedMessage() {
 		const message = this.props.match.messages[this.props.match.messages.length - 1];
 
 		const msg = message ? message.message : null;
