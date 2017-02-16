@@ -16,6 +16,7 @@ const OuterWrapper = styled.div`
 const AnimatedGIPHY = styled.img`
 	max-height: 300px;
 	max-width: 100%;
+	cursor: pointer;
 `;
 
 const BaseContainer = styled.div`
@@ -35,6 +36,32 @@ const CanvasPreview = styled.canvas`
 	position: absolute;
 	left: 0;
 	top: 0;
+	z-index: -1;
+`;
+
+const PlayButton = styled.div`
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -25px;
+	margin-top: -25px;
+	background-color: rgba(0, 0, 0, .5);
+	border-radius: 50%;
+	z-index: 1;
+	&:hover {
+		background-color: rgba(0, 0, 0, .6);
+	}
+`;
+
+const PlayIcon = styled.i`
+	font-size: 24px;
+	line-height: 24px;
+	color: white;
+	position: absolute;
+	top: 13px;
+	left: 18px;
 `;
 
 const LoaderWrapper = styled(BaseContainer)`
@@ -49,6 +76,14 @@ class GIFMessage extends Component {
 	@observable width;
 	@observable animated = false;
 	@observable loadComplete = false;
+
+	@action startAnimation = () => {
+		this.animated = true;
+	};
+
+	@action stopAnimation = () => {
+		this.animated = false;
+	};
 
 	@action setProgress = (event) => {
 		if (event.lengthComputable) {
@@ -111,6 +146,7 @@ class GIFMessage extends Component {
 	}
 
 	renderLoader = () => {
+		console.log('renderLoader');
 		const loaderDiameter = 0.3*Math.min(this.height, this.width);
 		let loader;
 		if (typeof this.progress === 'string') {
@@ -126,15 +162,19 @@ class GIFMessage extends Component {
 	};
 
 	renderCanvas = () => {
+		console.log('renderCanvas');
 		return (
-			<CanvasWrapper height={this.height} width={this.width}>
+			<CanvasWrapper height={this.height} width={this.width} onClick={this.startAnimation}>
+				<PlayButton>
+					<PlayIcon className="fa fa-play"/>
+				</PlayButton>
 				<CanvasPreview innerRef={linkref(this, 'canvas')}/>
 			</CanvasWrapper>
 		)
 	};
 
 	renderGIPHY = () => {
-		return <AnimatedGIPHY src={this.props.message}/>
+		return <AnimatedGIPHY src={this.props.message} onClick={this.stopAnimation}/>
 	};
 
 	render() {
