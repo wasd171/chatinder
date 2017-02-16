@@ -6,6 +6,7 @@ import {observable, action} from 'mobx'
 import {observer} from 'inferno-mobx'
 import linkref from 'linkref'
 import styled from 'styled-components'
+import Waypoint from 'react-waypoint'
 
 
 const OuterWrapper = styled.div`
@@ -17,6 +18,8 @@ const AnimatedGIPHY = styled.img`
 	max-height: 300px;
 	max-width: 100%;
 	cursor: pointer;
+	height: ${props => props.height}px;
+	width: ${props => props.width}px;
 `;
 
 const BaseContainer = styled.div`
@@ -146,7 +149,6 @@ class GIFMessage extends Component {
 	}
 
 	renderLoader = () => {
-		console.log('renderLoader');
 		const loaderDiameter = 0.3*Math.min(this.height, this.width);
 		let loader;
 		if (typeof this.progress === 'string') {
@@ -162,7 +164,6 @@ class GIFMessage extends Component {
 	};
 
 	renderCanvas = () => {
-		console.log('renderCanvas');
 		return (
 			<CanvasWrapper height={this.height} width={this.width} onClick={this.startAnimation}>
 				<PlayButton>
@@ -174,7 +175,18 @@ class GIFMessage extends Component {
 	};
 
 	renderGIPHY = () => {
-		return <AnimatedGIPHY src={this.props.message} onClick={this.stopAnimation}/>
+		return (
+			<Waypoint onLeave={this.stopAnimation}>
+				<div>
+					<AnimatedGIPHY 
+						src={this.props.message} 
+						onClick={this.stopAnimation} 
+						height={this.height}
+						width={this.width}
+					/>
+				</div>
+			</Waypoint>
+		)
 	};
 
 	render() {
