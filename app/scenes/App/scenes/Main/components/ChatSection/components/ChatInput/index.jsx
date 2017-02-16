@@ -6,17 +6,22 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 import transitions from 'material-ui/styles/transitions'
 import {observer} from 'inferno-mobx'
 import styled from 'styled-components'
-
+import trim from 'lodash/trim'
 
 const padding = 10;
 
 const OuterWrapper = styled.div`
-	min-height: ${props => props.height}px;
-	max-height: ${props => props.height}px;
 	border-top: 1px solid ${props => props.theme.palette.borderColor};
 	padding-left: ${padding}px;
 	padding-right: ${padding}px;
 	transition: ${transitions.easeOut('200ms', 'height')};
+	display: inline-block;
+	max-width: 100%;
+	width: 100%;
+	posititon: relative;
+`;
+
+const MiddleWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: flex-end;
@@ -29,52 +34,48 @@ const OuterWrapper = styled.div`
 @observer(['store'])
 class ChatInput extends Component {
 	@observable value  = '';
-	@observable rows = 1;
-	maxRows = 6;
 
 	@computed get hasValue() {
 		return !!this.isValid(this.value)
 	}
 
-	@computed get height() {
-		return 24*(this.rows + 1)
-	}
-
-	@action handleChange = ({text, rows}) => {
+	@action handleChange = (text) => {
 		this.value = text;
-		if (this.maxRows >= rows) {
-			this.rows = rows
-		}
 	};
 
 	@action handleSubmit = () => {
 		console.log('Submit handler');
-		const {view, tinder, api} = this.props.store;
-		const currentMatch = tinder.matches.get(view.currentView.params.matchId);
-		api.sendMessage(currentMatch['_id'], this.value);
-		this.value = '';
+		if (this.hasValue) {
+			const {view, tinder, api} = this.props.store;
+			const currentMatch = tinder.matches.get(view.currentView.params.matchId);
+			api.sendMessage(currentMatch['_id'], trim(this.value));
+			this.value = '';
+		}
 	};
 
 	isValid(value) {
-		return value !== '' && value !== undefined && value !== null;
+		const normValue = trim(value);
+		return normValue !== '' && normValue !== undefined && normValue !== null;
 	}
 
 
 	render() {
 		return (
 			<OuterWrapper height={this.height} theme={this.props.muiTheme}>
-				<TextField
-					fullWidth={true}
-					value={this.value}
-					hintText='Message'
-					rows={this.rows}
-					maxRows={this.maxRows}
-					multiLine={true}
-					onChange={this.handleChange}
-					hasValue={this.hasValue}
-					onSubmit={this.handleSubmit}
-				/>
-				<SendButton disabled={!this.hasValue} onClick={this.handleSubmit}/>
+				<MiddleWrapper>
+					<TextField
+						fullWidth={true}
+						value={this.value}
+						hintText='Message'
+						rows={this.rows}
+						maxRows={this.maxRows}
+						multiLine={true}
+						onChange={this.handleChange}
+						hasValue={this.hasValue}
+						onSubmit={this.handleSubmit}
+					/>
+					<SendButton disabled={!this.hasValue} onClick={this.handleSubmit}/>
+				</MiddleWrapper>
 			</OuterWrapper>
 		);
 	}

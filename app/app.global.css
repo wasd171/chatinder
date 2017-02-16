@@ -26,8 +26,9 @@ body {
     border: none;
     box-shadow: none;
     margin-top: 12px;
-    margin-bottom: -12px;
+    margin-bottom: 4px;
     max-width: 100%;
+    width: 100%;
     background-color: transparent;
 }
 
@@ -44,9 +45,12 @@ body {
     padding-top: 0;
     padding-bottom: 0;
     padding-left: 0;
+    width: 100%;
     max-width: 100%;
     word-break: break-all;
     overflow: hidden;
+    display: inline-block;
+    resize: none;
 }
 
 .emojionearea-editor::-webkit-scrollbar, .emojionearea-scroll-area::-webkit-scrollbar {
@@ -69,5 +73,5 @@ body {
 }
 
 .emojionearea .emojionearea-button {
-    top: 1px;
+    top: -5px;
 }
