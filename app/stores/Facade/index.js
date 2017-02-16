@@ -55,7 +55,7 @@ export class Facade {
 	constructor({api, view, tinder, clock, ipc = ipcRenderer, db}) {
 		Object.assign(this, {api, view, tinder, clock, ipc, db});
 		if (this.api.tinderDefaults) {
-			this.clock.updateInterval(this.api.tinderDefaults.globals.updates_interval + 1000)
+			this.clock.updateInterval(this.api.tinderDefaults.globals.updates_interval)
 		}
 	}
 
