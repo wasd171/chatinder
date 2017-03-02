@@ -2,16 +2,18 @@
 import {useStrict} from 'mobx'
 import Promise from 'bluebird'
 
+// require('inferno-devtools');
 import Inferno from 'inferno'
 import {Provider} from 'inferno-mobx'
-if (process.env.NODE_ENV === 'development') {
-	require('inferno-devtools');
-}
+//if (process.env.NODE_ENV === 'development') {
+	
+//}
 
 import * as Stores from './stores'
 import configureStores from './configureStores'
 
 import 'react-virtualized/styles.css'
+import 'simplebar/umd/simplebar.css'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import theme from './configureTheme'
 window.muiTheme = theme;
@@ -37,13 +39,21 @@ async function configureAndRender() {
 	const container = document.getElementById('root');
 	const loader = document.getElementById('loading-screen');
 
+	// Workaround for devtools
+	// if (process.env.NODE_ENV === 'development') {
+	// 	renderApp({
+	// 		node: container, 
+	// 		children: <div>Hello</div>
+	// 	});
+	// }
+
 	loader.style = loadingFullScreen;
-	renderApp({
-		node: loader, 
-		children: (
-			<LoadingScreen title="App is loading" muiTheme={theme}/>
-		)
-	})
+	// renderApp({
+	// 	node: loader, 
+	// 	children: (
+	// 		<LoadingScreen title="App is loading" muiTheme={theme}/>
+	// 	)
+	// })
 
 	console.log('start configure');
 	const store = await configureStores(Stores);
@@ -75,7 +85,7 @@ async function configureAndRender() {
 		})
 	}
 
-	Inferno.render(null, loader);
+	// Inferno.render(<span></span>, loader);
 }
 
 configureAndRender();

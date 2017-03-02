@@ -42,7 +42,7 @@ export default merge(baseConfig, {
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NoEmitOnErrorsPlugin (),
 		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': JSON.stringify('production')
+			'process.env.NODE_ENV': JSON.stringify('development')
 		}),
 		// new BabiliPlugin(),
 		new webpack.optimize.CommonsChunkPlugin({

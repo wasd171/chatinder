@@ -14,6 +14,7 @@ import styled from 'styled-components'
 const OuterWrapper = styled.div`
 	width: 100%;
 	position: relative;
+	display: inline-block;
 `;
 
 

@@ -11,17 +11,17 @@ import {normalizeScrollbar} from 'app/styles'
 import compose from 'recompose/compose'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import DateGroup from './components/DateGroup'
+import SimpleBar from 'simplebar'
 
 
 const OuterWrapper = styled.div`
 	height: 100%;
 	max-height: 100%;
-	overflow-y: scroll;
+	overflow-y: hidden;
+	overflow-x: hidden;
 	position: relative;
-	will-change: transform;
+	display: inline-block;
 `;
-
-const OuterWrapperWithScrollbar = normalizeScrollbar(OuterWrapper);
 
 const InnerWrapper = styled.div`
 	display: flex;
@@ -37,7 +37,11 @@ const LoadingMessage = styled.div`
 	margin-top: 10px;
 	color: ${props => props.theme.palette.secondaryTextColor};
 	font-size: 14px;
-	padding-left: 11px;
+`;
+
+const HorizontalScroll = styled.div`
+	visibility: hidden;
+	position: relative;
 `;
 
 const Anchor = styled.div`
@@ -51,7 +55,7 @@ class MessagesList extends Component {
 	shouldScrollBottom;
 	forceScrollBottom = false;
 	shouldRestoreScrollPosition;
-	lastScrollTop;
+	cachedOffsetHeight;
 	nodeScrollTop;
 	nodeScrollHeight;
 	@observable initialRender = true;
@@ -71,12 +75,12 @@ class MessagesList extends Component {
 		if (startingIndex === 0) {
 			return
 		}
+
 		let newIndex = startingIndex - 17;
 		newIndex = (newIndex < 0) ? 0 : newIndex;
-		console.log(initial, startingIndex, this.startingFrom, length, newIndex);
 
 		if (!initial) {
-			const {scrollTop, scrollHeight} = this.refs.container;
+			const {scrollTop, scrollHeight} = this.refs.scrollContent;
 			this.nodeScrollTop = scrollTop;
 			this.nodeScrollHeight = scrollHeight;
 			this.shouldRestoreScrollPosition = true;
@@ -152,7 +156,6 @@ class MessagesList extends Component {
 	}
 
 	@computed get messageNodes() {
-		console.log(this.messageGroups);
 		return this.messageGroups.map(dateGroup => (
 			<DateGroup 
 				day={dateGroup[0][0].sentDay}
@@ -168,16 +171,6 @@ class MessagesList extends Component {
 				))}
 			</DateGroup>
 		))
-
-		/*return this.messageGroups.map(messagesGroup => {
-			return (
-				<MessagesGroup
-					messagesGroup={messagesGroup}
-					currentMatch={this.currentMatch}
-					key={messagesGroup[0].messageGroup}
-				/>
-			)
-		})*/
 	}
 
 	showMoreMessages = () => {
@@ -195,7 +188,7 @@ class MessagesList extends Component {
 	};
 
 	@action unstickBottom = () => {
-		const node = this.refs.container;
+		const node = this.refs.scrollContent;
 		if (this.keepDown && (node.scrollTop + node.offsetHeight !== node.scrollHeight)) {
 			this.keepDown = false;
 		}
@@ -214,8 +207,11 @@ class MessagesList extends Component {
 		this.setStartingFrom({initial: true});
 	}
 
-	async componentDidMount() {
-		await Promise.delay(10);
+	componentDidMount() {
+		const node = this.refs.container;
+		new SimpleBar(node, {wrapContent: false, forceEnabled: true});
+		const scrollNode = this.refs.scrollContent;
+
 		this.scrollToBottom();
 		this.setRenderFlag(false);
 
@@ -228,12 +224,17 @@ class MessagesList extends Component {
 			}
 		);
 
-		this.interval = setInterval(() => {
-			const node = this.refs.container;
+		this.cachedOffsetHeight = node.offsetHeight;
 
-			if (this.keepDown && (node.scrollTop + node.offsetHeight !== node.scrollHeight)) {
+		this.interval = setInterval(() => {
+			if (node.offsetHeight !== this.cachedOffsetHeight) {
+				node.SimpleBar.recalculate();
+				this.cachedOffsetHeight = node.offsetHeight;
+			}
+
+			if (this.keepDown && (scrollNode.scrollTop + scrollNode.offsetHeight !== scrollNode.scrollHeight)) {
 				this.scrollToBottom();
-			};
+			}
 
 			if (this.loadMore && !this.initialRender) {
 				if (!this.timeout) {
@@ -247,7 +248,7 @@ class MessagesList extends Component {
 	}
 
 	componentDidUpdate() {
-		const node = this.refs.container;
+		const node = this.refs.scrollContent;
 		if (this.forceScrollBottom) {
 			this.forceScrollBottom = false;
 			this.scrollToBottom();
@@ -282,15 +283,35 @@ class MessagesList extends Component {
 		const nodes = this.messagesExist ? this.messageNodes : null;
 
 		return (
-			<OuterWrapperWithScrollbar innerRef={linkref(this, 'container')} onScroll={this.unstickBottom}>
-				{this.messagesExist && <Waypoint onEnter={this.triggerLoad} onLeave={this.untriggerLoad} topOffset='-200px'/>}
-				{this.renderLoadingMessage()}
-				<InnerWrapper hasKeyedChildren>
-					{this.messagesExist && this.messageNodes}
-				</InnerWrapper>
-				<Waypoint onEnter={this.stickBottom}/>
-				<Anchor innerRef={linkref(this, 'anchor')}/>
-			</OuterWrapperWithScrollbar>
+			<OuterWrapper innerRef={linkref(this, 'container')} id="tst">
+				<div className="simplebar-track vertical">
+					<div className="simplebar-scrollbar"></div>
+				</div>
+				<HorizontalScroll>
+					<div className="simplebar-track horizontal">
+						<div className="simplebar-scrollbar"></div>
+					</div>
+				</HorizontalScroll>
+				<div className="simplebar-scroll-content" ref={linkref(this, 'scrollContent')} onScroll={this.unstickBottom} >
+					<div className="simplebar-content">
+						{this.renderLoadingMessage()}
+						{	
+							this.messagesExist && 
+							<Waypoint
+								onEnter={this.triggerLoad}
+								onLeave={this.untriggerLoad}
+								topOffset='-200px'
+								scrollableAncestor={this.refs.scrollContent}
+							/>
+						}
+						<InnerWrapper hasKeyedChildren>
+							{this.messagesExist && this.messageNodes}
+						</InnerWrapper>
+						<Waypoint onEnter={this.stickBottom} scrollableAncestor={this.refs.scrollContent}/>
+						<Anchor innerRef={linkref(this, 'anchor')}/>
+					</div>
+				</div>
+			</OuterWrapper>
 		)
 	}
 }

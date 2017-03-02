@@ -1,4 +1,4 @@
- import Component from 'inferno-component'
+import Component from 'inferno-component'
 import {observable, action, computed} from 'mobx'
 import TextField from './components/TextField'
 import SendButton from './components/SendButton'

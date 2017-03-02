@@ -11,12 +11,12 @@ import isYesterday from 'date-fns/is_yesterday'
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
+    z-index: 1;
 `;
 
 const DateBanner = styled.div`
     margin: auto;
     margin-top: 10px;
-    padding-left: 11px;
 `;
 
 const DateWrapper = styled.div`
@@ -42,7 +42,6 @@ class DateGroup extends Component {
     }
 
     render() {
-        console.log('render', this.formattedDay, this.props.day);
         return (
             <Wrapper hasKeyedChildren>
                 <DateBanner key={`banner-${this.props.timestamp}`}>
