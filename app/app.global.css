@@ -18,6 +18,7 @@ body {
     zoom: calc(20/64);
     margin: 0 calc(64*.1em/20) 0 calc(64*.2em/20);
     -webkit-user-select: text;
+    user-select: text;
     vertical-align: -.5em;
     cursor: text;
 }
