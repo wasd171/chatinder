@@ -190,8 +190,6 @@ class GIFMessage extends Component {
 	};
 
 	render() {
-		console.log({message: this.props.message});
-
 		return (
 			<OuterWrapper>
 				{

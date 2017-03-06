@@ -1,5 +1,6 @@
 import Inferno from 'inferno'
 import HeaderContainer from './components/HeaderContainer'
+import ProfileHeader from './components/ProfileHeader';
 import MatchesList from './components/MatchesList'
 import ChatSection from './components/ChatSection'
 import compose from 'recompose/compose'
@@ -51,9 +52,7 @@ function Main({muiTheme, store}) {
 			:
 				[
 					<MatchesSection theme={muiTheme}>
-						<HeaderContainer>
-							Search panel
-						</HeaderContainer>
+						<ProfileHeader/>
 						<MatchesList/>
 					</MatchesSection>,
 					<ChatSection

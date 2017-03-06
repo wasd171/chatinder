@@ -11,6 +11,7 @@ const AvatarImage = styled.img`
 	width: ${props => props.size};
 	min-width: ${props => props.size};
 	max-width: ${props => props.size};
+	cursor: pointer;
 `;
 
 function Avatar({match, size, src}) {
