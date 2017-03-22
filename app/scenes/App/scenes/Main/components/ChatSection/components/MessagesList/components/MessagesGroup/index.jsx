@@ -1,6 +1,7 @@
 import Inferno from 'inferno'
-import {observer} from 'inferno-mobx'
-import {expr} from 'mobx'
+import Component from 'inferno-component'
+import {inject, observer} from 'inferno-mobx'
+import {expr, computed} from 'mobx'
 import Avatar from 'app/components/Avatar'
 import Message from './components/Message'
 import compose from 'recompose/compose'
@@ -31,7 +32,42 @@ const NameWrapper = styled.div`
 	line-height: 15.5px;
 `;
 
-function MessagesGroup({messagesGroup, store, currentMatch, muiTheme}) {
+@inject('store')
+@muiThemeable()
+@observer
+class MessagesGroup extends Component {
+	@computed get firstMessage() {
+		return this.props.messagesGroup[0];
+	}
+
+	@computed get target() {
+		const id = this.firstMessage.from;
+		if (id === this.props.store.profile['_id']) {
+			return this.props.store.profile;
+		} else {
+			return this.props.currentMatch.person;
+		}
+	}
+
+	@computed get messages() {
+		const [, ...tailMessages] = this.props.messagesGroup;
+		return tailMessages.map(messageObj => <Message messageObj={messageObj} first={false}/>);
+	}
+
+	render() {
+		return (
+			<OuterWrapper>
+				<AvatarWrapper><Avatar src={this.target.smallPhoto} size={38}/></AvatarWrapper>
+				<NameWrapper theme={this.props.muiTheme}>{this.target.name}</NameWrapper>
+				<Message messageObj={this.firstMessage} first={true}/>
+				{this.messages}
+			</OuterWrapper>
+		);
+	}
+}
+
+export default MessagesGroup
+/*function MessagesGroup({messagesGroup, store, currentMatch, muiTheme}) {
 	const [messageObj, ...tailMessages] = messagesGroup;
 	const messages = tailMessages.map(messageObj => <Message messageObj={messageObj} first={false}/>);
 
@@ -58,4 +94,4 @@ function MessagesGroup({messagesGroup, store, currentMatch, muiTheme}) {
 export default compose(
 	muiThemeable(),
 	observer(['store'])
-)(MessagesGroup)
+)(MessagesGroup)*/

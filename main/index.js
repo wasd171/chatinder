@@ -31,7 +31,7 @@ const installExtensions = async () => {
 			'REACT_DEVELOPER_TOOLS'
 		];
 		const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-		if (forceDownload) {
+		if (forceDownload || true) {
 			for (const name of extensions) {
 				console.log(name);
 				try {

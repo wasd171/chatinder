@@ -1,6 +1,6 @@
 import {ipcRenderer} from 'electron'
 import {TINDER_API, FB_GET_TOKEN_REQUEST, FB_GET_ID_REQUEST, SHOW_NOTIFICATION} from './constants'
-import {toJS} from 'mobx'
+import {toJS, when} from 'mobx'
 import Promise from 'bluebird'
 import parse from 'url-parse'
 
@@ -54,4 +54,11 @@ export function getNormalizedSizeOfGIPHY(message) {
 	}
 
 	return ({height, width})
+}
+
+export function whenLoggedIn(tinder) {
+	return Promise.all([
+		new Promise(resolve => when(() => tinder.historyIsPresent, resolve)),
+		new Promise(resolve => when(() => tinder.profileIsPresent, resolve))
+	]);
 }

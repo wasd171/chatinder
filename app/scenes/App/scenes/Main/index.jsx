@@ -1,12 +1,12 @@
 import Inferno from 'inferno'
+import Component from 'inferno-component'
 import HeaderContainer from './components/HeaderContainer'
 import ProfileHeader from './components/ProfileHeader';
 import MatchesList from './components/MatchesList'
 import ChatSection from './components/ChatSection'
-import compose from 'recompose/compose'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import {observer} from 'inferno-mobx'
-import {expr} from 'mobx'
+import {inject, observer} from 'inferno-mobx'
+import {computed} from 'mobx'
 import styled from 'styled-components'
 
 
@@ -43,10 +43,21 @@ const MainSection = styled(BaseSection)`
 	width: 100%;
 `;
 
-function Main({muiTheme, store}) {
-		const matchesExist = expr(() => (store.matches.size !== 0));
-		const showChat = expr(() => !!(store.currentView.params && store.currentView.params.matchId));
-		const children = !matchesExist
+
+@inject('store')
+@muiThemeable()
+@observer
+class Main extends Component {
+	@computed get matchesExist() {
+		return (this.props.store.matches.size !== 0)
+	}
+
+	@computed get showChat() {
+		return !!(this.props.store.currentView.params && this.props.store.currentView.params.matchId)
+	}
+
+	render() {
+		const children = !this.matchesExist
 			?
 				`Looks like you don't have any matches =(`
 			:
@@ -56,7 +67,7 @@ function Main({muiTheme, store}) {
 						<MatchesList/>
 					</MatchesSection>,
 					<ChatSection
-						show={showChat}
+						show={this.showChat}
 						MainSection={MainSection}
 						HeaderContainer={HeaderContainer}
 						theme={muiTheme}
@@ -67,10 +78,7 @@ function Main({muiTheme, store}) {
 		return (
 			<MainContainer theme={muiTheme}>{children}</MainContainer>
 		)
-
+	}
 }
 
-export default compose(
-	muiThemeable(),
-	observer(['store'])
-)(Main)
+export default Main

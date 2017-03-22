@@ -40,6 +40,8 @@ export const LF_TINDER_PROFILE			= 'LF_TINDER_PROFILE';
 export const LF_TINDER_DEFAULTS			= 'LF_TINDER_DEFAULTS';
 
 export const VIEW_MAIN					= 'VIEW_MAIN';
+export const VIEW_CHAT                  = 'VIEW_CHAT';
+export const VIEW_USER                  = 'VIEW_USER';
 export const VIEW_AUTH					= 'VIEW_AUTH';
 export const VIEW_LOADING				= 'VIEW_LOADING';
 

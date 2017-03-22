@@ -1,6 +1,7 @@
 import Inferno from 'inferno'
-import {observer} from 'inferno-mobx'
-import {expr} from 'mobx'
+import Component from 'inferno-component'
+import {inject, observer} from 'inferno-mobx'
+import {computed} from 'mobx'
 import differenceInSeconds from 'date-fns/difference_in_seconds'
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
 import LinearProgress from 'material-ui/LinearProgress'
@@ -42,27 +43,45 @@ const LoaderContainer = styled.div`
 	overflow: hidden;
 `;
 
-function ChatHeader({store, muiTheme}) {
-	const currentMatch = store.matches.get(store.currentView.params.matchId);
-	const name = expr(() => currentMatch.person.name);
-	const pingTime = currentMatch.person.pingTime;
-	const timeFromNow = differenceInSeconds(store.time, pingTime);
-	const formattedLastSeen = expr(() => {
-		return timeFromNow <= 30 ? 'online' : `last seen ${distanceInWordsToNow(pingTime, {addSuffix: true})}`
-	});
-	const indicator = <LoaderContainer><LinearProgress style={loader}/></LoaderContainer>;
 
-	return (
-		<OuterWrapper>
-			<NameSpan theme={muiTheme}>{name}</NameSpan>
-			<LastSeenContainer theme={muiTheme}>
-				{store.newChatSelected ? indicator : formattedLastSeen}
-			</LastSeenContainer>
-		</OuterWrapper>
-	)
+@inject('store')
+@muiThemeable()
+@observer
+class ChatHeader extends Component {
+	@computed get currentMatch() {
+		return this.props.store.matches.get(this.props.store.currentView.params.matchId);
+	}
+
+	@computed get name() {
+		return this.currentMatch.person.name;
+	}
+
+	@computed get pingTime() {
+		return this.currentMatch.person.pingTime;
+	}
+
+	@computed get timeFromNow() {
+		return differenceInSeconds(this.props.store.time, this.pingTime)
+	}
+
+	@computed get formattedLastSeen() {
+		return timeFromNow <= 30 ? 'online' : `last seen ${distanceInWordsToNow(this.pingTime, {addSuffix: true})}`
+	}
+
+	get indicator() {
+		return <LoaderContainer><LinearProgress style={loader}/></LoaderContainer>;
+	}
+
+	render() {
+		return (
+			<OuterWrapper>
+				<NameSpan theme={muiTheme}>{name}</NameSpan>
+				<LastSeenContainer theme={muiTheme}>
+					{this.props.store.newChatSelected ? this.indicator : this.formattedLastSeen}
+				</LastSeenContainer>
+			</OuterWrapper>
+		)
+	}
 }
 
-export default compose(
-	muiThemeable(),
-	observer(['store'])
-)(ChatHeader)
+export default ChatHeader

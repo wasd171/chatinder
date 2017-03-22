@@ -8,7 +8,8 @@ import Auth from './scenes/Auth'
 import Main from './scenes/Main'
 import LoadingScreen from './scenes/LoadingScreen'
 
-
+@inject('store', 'view')
+@observer
 class App extends Component {
 	@computed get name() {
 		return this.props.store.currentView.name;
@@ -28,4 +29,4 @@ class App extends Component {
 }
 
 
-export default observer(['store'])(App)
+export default App

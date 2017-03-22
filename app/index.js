@@ -11,9 +11,10 @@ import {Provider} from 'inferno-mobx'
 
 import * as Stores from './stores'
 import configureStores from './configureStores'
+import {configureStores as configureStores2} from './stores_v2'
 
 import 'react-virtualized/styles.css'
-import 'simplebar/umd/simplebar.css'
+import 'simplebar/dist/simplebar.css'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import theme from './configureTheme'
 window.muiTheme = theme;
@@ -24,6 +25,8 @@ import {loadingFullScreen} from './styles'
 import 'emojionearea/dist/emojionearea.min.css'
 import './app.global.css'
 // import 'inline?parentId=svg-sprite!emojione/assets/sprites/emojione.sprites.svg'
+
+// import 'inferno-devtools'
 
 function renderApp({node, children}) {
 	console.log('renderApp called');
@@ -57,13 +60,14 @@ async function configureAndRender() {
 
 	console.log('start configure');
 	const store = await configureStores(Stores);
+	const stores = await configureStores2();
 	console.log('end configure');
 	useStrict(true);
 
 	renderApp({
 		node: container, 
 		children: (
-			<Provider store={store}>
+			<Provider store={store} {...stores}>
 				<App/>
 			</Provider>
 		)
@@ -77,7 +81,7 @@ async function configureAndRender() {
 			renderApp({
 				node: container,
 				children: (
-					<Provider store={store}>
+					<Provider store={store} {...stores}>
 						<NewApp/>
 					</Provider>
 				)

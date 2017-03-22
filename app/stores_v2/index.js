@@ -1,0 +1,1 @@
+export {configureStores} from './configureStores'
