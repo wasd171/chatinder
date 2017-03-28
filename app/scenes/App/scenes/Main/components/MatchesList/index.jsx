@@ -38,6 +38,7 @@ const ListWithoutScrollbar = styled(List)`
 @observer
 class MatchesList extends Component {
 	disposer;
+	scrollbar;
 	scrollHandler;
 
 	handleContentScroll = (handler, event) => {

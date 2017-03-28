@@ -4,6 +4,7 @@ import configureTemplate from './configureTemplate'
 import getToken from './getToken'
 import getId from './getId'
 import {TinderApi} from './tinderApi'
+import {GraphQL} from './graphql'
 import showNotification from './showNotification'
 import {FB_GET_TOKEN_REQUEST, FB_GET_ID_REQUEST, TINDER_API, SHOW_NOTIFICATION} from '../app/constants'
 
@@ -85,6 +86,7 @@ app.on('ready', async () => {
 	});
 
 	const tinderApi = new TinderApi(() => logout(mainWindow));
+	const api = new GraphQL(mainWindow.webContents);
 	ipcMain.on(FB_GET_TOKEN_REQUEST, getToken);
 	ipcMain.on(FB_GET_ID_REQUEST, getId);
 	ipcMain.on(TINDER_API, tinderApi.handleRequest);

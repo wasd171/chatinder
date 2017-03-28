@@ -32,12 +32,21 @@ import './app.global.css'
 // import 'inline?parentId=svg-sprite!emojione/assets/sprites/emojione.sprites.svg'
 
 // import 'inferno-devtools'
+import {ApolloClient} from 'apollo-client'
+import {ApolloProvider} from 'react-apollo'
+import {createElectronInterface} from './graphql'
+const electronInterface = createElectronInterface();
+const client = new ApolloClient({
+	networkInterface: electronInterface
+});
 
 function renderApp({node, children}) {
 	console.log('renderApp called');
 	ReactDOM.render(
 		<MuiThemeProvider muiTheme={theme}>
-			{children}
+			<ApolloProvider client={client}>
+				{children}
+			</ApolloProvider>
 		</MuiThemeProvider>,
 		node
 	);

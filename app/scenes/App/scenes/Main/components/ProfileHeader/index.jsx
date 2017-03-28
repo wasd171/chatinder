@@ -4,6 +4,7 @@ import Avatar from 'app/components/Avatar';
 import {inject, observer} from 'mobx-react'
 import styled from 'styled-components';
 import muiThemeable from 'material-ui/styles/muiThemeable'
+import {gql, graphql} from 'react-apollo'
 
 
 const StyledWrapper = styled.div`
@@ -21,20 +22,39 @@ const NameWrapper = styled.span`
     color: ${props => props.theme.palette.textColor}
 `;
 
+const query = gql`
+    query ProfileQuery {
+        profile {
+            smallPhoto
+            name
+        }
+    }
+`;
+
 @inject('store')
 @muiThemeable()
+@graphql(query)
 @observer
 class ProfileHeader extends Component {
-    render() {
-        console.log(this.props.store.profile);
-        
+    renderLoading() {
+        return 'Loading...'
+    }
+
+    renderContent(props) {
+        console.log({props});
+        return [
+            <Avatar src={props.data.profile.smallPhoto} size={34} key='avatar'/>,
+            <NameWrapper theme={props.muiTheme} key='name'>
+                {props.data.profile.name}
+            </NameWrapper>
+        ]
+    }
+
+    render() {       
         return (
             <HeaderContainer>
                 <StyledWrapper>
-                    <Avatar match={{person: this.props.store.profile}} size={34}/>
-                    <NameWrapper theme={this.props.muiTheme}>
-                        {this.props.store.profile.name}
-                    </NameWrapper>
+                    {this.props.data.loading ? this.renderLoading() : this.renderContent(this.props)}
                 </StyledWrapper>
             </HeaderContainer>
         )

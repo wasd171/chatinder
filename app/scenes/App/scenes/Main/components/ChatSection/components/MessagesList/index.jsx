@@ -10,16 +10,20 @@ import {normalizeScrollbar} from 'app/styles'
 import compose from 'recompose/compose'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import DateGroup from './components/DateGroup'
-import SimpleBar from 'simplebar'
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
+import ScrollSync from 'react-virtualized/dist/commonjs/ScrollSync'
+import SimpleBarStandalone from 'app/components/SimpleBarStandalone'
 
 
 const OuterWrapper = styled.div`
 	height: 100%;
 	max-height: 100%;
-	overflow-y: hidden;
-	overflow-x: hidden;
+	overflow-y: scroll;
 	position: relative;
 	display: inline-block;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
 const InnerWrapper = styled.div`
@@ -211,7 +215,7 @@ class MessagesList extends Component {
 
 	componentDidMount() {
 		const node = this.container;
-		new SimpleBar(node, {wrapContent: false, forceEnabled: true});
+		// new SimpleBar(node, {wrapContent: false, forceEnabled: true});
 		const scrollNode = this.scrollContent;
 
 		this.scrollToBottom();
@@ -230,7 +234,7 @@ class MessagesList extends Component {
 
 		this.interval = setInterval(() => {
 			if (node.offsetHeight !== this.cachedOffsetHeight) {
-				node.SimpleBar.recalculate();
+				// node.SimpleBar.recalculate();
 				this.cachedOffsetHeight = node.offsetHeight;
 			}
 
@@ -285,33 +289,23 @@ class MessagesList extends Component {
 		const nodes = this.messagesExist ? this.messageNodes : null;
 
 		return (
-			<OuterWrapper innerRef={linkref(this, 'container')} id="tst">
-				<div className="simplebar-track vertical">
-					<div className="simplebar-scrollbar"></div>
-				</div>
-				<HorizontalScroll>
-					<div className="simplebar-track horizontal">
-						<div className="simplebar-scrollbar"></div>
-					</div>
-				</HorizontalScroll>
-				<div className="simplebar-scroll-content" ref={linkref(this, 'scrollContent')} onScroll={this.unstickBottom} >
-					<div className="simplebar-content">
-						{this.renderLoadingMessage()}
-						{	
-							this.messagesExist && 
-							<Waypoint
-								onEnter={this.triggerLoad}
-								onLeave={this.untriggerLoad}
-								topOffset='-200px'
-								scrollableAncestor={this.scrollContent}
-							/>
-						}
-						<InnerWrapper hasKeyedChildren>
-							{this.messagesExist && this.messageNodes}
-						</InnerWrapper>
-						<Waypoint onEnter={this.stickBottom} scrollableAncestor={this.scrollContent}/>
-						<Anchor innerRef={linkref(this, 'anchor')}/>
-					</div>
+			<OuterWrapper innerRef={linkref(this, 'container')} id="tst" onScroll={this.unstickBottom} >
+				<div ref={linkref(this, 'scrollContent')}>
+					{this.renderLoadingMessage()}
+					{	
+						this.messagesExist && 
+						<Waypoint
+							onEnter={this.triggerLoad}
+							onLeave={this.untriggerLoad}
+							topOffset='-200px'
+							scrollableAncestor={this.scrollContent}
+						/>
+					}
+					<InnerWrapper hasKeyedChildren>
+						{this.messagesExist && this.messageNodes}
+					</InnerWrapper>
+					<Waypoint onEnter={this.stickBottom} scrollableAncestor={this.scrollContent}/>
+					<Anchor innerRef={linkref(this, 'anchor')}/>
 				</div>
 			</OuterWrapper>
 		)
