@@ -101,8 +101,8 @@ class GIFMessage extends Component {
 
 	@action setDimensions = () => {
 		const calculated = getNormalizedSizeOfGIPHY(this.props.message);
-		this.height = calculated.height;
-		this.width = calculated.width;
+		this.height = Math.floor(calculated.height);
+		this.width = Math.floor(calculated.width);
 	};
 
 	handleLoad = (e) => {
@@ -175,8 +175,9 @@ class GIFMessage extends Component {
 
 	renderGIPHY = () => {
 		return (
+			// Using inner div here because Waypoint requires it
 			<Waypoint onLeave={this.stopAnimation}>
-				<div>
+				<div style={{height: this.height, width: this.width}}>
 					<AnimatedGIPHY 
 						src={this.props.message} 
 						onClick={this.stopAnimation} 
