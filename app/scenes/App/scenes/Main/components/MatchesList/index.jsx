@@ -8,7 +8,7 @@ import ScrollSync from 'react-virtualized/dist/commonjs/ScrollSync'
 import styled from 'styled-components'
 import {normalizeScrollbar} from 'app/styles'
 import linkref from 'app/shims/linkref'
-import SimpleBarStandalone from './components/SimpleBarStandalone'
+import SimpleBarStandalone from 'app/components/SimpleBarStandalone'
 
 
 const widthNum = 270;
@@ -38,10 +38,19 @@ const ListWithoutScrollbar = styled(List)`
 @observer
 class MatchesList extends Component {
 	disposer;
+	scrollHandler;
 
 	handleContentScroll = (handler, event) => {
 		this.scrollbar.showScrollbar();
 		handler(event);
+	}
+
+	createScrollHandler = (handler) => {
+		if (!this.scrollHandler) {
+			this.scrollHandler = this.handleContentScroll.bind(this, handler)
+		}
+
+		return this.scrollHandler;
 	}
 
 	handleMouseEnter = () => {
@@ -64,7 +73,7 @@ class MatchesList extends Component {
 				rowRenderer={this.rowRenderer}
 				innerRef={linkref(this, 'list')}
 				sortBy={this.props.sortedIds}
-				onScroll={this.handleContentScroll.bind(this, onScroll)}
+				onScroll={this.createScrollHandler(onScroll)}
 				scrollTop={scrollTop}
 				id="srcl"
 			/>
