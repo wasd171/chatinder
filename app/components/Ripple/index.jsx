@@ -1,9 +1,8 @@
-import Inferno from 'inferno'
-import Component from 'inferno-component'
+import React, {Component} from 'react'
 import {action, observable} from 'mobx'
-import {observer} from 'inferno-mobx'
+import {observer} from 'mobx-react'
 import Promise from 'bluebird'
-import linkref from 'linkref'
+import linkref from 'app/shims/linkref'
 import styled from 'styled-components'
 
 
@@ -19,6 +18,7 @@ const RippleCanvas = styled.canvas`
 	height: ${props => props.height}px;
 `;
 
+@observer
 class Ripple extends Component {
 	componentDidMount() {
 		this.configureCanvasSize();
@@ -54,7 +54,7 @@ class Ripple extends Component {
 	@action handleClick = (e) => {
 		if (this.mounted) {
 			const coordinates = this.normalizeCoordinates(e);
-			const {canvas} = this.refs;
+			const {canvas} = this;
 			const maxRadius = Math.max(canvas.width, canvas.height);
 
 			const circle = {...coordinates, radius: 0, maxRadius};
@@ -66,7 +66,7 @@ class Ripple extends Component {
 
 	@action tick = () => {
 		if (this.mounted) {
-			const {canvas} = this.refs;
+			const {canvas} = this;
 			const ctx = canvas.getContext('2d');
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -95,12 +95,12 @@ class Ripple extends Component {
 	@action configureCanvasSize = async () => {
 		await Promise.delay(20);
 
-		const positions = this.refs.wrapper.getBoundingClientRect();
+		const positions = this.wrapper.getBoundingClientRect();
 		this.setCanvasSize(positions)
 	};
 
 	normalizeCoordinates = (e) => {
-		const {canvas} = this.refs;
+		const {canvas} = this;
 		const rect = canvas.getBoundingClientRect();
 		const {right, left, top, bottom} = rect;
 
@@ -126,4 +126,4 @@ class Ripple extends Component {
 	}
 }
 
-export default observer(Ripple)
+export default Ripple

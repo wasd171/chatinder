@@ -1,13 +1,13 @@
-import Inferno from 'inferno'
-import Component from 'inferno-component'
+import React, {Component} from 'react'
 import Promise from 'bluebird'
 import {observable, action} from 'mobx'
-import {observer} from 'inferno-mobx'
+import {observer} from 'mobx-react'
 // import {getStyles} from './styles'
 import TextFieldHint from 'material-ui/TextField/TextFieldHint'
 import EmojiInput from './components/EmojiInput'
 import TextFieldUnderline from 'material-ui/TextField/TextFieldUnderline'
 import styled from 'styled-components'
+import muiThemeable from 'material-ui/styles/muiThemeable'
 
 // This is a partial rewrite of TextField from material-ui to make it work with Inferno and to fix some bugs
 
@@ -18,6 +18,7 @@ const OuterWrapper = styled.div`
 `;
 
 
+@muiThemeable()
 @observer
 class TextField extends Component {
 	@observable isFocused = false;
@@ -39,7 +40,7 @@ class TextField extends Component {
 		return (
 			<OuterWrapper>
 				<TextFieldHint
-					muiTheme={this.context.muiTheme}
+					muiTheme={this.props.muiTheme}
 					show={!this.props.hasValue}
 					text={this.props.hintText}
 				/>
@@ -53,7 +54,7 @@ class TextField extends Component {
 				<TextFieldUnderline
 					disabled={false}
 					focus={this.isFocused}
-					muiTheme={this.context.muiTheme}
+					muiTheme={this.props.muiTheme}
 				/>
 			</OuterWrapper>
 		)

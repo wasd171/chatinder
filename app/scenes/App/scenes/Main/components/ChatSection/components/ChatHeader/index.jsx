@@ -1,6 +1,5 @@
-import Inferno from 'inferno'
-import Component from 'inferno-component'
-import {inject, observer} from 'inferno-mobx'
+import React, {Component} from 'react'
+import {inject, observer} from 'mobx-react'
 import {computed} from 'mobx'
 import differenceInSeconds from 'date-fns/difference_in_seconds'
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
@@ -65,7 +64,7 @@ class ChatHeader extends Component {
 	}
 
 	@computed get formattedLastSeen() {
-		return timeFromNow <= 30 ? 'online' : `last seen ${distanceInWordsToNow(this.pingTime, {addSuffix: true})}`
+		return this.timeFromNow <= 30 ? 'online' : `last seen ${distanceInWordsToNow(this.pingTime, {addSuffix: true})}`
 	}
 
 	get indicator() {
@@ -75,7 +74,7 @@ class ChatHeader extends Component {
 	render() {
 		return (
 			<OuterWrapper>
-				<NameSpan theme={muiTheme}>{name}</NameSpan>
+				<NameSpan theme={muiTheme}>{this.name}</NameSpan>
 				<LastSeenContainer theme={muiTheme}>
 					{this.props.store.newChatSelected ? this.indicator : this.formattedLastSeen}
 				</LastSeenContainer>

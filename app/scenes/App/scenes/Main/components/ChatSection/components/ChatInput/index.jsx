@@ -1,10 +1,10 @@
-import Component from 'inferno-component'
+import React, {Component} from 'react'
 import {observable, action, computed} from 'mobx'
 import TextField from './components/TextField'
 import SendButton from './components/SendButton'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import transitions from 'material-ui/styles/transitions'
-import {observer} from 'inferno-mobx'
+import {inject, observer} from 'mobx-react'
 import styled from 'styled-components'
 import trim from 'lodash/trim'
 
@@ -30,8 +30,9 @@ const MiddleWrapper = styled.div`
 	width: 100%;
 `;
 
+@inject('store')
 @muiThemeable()
-@observer(['store'])
+@observer
 class ChatInput extends Component {
 	@observable value  = '';
 

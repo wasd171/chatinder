@@ -45,21 +45,21 @@ export default merge(baseConfig, {
 			'process.env.NODE_ENV': JSON.stringify('development')
 		}),
 		// new BabiliPlugin(),
-		new webpack.optimize.CommonsChunkPlugin({
-			name: 'vendor',
-			filename: 'vendor.js',
-			minChunks: function (module, count) {
-				return (
-					module.resource &&
-					module.resource.indexOf(path.resolve('node_modules')) === 0
-				)
-			}
-		}),
+		// new webpack.optimize.CommonsChunkPlugin({
+		// 	name: 'vendor',
+		// 	filename: 'vendor.js',
+		// 	minChunks: function (module, count) {
+		// 		return (
+		// 			module.resource &&
+		// 			module.resource.indexOf(path.resolve('node_modules')) === 0
+		// 		)
+		// 	}
+		// }),
 		new webpack.SourceMapDevToolPlugin({
 			filename: '[file].map',
-			exclude: [
-				'vendor.js'
-			],
+			// exclude: [
+			// 	'vendor.js'
+			// ],
 			module: true,
 			columns: false
 		}),

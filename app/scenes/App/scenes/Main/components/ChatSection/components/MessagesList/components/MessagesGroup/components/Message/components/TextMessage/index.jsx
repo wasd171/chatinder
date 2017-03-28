@@ -1,4 +1,4 @@
-import Inferno from 'inferno'
+import React from 'react'
 import emojione from 'emojione'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'

@@ -1,4 +1,4 @@
-import Inferno from 'inferno'
+import React from 'react'
 import ChatHeader from './components/ChatHeader'
 import MessagesList from './components/MessagesList'
 import ChatInput from './components/ChatInput'
@@ -8,11 +8,11 @@ function ChatSection({show, MainSection, HeaderContainer, theme}) {
 	const children = show
 		?
 			[
-				<HeaderContainer>
+				<HeaderContainer key='header'>
 					<ChatHeader/>
 				</HeaderContainer>,
-				<MessagesList/>,
-				<ChatInput/>
+				<MessagesList key='messages'/>,
+				<ChatInput key='chat'/>
 			]
 		:
 			`Select your match`

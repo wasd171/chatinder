@@ -1,6 +1,6 @@
-import Component from 'inferno-component'
+import React, {Component} from 'react'
 import {computed} from 'mobx'
-import {observer} from 'inferno-mobx'
+import {inject, observer} from 'mobx-react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import compose from 'recompose/compose'
 import styled from 'styled-components'
@@ -25,6 +25,10 @@ const DateWrapper = styled.div`
     color: ${props => props.theme.palette.secondaryTextColor};
 `;
 
+
+@inject('store')
+@muiThemeable()
+@observer
 class DateGroup extends Component {
     @computed get formattedDay() {
         // For auto-recalc
@@ -63,7 +67,4 @@ class DateGroup extends Component {
     )
 }*/
 
-export default compose(
-    muiThemeable(),
-    observer(['store'])
-)(DateGroup)
+export default DateGroup

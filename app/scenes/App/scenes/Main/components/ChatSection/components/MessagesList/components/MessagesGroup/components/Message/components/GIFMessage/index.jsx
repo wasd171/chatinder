@@ -1,10 +1,9 @@
-import Inferno from 'inferno'
-import Component from 'inferno-component'
+import React, {Component} from 'react'
 import CircularProgress from 'material-ui/CircularProgress'
 import {getNormalizedSizeOfGIPHY} from 'app/utils'
 import {observable, action} from 'mobx'
-import {observer} from 'inferno-mobx'
-import linkref from 'linkref'
+import {observer} from 'mobx-react'
+import linkref from 'app/shims/linkref'
 import styled from 'styled-components'
 import Waypoint from 'react-waypoint'
 
@@ -112,7 +111,7 @@ class GIFMessage extends Component {
 	};
 
 	drawOnCanvas = () => {
-		this.refs.canvas.getContext('2d').drawImage(this.giphy, 0, 0, this.width, this.height);
+		this.canvas.getContext('2d').drawImage(this.giphy, 0, 0, this.width, this.height);
 	};
 
 	constructor(props) {
@@ -130,7 +129,7 @@ class GIFMessage extends Component {
 	}
 
 	componentDidUpdate() {
-		const {canvas} = this.refs;
+		const {canvas} = this;
 		if (canvas) {
 			canvas.height = this.height;
 			canvas.width = this.width;

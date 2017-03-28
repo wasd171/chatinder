@@ -1,6 +1,5 @@
-import Inferno from 'inferno'
-import Component from 'inferno-component'
-import linkref from 'linkref'
+import React, {Component} from 'react'
+import linkref from 'app/shims/linkref'
 import $ from 'app/shims/jquery'
 // import emojionearea from 'emojionearea'
 // $.emojioneArea = emojionearea;
@@ -15,7 +14,7 @@ class EmojiInput extends Component {
     }
 
     componentDidMount() {
-        this.textarea = $(this.refs.textarea).emojioneArea({
+        this.textarea = $(this.textarea).emojioneArea({
             autocomplete: false,
             useInternalCDN: false,
             sprite: false,

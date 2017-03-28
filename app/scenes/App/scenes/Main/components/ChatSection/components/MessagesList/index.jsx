@@ -1,10 +1,9 @@
-import Inferno from 'inferno'
-import Component from 'inferno-component'
-import {observer} from 'inferno-mobx'
+import React, {Component} from 'react'
+import {inject, observer} from 'mobx-react'
 import {action, observable, computed, reaction} from 'mobx'
 import Promise from 'bluebird'
 import MessagesGroup from './components/MessagesGroup'
-import linkref from 'linkref'
+import linkref from 'app/shims/linkref'
 import Waypoint from 'react-waypoint'
 import styled from 'styled-components'
 import {normalizeScrollbar} from 'app/styles'
@@ -48,6 +47,9 @@ const Anchor = styled.div`
 	height: 0;
 `;
 
+@inject('store')
+@muiThemeable()
+@observer
 class MessagesList extends Component {
 	disposer;
 	interval;
@@ -80,7 +82,7 @@ class MessagesList extends Component {
 		newIndex = (newIndex < 0) ? 0 : newIndex;
 
 		if (!initial) {
-			const {scrollTop, scrollHeight} = this.refs.scrollContent;
+			const {scrollTop, scrollHeight} = this.scrollContent;
 			this.nodeScrollTop = scrollTop;
 			this.nodeScrollHeight = scrollHeight;
 			this.shouldRestoreScrollPosition = true;
@@ -180,7 +182,7 @@ class MessagesList extends Component {
 	};
 
 	scrollToBottom = () => {
-		this.refs.anchor.scrollIntoView({block: 'end', behaviour: 'smooth'});
+		this.anchor.scrollIntoView({block: 'end', behaviour: 'smooth'});
 	};
 
 	@action stickBottom = () => {
@@ -188,7 +190,7 @@ class MessagesList extends Component {
 	};
 
 	@action unstickBottom = () => {
-		const node = this.refs.scrollContent;
+		const node = this.scrollContent;
 		if (this.keepDown && (node.scrollTop + node.offsetHeight !== node.scrollHeight)) {
 			this.keepDown = false;
 		}
@@ -208,9 +210,9 @@ class MessagesList extends Component {
 	}
 
 	componentDidMount() {
-		const node = this.refs.container;
+		const node = this.container;
 		new SimpleBar(node, {wrapContent: false, forceEnabled: true});
-		const scrollNode = this.refs.scrollContent;
+		const scrollNode = this.scrollContent;
 
 		this.scrollToBottom();
 		this.setRenderFlag(false);
@@ -248,7 +250,7 @@ class MessagesList extends Component {
 	}
 
 	componentDidUpdate() {
-		const node = this.refs.scrollContent;
+		const node = this.scrollContent;
 		if (this.forceScrollBottom) {
 			this.forceScrollBottom = false;
 			this.scrollToBottom();
@@ -301,13 +303,13 @@ class MessagesList extends Component {
 								onEnter={this.triggerLoad}
 								onLeave={this.untriggerLoad}
 								topOffset='-200px'
-								scrollableAncestor={this.refs.scrollContent}
+								scrollableAncestor={this.scrollContent}
 							/>
 						}
 						<InnerWrapper hasKeyedChildren>
 							{this.messagesExist && this.messageNodes}
 						</InnerWrapper>
-						<Waypoint onEnter={this.stickBottom} scrollableAncestor={this.refs.scrollContent}/>
+						<Waypoint onEnter={this.stickBottom} scrollableAncestor={this.scrollContent}/>
 						<Anchor innerRef={linkref(this, 'anchor')}/>
 					</div>
 				</div>
@@ -317,7 +319,4 @@ class MessagesList extends Component {
 }
 
 
-export default compose(
-	muiThemeable(),
-	observer(['store'])
-)(MessagesList)
+export default MessagesList

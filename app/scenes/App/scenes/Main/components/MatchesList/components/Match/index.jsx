@@ -1,7 +1,6 @@
-import Inferno from 'inferno'
-import Component from 'inferno-component'
+import React, {Component} from 'react'
 import {computed} from 'mobx'
-import {observer} from 'inferno-mobx'
+import {inject, observer} from 'mobx-react'
 import Avatar from 'app/components/Avatar'
 import {isGIPHY} from 'app/utils'
 import muiThemeable from 'material-ui/styles/muiThemeable'
@@ -48,9 +47,9 @@ const MessageContainer = styled.div`
 	font-size: 14px;
 `;
 
-
+@inject('store')
 @muiThemeable()
-@observer(['store'])
+@observer
 class Match extends Component {
 	get isSelected() {
 		const {store, match} = this.props;

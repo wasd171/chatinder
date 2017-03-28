@@ -53,21 +53,13 @@ export default {
 		extensions: ['.js', '.jsx', '.json'],
 		mainFields: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main'],
 		alias: {
-			'react': 'inferno-compat',
-			'react-dom': 'inferno-compat',
-			'react-dom/server': 'inferno-compat',
 			'app': path.join(__dirname, '..', 'app'),
 			'superagent': 'superagent/lib/client.js',
-			'emitter': 'component-emitter',
-			'reduce': 'reduce-component'
+			// 'emitter': 'component-emitter',
+			// 'reduce': 'reduce-component'
 		}
 	},
-	plugins:   [
-		new webpack.ProvidePlugin({
-			"window.React": "inferno-compat",
-			'Inferno': 'inferno'
-		})
-	],
+	plugins:   [],
 	externals: [
 		// put your node 3rd party libraries which can't be built with webpack here
 		// (mysql, mongodb, and so on..)

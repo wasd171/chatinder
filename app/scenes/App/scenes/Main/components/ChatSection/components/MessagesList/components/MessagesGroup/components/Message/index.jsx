@@ -1,4 +1,4 @@
-import Inferno from 'inferno'
+import React from 'react'
 import {isGIPHY} from 'app/utils'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import TextMessage from './components/TextMessage'

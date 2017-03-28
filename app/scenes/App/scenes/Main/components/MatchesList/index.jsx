@@ -1,13 +1,13 @@
-import Component from 'inferno-component'
+import React, {Component} from 'react'
 import {computed, reaction, observable, action} from 'mobx'
-import {observer} from 'inferno-mobx'
+import {inject, observer} from 'mobx-react'
 import Match from './components/Match'
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
 import List from 'react-virtualized/dist/commonjs/List'
 import ScrollSync from 'react-virtualized/dist/commonjs/ScrollSync'
 import styled from 'styled-components'
 import {normalizeScrollbar} from 'app/styles'
-import linkref from 'linkref'
+import linkref from 'app/shims/linkref'
 import SimpleBarStandalone from './components/SimpleBarStandalone'
 
 
@@ -34,16 +34,18 @@ const ListWithoutScrollbar = styled(List)`
 `;
 
 
+@inject('store')
+@observer
 class MatchesList extends Component {
 	disposer;
 
 	handleContentScroll = (handler, event) => {
-		this.refs.scrollbar.showScrollbar();
+		this.scrollbar.showScrollbar();
 		handler(event);
 	}
 
 	handleMouseEnter = () => {
-		this.refs.scrollbar.showScrollbar();
+		this.scrollbar.showScrollbar();
 	}
 
 	renderAutoSizer = ({clientHeight, clientWidth, onScroll, scrollHeight, scrollLeft, scrollTop, scrollWidth}) => (
@@ -98,7 +100,7 @@ class MatchesList extends Component {
 		this.disposer = reaction(
 			() => this.props.store.sortedIds,
 			() => {
-				this.refs.list.forceUpdateGrid();
+				this.list.forceUpdateGrid();
 			}
 		)
 	}
@@ -109,6 +111,7 @@ class MatchesList extends Component {
 	}
 
 	render() {
+		console.log('MatchesList');
 		return (
 			<MatchesListContainer>
 				<ScrollSync>
@@ -185,4 +188,4 @@ class MatchesList extends Component {
 	)
 }*/
 
-export default observer(['store'])(MatchesList)
+export default MatchesList

@@ -1,4 +1,4 @@
-import Inferno from 'inferno'
+import React from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import FlatButton from 'material-ui/FlatButton'
 

@@ -4,7 +4,9 @@
     "transform-class-properties",
     "transform-es2015-destructuring",
     "transform-object-rest-spread",
-    ["babel-plugin-inferno", {"imports": true}],
     ["fast-async"]
+  ],
+  "presets": [
+    "babel-preset-react"
   ]
 }

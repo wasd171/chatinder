@@ -1,5 +1,5 @@
-import Inferno from 'inferno'
-import {observer} from 'inferno-mobx'
+import React from 'react'
+import {observer} from 'mobx-react'
 import styled from 'styled-components'
 
 

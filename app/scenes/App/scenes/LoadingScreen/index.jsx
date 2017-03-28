@@ -1,5 +1,5 @@
-import Inferno from 'inferno'
-import {observer} from 'inferno-mobx'
+import React, {Component} from 'react'
+import {inject, observer} from 'mobx-react'
 import CircularProgress from 'material-ui/CircularProgress'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import compose from 'recompose/compose'
@@ -25,7 +25,7 @@ const ProgressWrapper = styled.div`
 	margin: auto;
 `;
 
-export function LoadingScreen({store, title, muiTheme}) {
+/*export function LoadingScreen({store, title, muiTheme}) {
 	console.log('LoadingScreen render');
 	return (
 		<OuterWrapper>
@@ -58,4 +58,23 @@ export function LoadingScreen({store, title, muiTheme}) {
 export default compose(
 	muiThemeable(),
 	observer(['store'])
-)(LoadingScreen)
+)(LoadingScreen)*/
+
+@inject('store')
+@observer
+class LoadingScreen extends Component {
+	render() {
+		return (
+			<OuterWrapper>
+				<div>
+					<TitleWrapper theme={muiTheme}>{title || this.props.store.currentView.params.title}</TitleWrapper>
+					<ProgressWrapper>
+						<CircularProgress size={100} thickness={3}/>
+					</ProgressWrapper>
+				</div>
+			</OuterWrapper>
+		)
+	}
+}
+
+export default LoadingScreen

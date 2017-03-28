@@ -1,9 +1,9 @@
 // this is a partial rewrite of SimpleBar
-import Component from 'inferno-component'
-import {observer} from 'inferno-mobx'
+import React, {Component} from 'react'
+import {observer} from 'mobx-react'
 import {observable, action} from 'mobx'
 import styled from 'styled-components'
-import linkref from 'linkref'
+import linkref from 'app/shims/linkref'
 
 
 const Track = styled.div`
@@ -54,7 +54,7 @@ class SimpleBarStandalone extends Component {
     startDrag = (event) => {
         event.preventDefault();
         
-        this.dragOffset = event.pageY - this.refs.scrollbar.getBoundingClientRect().top;
+        this.dragOffset = event.pageY - this.scrollbar.getBoundingClientRect().top;
         document.addEventListener('mousemove', this.drag);
         document.addEventListener('mouseup', this.endDrag);
     }
@@ -62,7 +62,7 @@ class SimpleBarStandalone extends Component {
     drag = (event) => {
         event.preventDefault();
 
-        const dragPos = event.pageY - this.refs.track.getBoundingClientRect().top - this.dragOffset;
+        const dragPos = event.pageY - this.track.getBoundingClientRect().top - this.dragOffset;
         const dragPerc = Math.max(Math.min(dragPos / this.props.clientHeight, 1), 0);
         const scrollPos = dragPerc * (this.props.scrollHeight - this.props.clientHeight);
 

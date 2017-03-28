@@ -1,6 +1,5 @@
-import Inferno from 'inferno'
-import Component from 'inferno-component'
-import {inject, observer} from 'inferno-mobx'
+import React, {Component} from 'react'
+import {inject, observer} from 'mobx-react'
 import {expr, computed} from 'mobx'
 import Avatar from 'app/components/Avatar'
 import Message from './components/Message'
@@ -51,15 +50,15 @@ class MessagesGroup extends Component {
 
 	@computed get messages() {
 		const [, ...tailMessages] = this.props.messagesGroup;
-		return tailMessages.map(messageObj => <Message messageObj={messageObj} first={false}/>);
+		return tailMessages.map(messageObj => <Message messageObj={messageObj} first={false} key={messageObj['_id']}/>);
 	}
 
 	render() {
 		return (
 			<OuterWrapper>
-				<AvatarWrapper><Avatar src={this.target.smallPhoto} size={38}/></AvatarWrapper>
-				<NameWrapper theme={this.props.muiTheme}>{this.target.name}</NameWrapper>
-				<Message messageObj={this.firstMessage} first={true}/>
+				<AvatarWrapper key='avatar'><Avatar src={this.target.smallPhoto} size={38}/></AvatarWrapper>
+				<NameWrapper theme={this.props.muiTheme} key='name'>{this.target.name}</NameWrapper>
+				<Message messageObj={this.firstMessage} first={true} key='firstMessage'/>
 				{this.messages}
 			</OuterWrapper>
 		);

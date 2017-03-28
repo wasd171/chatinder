@@ -1,7 +1,7 @@
+import React, {Component} from 'react';
 import HeaderContainer from '../HeaderContainer';
-import Component from 'inferno-component';
 import Avatar from 'app/components/Avatar';
-import {inject, observer} from 'inferno-mobx'
+import {inject, observer} from 'mobx-react'
 import styled from 'styled-components';
 import muiThemeable from 'material-ui/styles/muiThemeable'
 
@@ -27,6 +27,7 @@ const NameWrapper = styled.span`
 class ProfileHeader extends Component {
     render() {
         console.log(this.props.store.profile);
+        
         return (
             <HeaderContainer>
                 <StyledWrapper>

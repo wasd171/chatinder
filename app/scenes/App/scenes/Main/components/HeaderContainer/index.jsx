@@ -1,4 +1,4 @@
-import Inferno from 'inferno'
+import React, {Component} from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
 
@@ -10,7 +10,19 @@ const OuterWrapper = styled.div`
 	width: 100%;
 `;
 
-function HeaderContainer({muiTheme, children}) {
+@muiThemeable()
+class HeaderContainer extends Component {
+	render() {
+		return (
+			<OuterWrapper theme={this.props.muiTheme}>
+				{this.props.children}
+			</OuterWrapper>
+		)
+	}
+}
+
+export default HeaderContainer
+/*function HeaderContainer({muiTheme, children}) {
 	return (
 		<OuterWrapper theme={muiTheme}>
 			{children}
@@ -18,4 +30,4 @@ function HeaderContainer({muiTheme, children}) {
 	)
 }
 
-export default muiThemeable()(HeaderContainer)
+export default muiThemeable()(HeaderContainer)*/

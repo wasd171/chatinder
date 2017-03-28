@@ -2,9 +2,12 @@
 import {useStrict} from 'mobx'
 import Promise from 'bluebird'
 
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Provider} from 'mobx-react'
 // require('inferno-devtools');
-import Inferno from 'inferno'
-import {Provider} from 'inferno-mobx'
+// import Inferno from 'inferno'
+// import {Provider} from 'mobx-react'
 //if (process.env.NODE_ENV === 'development') {
 	
 //}
@@ -16,6 +19,8 @@ import {configureStores as configureStores2} from './stores_v2'
 import 'react-virtualized/styles.css'
 import 'simplebar/dist/simplebar.css'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import TapPlugin from 'react-tap-event-plugin'
+TapPlugin();
 import theme from './configureTheme'
 window.muiTheme = theme;
 import App from './scenes/App'
@@ -30,7 +35,7 @@ import './app.global.css'
 
 function renderApp({node, children}) {
 	console.log('renderApp called');
-	Inferno.render(
+	ReactDOM.render(
 		<MuiThemeProvider muiTheme={theme}>
 			{children}
 		</MuiThemeProvider>,
@@ -60,16 +65,16 @@ async function configureAndRender() {
 
 	console.log('start configure');
 	const store = await configureStores(Stores);
-	const stores = await configureStores2();
+	// const stores = await configureStores2();
 	console.log('end configure');
 	useStrict(true);
 
 	renderApp({
 		node: container, 
 		children: (
-			<Provider store={store} {...stores}>
+			<Provider store={store}>
 				<App/>
-			</Provider>
+			</Provider>	
 		)
 	});
 
@@ -81,7 +86,7 @@ async function configureAndRender() {
 			renderApp({
 				node: container,
 				children: (
-					<Provider store={store} {...stores}>
+					<Provider store={store}>
 						<NewApp/>
 					</Provider>
 				)

@@ -1,6 +1,5 @@
-import Inferno from 'inferno'
-import Component from 'inferno-component'
-import {observer, inject} from 'inferno-mobx'
+import React, {Component} from 'react'
+import {observer, inject} from 'mobx-react'
 import {computed} from 'mobx'
 
 import {VIEW_AUTH, VIEW_MAIN, VIEW_LOADING} from 'app/constants'
@@ -8,7 +7,7 @@ import Auth from './scenes/Auth'
 import Main from './scenes/Main'
 import LoadingScreen from './scenes/LoadingScreen'
 
-@inject('store', 'view')
+@inject('store')
 @observer
 class App extends Component {
 	@computed get name() {

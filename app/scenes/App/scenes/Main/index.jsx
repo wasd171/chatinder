@@ -1,11 +1,10 @@
-import Inferno from 'inferno'
-import Component from 'inferno-component'
+import React, {Component} from 'react'
 import HeaderContainer from './components/HeaderContainer'
 import ProfileHeader from './components/ProfileHeader';
 import MatchesList from './components/MatchesList'
 import ChatSection from './components/ChatSection'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import {inject, observer} from 'inferno-mobx'
+import {inject, observer} from 'mobx-react'
 import {computed} from 'mobx'
 import styled from 'styled-components'
 
@@ -19,26 +18,41 @@ const MainContainer = styled.div`
 	min-height: 100vh;
 `;
 
-const BaseSection = styled.section`
-	height: 100vh;
-	max-height: 100vh;
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	overflow-x: hidden;
-	&::-webkit-scrollbar {
-		display: none;
-	}
-`;
+// const BaseSection = styled.section`
+// 	height: 100vh;
+// 	max-height: 100vh;
+// 	position: relative;
+// 	display: flex;
+// 	flex-direction: column;
+// 	overflow-x: hidden;
+// 	&::-webkit-scrollbar {
+// 		display: none;
+// 	}
+// `;
+function BaseSection(el) {
+	return (
+		el`
+			height: 100vh;
+			max-height: 100vh;
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			overflow-x: hidden;
+			&::-webkit-scrollbar {
+				display: none;
+			}
+		`
+	)
+}
 
-const MatchesSection = styled(BaseSection)`
+const MatchesSection = styled(BaseSection(styled.aside))`
 	background-color: ${props => props.theme.palette.canvasColor}
 	border-right: 1px solid ${props => props.theme.palette.borderColor};
 	width: 270px;
 	min-width: 270px;
 `;
 
-const MainSection = styled(BaseSection)`
+const MainSection = styled(BaseSection(styled.main))`
 	background-color: ${props => props.theme.palette.canvasColor}
 	width: 100%;
 `;
@@ -62,7 +76,7 @@ class Main extends Component {
 				`Looks like you don't have any matches =(`
 			:
 				[
-					<MatchesSection theme={muiTheme}>
+					<MatchesSection theme={muiTheme} key="matches">
 						<ProfileHeader/>
 						<MatchesList/>
 					</MatchesSection>,
@@ -71,6 +85,7 @@ class Main extends Component {
 						MainSection={MainSection}
 						HeaderContainer={HeaderContainer}
 						theme={muiTheme}
+						key="chat"
 					/>
 				]
 			;

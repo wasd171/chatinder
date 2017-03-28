@@ -1,6 +1,6 @@
-import Inferno from 'inferno'
+import React, {Component} from 'react'
 import FacebookLoginButton from './components/FacebookLoginButton'
-import {observer} from 'inferno-mobx'
+import {inject, observer} from 'mobx-react'
 import styled from 'styled-components'
 
 
@@ -11,7 +11,7 @@ const AuthWrapper = styled.div`
 	justify-content: space-around;
 `;
 
-function Auth({store}) {
+/*function Auth({store}) {
 	return (
 		<AuthWrapper>
 			<FacebookLoginButton onClick={store.handleLoginButtonClick}/>
@@ -19,4 +19,18 @@ function Auth({store}) {
 	)
 }
 
-export default observer(['store'])(Auth)
+export default observer(['store'])(Auth)*/
+
+@inject('store')
+@observer
+class Auth extends Component {
+	render() {
+		return (
+			<AuthWrapper>
+				<FacebookLoginButton onClick={this.props.store.handleLoginButtonClick}/>
+			</AuthWrapper>
+		)
+	}
+}
+
+export default Auth
