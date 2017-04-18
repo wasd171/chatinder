@@ -4,25 +4,13 @@ import ProfileHeader from './components/ProfileHeader';
 import MatchesList from './components/MatchesList'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
-import {gql, graphql} from 'react-apollo'
+import {graphql} from 'react-apollo'
 import {observable, action} from 'mobx'
 import {observer} from 'mobx-react'
 import RoutedSection from './components/RoutedSection'
+import checkDoMatchesExist from './checkMutation.graphql'
+import startSubscription from './subscribeMutation.graphql'
 
-
-const checkDoMatchesExist = gql`
-	mutation checkDoMatchesExistAndFetchHistory {
-		checkDoMatchesExist
-	}
-`;
-
-const startSubscription = gql`
-	mutation startSubscription {
-		subscribeToUpdates {
-			status
-		}
-	}
-`;
 
 const MainContainer = styled.div`
 	display: flex;
