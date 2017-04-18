@@ -1,0 +1,54 @@
+{
+  "env": {
+    "development": {
+      "application/javascript": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "electron": 1.6
+              }
+            }
+          ],
+          "react",
+          "flow"
+        ],
+        "plugins": [
+          ["babel-plugin-root-import", [{
+            "rootPathSuffix": "src"
+          }]],
+          "transform-decorators-legacy",
+          "transform-class-properties",
+          "transform-object-rest-spread"
+        ],
+        "sourceMaps": "inline"
+      }
+    },
+    "production": {
+      "application/javascript": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "electron": 1.6
+              }
+            }
+          ],
+          "react",
+          "flow"
+        ],
+        "plugins": [
+          ["babel-plugin-root-import", [{
+            "rootPathSuffix": "src"
+          }]],
+          "transform-decorators-legacy",
+          "transform-class-properties",
+          "transform-object-rest-spread"
+        ],
+        "sourceMaps": "none"
+      }
+    }
+  }
+}

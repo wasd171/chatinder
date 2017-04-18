@@ -1,0 +1,78 @@
+body {
+    min-height: 100vh;
+    max-height: 100vh;
+    min-width: 100vw;
+    max-width: 100vw;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: Roboto, sans-serif;
+    overflow: hidden;
+}
+
+* {
+    outline: none;
+    box-sizing: border-box
+}
+
+.emojione {
+    zoom: calc(20/64);
+    margin: 0 calc(64*.1em/20) 0 calc(64*.2em/20);
+    -webkit-user-select: text;
+    user-select: text;
+    vertical-align: -.5em;
+    cursor: text;
+}
+
+.emojionearea {
+    border: none;
+    box-shadow: none;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    max-width: 100%;
+    width: 100%;
+    background-color: transparent;
+}
+
+.emojionearea.focused {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.emojionearea .emojionearea-editor {
+    min-height: 24px;
+    max-height: calc(6*24px);
+    line-height: 24px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    width: 100%;
+    max-width: 100%;
+    word-break: break-all;
+    overflow: hidden;
+    display: inline-block;
+    resize: none;
+}
+
+.emojionearea-editor::-webkit-scrollbar, .emojionearea-scroll-area::-webkit-scrollbar {
+    width: 11px;
+    background-color: transparent;
+    overflow: visible;
+}
+
+.emojionearea-editor::-webkit-scrollbar-track, .emojionearea-scroll-area::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.emojionearea-editor::-webkit-scrollbar-thumb, .emojionearea-scroll-area::-webkit-scrollbar-thumb {
+    border: 2px solid rgba(0, 0, 0, 0);
+    border-radius: 7px;
+    min-height: 14px;
+    transition: opacity 0.2s linear;
+    background: rgba(108, 110, 113, 0.7);
+    background-clip: padding-box;
+}
+
+.emojionearea .emojionearea-button {
+    top: -5px;
+}

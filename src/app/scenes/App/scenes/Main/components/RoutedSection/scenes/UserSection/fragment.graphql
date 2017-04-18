@@ -1,0 +1,34 @@
+fragment personInfo on Person {
+    _id
+    formattedName
+    birthDate
+    formattedBio
+    galleryPhotos {
+        original
+    }
+    schools {
+        id
+        name
+    }
+    distanceKm
+    jobs {
+        company {
+            name
+        }
+        title {
+            name
+        }
+    }
+    connectionCount
+    commonConnections {
+        id
+        name
+        photo {
+            small
+        }
+    }
+    commonInterests {
+        id
+        name
+    }
+}

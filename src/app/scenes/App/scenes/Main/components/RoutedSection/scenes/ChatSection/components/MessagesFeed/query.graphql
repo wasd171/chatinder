@@ -1,0 +1,24 @@
+query getMatchWithMessages($id: String!) {
+    match(id: $id) {
+        _id
+        person {
+            _id
+            name
+            smallPhoto
+        }
+        messages {
+            _id
+            from
+            first
+            firstInNewDay
+            sentDay
+            sentTime
+            sentDate
+            formattedMessage
+        }
+    }
+    profile {
+        name
+        smallPhoto
+    }
+}

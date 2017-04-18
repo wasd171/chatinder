@@ -1,0 +1,11 @@
+[ignore]
+.*/node_modules/.*
+[include]
+
+[libs]
+
+[options]
+esproposal.decorators=ignore
+experimental.const_params=true
+unsafe.enable_getters_and_setters=true
+module.name_mapper='^~/\(.*\)$' -> '<PROJECT_ROOT>/src/\1'
