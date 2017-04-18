@@ -1,8 +1,8 @@
 {
-  "name": "chatinder-forge",
-  "productName": "chatinder-forge",
-  "version": "1.0.0",
-  "description": "My Electron application description",
+  "name": "chatinder",
+  "productName": "Chatinder",
+  "version": "0.0.1",
+  "description": "Unofficial desktop chat client for Tinder",
   "main": "src/server.js",
   "scripts": {
     "start": "electron-forge start",
@@ -38,7 +38,7 @@
       },
       "windowsStoreConfig": {
         "packageName": "",
-        "name": "chatinderforge"
+        "name": "chatinder"
       }
     }
   },
