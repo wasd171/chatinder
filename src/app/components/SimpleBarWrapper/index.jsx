@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 
 const Wrapper = styled.div`
-    height: 100% 
+    height: 100%;
 	max-width: 100%;
 `;
 
