@@ -76,6 +76,8 @@
     "emojionearea": "^3.1.5",
     "flow-bin": "^0.44.0",
     "graphql-tag": "^2.0.0",
+    "is-online": "^7.0.0",
+    "is-reachable": "^2.3.2",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "material-ui": "^0.17.4",
