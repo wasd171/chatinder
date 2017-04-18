@@ -8,17 +8,11 @@
             "type": "node",
             "request": "launch",
             "name": "Electron Main",
-            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron-forge-vscode-nix",
             "windows": {
-                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron-forge-vscode-win.cmd"
             },
-            "runtimeArgs": [
-                ".",
-                "--debug-brk=5858",
-                "--nolazy"
-            ],
-            "protocol": "legacy",
-            "port": 5858
+            "cwd": "${workspaceRoot}"
         }
     ]
 }
