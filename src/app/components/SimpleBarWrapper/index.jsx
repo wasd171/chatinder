@@ -14,7 +14,7 @@ class SimpleBarWrapper extends Component {
     root;
 
     componentDidMount() {
-        this.simplebar = new Simplebar(this.root, {wrapContent: false});
+        this.simplebar = new Simplebar(this.root, {wrapContent: false, forceEnabled: true});
     }
 
     componentWillUnmount() {
