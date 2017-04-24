@@ -147,9 +147,9 @@ any-promise@^1.0.0, any-promise@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/any-promise/-/any-promise-1.3.0.tgz#abc6afeedcea52e809cdc0376aed3ce39635d17f"
 
-apollo-client@^1.0.2, apollo-client@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-1.0.3.tgz#668dc4f17e0f516488a0bad99141d6d237499927"
+apollo-client@^1.0.2, apollo-client@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-1.0.4.tgz#af75db8cdd27e08a835ddfb39807849e178540f9"
   dependencies:
     graphql "^0.9.3"
     graphql-anywhere "^3.0.1"
@@ -2246,7 +2246,7 @@ electron@1.6.2:
     electron-download "^3.0.1"
     extract-zip "^1.0.3"
 
-emojione@>=2.0.1, emojione@^2.2.7:
+emojione@2, emojione@>=2.0.1:
   version "2.2.7"
   resolved "https://registry.yarnpkg.com/emojione/-/emojione-2.2.7.tgz#46457cf6b9b2f8da13ae8a2e4e547de06ee15e96"
 
@@ -3014,10 +3014,6 @@ graceful-fs@~1.2.0:
 graphql-anywhere@^3.0.0, graphql-anywhere@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/graphql-anywhere/-/graphql-anywhere-3.0.1.tgz#73531db861174c8f212eafb9f8e84944b38b4e5a"
-
-graphql-tag@^1.3.1:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-1.3.2.tgz#7abb3a8fd9f3415d07163314ed237061c785b759"
 
 graphql-tag@^2.0.0:
   version "2.0.0"
@@ -5352,13 +5348,13 @@ react-addons-transition-group@^15.4.0:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-react-apollo@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-1.0.2.tgz#752e86493e8d5c609d6435d67b202ff68c850e26"
+react-apollo@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-1.1.0.tgz#0c5027da72420919b62083e4c473cf406959892c"
   dependencies:
     apollo-client "^1.0.2"
     graphql-anywhere "^3.0.0"
-    graphql-tag "^1.3.1"
+    graphql-tag "^2.0.0"
     hoist-non-react-statics "^1.2.0"
     invariant "^2.2.1"
     lodash.flatten "^4.2.0"
@@ -5960,9 +5956,9 @@ simple-assign@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/simple-assign/-/simple-assign-0.1.0.tgz#17fd3066a5f3d7738f50321bb0f14ca281cc4baa"
 
-simplebar@^2.3.0:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/simplebar/-/simplebar-2.3.1.tgz#a050b61472baeb4461cc1e43d9c1d3ea99deba55"
+simplebar@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/simplebar/-/simplebar-2.3.2.tgz#8c54492a84f6fcb8ec07bd35e170ff374a3fabf3"
   dependencies:
     babel-runtime "^6.11.6"
     lodash.debounce "^4.0.8"
