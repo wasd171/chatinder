@@ -1,5 +1,8 @@
 // @flow
-export default `
+import gql from 'graphql-tag'
+
+
+export default gql`
     type Profile {
         smallPhoto: String!
         name: String!
