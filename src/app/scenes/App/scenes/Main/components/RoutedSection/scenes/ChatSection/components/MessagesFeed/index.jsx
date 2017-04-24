@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {inject, observer} from 'mobx-react'
-import {gql, graphql} from 'react-apollo'
+import {graphql} from 'react-apollo'
 import {AutoSizer, CellMeasurer, CellMeasurerCache, List, ScrollSync} from 'react-virtualized'
 import GenericMessage from './components/GenericMessage'
 import SimpleBarStandalone from '~/app/components/SimpleBarStandalone'

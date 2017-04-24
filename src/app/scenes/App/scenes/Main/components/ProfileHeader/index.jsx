@@ -3,17 +3,8 @@ import HeaderContainer from '~/app/components/HeaderContainer'
 import Avatar from '~/app/components/Avatar'
 import styled from 'styled-components'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import {gql, graphql} from 'react-apollo'
-
-
-const profileQuery = gql`
-    query ProfileQuery {
-        profile {
-            smallPhoto
-            name
-        }
-    }
-`;
+import {graphql} from 'react-apollo'
+import profileQuery from './query.graphql'
 
 const StyledWrapper = styled.div`
     display: flex;

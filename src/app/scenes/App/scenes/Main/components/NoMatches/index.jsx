@@ -2,16 +2,9 @@ import React, {Component} from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
 import {RaisedButton} from 'material-ui'
-import {gql, graphql} from 'react-apollo'
+import {graphql} from 'react-apollo'
+import logoutMutation from './mutation.graphql'
 
-
-const logoutMutation = gql`
-    mutation logout {
-        logout {
-            status
-        }
-    }
-`;
 
 const Wrapper = styled.div`
     height: 100%;

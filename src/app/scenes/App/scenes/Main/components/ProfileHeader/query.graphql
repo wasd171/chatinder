@@ -1,0 +1,6 @@
+query ProfileQuery {
+    profile {
+        smallPhoto
+        name
+    }
+}

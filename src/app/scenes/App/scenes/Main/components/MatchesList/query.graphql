@@ -1,0 +1,12 @@
+query matchesQuery {
+    matches {
+        _id
+        lastMessage
+        lastActivityDate
+        person {
+            _id
+            name
+            smallPhoto
+        }
+    }
+}

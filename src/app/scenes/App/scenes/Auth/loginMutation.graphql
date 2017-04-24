@@ -1,5 +1,5 @@
 mutation loginMutation {
-    login {
+    login(silent: false) {
         status
     }
 }

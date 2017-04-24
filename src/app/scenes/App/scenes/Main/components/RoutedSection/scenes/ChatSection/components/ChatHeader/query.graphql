@@ -1,0 +1,9 @@
+query getMatch($id: String!) {
+    match(id: $id) {
+        _id
+        person {
+            _id
+            name
+        }
+    }
+}

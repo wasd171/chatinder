@@ -7,25 +7,11 @@ import styled from 'styled-components'
 import {normalizeScrollbar} from '~/app/styles'
 import linkref from '~/app/shims/linkref'
 import SimpleBarStandalone from '~/app/components/SimpleBarStandalone'
-import {gql, graphql} from 'react-apollo'
+import {graphql} from 'react-apollo'
 import {ipcRenderer} from 'electron'
 import {SUBSCRIPTION_MATCHES_ALL} from '~/shared/constants'
+import matchesQuery from './query.graphql'
 
-
-const matchesQuery = gql`
-	query matchesQuery {
-		matches {
-			_id
-			lastMessage
-			lastActivityDate
-			person {
-				_id
-				name
-				smallPhoto
-			}
-		}
-	}
-`;
 
 function sorter(a, b) {
     return (Date.parse(b.lastActivityDate) - Date.parse(a.lastActivityDate))

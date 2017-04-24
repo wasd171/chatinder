@@ -7,16 +7,9 @@ import transitions from 'material-ui/styles/transitions'
 import {inject, observer} from 'mobx-react'
 import styled from 'styled-components'
 import trim from 'lodash/trim'
-import {gql, graphql} from 'react-apollo'
+import {graphql} from 'react-apollo'
+import sendMessageMutation from './mutation.graphql'
 
-
-const sendMessageMutation = gql`
-	mutation sendMessageMutation($id: String!, $message: String!) {
-		sendMessage(id: $id, message: $message) {
-			_id
-		}
-	}
-`;
 
 const padding = 10;
 

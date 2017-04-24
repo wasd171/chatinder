@@ -3,20 +3,9 @@ import {inject} from 'mobx-react'
 import {computed} from 'mobx'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
-import {gql, graphql} from 'react-apollo'
+import {graphql} from 'react-apollo'
+import queryName from './query.graphql'
 
-
-const queryName = gql`
-	query getMatch($id: String!) {
-		match(id: $id) {
-			_id
-			person {
-				_id
-				name
-			}
-		}
-	}
-`;
 
 const OuterWrapper = styled.div`
 	display: flex;
