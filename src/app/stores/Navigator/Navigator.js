@@ -1,6 +1,6 @@
 import {configureRouter} from './configureRouter'
 import {VIEW_AUTH, VIEW_MAIN, VIEW_CHAT, VIEW_USER, VIEW_LOADING} from '~/app/constants'
-import mutation from './showWindow'
+import mutation from './showWindow.graphql'
 
 
 export class Navigator {
