@@ -6,9 +6,9 @@ import login from './login'
 import Promise from 'bluebird'
 
 
-type tokenType = string | undefined;
-type expiresAtType = number | undefined;
-type idType = string | undefined;
+type tokenType = string | void;
+type expiresAtType = number | void;
+type idType = string | void;
 interface fbProps {
     token: tokenType,
     expiresAt: expiresAtType,
