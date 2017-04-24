@@ -1,6 +1,6 @@
 import Promise from 'bluebird'
 import isAuthorized from './isAuthorized'
-import {VIEW_MAIN, VIEW_AUTH} from '~/app/constants'
+import {VIEW_MAIN, VIEW_AUTH} from '~/shared/constants'
 
 
 export const canActivateAuth = (router, ctx) => async (toState, fromState, done) => {

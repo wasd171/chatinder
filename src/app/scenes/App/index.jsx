@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {observer, inject} from 'mobx-react'
 import {computed, toJS} from 'mobx'
 
-import {VIEW_AUTH, VIEW_MAIN, VIEW_LOADING} from '~/app/constants'
+import {VIEW_AUTH, VIEW_MAIN, VIEW_LOADING} from '~/shared/constants'
 import Auth from './scenes/Auth'
 import Main from './scenes/Main'
 import LoadingScreen from './scenes/LoadingScreen'
