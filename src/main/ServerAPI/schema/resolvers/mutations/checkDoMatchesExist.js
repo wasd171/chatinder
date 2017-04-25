@@ -1,11 +1,11 @@
 // @flow
-import Promise from 'bluebird'
-import {normalizeMatch} from '../utils'
+import {count, normalizeMatch, insert} from '../utils'
 
 
 export async function checkDoMatchesExist(obj, args, ctx) {
-    const count = await Promise.fromCallback(callback => ctx.db.matches.count({}, callback));
-    if (count !== 0) {
+    const matchesCount = await count(ctx.db.matches, {});
+
+    if (matchesCount !== 0) {
         return true
     } else {
         const history = await ctx.tinder.getHistory();
@@ -13,7 +13,7 @@ export async function checkDoMatchesExist(obj, args, ctx) {
             return false
         } else {
             const matches = history.matches.map(normalizeMatch);
-            await Promise.fromCallback(callback => ctx.db.matches.insert(matches, callback));
+            await insert(ctx.db.matches, matches);
             return true
         }
     }
