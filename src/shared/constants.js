@@ -11,3 +11,4 @@ export const VIEW_USER                  = 'VIEW_USER';
 export const VIEW_PROFILE               = 'VIEW_PROFILE';
 export const VIEW_AUTH					= 'VIEW_AUTH';
 export const VIEW_LOADING				= 'VIEW_LOADING';
+export const VIEW_OFFLINE               = 'VIEW_OFFLINE';

@@ -1,14 +1,14 @@
 import {configureRouter} from './configureRouter'
 import {VIEW_AUTH, VIEW_MAIN, VIEW_CHAT, VIEW_USER, VIEW_LOADING} from '~/shared/constants'
-import mutation from './showWindow.graphql'
+import showWindowMutation from './showWindow.graphql'
 
 
 export class Navigator {
     router;
 
-    start = async ({view, client, currentView}) => {
+    start = async ({view, client}) => {
         this.router = await configureRouter({view, client});
-        await client.mutate({mutation});
+        await client.mutate({mutation: showWindowMutation});
     }
 
     goToAuth() {

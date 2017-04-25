@@ -91,6 +91,7 @@ export default gql`
         isAuthorized: Boolean!
         match(id: String!): Match!
         matches: [Match!]
+        initialRoute: String!
     }
 
     type GenericMutation {

@@ -1,18 +1,20 @@
 import createRouter from 'router5'
-import isAuthorized from './isAuthorized'
-import {routes, defaultRoute} from './routes'
+import {routes} from './routes'
 import {saveToMobX} from './middleware'
 import Promise from 'bluebird'
+import initialRoute from './initialRoute.graphql'
 
 
 export async function configureRouter({view, client}) {
-    const status = await isAuthorized(client);
     const router = createRouter()
-        .setDependencies({view, client, initialStatus: status})
+        .setDependencies({view})
         .add(routes)
-        .useMiddleware(saveToMobX)
+        .useMiddleware(saveToMobX);
 
-    await Promise.fromCallback(callback => router.start(defaultRoute, callback));
+    const {data} = await client.query({query: initialRoute});
+    await Promise.fromCallback(callback => router.start(data.initialRoute, callback));
+    const newState = router.getState();
+    console.log({newState});
     console.log('created router');
     return router
 }
