@@ -14,19 +14,6 @@ import configureTheme from './configureTheme'
 import configureClient from './configureClient'
 import {configureStores} from './stores'
 
-const container = document.getElementById('root');
-
-function renderApp({node, children}) {
-	console.log('renderApp called');
-	ReactDOM.render(
-		<MuiThemeProvider muiTheme={theme}>
-			<ApolloProvider client={client}>
-				{children}
-			</ApolloProvider>
-		</MuiThemeProvider>,
-		node
-	);
-}
 
 async function configureAndRender() {
 	const container = document.getElementById('root');
