@@ -88,7 +88,6 @@ export default gql`
 
     type Query {
         profile: Profile
-        isAuthorized: Boolean!
         match(id: String!): Match!
         matches: [Match!]
         initialRoute: String!
