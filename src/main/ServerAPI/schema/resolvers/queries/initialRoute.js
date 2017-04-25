@@ -3,8 +3,7 @@ import {count, success} from '../utils'
 import {VIEW_MAIN, VIEW_AUTH, VIEW_OFFLINE} from '~/shared/constants'
 import {login} from '../mutations'
 import type {ServerAPI} from '~/main/ServerAPI'
-import isReachable from 'is-reachable'
-import {nameToPath} from '~/shared/utils'
+import {nameToPath, isFacebookOnline, isTinderOnline} from '~/shared/utils'
 
 
 type Arguments = {
@@ -23,8 +22,8 @@ export async function initialRoute(obj: void, args: Arguments, ctx: ServerAPI): 
         return nameToPath(VIEW_MAIN)
     } else {
         const [fbOnline, tinderOnline] = await Promise.all([
-            isReachable('https://www.facebook.com/'),
-            isReachable('https://api.gotinder.com/')
+            isTinderOnline(),
+            isFacebookOnline()
         ]);
 
         if (!fbOnline && !tinderOnline) {

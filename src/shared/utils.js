@@ -1,6 +1,7 @@
 // @flow
 import parse from 'url-parse'
 import {VIEW_CHAT, VIEW_USER, VIEW_LOADING} from './constants'
+import isReachable from 'is-reachable'
 
 
 export function isGIPHY(message: string) {
@@ -39,4 +40,12 @@ export function nameToPath(name: string) {
 		default:
 			return `/${name}`
 	}
+}
+
+export function isFacebookOnline(): Promise<boolean> {
+	return isReachable('https://www.facebook.com/')
+}
+
+export function isTinderOnline(): Promise<boolean> {
+	return isReachable('https://api.gotinder.com/')
 }
