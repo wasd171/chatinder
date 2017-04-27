@@ -8,7 +8,7 @@ type Arguments = {
     silent: boolean
 }
 
-export async function login(obj: void, args: Arguments, ctx: ServerAPI) {
+export async function login(obj: void | null, args: Arguments, ctx: ServerAPI) {
     const {fb, tinder} = ctx;
 
     tinder.resetClient();
@@ -25,6 +25,7 @@ export async function login(obj: void, args: Arguments, ctx: ServerAPI) {
         await tinder.authorize({fbToken: fb.token, fbId: fb.id});
         return success;
     } catch (err) {
+        console.log('nothing to do here');
         return {status: 'Unauthorized', err};
     }
 }

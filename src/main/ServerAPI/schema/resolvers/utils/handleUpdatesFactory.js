@@ -5,17 +5,8 @@ import {normalizeMatch} from './normalizeMatch'
 import {normalizeMessage} from './normalizeMessage'
 
 
-type ErrorType = Error | void;
-
 export function handleUpdatesFactory(ctx: ServerAPI) {
-    return async function handleUpdates(err: ErrorType, updates: any): Promise<void> {
-        if (err) {
-            console.error(err);
-            return;
-        }
-
-        ctx.tinder.subscriptionPending = false;
-
+    return async function handleUpdates(updates: any): Promise<void> {
         if (updates.matches.length === 0) {
             return;
         }

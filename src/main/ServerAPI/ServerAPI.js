@@ -26,6 +26,8 @@ export class ServerAPI {
     fb: FB;
     tinder: TinderAPI;
     refetcher: Refetcher;
+    reloginInterval: number | null = null;
+    reloginCallbacks: null | Array<Function> = null;
 
     constructor() {
         this.schema = createSchema();

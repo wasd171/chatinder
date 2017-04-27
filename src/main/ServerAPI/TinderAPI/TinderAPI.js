@@ -8,7 +8,6 @@ import authorizeFactory from './authorizeFactory'
 import getHistoryFactory from './getHistoryFactory'
 import sendMessageFactory from './sendMessageFactory'
 import getPersonFactory from './getPersonFactory'
-import subscribeToUpdatesFactory from './subscribeToUpdatesFactory'
 import getUpdatesFactory from './getUpdatesFactory'
 
 
@@ -18,6 +17,8 @@ export class TinderAPI {
     client: TinderClient;
     subscriptionInterval: Interval = null;
     subscriptionPending: boolean = false;
+    authPromise: Promise<true> | null = null;
+    authPromiseExternalResolve: null | (arg: true) => void = null;
 
     constructor() {
         this.resetClient();
@@ -34,6 +35,5 @@ export class TinderAPI {
     getHistory = getHistoryFactory(this);
     sendMessage = sendMessageFactory(this);
     getPerson = getPersonFactory(this);
-    subscribeToUpdates = subscribeToUpdatesFactory(this);
     getUpdates = getUpdatesFactory(this);
 }

@@ -29,68 +29,77 @@ export default function getToken(silent: boolean): Promise<ITokenRes> {
 			}
 		});
 
-		win.on('closed', () => {
-			win = null;
-		});
+		if (win !== null) {
+			win.on('closed', () => {
+				win = null;
+			});
 
-		win.webContents.on('will-navigate', (e, url) => {
-			const raw 		= /access_token=([^&]*)/.exec(url) || null;
-			const token 	= (raw && raw.length > 1) ? raw[1] : null;
-			const error    	= /\?error=(.+)$/.exec(url);
+			win.webContents.on('will-navigate', (e, url) => {
+				const raw 		= /access_token=([^&]*)/.exec(url) || null;
+				const token 	= (raw && raw.length > 1) ? raw[1] : null;
+				const error    	= /\?error=(.+)$/.exec(url);
 
-			if (!error) {
-				if (token) {
-					const expiresStringRegex = /expires_in=(.*)/.exec(url);
-					let expiresIn;
-					if (expiresStringRegex !== null && expiresStringRegex.length >= 2) {
-						expiresIn = parseInt(expiresStringRegex[1]);
-					} else {
-						throw new Error('Unable to retrieve expiration date from Facebook');
-					}
-					// Way to handle Electron bug https://github.com/electron/electron/issues/4374
-					setImmediate(() => {
-						if (win !== null) {
-							win.close()
+				if (!error) {
+					if (token) {
+						const expiresStringRegex = /expires_in=(.*)/.exec(url);
+						let expiresIn;
+						if (expiresStringRegex !== null && expiresStringRegex.length >= 2) {
+							expiresIn = parseInt(expiresStringRegex[1]);
+						} else {
+							throw new Error('Unable to retrieve expiration date from Facebook');
 						}
-					});
-					resolve({token, expiresIn});
+						// Way to handle Electron bug https://github.com/electron/electron/issues/4374
+						setImmediate(() => {
+							if (win !== null) {
+								win.close()
+							}
+						});
+						resolve({token, expiresIn});
+					}
+				} else {
+					reject(error);
 				}
-			} else {
-				reject(error);
-			}
-		});
+			});
 
-		win.webContents.on('did-finish-load', async () => {
-			console.log('did-finish-load');
-			let form, action;
+			win.webContents.on('did-finish-load', async () => {
+				if (win !== null) {
+					console.log('did-finish-load');
+					let form, action;
 
-			const script = `document.getElementById('platformDialogForm')`;
-			form = await asyncExecute(win, script);
-			if (form) {
-				action = await asyncExecute(win, `${script}.action`);
-			}
+					const script = `document.getElementById('platformDialogForm')`;
+					form = await asyncExecute(win, script);
+					if (form) {
+						action = await asyncExecute(win, `${script}.action`);
+					}
 
-			if (form && action === 'https://m.facebook.com/v2.6/dialog/oauth/confirm') {
-				asyncExecute(win, `${script}.submit()`);
-			} else {
-				if (win) {
-					if (silent) {
-						reject()
+					if (form && action === 'https://m.facebook.com/v2.6/dialog/oauth/confirm') {
+						asyncExecute(win, `${script}.submit()`);
 					} else {
-						win.show();
+						if (silent) {
+							reject();
+							win = null;
+						} else {
+							win.show();
+						}
 					}
 				}
-			}
-		});
+			});
 
-		win.webContents.on('did-fail-load', () => {
-			console.log('did-fail-load');
-			if (win !== null) {
-				win.loadURL(authUrl, {'userAgent': userAgent});
-			}
-		})	
+			win.webContents.on('did-fail-load', () => {
+				console.log('did-fail-load');
+				if (silent) {
+					console.log('rejecting');
+					reject();
+					win = null;
+				}
 
-		win.loadURL(authUrl, {'userAgent': userAgent});
+				if (win !== null) {
+					win.loadURL(authUrl, {'userAgent': userAgent});
+				}
+			})	
+
+			win.loadURL(authUrl, {'userAgent': userAgent});
+		}
 	})
 }
 
