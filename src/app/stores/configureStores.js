@@ -3,11 +3,9 @@ import {View} from './View'
 import {Time} from './Time'
 import {Caches} from './Caches'
 import getInitialState from './getInitialState'
-import loginSilent from './loginSilent'
 
 
 export async function configureStores(client) {
-    await client.mutate({mutation: loginSilent});
     const time = new Time();
     const view = new View();
     const navigator = new Navigator();

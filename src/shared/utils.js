@@ -41,11 +41,3 @@ export function nameToPath(name: string) {
 			return `/${name}`
 	}
 }
-
-export function isFacebookOnline(): Promise<boolean> {
-	return isReachable('https://www.facebook.com/')
-}
-
-export function isTinderOnline(): Promise<boolean> {
-	return isReachable('https://api.gotinder.com/')
-}
