@@ -1,10 +1,9 @@
 // @flow
-import {TinderAPI} from './TinderAPI'
-import Promise from 'bluebird'
+import type {TinderAPI} from './TinderAPI'
 
 
 export default function sendMessageFactory(instance: TinderAPI) {
     return function sendMessage(id: string, message: string) {
-        return Promise.fromCallback(callback => instance.client.sendMessage(id, message, callback))
+        return instance.client.sendMessage({matchId: id, message})
     }
 }

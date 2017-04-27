@@ -1,5 +1,5 @@
 // @flow
-import {TinderAPI} from './TinderAPI'
+import type {TinderAPI} from './TinderAPI'
 
 
 export default function isAuthorizedFactory(instance: TinderAPI) {

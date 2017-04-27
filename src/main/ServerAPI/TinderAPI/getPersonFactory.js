@@ -1,10 +1,9 @@
 // @flow
-import {TinderAPI} from './TinderAPI'
-import Promise from 'bluebird'
+import type {TinderAPI} from './TinderAPI'
 
 
 export default function getPersonFactory(instance: TinderAPI) {
 	return function getPerson(id: string) {
-		return Promise.fromCallback(callback => instance.client.getUser(id, callback)).then(res => res.results)
+		return instance.client.getUser({userId: id}).then(res => res.results)
 	}
 }

@@ -1,5 +1,6 @@
 // @flow
-import {TinderClient} from 'tinder'
+// import {TinderClient} from 'tinder'
+import TinderClient from 'tinder-modern'
 import isAuthorizedFactory from './isAuthorizedFactory'
 import getDefaultsFactory from './getDefaultsFactory'
 import getProfileFactory from './getProfileFactory'

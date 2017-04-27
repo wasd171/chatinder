@@ -18,7 +18,7 @@ export default function getId(instance: FB) {
 		if (json.error) {
 			throw new Error(json.error);
 		}
-		if (!(res.status >= 200 && res.status < 300)) {
+		if (!res.ok) {
 			throw new Error(`request failed with status ${res.status}`);
 		}
 

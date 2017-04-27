@@ -1,6 +1,5 @@
 // @flow
-import {TinderAPI} from './TinderAPI'
-import Promise from 'bluebird'
+import type {TinderAPI} from './TinderAPI'
 
 
 type Arguments = {
@@ -10,6 +9,6 @@ type Arguments = {
 
 export default function authorizeFactory(instance: TinderAPI) {
     return function authorize({fbToken, fbId}: Arguments) {
-        return Promise.fromCallback(callback => instance.client.authorize(fbToken, fbId, callback));
+        return instance.client.authorize({fbToken, fbId});
     }
 }
