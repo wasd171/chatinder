@@ -27,7 +27,9 @@ export default function startFactory(instance: AppManager) {
         }
 
         if (process.env.NODE_ENV !== 'production') {
-            require('electron-debug')();
+            console.log('dev');
+            require('electron-debug')({enabled: true});
+            require('devtron').install();
             // enableLiveReload({strategy: 'react-hmr'});
             await instance.installExtensions();
         }
