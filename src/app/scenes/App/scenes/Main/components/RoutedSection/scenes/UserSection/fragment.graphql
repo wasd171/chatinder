@@ -6,6 +6,7 @@ fragment personInfo on Person {
     galleryPhotos {
         original
     }
+    smallPhoto
     schools {
         id
         name
