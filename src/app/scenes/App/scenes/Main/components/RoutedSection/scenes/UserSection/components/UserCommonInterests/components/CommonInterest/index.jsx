@@ -12,6 +12,7 @@ const Wrapper = styled.span`
     border-radius: 5px;
     font-size: 14px;
     padding: 2px;
+    margin-right: 5px;
 `;
 
 @muiThemeable()
