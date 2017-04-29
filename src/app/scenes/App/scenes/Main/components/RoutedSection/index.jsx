@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {inject, observer} from 'mobx-react'
-import {VIEW_CHAT, VIEW_USER} from '~/shared/constants'
+import {VIEW_CHAT, VIEW_USER, VIEW_PROFILE} from '~/shared/constants'
 import ChatSection from './scenes/ChatSection'
 import UserSection from './scenes/UserSection'
+import ProfileSection from './scenes/ProfileSection'
 import Stub from './scenes/Stub'
 
 
@@ -17,6 +18,8 @@ class RoutedSection extends Component {
 				}
 			case VIEW_USER:
 				return <UserSection id={this.props.view.params.id}/>
+			case VIEW_PROFILE:
+				return <ProfileSection/>
 			default:
 				return <Stub/>
 		}

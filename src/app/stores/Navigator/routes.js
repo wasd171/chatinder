@@ -1,4 +1,4 @@
-import {VIEW_AUTH, VIEW_MAIN, VIEW_CHAT, VIEW_USER, VIEW_LOADING, VIEW_OFFLINE} from '~/shared/constants'
+import {VIEW_AUTH, VIEW_MAIN, VIEW_CHAT, VIEW_USER, VIEW_LOADING, VIEW_OFFLINE, VIEW_PROFILE} from '~/shared/constants'
 import {nameToPath} from '~/shared/utils'
 
 
@@ -17,12 +17,18 @@ const user = {
     path: nameToPath(VIEW_USER)
 };
 
+const profile = {
+    name: VIEW_PROFILE,
+    path: nameToPath(VIEW_PROFILE)
+}
+
 const main = {
     name: VIEW_MAIN, 
     path: nameToPath(VIEW_MAIN),
     children: [
         chat,
-        user
+        user,
+        profile
     ]
 }
 

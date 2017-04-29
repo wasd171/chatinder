@@ -1,0 +1,10 @@
+#import './fragment.graphql'
+
+
+query fullProfileQuery {
+    profile {
+        user {
+            ...userInfo
+        }
+    }
+}

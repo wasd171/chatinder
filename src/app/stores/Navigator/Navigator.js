@@ -1,5 +1,5 @@
 import {configureRouter} from './configureRouter'
-import {VIEW_AUTH, VIEW_MAIN, VIEW_CHAT, VIEW_USER, VIEW_LOADING} from '~/shared/constants'
+import {VIEW_AUTH, VIEW_MAIN, VIEW_CHAT, VIEW_USER, VIEW_LOADING, VIEW_PROFILE} from '~/shared/constants'
 import showWindowMutation from './showWindow.graphql'
 
 
@@ -29,5 +29,9 @@ export class Navigator {
 
     goToUser({id}) {
         this.router.navigate(`${VIEW_MAIN}.${VIEW_USER}`, {id});
+    }
+
+    goToProfile() {
+        this.router.navigate(`${VIEW_MAIN}.${VIEW_PROFILE}`);
     }
 }

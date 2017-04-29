@@ -1,12 +1,10 @@
 import React, {Component} from 'react'
 import MainSection from '~/app/components/MainSection'
 import HeaderContainer from '~/app/components/HeaderContainer'
-import UserHeader from './components/UserHeader'
-import UserPhotos from './components/UserPhotos'
-import UserTitle from './components/UserTitle'
-import UserBio from './components/UserBio'
-import UserCommonConnections from './components/UserCommonConnections'
-import UserCommonInterests from './components/UserCommonInterests'
+import ProfileHeader from './components/ProfileHeader'
+import UserPhotos from '../UserSection/components/UserPhotos'
+import UserTitle from '../UserSection/components/UserTitle'
+import UserBio from '../UserSection/components/UserBio'
 import {graphql} from 'react-apollo'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
@@ -15,7 +13,9 @@ import {observable, action} from 'mobx'
 import {observer} from 'mobx-react'
 import query from './query.graphql'
 import mutation from './mutation.graphql'
+import logoutMutation from './logoutMutation.graphql'
 import LoadingStub from '~/app/components/LoadingStub'
+import {RaisedButton} from 'material-ui'
 
 
 const Wrapper = styled.div`
@@ -25,7 +25,7 @@ const Wrapper = styled.div`
 	overflow-y: scroll;
 `;
 
-const UserInfoContainer = styled.div`
+const ProfileInfoContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -47,15 +47,16 @@ const Line = styled.hr`
 `;
 
 @graphql(query)
-@graphql(mutation)
+@graphql(mutation, {name: 'update'})
+@graphql(logoutMutation, {name: 'logout'})
 @muiThemeable()
 @observer
-export class UserSection extends Component {
+class ProfileSection extends Component {
 	shouldRequestUpdates = false;
 	@observable isUpdatePending = true;
 	
 	get person() {
-		return this.props.data.match.person
+		return this.props.data.profile.user
 	}
 
 	renderPhotos = () => {
@@ -70,7 +71,7 @@ export class UserSection extends Component {
 		return [
 			<Line theme={muiTheme} key='title-line'/>,
 			<UserTitle
-				isSuperLike={data.match.isSuperLike}
+				isSuperLike={false}
 				formattedName={this.person.formattedName} 
 				birthDate={this.person.birthDate}
 				isUpdatePending={this.isUpdatePending}
@@ -93,44 +94,25 @@ export class UserSection extends Component {
 		]
 	}
 
-	renderConnections = () => {
-		const {connectionCount, commonConnections} = this.person;
-		if (connectionCount === null || connectionCount === 0) {
-			return null
-		}
-
-		return [
-			<Line theme={this.props.muiTheme} key='connections-line'/>,
-			<UserCommonConnections connectionCount={connectionCount} commonConnections={commonConnections} key='connections'/>
-		]
-	}
-
-	renderInterests = () => {
-		const {commonInterests} = this.person;
-		if (commonInterests === null || commonInterests.length === 0) {
-			return null
-		}
-
-		return [
-			<Line theme={this.props.muiTheme} key='interests-line'/>,
-			<UserCommonInterests commonInterests={commonInterests} key='interests'/>
-		]
-	}
+    renderLogout = () => {
+        return [
+            <Line theme={this.props.muiTheme} key='logout-line'/>,
+			<RaisedButton onClick={this.props.logout} label='log out' primary={true} key='logout'/>
+        ]
+    }
 
 	renderContent = () => {
 		const {data, muiTheme} = this.props;
 		if (data.loading) {
 			return <LoadingStub size={40}/>
 		}
-		const {person} = data.match;
 		return (
-			<UserInfoContainer>
+			<ProfileInfoContainer>
 				{this.renderPhotos()}
 				{this.renderTitle()}
 				{this.renderBio()}
-				{this.renderConnections()}
-				{this.renderInterests()}
-			</UserInfoContainer>
+                {this.renderLogout()}
+			</ProfileInfoContainer>
 		)
 	}
 	
@@ -138,7 +120,7 @@ export class UserSection extends Component {
 		return (
 			<MainSection>
 				<HeaderContainer>
-					<UserHeader/>
+					<ProfileHeader/>
 				</HeaderContainer>
 				<SimpleBarWrapper>
 					{this.renderContent()}
@@ -152,12 +134,7 @@ export class UserSection extends Component {
 	}
 	
 	requestUpdates = () => {
-		const {data, mutate} = this.props;
-		return mutate({
-			variables: {
-				id: data.match.person._id
-			}
-		});
+		return this.props.update();
 	}
 	
 	async componentDidMount() {
@@ -179,4 +156,4 @@ export class UserSection extends Component {
 	}
 }
 
-export default UserSection
+export default ProfileSection

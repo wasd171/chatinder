@@ -116,6 +116,7 @@ export default gql`
         updatePerson(id: String!): Person!
         checkDoMatchesExist: Boolean!
         subscribeToUpdates: GenericMutation!
+        updateProfile: Profile!
     }
 
     schema {

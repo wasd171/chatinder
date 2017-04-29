@@ -3,7 +3,7 @@ query ProfileQuery {
         user {
             _id
             smallPhoto
-            name
+            formattedName
         }
     }
 }
