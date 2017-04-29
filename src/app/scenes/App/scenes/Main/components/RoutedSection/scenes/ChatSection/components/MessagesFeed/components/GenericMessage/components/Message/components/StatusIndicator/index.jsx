@@ -25,7 +25,7 @@ class StatusIndicator extends Component {
             <AlertError 
                 color={this.props.muiTheme.palette.primary1Color} 
                 style={{height: 17, width: 17, cursor: 'pointer'}}
-                onClick={() => console.log('clicked')}
+                onClick={this.props.resend}
             />
         )
     }

@@ -111,6 +111,7 @@ export default gql`
         fetchHistory: GenericMutation!
         logout: GenericMutation!
         sendMessage(id: String!, rawMessage: MessageInput!): Message!
+        resendMessage(id: String!, messageId: String!): Message!
         updatePerson(id: String!): Person!
         checkDoMatchesExist: Boolean!
         subscribeToUpdates: GenericMutation!

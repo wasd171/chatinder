@@ -26,11 +26,11 @@ const Timestamp = styled.span`
 @muiThemeable()
 class Message extends Component {
 	render() {
-		const {muiTheme, first, sentTime, formattedMessage, status, isGIPHY} = this.props;
+		const {muiTheme, first, sentTime, formattedMessage, status, isGIPHY, resend} = this.props;
 		const AppropriateWrapper = isGIPHY ? GIFMessage : TextMessage;
 		return (
 			<MessageWrapper theme={muiTheme} first={first}>
-				<StatusIndicator status={status} first={first}/>
+				<StatusIndicator status={status} first={first} resend={resend}/>
 				<AppropriateWrapper formattedMessage={formattedMessage}/>
 				<Timestamp theme={muiTheme} first={first}>
 					{sentTime}

@@ -79,7 +79,6 @@ const mutationOptions = {
 					cacheData.match.lastMessage = data.sendMessage;
 					cacheData.match.messages.push(data.sendMessage);
 					cacheData.match.lastActivityDate = data.sendMessage.sentDate;
-					console.log({cacheData});
 
 					proxy.writeQuery({
 						query: sendMessageInfo, 
