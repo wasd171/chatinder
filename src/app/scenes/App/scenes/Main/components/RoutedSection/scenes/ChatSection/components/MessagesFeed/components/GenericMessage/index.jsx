@@ -5,6 +5,7 @@ import NewDayMessage from './components/NewDayMessage'
 import styled from 'styled-components'
 import {graphql} from 'react-apollo'
 import resendMessageMutation from './mutation.graphql'
+import statusFragment from './fragment.graphql'
 import {PENDING} from '~/shared/constants'
 
 
@@ -22,11 +23,21 @@ const mutationOptions = {
 				},
 				optimisticResponse: {
 					__typename: 'Mutation',
-					sendMessage: {
+					resendMessage: {
 						__typename: 'Message',
                         _id: messageId,
                         status: PENDING
 					}
+				},
+                update: (proxy, {data}) => {
+                    console.log({data});
+					proxy.writeFragment({
+                        id: messageId,
+                        fragment: statusFragment,
+                        data: {
+                            status: data.resendMessage.status
+                        }
+                    })
 				}
 			})
 		}
@@ -36,6 +47,7 @@ const mutationOptions = {
 @graphql(resendMessageMutation, mutationOptions)
 class GenericMessage extends Component {
     handleClick = () => {
+        console.log({matchId: this.props.matchId, messageId: this.props.message._id})
         this.props.resend({
             id: this.props.matchId,
             messageId: this.props.message._id

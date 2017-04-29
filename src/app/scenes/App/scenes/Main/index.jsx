@@ -57,7 +57,7 @@ class Main extends Component {
 
 	async componentDidMount() {
 		const status = await this.props.check();
-		if (status && false) {
+		if (status) {
 			this.props.subscribe();
 		}
 		this.changeStatus(status);

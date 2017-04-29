@@ -45,7 +45,8 @@ const mutationOptions = {
 				_id: messageId,
 				from: ownProps.data.profile.user._id,
 				sent_date: new Date().toISOString(),
-				message
+				message,
+				status: PENDING
 			}
 
 			let optimisticMessage;
@@ -55,7 +56,6 @@ const mutationOptions = {
 			} else {
 				optimisticMessage = normalizeMessagePair(input, lastMessage);
 			}
-			optimisticMessage.status = PENDING;
 			optimisticMessage.sentDate = Message.sentDate(optimisticMessage);
 
 			return mutate({

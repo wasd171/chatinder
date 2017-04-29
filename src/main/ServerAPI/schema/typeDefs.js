@@ -83,6 +83,7 @@ export default gql`
         from: String!
         sent_date: String!
         message: String!
+        status: String!
     }
 
     type Match {

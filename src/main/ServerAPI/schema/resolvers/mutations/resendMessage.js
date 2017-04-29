@@ -12,6 +12,7 @@ type Arguments = {
 export async function resendMessage(obj: void, args: Arguments, ctx: ServerAPI) {
     const {id, messageId} = args;
     const {matches, pending} = ctx.db;
+    // await Bluebird.delay(10000); //Just for UX, otherwise it's not clear that we have attempted to do a resend
     try {
         const rawMessage = await Bluebird.fromCallback(callback => pending.findOne({_id: messageId}, callback));
         const message = await ctx.tinder.sendMessage(id, rawMessage.message);

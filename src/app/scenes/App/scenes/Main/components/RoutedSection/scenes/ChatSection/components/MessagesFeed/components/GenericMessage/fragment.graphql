@@ -1,0 +1,3 @@
+fragment messageStatus on Message {
+    status
+}
