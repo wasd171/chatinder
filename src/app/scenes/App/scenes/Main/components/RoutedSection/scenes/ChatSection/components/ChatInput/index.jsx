@@ -112,7 +112,6 @@ class ChatInput extends Component {
 	};
 
 	@action handleSubmit = () => {
-		console.log('Submit handler');
 		if (!this.disabled) {
 			const message = trim(this.value);
 			this.props.submit({

@@ -23,8 +23,6 @@ class Auth extends Component {
 	}
 
 	render() {
-		console.log({props: this.props});
-
 		return (
 			<AuthWrapper>
 				<FacebookLoginButton onClick={this.handleClick}/>

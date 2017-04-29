@@ -109,7 +109,6 @@ class UserTitle extends Component {
 
 	renderJobs = () => {
 		const {jobs, muiTheme} = this.props;
-		console.log({jobs});
 		if (jobs === null || typeof jobs === 'undefined' || jobs.length === 0) {
 			return null;
 		}

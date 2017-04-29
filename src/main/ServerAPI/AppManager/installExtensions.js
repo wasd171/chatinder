@@ -11,7 +11,6 @@ export default async function installExtensions() {
 		for (const name of extensions) {
 			try {
 				const extension = installer[name] || name;
-				console.log({extension});
 				await installer.default(extension, forceDownload);
 			} catch (e) {console.error(e)} // eslint-disable-line
 		}

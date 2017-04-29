@@ -14,7 +14,5 @@ export async function configureRouter({view, client}) {
     const {data} = await client.query({query: initialRoute});
     await Promise.fromCallback(callback => router.start(data.initialRoute, callback));
     const newState = router.getState();
-    console.log({newState});
-    console.log('created router');
     return router
 }

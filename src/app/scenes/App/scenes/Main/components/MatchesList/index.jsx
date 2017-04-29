@@ -124,7 +124,6 @@ class MatchesList extends Component {
 	}
 
 	render() {
-		console.log('MatchesList render!');
 		return (
 			<MatchesListContainer>
 				{

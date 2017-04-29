@@ -63,7 +63,6 @@ export default function getToken(silent: boolean): Promise<ITokenRes> {
 
 			win.webContents.on('did-finish-load', async () => {
 				if (win !== null) {
-					console.log('did-finish-load');
 					let form, action;
 
 					const script = `document.getElementById('platformDialogForm')`;
@@ -86,9 +85,7 @@ export default function getToken(silent: boolean): Promise<ITokenRes> {
 			});
 
 			win.webContents.on('did-fail-load', () => {
-				console.log('did-fail-load');
 				if (silent) {
-					console.log('rejecting');
 					reject();
 					win = null;
 				}

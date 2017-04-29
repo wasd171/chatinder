@@ -25,41 +25,6 @@ const ProgressWrapper = styled.div`
 	margin: auto;
 `;
 
-/*export function LoadingScreen({store, title, muiTheme}) {
-	console.log('LoadingScreen render');
-	return (
-		<OuterWrapper>
-			<div>
-				<TitleWrapper theme={muiTheme}>{title || store.currentView.params.title}</TitleWrapper>
-				<ProgressWrapper>
-					<CircularProgress size={100} thickness={3}/>
-				</ProgressWrapper>
-			</div>
-		</OuterWrapper>
-	);
-	// return (
-	// 	<div style={wrapper}>
-	// 		<div>
-	// 			<h2>{title || store.currentView.params.title}</h2>
-	// 			<div style={{width: '100px', margin: 'auto'}}>
-	// 				<svg class={circular} viewBox="25 25 50 50">
-	// 					<circle
-	// 						class={path}
-	// 						cx="50" cy="50" r="20"
-	// 						fill="none" strokeWidth="2" strokeMiterlimit="10"
-	// 					/>
-	// 				</svg>
-	// 			</div>
-	// 		</div>
-	// 	</div>
-	// )
-}
-
-export default compose(
-	muiThemeable(),
-	observer(['store'])
-)(LoadingScreen)*/
-
 @inject('view')
 @muiThemeable()
 @observer

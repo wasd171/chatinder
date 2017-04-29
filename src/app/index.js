@@ -18,12 +18,9 @@ import {configureStores} from './stores'
 async function configureAndRender() {
 	const container = document.getElementById('root');
 
-	console.log('start configure');
 	const theme = configureTheme();
 	const client = configureClient();
 	const stores = await configureStores(client);
-	console.log({theme, client, stores});
-	console.log('end configure');
 	useStrict(true);
 
 	function render() {

@@ -24,32 +24,7 @@ const MessagesList = styled(List)`
 	}
 `;
 
-const queryOptions = {
-    // options: (props) => ({
-    //     reducer(previousResult, action, variables) {
-    //         if (action.type === 'APOLLO_MUTATION_RESULT' && action.operationName === 'sendMessageMutation' && variables.id === action.variables.id) {
-    //             const newMessage = {...action.result.data.sendMessage};
-    //             newMessage.sentDate = newMessage.sent_date;
-    //             delete newMessage.sent_date;
-    //             delete newMessage.message;
-
-    //             const updated = update(previousResult, {
-    //                 match: {
-    //                     messages: {
-    //                         $push: [newMessage]
-    //                     }
-    //                 }
-    //             });
-    //             console.log({updated});
-    //             return updated
-    //         } else {
-    //             return previousResult
-    //         }
-    //     }
-    // })
-}
-
-@graphql(query, queryOptions)
+@graphql(query)
 class MessagesFeed extends Component {
     list;
 	scrollbar;
@@ -173,12 +148,9 @@ class MessagesFeed extends Component {
     }
 
     render() {
-        console.log('MessagesFeed');
-        console.log(this.props);
         if (this.props.data.loading || typeof this.props.data.match === 'undefined') {
             return <span>Loading...</span>
         } else {
-            console.log({match: this.props.data.match, type: typeof this.props.data.match})
             return (
                 <AutoSizer forceUpdate={this.forceUpdateGetter}>
                     {this.renderChildren}
@@ -215,7 +187,6 @@ class MessagesFeed extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        console.log({nextProps, compare: (nextProps.data.match.messages === this.props.data.messages)});
         return !(typeof nextProps.data.match === 'undefined')
     }
 }

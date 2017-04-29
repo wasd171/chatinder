@@ -1,5 +1,4 @@
 export const saveToMobX = (router, ctx) => (toState, fromState, done) => {
-    console.log({toState, fromState, ctx});
     if (!ctx.metaID) {
         ctx.metaID = toState.meta.id
     }
@@ -7,6 +6,8 @@ export const saveToMobX = (router, ctx) => (toState, fromState, done) => {
     if (toState.meta.id >= ctx.metaID) {
         ctx.view.setCurrentView(toState);
         ctx.metaID = toState.meta.id;
+    } else {
+        console.error('old error again');
     }
     done();
 }

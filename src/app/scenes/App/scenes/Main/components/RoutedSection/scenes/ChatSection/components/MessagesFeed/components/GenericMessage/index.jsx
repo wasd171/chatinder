@@ -30,7 +30,6 @@ const mutationOptions = {
 					}
 				},
                 update: (proxy, {data}) => {
-                    console.log({data});
 					proxy.writeFragment({
                         id: messageId,
                         fragment: statusFragment,
@@ -47,7 +46,6 @@ const mutationOptions = {
 @graphql(resendMessageMutation, mutationOptions)
 class GenericMessage extends Component {
     handleClick = () => {
-        console.log({matchId: this.props.matchId, messageId: this.props.message._id})
         this.props.resend({
             id: this.props.matchId,
             messageId: this.props.message._id
