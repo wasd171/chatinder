@@ -3019,6 +3019,10 @@ graphql@^0.9.3, graphql@^0.9.4:
   dependencies:
     iterall "1.0.3"
 
+growly@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
+
 gulp-jscs@^1.1.2:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/gulp-jscs/-/gulp-jscs-1.6.0.tgz#b15ee52601f7f75a725d341d1da161b0127d67a0"
@@ -4517,6 +4521,15 @@ node-gyp@^3.4.0:
     tar "^2.0.0"
     which "1"
 
+node-notifier@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/node-notifier/-/node-notifier-5.1.2.tgz#2fa9e12605fa10009d44549d6fcd8a63dde0e4ff"
+  dependencies:
+    growly "^1.3.0"
+    semver "^5.3.0"
+    shellwords "^0.1.0"
+    which "^1.2.12"
+
 node-source-walk@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/node-source-walk/-/node-source-walk-3.2.0.tgz#3c605cc53abdee4b45ab65e947dfb1db7c90f0e3"
@@ -5919,6 +5932,10 @@ shebang-regex@^1.0.0:
 shelljs@0.3.x:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.3.0.tgz#3596e6307a781544f591f37da618360f31db57b1"
+
+shellwords@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.0.tgz#66afd47b6a12932d9071cbfd98a52e785cd0ba14"
 
 sigmund@~1.0.0:
   version "1.0.1"

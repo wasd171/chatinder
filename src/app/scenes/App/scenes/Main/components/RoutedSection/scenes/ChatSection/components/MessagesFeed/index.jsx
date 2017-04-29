@@ -10,6 +10,8 @@ import {ipcRenderer} from 'electron'
 import {SUBSCRIPTION_MATCH} from '~/shared/constants'
 import query from './query.graphql'
 import update from 'immutability-helper'
+import LoadingStub from '~/app/components/LoadingStub'
+import NoMessages from './components/NoMessages'
 
 
 const Container = styled.div`
@@ -149,7 +151,9 @@ class MessagesFeed extends Component {
 
     render() {
         if (this.props.data.loading || typeof this.props.data.match === 'undefined') {
-            return <span>Loading...</span>
+            return <LoadingStub size={40}/>
+        } else if (this.props.data.match.messages.length === 0) {
+            return <NoMessages/>
         } else {
             return (
                 <AutoSizer forceUpdate={this.forceUpdateGetter}>

@@ -66,15 +66,15 @@ export default gql`
 
     type Message {
         _id: String
-        from: String!
+        from: String
         sentDay: String
-        sentTime: String!
-        sentDate: String!
-        message: String!
+        sentTime: String
+        sentDate: String
+        message: String
         formattedMessage: String!
-        first: Boolean!
-        firstInNewDay: Boolean!
-        isGIPHY: Boolean!
+        first: Boolean
+        firstInNewDay: Boolean
+        isGIPHY: Boolean
         status: String!
     }
 

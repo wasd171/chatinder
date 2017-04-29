@@ -3,6 +3,7 @@ export default function BaseSection(el) {
 		el`
 			height: 100vh;
 			max-height: 100vh;
+			max-height: 100vh;
 			position: relative;
 			display: flex;
 			flex-direction: column;

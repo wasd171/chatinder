@@ -15,6 +15,7 @@ import {observable, action} from 'mobx'
 import {observer} from 'mobx-react'
 import query from './query.graphql'
 import mutation from './mutation.graphql'
+import LoadingStub from '~/app/components/LoadingStub'
 
 
 const Wrapper = styled.div`
@@ -119,7 +120,7 @@ class UserSection extends Component {
 	renderContent = () => {
 		const {data, muiTheme} = this.props;
 		if (data.loading) {
-			return <span>Loading...</span>
+			return <LoadingStub size={40}/>
 		}
 		const {person} = data.match;
 		return (
