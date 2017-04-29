@@ -36,7 +36,6 @@ class TextField extends Component {
 	};
 
 	render() {
-		// const styles = getStyles(this.props, this.context, this);
 		return (
 			<OuterWrapper>
 				<TextFieldHint

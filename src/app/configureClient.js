@@ -10,13 +10,7 @@ export default function configureClient() {
     const electronInterface = createElectronInterface();
 
     const client = new ApolloClient({
-        networkInterface: electronInterface,
-        // customResolvers: {
-        //     Query: {
-        //         match: (obj, args) => toIdValue(dataIdFromObject({__typename: 'Match', id: args.id}))
-        //     }
-        // },
-        // dataIdFromObject
+        networkInterface: electronInterface
     });
 
     return client

@@ -1,5 +1,5 @@
 // @flow
-import {emojify} from './emojify'
+import {emojify} from '~/shared/utils'
 import type {PersonType} from '~/shared/types'
 
 

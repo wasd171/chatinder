@@ -1,0 +1,13 @@
+fragment messageListFields on Message {
+    _id
+    from
+    first
+    firstInNewDay
+    sentDay
+    sentTime
+    sentDate
+    formattedMessage
+    status
+    isGIPHY
+    message
+}

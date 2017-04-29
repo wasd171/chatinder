@@ -12,11 +12,13 @@ import startFactory from './startFactory'
 import callGraphQLFactory from './callGraphQLFactory'
 import processRequestFactory from './processRequestFactory'
 import generateMessage from './generateMessage'
+import configureDatabasesFactory from './configureDatabasesFactory'
 
 
 interface IDbStore {
     extra: Nedb,
-    matches: Nedb
+    matches: Nedb,
+    pending: Nedb
 }
 
 export class ServerAPI {
@@ -33,9 +35,11 @@ export class ServerAPI {
         this.schema = createSchema();
         const extra = new Nedb({filename: join(__dirname, 'databases', 'extra.db')});
         const matches = new Nedb({filename: join(__dirname, 'databases', 'matches.db')});
+        const pending = new Nedb({filename: join(__dirname, 'databases', 'pending.db')});
         this.db = {
             extra,
-            matches
+            matches,
+            pending
         }
     }
 
@@ -43,4 +47,5 @@ export class ServerAPI {
     callGraphQL = callGraphQLFactory(this);
     processRequest = processRequestFactory(this);
     generateMessage = generateMessage;
+    configureDatabases = configureDatabasesFactory(this);
 }

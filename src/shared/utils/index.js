@@ -1,7 +1,8 @@
 // @flow
 import parse from 'url-parse'
-import {VIEW_CHAT, VIEW_USER, VIEW_LOADING} from './constants'
-import isReachable from 'is-reachable'
+import emojione from '~/app/shims/emojione'
+import he from 'he'
+import {VIEW_CHAT, VIEW_USER, VIEW_LOADING} from '../constants'
 
 
 export function isGIPHY(message: string) {
@@ -41,3 +42,12 @@ export function nameToPath(name: string) {
 			return `/${name}`
 	}
 }
+
+
+export function emojify(text: string): string {
+	return emojione.unicodeToImage(he.escape(text))
+}
+
+export {normalizeMessage} from './normalizeMessage'
+export {resolveMessage} from './resolveMessage'
+export {normalizeMessagePair} from './normalizeMessagePair'

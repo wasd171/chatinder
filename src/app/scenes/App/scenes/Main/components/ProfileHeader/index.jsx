@@ -29,7 +29,7 @@ class ProfileHeader extends Component {
     }
 
     renderContent(props) {
-        const {name, smallPhoto} = props.data.profile;
+        const {name, smallPhoto} = props.data.profile.user;
         return [
             <Avatar src={smallPhoto} size={34} key='avatar'/>,
             <NameWrapper theme={props.muiTheme} key='name'>

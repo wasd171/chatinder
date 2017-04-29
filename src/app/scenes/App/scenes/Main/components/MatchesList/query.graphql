@@ -1,7 +1,12 @@
+#import './fragment.graphql'
+
+
 query matchesQuery {
     matches {
         _id
-        lastMessage
+        lastMessage {
+            ...lastMessageMatchFields
+        }
         lastActivityDate
         person {
             _id

@@ -1,3 +1,6 @@
+#import './fragment.graphql'
+
+
 query getMatchWithMessages($id: String!) {
     match(id: $id) {
         _id
@@ -7,18 +10,14 @@ query getMatchWithMessages($id: String!) {
             smallPhoto
         }
         messages {
-            _id
-            from
-            first
-            firstInNewDay
-            sentDay
-            sentTime
-            sentDate
-            formattedMessage
+            ...messageListFields
         }
     }
     profile {
-        name
-        smallPhoto
+        user {
+            _id
+            name
+            smallPhoto
+        }
     }
 }

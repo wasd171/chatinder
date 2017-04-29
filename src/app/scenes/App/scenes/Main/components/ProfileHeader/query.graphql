@@ -1,6 +1,9 @@
 query ProfileQuery {
     profile {
-        smallPhoto
-        name
+        user {
+            _id
+            smallPhoto
+            name
+        }
     }
 }

@@ -85,7 +85,7 @@ class Match extends Component {
 				<TextContainer showBorder={this.showBorder} theme={muiTheme}>
 					<NameContainer theme={muiTheme}>{match.person.name}</NameContainer>
 					<MessageContainer theme={muiTheme}>
-						<span dangerouslySetInnerHTML={{__html: match.lastMessage}}/>
+						<span dangerouslySetInnerHTML={{__html: match.lastMessage.formattedMessage}}/>
 					</MessageContainer>
 				</TextContainer>
 			</MatchContainer>

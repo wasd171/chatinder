@@ -9,6 +9,7 @@ import linkref from '~/app/shims/linkref'
 import {ipcRenderer} from 'electron'
 import {SUBSCRIPTION_MATCH} from '~/shared/constants'
 import query from './query.graphql'
+import update from 'immutability-helper'
 
 
 const Container = styled.div`
@@ -24,9 +25,28 @@ const MessagesList = styled(List)`
 `;
 
 const queryOptions = {
-    options: {
-        fetchPolicy: 'cache-and-network'
-    }
+    // options: (props) => ({
+    //     reducer(previousResult, action, variables) {
+    //         if (action.type === 'APOLLO_MUTATION_RESULT' && action.operationName === 'sendMessageMutation' && variables.id === action.variables.id) {
+    //             const newMessage = {...action.result.data.sendMessage};
+    //             newMessage.sentDate = newMessage.sent_date;
+    //             delete newMessage.sent_date;
+    //             delete newMessage.message;
+
+    //             const updated = update(previousResult, {
+    //                 match: {
+    //                     messages: {
+    //                         $push: [newMessage]
+    //                     }
+    //                 }
+    //             });
+    //             console.log({updated});
+    //             return updated
+    //         } else {
+    //             return previousResult
+    //         }
+    //     }
+    // })
 }
 
 @graphql(query, queryOptions)
@@ -91,7 +111,7 @@ class MessagesFeed extends Component {
     
     get forceUpdateGetter() {
 		// Method for triggering updates in PureComponent
-		return this.props.data.match.messages
+        return this.props.data.match.messages
     }
     
     renderChildren = (props) => {
@@ -105,7 +125,7 @@ class MessagesFeed extends Component {
 	rowRenderer = ({cache}, {index, parent, style}) => {
 		const message = this.props.data.match.messages[index];
 		const me = !(message.from === this.props.data.match.person._id);
-		const user = me ? this.props.data.profile : this.props.data.match.person;
+		const user = me ? this.props.data.profile.user : this.props.data.match.person;
 		
 		return (
             <CellMeasurer
@@ -153,9 +173,12 @@ class MessagesFeed extends Component {
     }
 
     render() {
-        if (this.props.data.loading && typeof this.props.data.match === 'undefined') {
+        console.log('MessagesFeed');
+        console.log(this.props);
+        if (this.props.data.loading || typeof this.props.data.match === 'undefined') {
             return <span>Loading...</span>
         } else {
+            console.log({match: this.props.data.match, type: typeof this.props.data.match})
             return (
                 <AutoSizer forceUpdate={this.forceUpdateGetter}>
                     {this.renderChildren}
@@ -172,6 +195,7 @@ class MessagesFeed extends Component {
 
     componentDidMount() {
         ipcRenderer.on(SUBSCRIPTION_MATCH, this.handleUpdate);
+        // this.props.data.refetch();
     }
 
     componentWillUnmount() {
@@ -182,6 +206,17 @@ class MessagesFeed extends Component {
         if (nextProps.id !== this.props.id) {
             this.sizes = {};
         }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.id !== this.props.id && !this.props.data.loading) {
+            this.props.data.refetch();
+        }
+    }
+
+    shouldComponentUpdate(nextProps) {
+        console.log({nextProps, compare: (nextProps.data.match.messages === this.props.data.messages)});
+        return !(typeof nextProps.data.match === 'undefined')
     }
 }
 

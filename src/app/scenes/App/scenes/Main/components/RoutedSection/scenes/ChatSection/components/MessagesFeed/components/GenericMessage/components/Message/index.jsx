@@ -3,6 +3,7 @@ import {isGIPHY} from '~/shared/utils'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import TextMessage from './components/TextMessage'
 import GIFMessage from './components/GIFMessage'
+import StatusIndicator from './components/StatusIndicator'
 import styled from 'styled-components'
 
 
@@ -25,10 +26,11 @@ const Timestamp = styled.span`
 @muiThemeable()
 class Message extends Component {
 	render() {
-		const {muiTheme, first, sentTime, formattedMessage} = this.props;
-		const AppropriateWrapper = isGIPHY(formattedMessage) ? GIFMessage : TextMessage;
+		const {muiTheme, first, sentTime, formattedMessage, status, isGIPHY} = this.props;
+		const AppropriateWrapper = isGIPHY ? GIFMessage : TextMessage;
 		return (
 			<MessageWrapper theme={muiTheme} first={first}>
+				<StatusIndicator status={status} first={first}/>
 				<AppropriateWrapper formattedMessage={formattedMessage}/>
 				<Timestamp theme={muiTheme} first={first}>
 					{sentTime}

@@ -2,7 +2,7 @@
 import {ServerAPI} from '~/main/ServerAPI'
 import BPromise from 'bluebird'
 import {normalizeMatch} from './normalizeMatch'
-import {normalizeMessage} from './normalizeMessage'
+import {normalizeMessage} from '~/shared/utils'
 
 
 export function handleUpdatesFactory(ctx: ServerAPI) {

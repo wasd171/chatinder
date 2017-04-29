@@ -12,3 +12,8 @@ export const VIEW_PROFILE               = 'VIEW_PROFILE';
 export const VIEW_AUTH					= 'VIEW_AUTH';
 export const VIEW_LOADING				= 'VIEW_LOADING';
 export const VIEW_OFFLINE               = 'VIEW_OFFLINE';
+
+export const SUCCESS = 'SUCCESS';
+export const PENDING = 'PENDING';
+export const FAILURE = 'FAILURE';
+export const PSEUDO = 'PSEUDO';

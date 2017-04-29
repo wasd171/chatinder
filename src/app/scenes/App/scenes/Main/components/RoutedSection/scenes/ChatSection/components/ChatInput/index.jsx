@@ -8,7 +8,12 @@ import {inject, observer} from 'mobx-react'
 import styled from 'styled-components'
 import trim from 'lodash/trim'
 import {graphql} from 'react-apollo'
+import sendMessageInfo from './query.graphql'
 import sendMessageMutation from './mutation.graphql'
+import {normalizeMessagePair} from '~/shared/utils'
+import {PENDING, PSEUDO} from '~/shared/constants'
+import uuid from 'uuid'
+import {Message} from '~/main/ServerAPI/schema/resolvers/instances'
 
 
 const padding = 10;
@@ -33,9 +38,64 @@ const MiddleWrapper = styled.div`
 	width: 100%;
 `;
 
-@inject('view')
+const mutationOptions = {
+	props: ({ownProps, mutate}) => ({
+		submit: ({message, messageId}) => {
+			const input = {
+				_id: messageId,
+				from: ownProps.data.profile.user._id,
+				sent_date: new Date().toISOString(),
+				message
+			}
+
+			let optimisticMessage;
+			const lastMessage = ownProps.data.match.lastMessage;
+			if (lastMessage.status === PSEUDO) {
+				optimisticMessage = normalizeMessagePair(input);
+			} else {
+				optimisticMessage = normalizeMessagePair(input, lastMessage);
+			}
+			optimisticMessage.status = PENDING;
+			optimisticMessage.sentDate = Message.sentDate(optimisticMessage);
+
+			return mutate({
+				variables: {
+					id: ownProps.id,
+					rawMessage: input
+				},
+				optimisticResponse: {
+					__typename: 'Mutation',
+					sendMessage: {
+						__typename: 'Message',
+						...optimisticMessage
+					}
+				},
+				update: (proxy, {data}) => {
+					const cacheData = proxy.readQuery({
+						query: sendMessageInfo, 
+						variables: {id: ownProps.id}
+					});
+
+					cacheData.match.lastMessage = data.sendMessage;
+					cacheData.match.messages.push(data.sendMessage);
+					cacheData.match.lastActivityDate = data.sendMessage.sentDate;
+					console.log({cacheData});
+
+					proxy.writeQuery({
+						query: sendMessageInfo, 
+						data: cacheData, 
+						variables: {id: ownProps.id}
+					});
+				}
+			})
+		}
+	})
+}
+
+@inject(({view}) => ({id: view.params.id}))
 @muiThemeable()
-@graphql(sendMessageMutation)
+@graphql(sendMessageInfo)
+@graphql(sendMessageMutation, mutationOptions)
 @observer
 class ChatInput extends Component {
 	@observable value  = '';
@@ -44,18 +104,25 @@ class ChatInput extends Component {
 		return !!this.isValid(this.value)
 	}
 
+	get disabled() {
+		return (this.props.data.loading || !this.hasValue)
+	}
+
 	@action handleChange = (text) => {
 		this.value = text;
 	};
 
 	@action handleSubmit = () => {
 		console.log('Submit handler');
-		if (this.hasValue) {
-			const {id} = this.props.view.params;
+		if (!this.disabled) {
 			const message = trim(this.value);
-			this.props.mutate({
-				variables: {id, message}
+			this.props.submit({
+				message,
+				messageId: uuid.v1()
 			});
+			// this.props.mutate({
+			// 	variables: {id, message}
+			// });
 			// const {view, tinder, api} = this.props.store;
 			// const currentMatch = tinder.matches.get(view.currentView.params.matchId);
 			// api.sendMessage(currentMatch['_id'], trim(this.value));
@@ -84,7 +151,7 @@ class ChatInput extends Component {
 						hasValue={this.hasValue}
 						onSubmit={this.handleSubmit}
 					/>
-					<SendButton disabled={!this.hasValue} onClick={this.handleSubmit}/>
+					<SendButton disabled={this.disabled} onClick={this.handleSubmit}/>
 				</MiddleWrapper>
 			</OuterWrapper>
 		);

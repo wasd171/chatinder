@@ -3,11 +3,6 @@ import gql from 'graphql-tag'
 
 
 export default gql`
-    type Profile {
-        smallPhoto: String!
-        name: String!
-    }
-
 	type GalleryPhoto {
         original: String!
     }
@@ -65,23 +60,36 @@ export default gql`
         commonInterests: [CommonInterest]
     }
 
+    type Profile {
+        user: Person!
+    }
+
     type Message {
-        _id: String!
+        _id: String
         from: String!
-        sentDay: String!
+        sentDay: String
         sentTime: String!
         sentDate: String!
+        message: String!
         formattedMessage: String!
         first: Boolean!
         firstInNewDay: Boolean!
         isGIPHY: Boolean!
+        status: String!
+    }
+
+    input MessageInput {
+        _id: String!
+        from: String!
+        sent_date: String!
+        message: String!
     }
 
     type Match {
         _id: String!
         person: Person!
         messages: [Message!]
-        lastMessage: String!
+        lastMessage: Message!
         lastActivityDate: String!
         isSuperLike: Boolean!
     }
@@ -102,7 +110,7 @@ export default gql`
         showWindow: GenericMutation!
         fetchHistory: GenericMutation!
         logout: GenericMutation!
-        sendMessage(id: String!, message: String!): Message!
+        sendMessage(id: String!, rawMessage: MessageInput!): Message!
         updatePerson(id: String!): Person!
         checkDoMatchesExist: Boolean!
         subscribeToUpdates: GenericMutation!

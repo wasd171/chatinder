@@ -1,17 +1,27 @@
 // @flow
+import {PSEUDO} from '~/shared/constants'
+import {property} from 'lodash'
+
+
 export const Match = {
     lastMessage: match => {
         if (match.messages.length === 0) {
-            return "It's a match!"
+            return {
+                formattedMessage: "It's a match!",
+                status: PSEUDO
+            }
         } else {
             const message = match.messages[match.messages.length - 1];
             if (message.isGIPHY) {
-                return "GIPHY"
+                return {
+                    formattedMessage: "GIPHY",
+                    status: PSEUDO
+                }
             } else {
-                return message.formattedMessage
+                return message
             }
         }
     },
-    lastActivityDate: match => match.last_activity_date,
-    isSuperLike: match => match.is_super_like
+    lastActivityDate: property('last_activity_date'),
+    isSuperLike: property('is_super_like')
 }

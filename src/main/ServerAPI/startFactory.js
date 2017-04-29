@@ -11,13 +11,11 @@ import {ipcMain} from 'electron'
 
 export default function startFactory(instance: ServerAPI) {
     return async function start() {
-        await BPromise.all([
-            BPromise.fromCallback(callback => instance.db.extra.loadDatabase(callback)),
-            BPromise.fromCallback(callback => instance.db.matches.loadDatabase(callback))
-        ]);
-        const fbParams = await BPromise.fromCallback(callback => instance.db.extra.findOne({_id: 'fb'}, callback));
+        await instance.configureDatabases();
 
+        const fbParams = await BPromise.fromCallback(callback => instance.db.extra.findOne({_id: 'fb'}, callback));
         const fbProps = Object.assign({}, fbParams, {db: instance.db.extra});
+        
         instance.fb = new FB(fbProps);
         instance.tinder = new TinderAPI();
         instance.app = new AppManager();
