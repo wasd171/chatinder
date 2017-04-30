@@ -1,9 +1,9 @@
 // @flow
-import {emojify} from '~/shared/utils'
+import {emojify} from 'shared/utils'
 import format from 'date-fns/format'
-import {isGIPHY} from '~/shared/utils'
-import type {MessageType} from '~/shared/types'
-import {SUCCESS} from '~/shared/constants'
+import {isGIPHY} from 'shared/utils'
+import type {MessageType} from 'shared/types'
+import {SUCCESS} from 'shared/constants'
 
 
 export function normalizeMessage(message: any, index: number, messages: any[]): MessageType {

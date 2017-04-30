@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import CircularProgress from 'material-ui/CircularProgress'
-import {getNormalizedSizeOfGIPHY} from '~/shared/utils'
+import {getNormalizedSizeOfGIPHY} from 'shared/utils'
 import {observable, action} from 'mobx'
 import {observer} from 'mobx-react'
-import linkref from '~/app/shims/linkref'
+import linkref from 'app/shims/linkref'
 import styled from 'styled-components'
 import Waypoint from 'react-waypoint'
 

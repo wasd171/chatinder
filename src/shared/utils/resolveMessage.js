@@ -1,5 +1,5 @@
 // @flow
-import {Message} from '~/main/ServerAPI/schema/resolvers/instances'
+import {Message} from 'main/ServerAPI/schema/resolvers/instances'
 
 
 export function resolveMessage(message, props: Array<string>): Object {

@@ -1,6 +1,6 @@
 // @flow
 import {ServerAPI} from './ServerAPI'
-import {GRAPHQL} from '~/shared/constants'
+import {GRAPHQL} from 'shared/constants'
 
 
 interface IRequestArguments {

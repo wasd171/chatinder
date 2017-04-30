@@ -1,5 +1,5 @@
 // @flow
-import type {ServerAPI} from '~/main/ServerAPI'
+import type {ServerAPI} from 'main/ServerAPI'
 import {isOnline} from './isOnline'
 import {success} from './statuses'
 import {login} from '../mutations'

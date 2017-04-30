@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {inject, observer} from 'mobx-react'
-import {VIEW_CHAT, VIEW_USER, VIEW_PROFILE} from '~/shared/constants'
+import {VIEW_CHAT, VIEW_USER, VIEW_PROFILE} from 'shared/constants'
 import ChatSection from './scenes/ChatSection'
 import UserSection from './scenes/UserSection'
 import ProfileSection from './scenes/ProfileSection'

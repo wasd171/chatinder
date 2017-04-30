@@ -1,5 +1,5 @@
 // @flow
-import {normalizeMessage} from '~/shared/utils'
+import {normalizeMessage} from 'shared/utils'
 import {normalizePerson} from './normalizePerson'
 
 

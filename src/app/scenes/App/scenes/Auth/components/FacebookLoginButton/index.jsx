@@ -1,5 +1,5 @@
 import React from 'react'
-// import Ripple from '~/app/components/Ripple'
+// import Ripple from 'app/components/Ripple'
 import styled from 'styled-components'
 
 

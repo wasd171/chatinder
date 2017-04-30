@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import {graphql} from 'react-apollo'
 import resendMessageMutation from './mutation.graphql'
 import statusFragment from './fragment.graphql'
-import {PENDING} from '~/shared/constants'
+import {PENDING} from 'shared/constants'
 
 
 const GenericMessageContainer = styled.div`

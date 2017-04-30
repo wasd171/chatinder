@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import HeaderContainer from '~/app/components/HeaderContainer'
-import Avatar from '~/app/components/Avatar'
+import HeaderContainer from 'app/components/HeaderContainer'
+import Avatar from 'app/components/Avatar'
 import styled from 'styled-components'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import {graphql} from 'react-apollo'

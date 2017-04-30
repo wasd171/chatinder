@@ -1,5 +1,5 @@
 import {ipcRenderer} from 'electron'
-import {GRAPHQL} from '~/shared/constants'
+import {GRAPHQL} from 'shared/constants'
 import Promise from 'bluebird'
 import uuid from 'uuid'
 import {print} from 'graphql/language/printer'

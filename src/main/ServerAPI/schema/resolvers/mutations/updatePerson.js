@@ -1,5 +1,5 @@
 // @flow
-import {ServerAPI} from '~/main/ServerAPI'
+import {ServerAPI} from 'main/ServerAPI'
 import {normalizePerson, relogin} from '../utils'
 import Promise from 'bluebird'
 

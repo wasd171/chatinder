@@ -1,6 +1,6 @@
 // @flow
 import {AppManager} from '../AppManager'
-import {SUBSCRIPTION_MATCHES_ALL, SUBSCRIPTION_MATCH} from '~/shared/constants'
+import {SUBSCRIPTION_MATCHES_ALL, SUBSCRIPTION_MATCH} from 'shared/constants'
 
 
 export class Refetcher {

@@ -1,9 +1,9 @@
 // @flow
 import {count, success, isOnline} from '../utils'
-import {VIEW_MAIN, VIEW_AUTH, VIEW_OFFLINE} from '~/shared/constants'
+import {VIEW_MAIN, VIEW_AUTH, VIEW_OFFLINE} from 'shared/constants'
 import {login} from '../mutations'
-import type {ServerAPI} from '~/main/ServerAPI'
-import {nameToPath} from '~/shared/utils'
+import type {ServerAPI} from 'main/ServerAPI'
+import {nameToPath} from 'shared/utils'
 
 
 type Arguments = {

@@ -1,5 +1,5 @@
 // @flow
-import type {ServerAPI} from '~/main/ServerAPI'
+import type {ServerAPI} from 'main/ServerAPI'
 import {success, getUpdatesFactory, handleUpdatesFactory} from '../utils'
 import {relogin} from '../utils'
 

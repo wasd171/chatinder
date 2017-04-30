@@ -1,7 +1,7 @@
 // @flow
 import {success} from '../utils'
 const fbError = new Error('FB login is required');
-import {ServerAPI} from '~/main/ServerAPI'
+import {ServerAPI} from 'main/ServerAPI'
 
 
 type Arguments = {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {computed} from 'mobx'
 import {inject, observer} from 'mobx-react'
-import Avatar from '~/app/components/Avatar'
+import Avatar from 'app/components/Avatar'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
 import {fade} from 'material-ui/utils/colorManipulator'

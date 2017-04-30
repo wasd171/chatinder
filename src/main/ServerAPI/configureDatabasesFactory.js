@@ -1,7 +1,7 @@
 // @flow
 import type {ServerAPI} from './ServerAPI'
 import Bluebird from 'bluebird'
-import {PENDING, FAILURE} from '~/shared/constants'
+import {PENDING, FAILURE} from 'shared/constants'
 
 
 export default function configureDatabasesFactory(instance: ServerAPI) {

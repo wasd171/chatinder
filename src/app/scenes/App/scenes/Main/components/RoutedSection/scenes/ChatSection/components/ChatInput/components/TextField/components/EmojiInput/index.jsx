@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import linkref from '~/app/shims/linkref'
-import $ from '~/app/shims/jquery'
+import linkref from 'app/shims/linkref'
+import $ from 'app/shims/jquery'
 
 
 class EmojiInput extends Component {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {isGIPHY} from '~/shared/utils'
+import {isGIPHY} from 'shared/utils'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import TextMessage from './components/TextMessage'
 import GIFMessage from './components/GIFMessage'

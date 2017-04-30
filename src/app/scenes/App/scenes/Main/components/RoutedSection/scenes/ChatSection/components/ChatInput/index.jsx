@@ -10,10 +10,10 @@ import trim from 'lodash/trim'
 import {graphql} from 'react-apollo'
 import sendMessageInfo from './query.graphql'
 import sendMessageMutation from './mutation.graphql'
-import {normalizeMessagePair} from '~/shared/utils'
-import {PENDING, PSEUDO} from '~/shared/constants'
+import {normalizeMessagePair} from 'shared/utils'
+import {PENDING, PSEUDO} from 'shared/constants'
 import uuid from 'uuid'
-import {Message} from '~/main/ServerAPI/schema/resolvers/instances'
+import {Message} from 'main/ServerAPI/schema/resolvers/instances'
 
 
 const padding = 10;

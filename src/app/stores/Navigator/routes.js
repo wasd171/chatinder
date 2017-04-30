@@ -1,5 +1,5 @@
-import {VIEW_AUTH, VIEW_MAIN, VIEW_CHAT, VIEW_USER, VIEW_LOADING, VIEW_OFFLINE, VIEW_PROFILE} from '~/shared/constants'
-import {nameToPath} from '~/shared/utils'
+import {VIEW_AUTH, VIEW_MAIN, VIEW_CHAT, VIEW_USER, VIEW_LOADING, VIEW_OFFLINE, VIEW_PROFILE} from 'shared/constants'
+import {nameToPath} from 'shared/utils'
 
 
 const auth = {

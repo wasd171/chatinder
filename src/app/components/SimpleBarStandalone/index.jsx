@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 import {observable, action} from 'mobx'
 import styled from 'styled-components'
-import linkref from '~/app/shims/linkref'
+import linkref from 'app/shims/linkref'
 
 
 const Track = styled.div`

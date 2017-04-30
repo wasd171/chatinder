@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import MainSection from '~/app/components/MainSection'
-import HeaderContainer from '~/app/components/HeaderContainer'
+import MainSection from 'app/components/MainSection'
+import HeaderContainer from 'app/components/HeaderContainer'
 import UserHeader from './components/UserHeader'
 import UserPhotos from './components/UserPhotos'
 import UserTitle from './components/UserTitle'
@@ -10,12 +10,12 @@ import UserCommonInterests from './components/UserCommonInterests'
 import {graphql} from 'react-apollo'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
-import SimpleBarWrapper from '~/app/components/SimpleBarWrapper'
+import SimpleBarWrapper from 'app/components/SimpleBarWrapper'
 import {observable, action} from 'mobx'
 import {observer} from 'mobx-react'
 import query from './query.graphql'
 import mutation from './mutation.graphql'
-import LoadingStub from '~/app/components/LoadingStub'
+import LoadingStub from 'app/components/LoadingStub'
 
 
 const Wrapper = styled.div`

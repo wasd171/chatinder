@@ -15,9 +15,10 @@
           "flow"
         ],
         "plugins": [
-          ["babel-plugin-root-import", [{
-            "rootPathSuffix": "src"
-          }]],
+          ["module-resolver", {
+            "root": ["./src"],
+            "cwd": "packagejson"
+          }],
           "transform-decorators-legacy",
           "transform-class-properties",
           "transform-object-rest-spread"
@@ -40,9 +41,10 @@
           "flow"
         ],
         "plugins": [
-          ["babel-plugin-root-import", [{
-            "rootPathSuffix": "src"
-          }]],
+          ["module-resolver", {
+            "root": ["./src"],
+            "cwd": "packagejson"
+          }],
           "transform-decorators-legacy",
           "transform-class-properties",
           "transform-object-rest-spread"

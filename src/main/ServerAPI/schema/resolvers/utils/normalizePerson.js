@@ -1,6 +1,6 @@
 // @flow
-import {emojify} from '~/shared/utils'
-import type {PersonType} from '~/shared/types'
+import {emojify} from 'shared/utils'
+import type {PersonType} from 'shared/types'
 
 
 export function normalizePerson(person: any): PersonType {

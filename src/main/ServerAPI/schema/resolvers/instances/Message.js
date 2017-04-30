@@ -1,7 +1,7 @@
 // @flow
-import type {ServerAPI} from '~/main/ServerAPI'
+import type {ServerAPI} from 'main/ServerAPI'
 import Bluebird from 'bluebird'
-import {SUCCESS, PSEUDO} from '~/shared/constants'
+import {SUCCESS, PSEUDO} from 'shared/constants'
 import {property} from 'lodash'
 
 

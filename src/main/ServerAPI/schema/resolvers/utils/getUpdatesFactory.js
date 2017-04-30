@@ -1,5 +1,5 @@
 // @flow
-import type {ServerAPI} from '~/main/ServerAPI'
+import type {ServerAPI} from 'main/ServerAPI'
 import {relogin} from './relogin'
 import Bluebird from 'bluebird'
 

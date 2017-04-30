@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {action, observable} from 'mobx'
 import {observer} from 'mobx-react'
 import Promise from 'bluebird'
-import linkref from '~/app/shims/linkref'
+import linkref from 'app/shims/linkref'
 import styled from 'styled-components'
 
 

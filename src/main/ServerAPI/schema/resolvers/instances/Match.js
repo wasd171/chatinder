@@ -1,5 +1,5 @@
 // @flow
-import {PSEUDO} from '~/shared/constants'
+import {PSEUDO} from 'shared/constants'
 import {property} from 'lodash'
 
 

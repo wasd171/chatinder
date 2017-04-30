@@ -1,6 +1,6 @@
 // @flow
 import parse from 'url-parse'
-import emojione from '~/app/shims/emojione'
+import emojione from 'app/shims/emojione'
 import he from 'he'
 import {VIEW_CHAT, VIEW_USER, VIEW_LOADING} from '../constants'
 

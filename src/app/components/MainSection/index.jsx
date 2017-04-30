@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import BaseSection from '~/app/components/BaseSection'
+import BaseSection from 'app/components/BaseSection'
 import styled from 'styled-components'
 
 

@@ -1,8 +1,8 @@
 // @flow
-import {ServerAPI} from '~/main/ServerAPI'
+import {ServerAPI} from 'main/ServerAPI'
 import BPromise from 'bluebird'
 import {normalizeMatch} from './normalizeMatch'
-import {normalizeMessage} from '~/shared/utils'
+import {normalizeMessage} from 'shared/utils'
 import notifier from 'node-notifier'
 
 
