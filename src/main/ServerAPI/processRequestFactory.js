@@ -10,10 +10,11 @@ interface IRequestArguments {
 
 export default function processRequestFactory(instance: ServerAPI) {
     return async function processRequest(event: Electron.IpcMainEvent, args: IRequestArguments) {
-        if (instance.app.window !== undefined) {
-            const {id, payload} = args;
-            const res = await instance.callGraphQL(payload);
-            const message = instance.generateMessage(id, res);
+        const {id, payload} = args;
+        const res = await instance.callGraphQL(payload);
+        const message = instance.generateMessage(id, res);
+
+        if (instance.app.window !== null) {
             instance.app.window.webContents.send(GRAPHQL, message);
         }
     }
