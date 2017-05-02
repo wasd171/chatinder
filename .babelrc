@@ -1,0 +1,64 @@
+{
+    "presets": [
+        ["env", {
+            "targets": {
+                "electron": 1.6
+            }
+        }],
+        "react",
+        "flow"
+    ],
+    "plugins": [
+        ["module-resolver", {
+            "root": ["./src"],
+            "cwd": "packagejson"
+        }],
+        "transform-decorators-legacy",
+        "transform-class-properties",
+        "transform-object-rest-spread"
+    ],
+    "env": {
+        "development": {
+            "presets": [
+                ["env", {
+                    "targets": {
+                        "electron": 1.6
+                    }
+                }],
+                "react",
+                "flow"
+            ],
+            "plugins": [
+                ["module-resolver", {
+                    "root": ["./src"],
+                    "cwd": "packagejson"
+                }],
+                "transform-decorators-legacy",
+                "transform-class-properties",
+                "transform-object-rest-spread"
+            ],
+            "sourceMaps": "inline"
+        },
+        "production": {
+            "presets": [
+                ["env", {
+                    "targets": {
+                        "electron": 1.6
+                    }
+                }],
+                "react",
+                "flow"
+            ],
+            "plugins": [
+                ["module-resolver", {
+                    "root": ["./src"],
+                    "cwd": "packagejson"
+                }],
+                "transform-decorators-legacy",
+                "transform-class-properties",
+                "transform-object-rest-spread"
+            ],
+            "sourceMaps": "none"
+        }
+    }
+}

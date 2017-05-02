@@ -26,16 +26,16 @@ export default function startFactory(instance: AppManager) {
             await new Promise(resolve => app.on('ready', resolve));
         }
 
-        if (process.env.NODE_ENV !== 'production') {
+        if (process.env.NODE_ENV === 'development') {
             require('electron-debug')({enabled: true});
             require('devtron').install();
-            // enableLiveReload({strategy: 'react-hmr'});
+            enableLiveReload();
             await instance.installExtensions();
         }
 
         instance.createWindow();
 
-        if (process.env.NODE_ENV !== 'production' && instance._window !== undefined) {
+        if (process.env.NODE_ENV === 'development' && instance._window !== undefined) {
             instance._window.webContents.openDevTools();
             instance._window.webContents.on('context-menu', (event, props) => {
                 const {x, y} = props;

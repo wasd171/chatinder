@@ -11,7 +11,6 @@ import {ipcMain} from 'electron'
 
 export default function startFactory(instance: ServerAPI) {
     return async function start() {
-        throw new Error('I am alive?');
         await instance.configureDatabases();
 
         const fbParams = await BPromise.fromCallback(callback => instance.db.extra.findOne({_id: 'fb'}, callback));
