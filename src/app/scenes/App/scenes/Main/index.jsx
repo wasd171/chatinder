@@ -10,6 +10,7 @@ import {observer} from 'mobx-react'
 import RoutedSection from './components/RoutedSection'
 import checkDoMatchesExist from './checkMutation.graphql'
 import startSubscription from './subscribeMutation.graphql'
+import LoadingStub from 'app/components/LoadingStub'
 
 
 const MainContainer = styled.div`
@@ -67,7 +68,7 @@ class Main extends Component {
 		const {muiTheme} = this.props;
 		
 		if (typeof this.shouldShowContent === 'undefined') {
-			return <span>Loading...</span>
+			return <LoadingStub size={40}/>
 		}
 
 		if (!this.shouldShowContent) {
