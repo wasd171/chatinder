@@ -33,9 +33,15 @@ export class ServerAPI {
 
     constructor() {
         this.schema = createSchema();
-        const extra = new Nedb({filename: join(__dirname, 'databases', 'extra.db')});
-        const matches = new Nedb({filename: join(__dirname, 'databases', 'matches.db')});
-        const pending = new Nedb({filename: join(__dirname, 'databases', 'pending.db')});
+        let predicate;
+        if (process.env.NODE_ENV === 'development') {
+            predicate = join(__dirname, '..', 'databases');
+        } else {
+            predicate = join(__dirname, '..', '..', '..', '..', 'app.asar.unpacked', 'src', 'main', 'databases');
+        }
+        const extra = new Nedb({filename: join(predicate, 'extra.db')});
+        const matches = new Nedb({filename: join(predicate, 'matches.db')});
+        const pending = new Nedb({filename: join(predicate, 'pending.db')});
         this.db = {
             extra,
             matches,

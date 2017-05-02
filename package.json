@@ -6,8 +6,8 @@
   "main": "src/server.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron-forge start",
-    "package": "cross-env NODE_ENV=production electron-forge package",
-    "make": "cross-env NODE_ENV=production electron-forge make"
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "keywords": [],
   "author": "wasd171",
@@ -26,7 +26,12 @@
           "rpm"
         ]
       },
-      "electronPackagerConfig": {},
+      "electronPackagerConfig": {
+        "asar": {
+          "unpackDir": "src/**/databases"
+        },
+        "icon": "./icons/icon"
+      },
       "electronWinstallerConfig": {
         "name": "chatinder"
       },
