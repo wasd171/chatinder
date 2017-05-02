@@ -1,6 +1,7 @@
 // @flow
 import {AppManager} from './AppManager'
 import {BrowserWindow} from 'electron'
+import {join} from 'path'
 
 
 export default function createWindowFactory(instance: AppManager) {
@@ -14,7 +15,8 @@ export default function createWindowFactory(instance: AppManager) {
             webPreferences: {
                 nodeIntegration: true,
                 blinkFeatures: 'CSSScrollSnapPoints,CSSSnapSize,ScrollAnchoring,CSSOMSmoothScroll'
-            }
+            },
+            icon: join(__dirname, '..', '..', '..', '..', 'icons', 'icon.png')
         })
     }
 }
