@@ -4,3 +4,4 @@ out
 .idea
 flow-typed/npm
 *.log
+docs/_site
