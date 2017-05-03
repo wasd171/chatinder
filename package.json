@@ -42,7 +42,8 @@
       "electronWinstallerConfig": {
         "iconUrl": "https://wasd171.github.io/chatinder/assets/icons/icon.ico",
         "name": "chatinder",
-        "setupIcon": "./icons/icon.ico"
+        "setupIcon": "./icons/icon.ico",
+        "remoteReleases": "http://chatinder.herokuapp.com/download"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
