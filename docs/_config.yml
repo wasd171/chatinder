@@ -1,1 +1,25 @@
 theme: jekyll-swiss
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.github_repo }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Chatinder
+description: A desktop messaging client for Tinder.
+baseurl: "/chatinder" # the subpath of your site, e.g. /blog
+url: "https://wasd171.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+github_repo: chatinder # the GitHub repo name for your project
+github_username: wasd171
+
+# Optional social link, you can choose from the following options:
+# twitter (default), instagram, medium, or dribbble
+social_link: twitter
+social_username: wasd171
+
+# Set theme color here
+# Choose from: black (default), blue, gray, magenta, orange, red, white, and yellow.
+theme_color: black
+
+# Build settings
+markdown: kramdown
