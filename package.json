@@ -28,9 +28,10 @@
       },
       "electronPackagerConfig": {
         "asar": {
-          "unpackDir": "src/**/databases"
+          "unpackDir": "databases-production"
         },
-        "icon": "./icons/icon"
+        "icon": "./icons/icon",
+        "ignore": "/src/main/databases/(.*)\\.db$"
       },
       "electronWinstallerConfig": {
         "name": "chatinder"

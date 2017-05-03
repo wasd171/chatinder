@@ -37,7 +37,7 @@ export class ServerAPI {
         if (process.env.NODE_ENV === 'development') {
             predicate = join(__dirname, '..', 'databases');
         } else {
-            predicate = join(__dirname, '..', '..', '..', '..', 'app.asar.unpacked', 'src', 'main', 'databases');
+            predicate = join(__dirname, '..', '..', '..', '..', 'app.asar.unpacked', 'databases-production');
         }
         const extra = new Nedb({filename: join(predicate, 'extra.db')});
         const matches = new Nedb({filename: join(predicate, 'matches.db')});
