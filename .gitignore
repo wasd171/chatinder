@@ -3,3 +3,4 @@ out
 **/*.db
 .idea
 flow-typed/npm
+*.log
