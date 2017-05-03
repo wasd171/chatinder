@@ -43,6 +43,7 @@ const MatchesSection = styled(BaseSection(styled.aside))`
 	border-right: 1px solid ${props => props.theme.palette.borderColor};
 	width: 270px;
 	min-width: 270px;
+	overflow: hidden;
 `;
 
 @graphql(checkDoMatchesExist, {name: 'check'})
