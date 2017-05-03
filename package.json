@@ -31,10 +31,15 @@
           "unpackDir": "databases-production"
         },
         "icon": "./icons/icon",
-        "ignore": "/src/main/databases/(.*)\\.db$"
+        "ignore": "/src/main/databases/(.*)\\.db$",
+        "win32metadata": {
+          "ProductName": "Chatinder"
+        }
       },
       "electronWinstallerConfig": {
-        "name": "chatinder"
+        "iconUrl": "https://wasd171.github.io/chatinder/assets/icons/icon.ico",
+        "name": "chatinder",
+        "setupIcon" : "./icons/icon.ico"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
@@ -53,6 +58,7 @@
     "bluebird": "^3.5.0",
     "date-fns": "^1.28.4",
     "electron-compile": "^6.4.1",
+    "electron-squirrel-startup": "^1.0.0",
     "emojione": "2",
     "emojionearea": "^3.1.5",
     "font-awesome": "^4.7.0",
