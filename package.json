@@ -1,7 +1,7 @@
 {
   "name": "chatinder",
   "productName": "Chatinder",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Unofficial desktop chat client for Tinder",
   "main": "src/server.js",
   "scripts": {
@@ -10,6 +10,8 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish"
   },
+  "bugs": "https://github.com/wasd171/chatinder/issues",
+  "homepage": "https://github.com/wasd171/chatinder",
   "keywords": [],
   "author": "wasd171",
   "license": "MIT",
@@ -40,7 +42,7 @@
       "electronWinstallerConfig": {
         "iconUrl": "https://wasd171.github.io/chatinder/assets/icons/icon.ico",
         "name": "chatinder",
-        "setupIcon" : "./icons/icon.ico"
+        "setupIcon": "./icons/icon.ico"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
@@ -55,6 +57,7 @@
     }
   },
   "dependencies": {
+    "about-window": "^1.6.1",
     "apollo-client": "^1.1.1",
     "bluebird": "^3.5.0",
     "date-fns": "^1.28.4",

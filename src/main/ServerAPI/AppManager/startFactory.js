@@ -3,7 +3,7 @@ import {AppManager} from './AppManager'
 import {app, Menu} from 'electron'
 import Promise from 'bluebird'
 import {enableLiveReload} from 'electron-compile'
-import {updateApp} from './utils'
+import {updateApp, buildMenu} from './utils'
 
 
 export function onClosedFactory(instance: AppManager) {
@@ -39,6 +39,7 @@ export default function startFactory(instance: AppManager) {
         }
 
         instance.createWindow();
+        buildMenu();
 
         if (process.env.NODE_ENV === 'development' && instance._window !== undefined) {
             instance._window.webContents.openDevTools();
