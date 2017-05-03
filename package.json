@@ -43,7 +43,7 @@
         "iconUrl": "https://wasd171.github.io/chatinder/assets/icons/icon.ico",
         "name": "chatinder",
         "setupIcon": "./icons/icon.ico",
-        "remoteReleases": "http://chatinder.herokuapp.com/download"
+        "remoteReleases": "http://chatinder.herokuapp.com/update/win32/1.0.2"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
