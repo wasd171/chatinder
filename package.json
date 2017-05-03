@@ -8,7 +8,7 @@
     "start": "cross-env NODE_ENV=development electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "make:all": "electron-forge make --all"
+    "publish": "electron-forge publish"
   },
   "keywords": [],
   "author": "wasd171",
