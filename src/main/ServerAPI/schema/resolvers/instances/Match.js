@@ -23,5 +23,11 @@ export const Match = {
         }
     },
     lastActivityDate: property('last_activity_date'),
-    isSuperLike: property('is_super_like')
+    isSuperLike: match => {
+        if (typeof match.is_super_like === 'undefined') {
+            return false
+        } else {
+            return match.is_super_like
+        }
+    }
 }
