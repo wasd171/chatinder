@@ -45,8 +45,8 @@
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
       "github_repository": {
-        "owner": "",
-        "name": ""
+        "owner": "wasd171",
+        "name": "chatinder"
       },
       "windowsStoreConfig": {
         "packageName": "",
