@@ -3,11 +3,16 @@ import {AppManager} from './AppManager'
 import {app, Menu} from 'electron'
 import Promise from 'bluebird'
 import {enableLiveReload} from 'electron-compile'
+import {updateApp} from './utils'
 
 
-export function onClosed() {
-    if (process.platform !== 'darwin') {
-        app.quit();
+export function onClosedFactory(instance: AppManager) {
+    return function onClosed() {
+        if (process.platform !== 'darwin') {
+            app.quit();
+        } else {
+            instance._window = null;
+        }
     }
 }
 
@@ -48,7 +53,12 @@ export default function startFactory(instance: AppManager) {
                         }
                     }
                 }]).popup(instance._window)
-            })
+            });
+        }
+
+        const isWinOrMac = (process.platform === 'darwin' || process.platform === 'win32');
+        if (isWinOrMac && process.env.NODE_ENV !== 'development') {
+            updateApp();
         }
 
         app.on('window-all-closed', onClosed);
