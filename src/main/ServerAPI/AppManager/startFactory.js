@@ -56,9 +56,11 @@ export default function startFactory(instance: AppManager) {
             });
         }
 
-        const isWinOrMac = (process.platform === 'darwin' || process.platform === 'win32');
-        if (isWinOrMac && process.env.NODE_ENV !== 'development') {
-            updateApp();
+        const isWin = (process.platform === 'win32');
+        if (isWin && process.env.NODE_ENV !== 'development') {
+            instance._window.webContents.once('did-frame-finish-load', () => {
+                updateApp();
+            });
         }
 
         app.on('window-all-closed', onClosedFactory(instance));

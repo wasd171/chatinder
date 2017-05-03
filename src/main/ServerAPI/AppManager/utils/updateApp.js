@@ -7,7 +7,7 @@ const platform = `${os.platform()}_${os.arch()}`;
 const updateURL = `https://chatinder.herokuapp.com/update/${platform}/${version}`;
 
 export function updateApp() {
-    autoUpdater.setFeedURL(updaterFeedURL);
+    autoUpdater.setFeedURL(updateURL);
 	/* Log whats happening
 	TODO send autoUpdater events to renderer so that we could console log it in developer tools
 	You could alsoe use nslog or other logging to see what's happening */
