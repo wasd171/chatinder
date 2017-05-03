@@ -9,6 +9,19 @@
 
       <header class="header-background">
 
+        <div class="clearfix border-bottom-thick header-border">
+          <ul class="list-reset right py-1 header-text font-smoothing">
+            <li class="inline-block">
+              <a 
+                class="align-middle link-primary header-link mr-2" 
+                href="https://github.com/{{ site.github_username }}/{{ site.github_repo }}/releases/latest"
+              >
+                Downloads
+              </a>
+            </li>
+          </ul>
+        </div>      
+
         <div class="container mx-auto px-2 mb-2 clearfix header-text">
           <h1 class="h0 inline-block col-9 sm-width-full py-4 mt-3 header-title">{{ site.title }}</h1>
 
@@ -42,11 +55,30 @@
         </div>
       </header>
 
-      <div class="container mx-auto px-2 py-4">
-        {% for post in site.posts %}
-          {% include post_block.html %}
-        {% endfor %}
-      </div>
+      <article class="container px-2 mx-auto mb4" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="col-9 sm-width-full inline-block">
+          <div class="logo-wrapper">
+            <img 
+              src="{{ "/assets/icons/icon.png" | prepend: full_base_url }}" 
+              alt="Chatinder logo"
+              class="logo mb-4 mt-4"  
+            />
+          </div>
+        </div>
+
+        <div class="prose" itemprop="articleBody">
+          <p>
+            Chatinder is an open-source desktop application for Mac and Windows that allows you to chat with all your matches from your computer.
+          </p>
+        
+          <ul>
+            <li>Secure: no third-party server for you to worry. Just you and Tinder.</li>
+            <li>Convinient: typing on a real keyboard is much simpler. Express your thoughts!</li>
+            <li>Open-source: app is completely free. You can even build it from sources yourself.</li>
+          </ul>
+        </div>
+
+      </article>
 
     </div>
 

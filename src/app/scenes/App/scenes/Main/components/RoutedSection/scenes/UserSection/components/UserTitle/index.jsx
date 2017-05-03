@@ -4,6 +4,7 @@ import {inject, observer} from 'mobx-react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
 import distanceInWordsStrict from 'date-fns/distance_in_words_strict'
+import addYears from 'date-fns/add_years'
 import {CircularProgress} from 'material-ui'
 import ToggleStar from 'material-ui/svg-icons/toggle/star'
 import ActionWork from 'material-ui/svg-icons/action/work'
@@ -68,7 +69,7 @@ const LocationRow = PaleRow;
 @observer
 class UserTitle extends Component {
 	@computed get age() {
-		return distanceInWordsStrict(this.props.time.now, this.props.birthDate, {unit: 'Y'})
+		return distanceInWordsStrict(this.props.time.now, addYears(this.props.birthDate, 1), {unit: 'Y'})
 	}
 	
 	renderSuperLike = () => (
