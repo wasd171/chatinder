@@ -61,7 +61,7 @@ export default function startFactory(instance: AppManager) {
             updateApp();
         }
 
-        app.on('window-all-closed', onClosed);
+        app.on('window-all-closed', onClosedFactory(instance));
         app.on('activate', onActivateFactory(instance));
     }
 }
