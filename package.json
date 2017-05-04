@@ -2,7 +2,7 @@
   "name": "chatinder",
   "productName": "Chatinder",
   "version": "1.2.0",
-  "description": "Unofficial desktop chat client for Tinder",
+  "description": "Unofficial desktop messaging client for Tinder.",
   "main": "src/server.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron-forge start",

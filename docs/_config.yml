@@ -6,7 +6,7 @@ theme: jekyll-swiss
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: Chatinder
-description: A desktop messaging client for Tinder.
+description: Unofficial desktop messaging client for Tinder.
 baseurl: "/chatinder" # the subpath of your site, e.g. /blog
 url: "https://wasd171.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_repo: chatinder # the GitHub repo name for your project
