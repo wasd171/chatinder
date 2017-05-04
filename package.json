@@ -1,7 +1,7 @@
 {
   "name": "chatinder",
   "productName": "Chatinder",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Unofficial desktop chat client for Tinder",
   "main": "src/server.js",
   "scripts": {
@@ -35,6 +35,11 @@
         },
         "icon": "./icons/icon",
         "ignore": "/src/main/databases/(.*)\\.db$",
+        "appBundleId": "com.wasd171.chatinder",
+        "appCategoryType": "public.app-category.social-networking",
+        "osxSign": {
+          "identity": "Developer ID Application: Konstantin Nesterov (WB9A3TN46Q)"
+        },
         "win32metadata": {
           "ProductName": "Chatinder"
         }
@@ -43,7 +48,7 @@
         "iconUrl": "https://wasd171.github.io/chatinder/assets/icons/icon.ico",
         "name": "chatinder",
         "setupIcon": "./icons/icon.ico",
-        "remoteReleases": "http://chatinder.herokuapp.com/update/win32/1.0.2"
+        "remoteReleases": "http://chatinder.herokuapp.com/update/win32/1.1.0"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
