@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import {AppContainer} from 'react-hot-loader'
 import {ApolloProvider} from 'react-apollo'
 import {Provider} from 'mobx-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -26,15 +25,13 @@ async function configureAndRender() {
 	function render() {
 		const App = require('./scenes/App/index').default;
 		ReactDOM.render(
-			<AppContainer>
-				<MuiThemeProvider muiTheme={theme}>
-					<ApolloProvider client={client}>
-						<Provider {...stores}>
-							<App/>
-						</Provider>
-					</ApolloProvider>
-				</MuiThemeProvider>
-			</AppContainer>,
+			<MuiThemeProvider muiTheme={theme}>
+				<ApolloProvider client={client}>
+					<Provider {...stores}>
+						<App/>
+					</Provider>
+				</ApolloProvider>
+			</MuiThemeProvider>,
 			container
 		)
 	}
