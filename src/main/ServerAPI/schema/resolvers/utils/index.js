@@ -1,4 +1,5 @@
 // @flow
+export {normalizeAllMatches} from './normalizeAllMatches'
 export {normalizeMatch} from './normalizeMatch'
 export {normalizePerson} from './normalizePerson'
 export {success} from './statuses'
