@@ -12,20 +12,14 @@ type Arguments = {
 type Output = Promise<string>
 
 export async function initialRoute(obj: void, args: Arguments, ctx: ServerAPI): Output {
-    const res = await login(obj, {silent: true}, ctx);
-    
-    if (res.status === success.status) {
+    // TODO: implement proper first login when offline
+    const matchesCount = await count(ctx.db.matches, {});
+    if (matchesCount !== 0) {
         return nameToPath(VIEW_MAIN)
     } else {
-        const matchesCount = await count(ctx.db.matches, {});
-        if (matchesCount !== 0) {
+        const {token, id} = ctx.fb;
+        if (typeof token !== 'undefined' && typeof id !== 'undefined') {
             return nameToPath(VIEW_MAIN)
-        }
-
-        const online = await isOnline();        
-
-        if (!online) {
-            return nameToPath(VIEW_OFFLINE)
         } else {
             return nameToPath(VIEW_AUTH)
         }
