@@ -1,23 +1,8 @@
 import emojione from 'emojione'
-import packageJSON from 'emojione/package.json'
 
 
-function configureEmojione() {
-    let configuredEmojione = Object.assign(
-        {},
-        emojione,
-        {
-            imageType: 'png',
-            sprites: false,
-            imagePathPNG: '../node_modules/emojione/assets/png/'
-        }
-    )
-    
-    if (typeof window !== "undefined") {
-        // Needed for emojionearea
-	    window.emojioneVersion = packageJSON.version;
-    }
-    return configuredEmojione
-}
+emojione.imageType = 'png';
+emojione.sprites = false;
+emojione.imagePathPNG = '../node_modules/emojione/assets/png/';
 
-export default configureEmojione()
+export default emojione

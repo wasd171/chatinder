@@ -1,7 +1,5 @@
 // @flow
 import parse from 'url-parse'
-import emojione from 'app/shims/emojione'
-import he from 'he'
 import {VIEW_CHAT, VIEW_USER, VIEW_LOADING} from '../constants'
 
 
@@ -43,11 +41,7 @@ export function nameToPath(name: string) {
 	}
 }
 
-
-export function emojify(text: string): string {
-	return emojione.unicodeToImage(he.escape(text))
-}
-
+export {emojify} from './emojify'
 export {normalizeMessage} from './normalizeMessage'
 export {resolveMessage} from './resolveMessage'
 export {normalizeMessagePair} from './normalizeMessagePair'

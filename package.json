@@ -69,7 +69,7 @@
     "date-fns": "^1.28.4",
     "electron-compile": "^6.4.1",
     "electron-squirrel-startup": "^1.0.0",
-    "emojione": "2",
+    "emojione": "2.2.7",
     "emojionearea": "^3.1.5",
     "font-awesome": "^4.7.0",
     "graphql": "^0.9.6",

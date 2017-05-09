@@ -1,11 +1,13 @@
 // @flow
 import $ from 'jquery'
 import emojione from './emojione'
+import packageJSON from 'emojione/package.json'
 
 
 function shimJQueryPlugins() {
     global.jQuery = $;
-    window.emojione = emojione;
+    global.emojione = emojione;
+    global.emojioneVersion = packageJSON.version;
     require('emojionearea');
     return global.jQuery
 }
