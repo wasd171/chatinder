@@ -1,5 +1,5 @@
 // @flow
-import {count, normalizeMatch, insert} from '../utils'
+import {count, normalizeAllMatches, insert} from '../utils'
 
 
 export async function checkDoMatchesExist(obj, args, ctx) {
@@ -12,9 +12,13 @@ export async function checkDoMatchesExist(obj, args, ctx) {
         if (history.matches.length === 0) {
             return false
         } else {
-            const matches = history.matches.map(normalizeMatch);
-            await insert(ctx.db.matches, matches);
-            return true
+            const matches = normalizeAllMatches(history.matches);
+            if (matches.length !== 0) {
+                await insert(ctx.db.matches, matches);
+                return true
+            } else {
+                return false
+            }
         }
     }
 }
