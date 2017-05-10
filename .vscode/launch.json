@@ -14,7 +14,8 @@
             },
             "cwd": "${workspaceRoot}",
             "env": {
-                "NODE_ENV": "development"
+                "NODE_ENV": "development",
+                "UPGRADE_EXTENSIONS": false
             }
         }
     ]

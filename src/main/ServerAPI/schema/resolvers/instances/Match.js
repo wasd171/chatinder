@@ -8,14 +8,16 @@ export const Match = {
         if (match.messages.length === 0) {
             return {
                 formattedMessage: "It's a match!",
-                status: PSEUDO
+                status: PSEUDO,
+                _id: `${match._id}_last`
             }
         } else {
             const message = match.messages[match.messages.length - 1];
             if (message.isGIPHY) {
                 return {
                     formattedMessage: "GIPHY",
-                    status: PSEUDO
+                    status: PSEUDO,
+                    _id: `${match._id}_last`
                 }
             } else {
                 return message
