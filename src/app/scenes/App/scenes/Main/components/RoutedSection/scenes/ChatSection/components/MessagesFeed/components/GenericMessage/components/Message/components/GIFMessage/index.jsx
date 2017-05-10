@@ -79,12 +79,12 @@ const ReloadButton = styled(BaseIconButton)`
 `;
 
 const ReloadIcon = styled.i`
-	font-size: 24px;
-	line-height: 24px;
+	font-size: 30px;
+	line-height: 30px;
 	color: white;
 	position: absolute;
-	top: 13px;
-	left: 18px;
+	top: 10px;
+	left: 13px;
 `;
 
 const LoaderWrapper = styled(BaseContainer)`
@@ -98,11 +98,11 @@ class GIFMessage extends Component {
 	blob;
 	giphy;
 	req = null;
-	@observable progress = 0;
+	@observable progress = 'none';
 	@observable height;
 	@observable width;
 	@observable animated = false;
-	// @observable loadComplete = false;
+	
 	get loadStatus() {
 		const {_gifs} = this.props.caches;
 		const key = this.props.formattedMessage;
@@ -145,7 +145,6 @@ class GIFMessage extends Component {
 	};
 
 	handleError = (e) => {
-		console.log('error!');
 		this.setLoadStatus(FAILURE);
 	}
 
@@ -156,7 +155,6 @@ class GIFMessage extends Component {
 	};
 
 	loadGif = () => {
-		console.log('loadGif');
 		if (this.req !== null) {
 			this.req.abort();
 			this.req = null;
@@ -239,7 +237,7 @@ class GIFMessage extends Component {
 		return (
 			<LoaderWrapper height={this.height} width={this.width}>
 				<ReloadButton onClick={this.loadGif}>
-					<i className="fa fa-play"/>
+					<ReloadIcon className="fa fa-refresh"/>
 				</ReloadButton>
 			</LoaderWrapper>
 		)
@@ -262,7 +260,6 @@ class GIFMessage extends Component {
 	};
 
 	render() {
-		console.log('render', this.loadStatus);
 		let content;
 		if (this.animated) {
 			content = this.renderGIPHY();
