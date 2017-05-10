@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import CircularProgress from 'material-ui/CircularProgress'
 import {getNormalizedSizeOfGIPHY} from 'shared/utils'
-import {observable, action} from 'mobx'
-import {observer} from 'mobx-react'
+import {observable, action, computed} from 'mobx'
+import {inject, observer} from 'mobx-react'
 import linkref from 'app/shims/linkref'
 import styled from 'styled-components'
 import Waypoint from 'react-waypoint'
+import {SUCCESS, PENDING, FAILURE} from 'shared/constants'
 
 
 const OuterWrapper = styled.div`
@@ -41,7 +42,7 @@ const CanvasPreview = styled.canvas`
 	z-index: -1;
 `;
 
-const PlayButton = styled.div`
+const BaseIconButton = styled.div`
 	width: 50px;
 	height: 50px;
 	position: absolute;
@@ -49,9 +50,13 @@ const PlayButton = styled.div`
 	left: 50%;
 	margin-left: -25px;
 	margin-top: -25px;
-	background-color: rgba(0, 0, 0, .5);
 	border-radius: 50%;
 	z-index: 1;
+	cursor: pointer;
+`;
+
+const PlayButton = styled(BaseIconButton)`
+	background-color: rgba(0, 0, 0, .5);
 	&:hover {
 		background-color: rgba(0, 0, 0, .6);
 	}
@@ -66,18 +71,47 @@ const PlayIcon = styled.i`
 	left: 18px;
 `;
 
-const LoaderWrapper = styled(BaseContainer)`
-	background-color: black;
+const ReloadButton = styled(BaseIconButton)`
+	background-color: rgba(255, 255, 255, .5);
+	&:hover {
+		background-color: rgba(255, 255, 255, .6);
+	}
 `;
 
+const ReloadIcon = styled.i`
+	font-size: 30px;
+	line-height: 30px;
+	color: white;
+	position: absolute;
+	top: 10px;
+	left: 13px;
+`;
+
+const LoaderWrapper = styled(BaseContainer)`
+	background-color: black;
+	position: relative;
+`;
+
+@inject('caches')
+@observer
 class GIFMessage extends Component {
 	blob;
 	giphy;
-	@observable progress = 0;
+	req = null;
+	@observable progress = 'none';
 	@observable height;
 	@observable width;
 	@observable animated = false;
-	@observable loadComplete = false;
+	
+	get loadStatus() {
+		const {_gifs} = this.props.caches;
+		const key = this.props.formattedMessage;
+
+		if (!_gifs.has(key)) {
+            _gifs.set(key, PENDING);
+        }
+        return _gifs.get(key);
+	}
 
 	@action startAnimation = () => {
 		this.animated = true;
@@ -95,8 +129,8 @@ class GIFMessage extends Component {
 		}
 	};
 
-	@action setLoadComplete = (load) => {
-		this.loadComplete = load;
+	@action setLoadStatus = (status) => {
+		this.props.caches.setGifStatus(this.props.formattedMessage, status);
 	};
 
 	@action setDimensions = () => {
@@ -107,8 +141,12 @@ class GIFMessage extends Component {
 
 	handleLoad = (e) => {
 		this.blob = e.currentTarget.response;
-		this.setLoadComplete(true);
+		this.setLoadStatus(SUCCESS);
 	};
+
+	handleError = (e) => {
+		this.setLoadStatus(FAILURE);
+	}
 
 	drawOnCanvas = () => {
 		if (this.canvas) {
@@ -116,18 +154,31 @@ class GIFMessage extends Component {
 		}
 	};
 
+	loadGif = () => {
+		if (this.req !== null) {
+			this.req.abort();
+			this.req = null;
+		}
+
+		this.setLoadStatus(PENDING);
+
+		const req = new XMLHttpRequest();
+		req.addEventListener('progress', this.setProgress);
+		req.addEventListener('load', this.handleLoad);
+		req.addEventListener('error', this.handleError);
+		req.open('GET', this.props.formattedMessage, true);
+		req.responseType = 'blob';
+		req.send();
+		this.req = req;
+	}
+
 	constructor(props) {
 		super(props);
 		this.setDimensions();
 	}
 
 	componentDidMount() {
-		const req = new XMLHttpRequest();
-		req.addEventListener('progress', this.setProgress);
-		req.addEventListener('load', this.handleLoad)
-		req.open('GET', this.props.formattedMessage, true);
-		req.responseType = 'blob';
-		req.send();
+		this.loadGif();
 	}
 
 	componentDidUpdate() {
@@ -147,6 +198,13 @@ class GIFMessage extends Component {
 			}
 		}
 
+	}
+
+	componentWillUnmount() {
+		if (this.req !== null) {
+			this.req.abort();
+			this.req = null;
+		}
 	}
 
 	renderLoader = () => {
@@ -175,6 +233,16 @@ class GIFMessage extends Component {
 		)
 	};
 
+	renderFailure = () => {
+		return (
+			<LoaderWrapper height={this.height} width={this.width}>
+				<ReloadButton onClick={this.loadGif}>
+					<ReloadIcon className="fa fa-refresh"/>
+				</ReloadButton>
+			</LoaderWrapper>
+		)
+	}
+
 	renderGIPHY = () => {
 		return (
 			// Using inner div here because Waypoint requires it
@@ -192,18 +260,29 @@ class GIFMessage extends Component {
 	};
 
 	render() {
+		let content;
+		if (this.animated) {
+			content = this.renderGIPHY();
+		} else {
+			switch (this.loadStatus) {
+				case SUCCESS:
+					content = this.renderCanvas();
+					break;
+				case PENDING:
+					content = this.renderLoader();
+					break;
+				case FAILURE:
+					content = this.renderFailure();
+					break;
+			}
+		}
+
 		return (
 			<OuterWrapper>
-				{
-					this.animated
-						? this.renderGIPHY()
-						: this.loadComplete
-							? this.renderCanvas()
-							: this.renderLoader()
-				}
+				{content}
 			</OuterWrapper>
 		)
 	}
 }
 
-export default observer(GIFMessage)
+export default GIFMessage
