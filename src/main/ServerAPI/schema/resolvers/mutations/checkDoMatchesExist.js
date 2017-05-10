@@ -1,5 +1,6 @@
 // @flow
-import {count, normalizeAllMatches, insert} from '../utils'
+import {count, normalizeAllMatches, insert, relogin} from '../utils'
+import Bluebird from 'bluebird'
 
 
 export async function checkDoMatchesExist(obj, args, ctx) {
@@ -8,7 +9,17 @@ export async function checkDoMatchesExist(obj, args, ctx) {
     if (matchesCount !== 0) {
         return true
     } else {
-        const history = await ctx.tinder.getHistory();
+        async function _getHistory(callback: Function) {
+            try {
+                const history = await ctx.tinder.getHistory();
+                callback(null, history);
+            } catch (err) {
+                await relogin(ctx);
+                _getHistory(callback);
+            }
+        }
+
+        const history = await Bluebird.fromCallback(callback => _getHistory(callback));
         if (history.matches.length === 0) {
             return false
         } else {

@@ -58,7 +58,8 @@ class Main extends Component {
 	}
 
 	async componentDidMount() {
-		const status = await this.props.check();
+		const res = await this.props.check();
+		const status = res.data.checkDoMatchesExist;
 		if (status) {
 			this.props.subscribe();
 		}

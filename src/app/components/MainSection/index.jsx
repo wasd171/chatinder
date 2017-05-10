@@ -7,6 +7,7 @@ import styled from 'styled-components'
 const MainSectionWrapper = styled(BaseSection(styled.main))`
 	background-color: ${props => props.theme.palette.canvasColor}
 	width: 100%;
+	overflow: hidden;
 `;
 
 @muiThemeable()
