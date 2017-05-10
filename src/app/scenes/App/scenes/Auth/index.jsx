@@ -4,6 +4,7 @@ import {inject, observer} from 'mobx-react'
 import styled from 'styled-components'
 import {graphql} from 'react-apollo'
 import loginMutation from './loginMutation.graphql'
+import {success} from 'shared/constants'
 
 
 const AuthWrapper = styled.div`
@@ -18,8 +19,14 @@ const AuthWrapper = styled.div`
 class Auth extends Component {
 	handleClick = async () => {
 		this.props.navigator.goToLoading('Performing login');
-		await this.props.mutate();
-		this.props.navigator.goToMain();
+		const res = await this.props.mutate();
+		const {status} = res.data.login;
+
+		if (status === success.status) {
+			this.props.navigator.goToMain();
+		} else {
+			this.props.navigator.goToAuth();
+		}
 	}
 
 	render() {
