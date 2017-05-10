@@ -1,4 +1,2 @@
 // @flow
-export const success = {
-    status: 'OK'
-}
+export {success} from 'shared/constants'

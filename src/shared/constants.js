@@ -17,3 +17,7 @@ export const SUCCESS = 'SUCCESS';
 export const PENDING = 'PENDING';
 export const FAILURE = 'FAILURE';
 export const PSEUDO = 'PSEUDO';
+
+export const success = {
+    status: 'OK'
+}

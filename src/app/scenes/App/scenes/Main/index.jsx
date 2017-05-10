@@ -87,7 +87,6 @@ class Main extends Component {
 	}
 
 	render() {
-		console.log('Main.render', this.shouldShowContent);
 		return (
 			<MainContainer theme={this.props.muiTheme}>
 				{this.renderChildren()}

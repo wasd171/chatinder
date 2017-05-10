@@ -1,5 +1,6 @@
 // @flow
 import {BrowserWindow} from 'electron'
+import parse from 'url-parse'
 
 
 type windowType = Electron.BrowserWindow | null;
@@ -23,14 +24,17 @@ export default function getToken(silent: boolean): Promise<ITokenRes> {
 		let win: windowType = new BrowserWindow({
 			width: 640,
 			height: 640,
-			show: false,
+			show: !silent,
 			webPreferences: {
 				nodeIntegration: false
 			}
 		});
 
-		if (win !== null) {
+		if (win != null) {
 			win.on('closed', () => {
+				if (!silent) {
+					reject();
+				}
 				win = null;
 			});
 
@@ -46,7 +50,8 @@ export default function getToken(silent: boolean): Promise<ITokenRes> {
 						if (expiresStringRegex !== null && expiresStringRegex.length >= 2) {
 							expiresIn = parseInt(expiresStringRegex[1]);
 						} else {
-							throw new Error('Unable to retrieve expiration date from Facebook');
+							reject(new Error('Unable to retrieve expiration date from Facebook'));
+							return;
 						}
 						// Way to handle Electron bug https://github.com/electron/electron/issues/4374
 						setImmediate(() => {
@@ -67,18 +72,18 @@ export default function getToken(silent: boolean): Promise<ITokenRes> {
 
 					const script = `document.getElementById('platformDialogForm')`;
 					form = await asyncExecute(win, script);
-					if (form) {
+					if (typeof form !== 'undefined') {
 						action = await asyncExecute(win, `${script}.action`);
+						const url = parse(action);
+						action = `${url.origin}${url.pathname}`;
 					}
 
-					if (form && action === 'https://m.facebook.com/v2.6/dialog/oauth/confirm') {
+					if (action === 'https://m.facebook.com/v2.6/dialog/oauth/confirm') {
 						asyncExecute(win, `${script}.submit()`);
 					} else {
 						if (silent) {
 							reject();
 							win = null;
-						} else {
-							win.show();
 						}
 					}
 				}
