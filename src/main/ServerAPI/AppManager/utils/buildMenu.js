@@ -5,7 +5,7 @@ import openAboutWindow from 'about-window'
 
 
 export function buildMenu() {
-    if (process.env.NODE_ENV !== 'development') {
+    if (process.env.NODE_ENV !== 'development' || true) {
         const template = [{
             label: app.getName(),
             submenu: [{
@@ -20,7 +20,7 @@ export function buildMenu() {
                         adjust_window_size: true,
                         copyright: `
                             <p style="text-align: center;line-height: 1.5;">
-                                Created by Konstantin Nesterov (<a href='https://github.com/wasd171'>wasd171</a>)
+                                Created by Konstantin Nesterov (<a class="link" style="text-decoration: none;" href='https://github.com/wasd171'>wasd171</a>)
                                 <br>
                                 Application logo by Liubov Ruseeva
                                 <br>
