@@ -13,7 +13,8 @@
             "plugins": [
                 ["module-resolver", {
                     "alias": {
-                        "@root": "."
+                        "@root": ".",
+                        "@databases": "./databases"
                     },
                     "root": ["./src"],
                     "cwd": "packagejson"
@@ -37,7 +38,8 @@
             "plugins": [
                 ["module-resolver", {
                     "alias": {
-                        "@root": "."
+                        "@root": ".",
+                        "@databases": "../app.asar.unpacked/databases"
                     },
                     "root": ["./src"],
                     "cwd": "packagejson"
