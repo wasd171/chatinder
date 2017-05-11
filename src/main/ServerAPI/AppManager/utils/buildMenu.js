@@ -6,7 +6,7 @@ import {resolveRoot} from 'shared/utils'
 
 
 export function buildMenu() {
-    if (process.env.NODE_ENV !== 'development' || true) {
+    if (process.env.NODE_ENV !== 'development') {
         const template = [{
             label: app.getName(),
             submenu: [{
