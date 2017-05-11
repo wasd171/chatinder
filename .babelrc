@@ -1,22 +1,4 @@
 {
-    "presets": [
-        ["env", {
-            "targets": {
-                "electron": 1.6
-            }
-        }],
-        "react",
-        "flow"
-    ],
-    "plugins": [
-        ["module-resolver", {
-            "root": ["./src"],
-            "cwd": "packagejson"
-        }],
-        "transform-decorators-legacy",
-        "transform-class-properties",
-        "transform-object-rest-spread"
-    ],
     "env": {
         "development": {
             "presets": [
@@ -30,6 +12,9 @@
             ],
             "plugins": [
                 ["module-resolver", {
+                    "alias": {
+                        "@root": "."
+                    },
                     "root": ["./src"],
                     "cwd": "packagejson"
                 }],
@@ -51,6 +36,9 @@
             ],
             "plugins": [
                 ["module-resolver", {
+                    "alias": {
+                        "@root": "."
+                    },
                     "root": ["./src"],
                     "cwd": "packagejson"
                 }],
