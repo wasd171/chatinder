@@ -32,10 +32,10 @@
       },
       "electronPackagerConfig": {
         "asar": {
-          "unpackDir": "databases-production"
+          "unpackDir": "databases"
         },
         "icon": "./icons/icon",
-        "ignore": "/src/main/databases/(.*)\\.db$",
+        "ignore": "/databases/(.*)\\.db$",
         "appBundleId": "com.wasd171.chatinder",
         "appCategoryType": "public.app-category.social-networking",
         "osxSign": {
