@@ -2,6 +2,7 @@
 import {app, Menu} from 'electron'
 import {join} from 'path'
 import openAboutWindow from 'about-window'
+import {resolveRoot} from 'shared/utils'
 
 
 export function buildMenu() {
@@ -12,8 +13,8 @@ export function buildMenu() {
                 label: 'About',
                 click: () => {
                     openAboutWindow({
-                        icon_path: join(__dirname, '..', '..', '..', '..', '..', 'icons', 'icon.png'),
-                        package_json_dir: join(__dirname, '..', '..', '..', '..', '..'),
+                        icon_path: require.resolve('@root/icons/icon.png'),
+                        package_json_dir: resolveRoot(),
                         bug_report_url: 'https://github.com/wasd171/chatinder/issues',
                         homepage: 'https://github.com/wasd171/chatinder',
                         use_inner_html: true,
