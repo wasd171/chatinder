@@ -1,10 +1,5 @@
 // @flow
-import {join} from 'path'
-
-
-function resolve(path: string): string {
-    return join(__dirname, path);
-}
+import {resolve} from './resolve'
 
 export function resolveRoot(): string {
     const require = {resolve};
