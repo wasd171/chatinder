@@ -41,6 +41,9 @@ export function nameToPath(name: string) {
 	}
 }
 
+export {resolve} from './resolve'
+export {resolveDatabases} from './resolveDatabases'
+export {resolveRoot} from './resolveRoot'
 export {emojify} from './emojify'
 export {normalizeMessage} from './normalizeMessage'
 export {resolveMessage} from './resolveMessage'

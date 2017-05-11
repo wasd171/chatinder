@@ -16,7 +16,7 @@ export default function createWindowFactory(instance: AppManager) {
                 nodeIntegration: true,
                 blinkFeatures: 'CSSScrollSnapPoints,CSSSnapSize,ScrollAnchoring,CSSOMSmoothScroll'
             },
-            icon: join(__dirname, '..', '..', '..', '..', 'icons', 'icon.png')
+            icon: require.resolve('@root/icons/icon.png')
         })
     }
 }
