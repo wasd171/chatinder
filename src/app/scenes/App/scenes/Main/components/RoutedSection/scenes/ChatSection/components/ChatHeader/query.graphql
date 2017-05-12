@@ -3,7 +3,7 @@ query getMatch($id: String!) {
         _id
         person {
             _id
-            name
+            formattedName
         }
     }
 }
