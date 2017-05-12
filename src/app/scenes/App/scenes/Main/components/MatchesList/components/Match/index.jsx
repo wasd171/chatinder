@@ -83,7 +83,7 @@ class Match extends Component {
 			<MatchContainer theme={muiTheme} style={style} isSelected={this.isSelected} onClick={this.handleClick}>
 				<Avatar src={match.person.smallPhoto} size={46}/>
 				<TextContainer showBorder={this.showBorder} theme={muiTheme}>
-					<NameContainer theme={muiTheme}>{match.person.name}</NameContainer>
+					<NameContainer theme={muiTheme} dangerouslySetInnerHTML={{__html: match.person.formattedName}}/>
 					<MessageContainer theme={muiTheme}>
 						<span dangerouslySetInnerHTML={{__html: match.lastMessage.formattedMessage}}/>
 					</MessageContainer>
