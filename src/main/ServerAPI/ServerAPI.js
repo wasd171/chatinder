@@ -6,7 +6,7 @@ import type {Refetcher} from './Refetcher'
 
 import {createSchema} from './schema'
 import Nedb from 'nedb'
-import {join} from 'path'
+import {resolveDatabases} from 'shared/utils'
 
 import startFactory from './startFactory'
 import callGraphQLFactory from './callGraphQLFactory'
@@ -33,15 +33,11 @@ export class ServerAPI {
 
     constructor() {
         this.schema = createSchema();
-        let predicate;
-        if (process.env.NODE_ENV === 'development') {
-            predicate = join(__dirname, '..', 'databases');
-        } else {
-            predicate = join(__dirname, '..', '..', '..', '..', 'app.asar.unpacked', 'databases-production');
-        }
-        const extra = new Nedb({filename: join(predicate, 'extra.db')});
-        const matches = new Nedb({filename: join(predicate, 'matches.db')});
-        const pending = new Nedb({filename: join(predicate, 'pending.db')});
+
+        const {extraFile, matchesFile, pendingFile} = resolveDatabases();
+        const extra = new Nedb({filename: extraFile});
+        const matches = new Nedb({filename: matchesFile});
+        const pending = new Nedb({filename: pendingFile});
         this.db = {
             extra,
             matches,

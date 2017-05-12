@@ -36,9 +36,11 @@ class ChatHeader extends Component {
 
 		return (
 			<OuterWrapper>
-				<NameSpan theme={this.props.muiTheme} onClick={this.handleClick}>
-					{this.props.data.match.person.name}
-				</NameSpan>
+				<NameSpan 
+					theme={this.props.muiTheme}
+					onClick={this.handleClick} 
+					dangerouslySetInnerHTML={{__html: this.props.data.match.person.formattedName}}
+				/>
 			</OuterWrapper>
 		)
 	}
