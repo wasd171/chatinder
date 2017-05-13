@@ -6,9 +6,9 @@
   "main": "src/server.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish"
+    "package": "cross-env NODE_ENV=production electron-forge package",
+    "make": "cross-env NODE_ENV=production electron-forge make",
+    "publish": "cross-env NODE_ENV=production electron-forge publish"
   },
   "bugs": "https://github.com/wasd171/chatinder/issues",
   "homepage": "https://github.com/wasd171/chatinder",
