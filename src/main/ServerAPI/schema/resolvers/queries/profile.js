@@ -9,19 +9,22 @@ export async function profile(obj, args, ctx) {
 	if (profile !== null) {
 		return profile
 	} else {
-		async function _updateProfile(callback: Function) {
-			try {
-				const profile = await ctx.tinder.getProfile()
-				callback(null, profile)
-			} catch (err) {
-				await relogin(ctx)
-				_updateProfile(callback)
-			}
-		}
+		profile = await new Promise(async resolve => {
+			let resolved = false
+			let profile
 
-		profile = await Bluebird.fromCallback(callback =>
-			_updateProfile(callback)
-		)
+			while (!resolved) {
+				try {
+					profile = await ctx.tinder.getProfile()
+					resolved = true
+				} catch (err) {
+					await relogin(ctx)
+				}
+			}
+
+			resolve(profile)
+		})
+
 		profile = Object.assign({ _id: 'profile', recent: true }, profile)
 		profile.user = normalizePerson(profile.user)
 		await Bluebird.fromCallback(callback =>

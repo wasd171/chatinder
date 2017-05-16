@@ -6,12 +6,10 @@ import showFactory from './showFactory'
 import logoutFactory from './logoutFactory'
 import installExtensions from './installExtensions'
 
-type windowType = Electron.BrowserWindow | undefined
-
 export class AppManager {
-	_window: windowType
+	_window
 
-	get window(): windowType {
+	get window() {
 		return this._window
 	}
 

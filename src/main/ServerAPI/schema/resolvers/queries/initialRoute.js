@@ -1,7 +1,6 @@
 // @flow
-import { count, success, isOnline } from '../utils'
-import { VIEW_MAIN, VIEW_AUTH, VIEW_OFFLINE } from 'shared/constants'
-import { login } from '../mutations'
+import { count } from '../utils'
+import { VIEW_MAIN, VIEW_AUTH } from 'shared/constants'
 import type { ServerAPI } from 'main/ServerAPI'
 import { nameToPath } from 'shared/utils'
 

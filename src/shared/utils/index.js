@@ -11,7 +11,7 @@ export function getNormalizedSizeOfGIPHY(message: string) {
 	const maxHeight = 170
 	const maxWidth = 255
 	const { query } = parse(message, true)
-	let height, width, coeff
+	let height, width
 	height = parseInt(query.height, 10)
 	width = parseInt(query.width, 10)
 

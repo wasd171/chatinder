@@ -1,6 +1,5 @@
 // @flow
 import { success } from '../utils'
-const fbError = new Error('FB login is required')
 import { ServerAPI } from 'main/ServerAPI'
 
 type Arguments = {
@@ -16,6 +15,7 @@ export async function login(obj: void | null, args: Arguments, ctx: ServerAPI) {
 		await tinder.authorize({ fbToken: fb.token, fbId: fb.id })
 		return success
 	} catch (err) {
+		//eslint-disable-next-line no-console
 		console.error('Initial auth failed, trying to relogin with Facebook')
 	}
 

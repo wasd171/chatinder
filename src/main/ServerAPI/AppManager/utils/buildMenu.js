@@ -1,6 +1,5 @@
 // @flow
 import { app, Menu } from 'electron'
-import { join } from 'path'
 import openAboutWindow from 'about-window'
 import { resolveRoot } from 'shared/utils'
 

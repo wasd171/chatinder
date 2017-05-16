@@ -2,7 +2,7 @@
 import { BrowserWindow } from 'electron'
 import parse from 'url-parse'
 
-type windowType = Electron.BrowserWindow | null
+type windowType = BrowserWindow | null
 interface ITokenRes {
 	token: string,
 	expiresIn: number

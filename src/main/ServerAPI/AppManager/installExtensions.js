@@ -12,9 +12,7 @@ export default async function installExtensions() {
 			try {
 				const extension = installer[name] || name
 				await installer.default(extension, forceDownload)
-			} catch (e) {
-				console.error(e)
-			} // eslint-disable-line
+			} catch (e) {} // eslint-disable-line no-empty
 		}
 	}
 }
