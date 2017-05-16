@@ -20,7 +20,7 @@ export async function resendMessage(
 		const rawMessage = await Bluebird.fromCallback(callback =>
 			pending.findOne({ _id: messageId }, callback)
 		)
-		const message = await ctx.tinder.sendMessage(id, rawMessage.message)
+		await ctx.tinder.sendMessage(id, rawMessage.message)
 		await Promise.all([
 			Bluebird.fromCallback(callback =>
 				pending.remove({ _id: messageId }, {}, callback)

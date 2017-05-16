@@ -4,6 +4,7 @@ import getToken from './getToken'
 import loginForce from './loginForce'
 import login from './login'
 import Promise from 'bluebird'
+import Nedb from 'nedb'
 
 type tokenType = string | void
 type expiresAtType = number | void

@@ -9,7 +9,7 @@ interface IRequestArguments {
 
 export default function processRequestFactory(instance: ServerAPI) {
 	return async function processRequest(
-		event: Electron.IpcMainEvent,
+		event: Event,
 		args: IRequestArguments
 	) {
 		const { id, payload } = args

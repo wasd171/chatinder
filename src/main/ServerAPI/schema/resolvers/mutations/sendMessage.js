@@ -1,7 +1,7 @@
 // @flow
 import type { ServerAPI } from 'main/ServerAPI'
 import Bluebird from 'bluebird'
-import { SUCCESS, FAILURE } from 'shared/constants'
+import { FAILURE } from 'shared/constants'
 import { normalizeMessagePair } from 'shared/utils'
 
 type Arguments = {

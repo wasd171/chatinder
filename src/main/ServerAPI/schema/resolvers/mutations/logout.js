@@ -4,7 +4,7 @@ import Bluebird from 'bluebird'
 import type { ServerAPI } from 'main/ServerAPI'
 import { app } from 'electron'
 
-export async function logout(obj, args, ctx) {
+export async function logout(obj, args, ctx: ServerAPI) {
 	await Bluebird.all([
 		// ctx.fb.setToken(null),
 		// ctx.fb.setId(null),
