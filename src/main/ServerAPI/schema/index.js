@@ -1,2 +1,2 @@
 // @flow
-export {createSchema} from './createSchema'
+export { createSchema } from './createSchema'

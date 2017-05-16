@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Promise from 'bluebird'
-import {observable, action} from 'mobx'
-import {observer} from 'mobx-react'
+import { observable, action } from 'mobx'
+import { observer } from 'mobx-react'
 // import {getStyles} from './styles'
 import TextFieldHint from 'material-ui/TextField/TextFieldHint'
 import EmojiInput from './components/EmojiInput'
@@ -15,25 +15,24 @@ const OuterWrapper = styled.div`
 	width: 100%;
 	position: relative;
 	display: inline-block;
-`;
-
+`
 
 @muiThemeable()
 @observer
 class TextField extends Component {
-	@observable isFocused = false;
+	@observable isFocused = false
 
 	@action handleFocus = () => {
-		this.isFocused = true;
-	};
+		this.isFocused = true
+	}
 
 	@action handleBlur = () => {
-		this.isFocused = false;
-	};
+		this.isFocused = false
+	}
 
-	handleInput = (text) => {
-		this.props.onChange(text);
-	};
+	handleInput = text => {
+		this.props.onChange(text)
+	}
 
 	render() {
 		return (

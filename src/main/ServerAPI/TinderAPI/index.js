@@ -1,2 +1,2 @@
 // @flow
-export {TinderAPI} from './TinderAPI'
+export { TinderAPI } from './TinderAPI'

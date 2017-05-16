@@ -1,4 +1,7 @@
 // Поместите параметры в этот файл, чтобы перезаписать параметры по умолчанию и пользовательские параметры.
 {
-    "javascript.validate.enable": false
+    "javascript.validate.enable": false,
+    "files.autoSave": "onWindowChange",
+    "eslint.autoFixOnSave": true,
+    "flow.useNPMPackagedFlow": true
 }

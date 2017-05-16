@@ -1,22 +1,21 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import ImageGallery from 'react-image-gallery'
 import styled from 'styled-components'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-
 
 const GalleryNav = styled.button`
 	&:hover::before {
 		color: ${props => props.theme.palette.primary1Color}
 	}
-`;
+`
 
 @muiThemeable()
 class UserPhotos extends Component {
-	renderGenericNav = ({className, onClick, disabled}) => {
+	renderGenericNav = ({ className, onClick, disabled }) => {
 		return (
 			<GalleryNav
 				disabled={disabled}
-        		onClick={onClick}
+				onClick={onClick}
 				className={className}
 				theme={this.props.muiTheme}
 			/>
@@ -24,11 +23,19 @@ class UserPhotos extends Component {
 	}
 
 	renderLeftNav = (onClick, disabled) => {
-		return this.renderGenericNav({onClick, disabled, className: 'image-gallery-left-nav'});
+		return this.renderGenericNav({
+			onClick,
+			disabled,
+			className: 'image-gallery-left-nav'
+		})
 	}
 
 	renderRightNav = (onClick, disabled) => {
-		return this.renderGenericNav({onClick, disabled, className: 'image-gallery-right-nav'});
+		return this.renderGenericNav({
+			onClick,
+			disabled,
+			className: 'image-gallery-right-nav'
+		})
 	}
 
 	render() {

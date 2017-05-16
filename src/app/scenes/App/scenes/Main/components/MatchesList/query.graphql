@@ -10,7 +10,7 @@ query matchesQuery {
         lastActivityDate
         person {
             _id
-            name
+            formattedName
             smallPhoto
         }
     }

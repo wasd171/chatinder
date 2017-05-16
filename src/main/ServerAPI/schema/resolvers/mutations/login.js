@@ -1,30 +1,29 @@
 // @flow
-import {success} from '../utils'
-const fbError = new Error('FB login is required');
-import {ServerAPI} from 'main/ServerAPI'
-
+import { success } from '../utils'
+import { ServerAPI } from 'main/ServerAPI'
 
 type Arguments = {
-    silent: boolean
+	silent: boolean
 }
 
 export async function login(obj: void | null, args: Arguments, ctx: ServerAPI) {
-    const {fb, tinder} = ctx;
+	const { fb, tinder } = ctx
 
-    tinder.resetClient();
+	tinder.resetClient()
 
-    try {
-        await tinder.authorize({fbToken: fb.token, fbId: fb.id});
-        return success;
-    } catch (err) {
-        console.error('Initial auth failed, trying to relogin with Facebook');
-    };
+	try {
+		await tinder.authorize({ fbToken: fb.token, fbId: fb.id })
+		return success
+	} catch (err) {
+		//eslint-disable-next-line no-console
+		console.error('Initial auth failed, trying to relogin with Facebook')
+	}
 
-    try {
-        await fb.login(args.silent);
-        await tinder.authorize({fbToken: fb.token, fbId: fb.id});
-        return success;
-    } catch (err) {
-        return {status: 'Unauthorized', err};
-    }
+	try {
+		await fb.login(args.silent)
+		await tinder.authorize({ fbToken: fb.token, fbId: fb.id })
+		return success
+	} catch (err) {
+		return { status: 'Unauthorized', err }
+	}
 }

@@ -1,2 +1,2 @@
 // @flow
-export {ServerAPI} from './ServerAPI'
+export { ServerAPI } from './ServerAPI'

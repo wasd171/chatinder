@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-
 export const loadingFullScreen = {
 	position: 'absolute',
 	zIndex: 100,
@@ -9,7 +8,7 @@ export const loadingFullScreen = {
 	minHeight: '100vh',
 	maxHeight: '100vh',
 	overflow: 'hidden'
-};
+}
 
 export function normalizeScrollbar(component) {
 	return styled(component)`

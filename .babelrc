@@ -1,22 +1,4 @@
 {
-    "presets": [
-        ["env", {
-            "targets": {
-                "electron": 1.6
-            }
-        }],
-        "react",
-        "flow"
-    ],
-    "plugins": [
-        ["module-resolver", {
-            "root": ["./src"],
-            "cwd": "packagejson"
-        }],
-        "transform-decorators-legacy",
-        "transform-class-properties",
-        "transform-object-rest-spread"
-    ],
     "env": {
         "development": {
             "presets": [
@@ -30,6 +12,10 @@
             ],
             "plugins": [
                 ["module-resolver", {
+                    "alias": {
+                        "@root": ".",
+                        "@databases": "./databases"
+                    },
                     "root": ["./src"],
                     "cwd": "packagejson"
                 }],
@@ -37,7 +23,8 @@
                 "transform-class-properties",
                 "transform-object-rest-spread"
             ],
-            "sourceMaps": "inline"
+            "sourceMaps": "inline",
+            "retainLines": true
         },
         "production": {
             "presets": [
@@ -51,6 +38,10 @@
             ],
             "plugins": [
                 ["module-resolver", {
+                    "alias": {
+                        "@root": ".",
+                        "@databases": "../app.asar.unpacked/databases"
+                    },
                     "root": ["./src"],
                     "cwd": "packagejson"
                 }],
@@ -58,7 +49,8 @@
                 "transform-class-properties",
                 "transform-object-rest-spread"
             ],
-            "sourceMaps": "none"
+            "sourceMaps": "none",
+            "retainLines": true
         }
     }
 }
