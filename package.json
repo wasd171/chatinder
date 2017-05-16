@@ -135,6 +135,7 @@
     "eslint": "^3.19.0",
     "eslint-config-prettier": "^2.1.0",
     "eslint-plugin-prettier": "^2.0.1",
+    "eslint-plugin-react": "^7.0.1",
     "flow-bin": "^0.45.0",
     "flow-typed": "^2.1.2",
     "husky": "^0.13.3",
