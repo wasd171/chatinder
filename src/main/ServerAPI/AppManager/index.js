@@ -1,2 +1,2 @@
 // @flow
-export {AppManager} from './AppManager'
+export { AppManager } from './AppManager'

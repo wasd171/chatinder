@@ -1,11 +1,10 @@
-import React, {Component} from 'react'
-import {inject, observer} from 'mobx-react'
-import {VIEW_CHAT, VIEW_USER, VIEW_PROFILE} from 'shared/constants'
+import React, { Component } from 'react'
+import { inject, observer } from 'mobx-react'
+import { VIEW_CHAT, VIEW_USER, VIEW_PROFILE } from 'shared/constants'
 import ChatSection from './scenes/ChatSection'
 import UserSection from './scenes/UserSection'
 import ProfileSection from './scenes/ProfileSection'
 import Stub from './scenes/Stub'
-
 
 @inject('view')
 @observer
@@ -14,16 +13,15 @@ class RoutedSection extends Component {
 		switch (this.props.view.pathNodes[1]) {
 			case VIEW_CHAT:
 				if (this.props.view.params.id !== undefined) {
-					return <ChatSection/>
+					return <ChatSection />
 				}
 			case VIEW_USER:
-				return <UserSection id={this.props.view.params.id}/>
+				return <UserSection id={this.props.view.params.id} />
 			case VIEW_PROFILE:
-				return <ProfileSection/>
+				return <ProfileSection />
 			default:
-				return <Stub/>
+				return <Stub />
 		}
-		
 	}
 }
 

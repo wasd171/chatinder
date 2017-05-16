@@ -1,6 +1,5 @@
 export default function BaseSection(el) {
-	return (
-		el`
+	return el`
 			height: 100vh;
 			max-height: 100vh;
 			max-height: 100vh;
@@ -12,5 +11,4 @@ export default function BaseSection(el) {
 				display: none;
 			}
 		`
-	)
 }

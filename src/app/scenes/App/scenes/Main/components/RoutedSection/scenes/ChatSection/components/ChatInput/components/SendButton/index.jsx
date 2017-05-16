@@ -5,12 +5,12 @@ import FlatButton from 'material-ui/FlatButton'
 const buttonStyle = {
 	marginLeft: 10,
 	marginBottom: 7
-};
+}
 
-function MDButton({disabled, onClick}) {
+function MDButton({ disabled, onClick }) {
 	return (
 		<FlatButton
-			label='Send'
+			label="Send"
 			primary={true}
 			disabled={disabled}
 			style={buttonStyle}
@@ -19,4 +19,4 @@ function MDButton({disabled, onClick}) {
 	)
 }
 
-export default  muiThemeable()(MDButton)
+export default muiThemeable()(MDButton)

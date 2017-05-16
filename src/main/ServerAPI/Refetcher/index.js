@@ -1,2 +1,2 @@
 // @flow
-export {Refetcher} from './Refetcher'
+export { Refetcher } from './Refetcher'

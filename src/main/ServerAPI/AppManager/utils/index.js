@@ -1,2 +1,2 @@
-export {updateApp} from './updateApp'
-export {buildMenu} from './buildMenu'
+export { updateApp } from './updateApp'
+export { buildMenu } from './buildMenu'

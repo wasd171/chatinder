@@ -1,7 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
-
 
 const TextSpan = styled.span`
 	display: inline;
@@ -13,13 +12,18 @@ const TextSpan = styled.span`
 	font-weight: normal;
 	color: ${props => props.theme.palette.textColor};
 	white-space: pre-line;
-`;
+`
 
 @muiThemeable()
 class TextMessage extends Component {
 	render() {
 		return (
-			<TextSpan dangerouslySetInnerHTML={{__html: this.props.formattedMessage}} theme={this.props.muiTheme}/>
+			<TextSpan
+				dangerouslySetInnerHTML={{
+					__html: this.props.formattedMessage
+				}}
+				theme={this.props.muiTheme}
+			/>
 		)
 	}
 }

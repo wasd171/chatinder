@@ -10,30 +10,29 @@ import sendMessageFactory from './sendMessageFactory'
 import getPersonFactory from './getPersonFactory'
 import getUpdatesFactory from './getUpdatesFactory'
 
-
-type Interval = number | null;
+type Interval = number | null
 
 export class TinderAPI {
-    client: TinderClient;
-    subscriptionInterval: Interval = null;
-    subscriptionPending: boolean = false;
-    authPromise: Promise<true> | null = null;
-    authPromiseExternalResolve: null | (arg: true) => void = null;
+	client: TinderClient
+	subscriptionInterval: Interval = null
+	subscriptionPending: boolean = false
+	authPromise: Promise<true> | null = null
+	authPromiseExternalResolve: null | ((arg: true) => void) = null
 
-    constructor() {
-        this.resetClient();
-    }
+	constructor() {
+		this.resetClient()
+	}
 
-    resetClient = () => {
-        this.client = new TinderClient();
-    }
+	resetClient = () => {
+		this.client = new TinderClient()
+	}
 
-    isAuthorized = isAuthorizedFactory(this);
-    getDefaults = getDefaultsFactory(this);
-    getProfile = getProfileFactory(this);
-    authorize = authorizeFactory(this);
-    getHistory = getHistoryFactory(this);
-    sendMessage = sendMessageFactory(this);
-    getPerson = getPersonFactory(this);
-    getUpdates = getUpdatesFactory(this);
+	isAuthorized = isAuthorizedFactory(this)
+	getDefaults = getDefaultsFactory(this)
+	getProfile = getProfileFactory(this)
+	authorize = authorizeFactory(this)
+	getHistory = getHistoryFactory(this)
+	sendMessage = sendMessageFactory(this)
+	getPerson = getPersonFactory(this)
+	getUpdates = getUpdatesFactory(this)
 }

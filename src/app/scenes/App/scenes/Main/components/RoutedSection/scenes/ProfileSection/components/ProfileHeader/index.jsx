@@ -1,7 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
-
 
 const OuterWrapper = styled.div`
 	display: flex;
@@ -10,11 +9,11 @@ const OuterWrapper = styled.div`
 	align-items: center;
 	height: 100%;
 	width: 100%;
-`;
+`
 
 const HeaderSpan = styled.span`
 	color: ${props => props.theme.palette.textColor};
-`;
+`
 
 @muiThemeable()
 class ProfileHeader extends Component {
