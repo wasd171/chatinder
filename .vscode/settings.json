@@ -2,5 +2,6 @@
 {
     "javascript.validate.enable": false,
     "files.autoSave": "onWindowChange",
-    "eslint.autoFixOnSave": true
+    "eslint.autoFixOnSave": true,
+    "flow.useNPMPackagedFlow": true
 }
