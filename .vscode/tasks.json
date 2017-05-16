@@ -1,0 +1,22 @@
+{
+    "version": "0.1.0",
+    "tasks": [
+        {
+            "taskName": "ESLint",
+            "command": "",
+            "windows": {
+                "command": ".\\node_modules\\.bin\\eslint"
+            },
+            "linux": {
+                "command": "./node_modules/.bin/eslint"
+            },
+            "osx": {
+                "command": "./node_modules/.bin/eslint"
+            },
+            "isShellCommand": true,
+            "args": ["src/{main,shared}/**/*.{js,jsx}"],
+            "showOutput": "silent",
+            "problemMatcher": "$eslint-stylish"
+        }
+    ]
+}
