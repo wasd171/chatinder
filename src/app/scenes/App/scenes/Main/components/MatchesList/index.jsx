@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import { computed, reaction, observable, action } from 'mobx'
-import { inject, observer } from 'mobx-react'
+import { inject } from 'mobx-react'
 import Match from './components/Match'
 import { AutoSizer, List, ScrollSync } from 'react-virtualized'
 import styled from 'styled-components'
-import { normalizeScrollbar } from 'app/styles'
 import linkref from 'app/shims/linkref'
 import SimpleBarStandalone from 'app/components/SimpleBarStandalone'
 import { graphql } from 'react-apollo'
 import { ipcRenderer } from 'electron'
-import { SUBSCRIPTION_MATCHES_ALL } from 'shared/constants'
+import {
+	SUBSCRIPTION_MATCHES_ALL,
+	SUBSCRIPTION_MATCH_BLOCKED
+} from 'shared/constants'
 import matchesQuery from './query.graphql'
 
 function sorter(a, b) {
@@ -39,16 +40,14 @@ const MatchesListContainer = styled.div`
 	padding-bottom: 10px;
 `
 
-const ListWithScrollbar = normalizeScrollbar(List)
 const ListWithoutScrollbar = styled(List)`
 	&::-webkit-scrollbar {
 		display: none
 	}
 `
 
-@inject('view')
+@inject('view', 'navigator')
 @graphql(matchesQuery, queryOptions)
-@observer
 class MatchesList extends Component {
 	disposer
 	scrollbar
@@ -75,15 +74,7 @@ class MatchesList extends Component {
 		this.scrollbar.showScrollbar()
 	}
 
-	renderAutoSizer = ({
-		clientHeight,
-		clientWidth,
-		onScroll,
-		scrollHeight,
-		scrollLeft,
-		scrollTop,
-		scrollWidth
-	}) => (
+	renderAutoSizer = ({ clientHeight, onScroll, scrollHeight, scrollTop }) => (
 		<AutoSizer disableWidth={true} forceUpdate={this.forceUpdate}>
 			{this.renderContent.bind(this, {
 				onScroll,
@@ -120,7 +111,7 @@ class MatchesList extends Component {
 		</div>
 	)
 
-	rowRenderer = ({ index, key, style }) => {
+	rowRenderer = ({ index, style }) => {
 		const match = this.props.sortedMatches[index]
 		const firstVisible = index === 0
 
@@ -152,12 +143,24 @@ class MatchesList extends Component {
 		this.props.refetch()
 	}
 
+	handleBlock = (event, args) => {
+		if (
+			this.props.view.params != null &&
+			this.props.view.params.id != null &&
+			args.id === this.props.view.params.id
+		) {
+			this.props.navigator.goToMain()
+		}
+	}
+
 	componentDidMount() {
 		ipcRenderer.on(SUBSCRIPTION_MATCHES_ALL, this.handleUpdate)
+		ipcRenderer.on(SUBSCRIPTION_MATCH_BLOCKED, this.handleBlock)
 	}
 
 	componentWillUnmount() {
 		ipcRenderer.removeListener(SUBSCRIPTION_MATCHES_ALL, this.handleUpdate)
+		ipcRenderer.removeListener(SUBSCRIPTION_MATCH_BLOCKED, this.handleBlock)
 	}
 }
 

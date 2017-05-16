@@ -1,13 +1,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { graphql } from 'react-apollo'
-import {
-	AutoSizer,
-	CellMeasurer,
-	CellMeasurerCache,
-	List,
-	ScrollSync
-} from 'react-virtualized'
+import { AutoSizer, CellMeasurer, List, ScrollSync } from 'react-virtualized'
 import GenericMessage from './components/GenericMessage'
 import SimpleBarStandalone from 'app/components/SimpleBarStandalone'
 import styled from 'styled-components'
@@ -15,7 +9,6 @@ import linkref from 'app/shims/linkref'
 import { ipcRenderer } from 'electron'
 import { SUBSCRIPTION_MATCH } from 'shared/constants'
 import query from './query.graphql'
-import update from 'immutability-helper'
 import LoadingStub from 'app/components/LoadingStub'
 import NoMessages from './components/NoMessages'
 
@@ -197,7 +190,6 @@ class MessagesFeed extends Component {
 
 	componentDidMount() {
 		ipcRenderer.on(SUBSCRIPTION_MATCH, this.handleUpdate)
-		// this.props.data.refetch();
 	}
 
 	componentWillUnmount() {
@@ -221,7 +213,7 @@ class MessagesFeed extends Component {
 	}
 }
 
-@inject('view', 'caches')
+@inject('view', 'caches', 'navigator')
 @observer
 class MessagesFeedMobX extends Component {
 	render() {
@@ -230,6 +222,7 @@ class MessagesFeedMobX extends Component {
 				<MessagesFeed
 					id={this.props.view.params.id}
 					caches={this.props.caches}
+					navigator={this.props.navigator}
 				/>
 			</Container>
 		)

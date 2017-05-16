@@ -1,26 +1,23 @@
 // @flow
 import { ServerAPI } from 'main/ServerAPI'
-import BPromise from 'bluebird'
+import Bluebird from 'bluebird'
 import { normalizeMatch } from './normalizeMatch'
 import { normalizeMessage } from 'shared/utils'
 import notifier from 'node-notifier'
 
 export function handleUpdatesFactory(ctx: ServerAPI) {
 	return async function handleUpdates(updates: any): Promise<void> {
-		if (updates.matches.length === 0) {
-			return
-		}
-
 		const { refetcher, db } = ctx
-		await BPromise.all(
+
+		await Promise.all(
 			updates.matches.map(async match => {
 				const query = { _id: match._id }
-				const oldMatch = await BPromise.fromCallback(callback =>
+				const oldMatch = await Bluebird.fromCallback(callback =>
 					db.matches.findOne(query, {}, callback)
 				)
 				if (!oldMatch) {
 					const newMatch = normalizeMatch(match)
-					await BPromise.fromCallback(callback =>
+					await Bluebird.fromCallback(callback =>
 						db.matches.insert(newMatch, callback)
 					)
 					notifier.notify({
@@ -67,7 +64,7 @@ export function handleUpdatesFactory(ctx: ServerAPI) {
 						}
 					}
 
-					await BPromise.fromCallback(callback =>
+					await Bluebird.fromCallback(callback =>
 						db.matches.update(query, modifier, {}, callback)
 					)
 					formattedMessages.forEach(message => {
@@ -85,6 +82,38 @@ export function handleUpdatesFactory(ctx: ServerAPI) {
 			})
 		)
 
-		refetcher.notifyAllMatches()
+		await new Promise(async resolve => {
+			if (updates.blocks.length === 0) {
+				resolve()
+			} else {
+				const query = { _id: { $in: updates.blocks } }
+				const options = { multi: true }
+				const stop = '\uD83D\uDEAB'
+
+				const matches = await Bluebird.fromCallback(callback =>
+					db.matches.find(query, options, callback)
+				)
+
+				await Bluebird.fromCallback(callback =>
+					db.matches.remove(query, options, callback)
+				)
+
+				matches.forEach(match => {
+					notifier.notify({
+						title: match.person.name,
+						message: `${stop} BLOCKED ${stop}`,
+						sound: true
+					})
+
+					refetcher.notifyMatchBlocked(match._id)
+				})
+
+				resolve()
+			}
+		})
+
+		if (updates.matches.length !== 0 || updates.blocks.length !== 0) {
+			refetcher.notifyAllMatches()
+		}
 	}
 }
