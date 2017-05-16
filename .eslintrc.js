@@ -1,7 +1,9 @@
 module.exports = {
     extends: [
         'eslint:recommended',
-        'prettier'
+        'plugin:react/recommended',
+        'prettier',
+        'prettier/react'
     ],
     env: {
         es6: true,
@@ -17,9 +19,11 @@ module.exports = {
         }
     },
     plugins: [
+        'react',
         'prettier'
     ],
     rules: {
+        'react/prop-types': 'off', // For now, would add Flow + tcomb later
         'prettier/prettier': ['error', {
             useTabs: true,
             tabWidth: 4,
