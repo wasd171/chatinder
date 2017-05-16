@@ -1,4 +1,4 @@
 // @flow
 export type GalleryPhotoType = {
-    original: string
+	original: string
 }

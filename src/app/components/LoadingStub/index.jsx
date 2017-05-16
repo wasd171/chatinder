@@ -1,7 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
-import {CircularProgress} from 'material-ui'
-
+import { CircularProgress } from 'material-ui'
 
 const Container = styled.div`
     height: 100%;
@@ -9,16 +8,16 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-`;
+`
 
 class LoadingStub extends Component {
-    render() {
-        return (
-            <Container>
-                <CircularProgress size={this.props.size}/>
-            </Container>
-        )
-    }
+	render() {
+		return (
+			<Container>
+				<CircularProgress size={this.props.size} />
+			</Container>
+		)
+	}
 }
 
 export default LoadingStub

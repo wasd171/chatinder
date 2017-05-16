@@ -1,2 +1,2 @@
 // @flow
-export {resolverMap} from './resolverMap'
+export { resolverMap } from './resolverMap'

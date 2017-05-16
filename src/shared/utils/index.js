@@ -1,31 +1,30 @@
 // @flow
 import parse from 'url-parse'
-import {VIEW_CHAT, VIEW_USER, VIEW_LOADING} from '../constants'
-
+import { VIEW_CHAT, VIEW_USER, VIEW_LOADING } from '../constants'
 
 export function isGIPHY(message: string) {
-	'use strict';
+	'use strict'
 	return /^https?:\/\/(.*)giphy.com/.test(message)
 }
 
 export function getNormalizedSizeOfGIPHY(message: string) {
-	const maxHeight = 170;
-	const maxWidth = 255;
-	const {query} = parse(message, true);
-	let height, width, coeff;
-	height = parseInt(query.height, 10);
-	width = parseInt(query.width, 10);
+	const maxHeight = 170
+	const maxWidth = 255
+	const { query } = parse(message, true)
+	let height, width, coeff
+	height = parseInt(query.height, 10)
+	width = parseInt(query.width, 10)
 
 	if (height > maxHeight) {
-		width = width*(maxHeight/height);
-		height = maxHeight;
+		width = width * (maxHeight / height)
+		height = maxHeight
 	}
 	if (width > maxWidth) {
-		height = height*(maxWidth/width);
-		width = maxWidth;
+		height = height * (maxWidth / width)
+		width = maxWidth
 	}
 
-	return ({height, width})
+	return { height, width }
 }
 
 export function nameToPath(name: string) {
@@ -41,10 +40,10 @@ export function nameToPath(name: string) {
 	}
 }
 
-export {resolve} from './resolve'
-export {resolveDatabases} from './resolveDatabases'
-export {resolveRoot} from './resolveRoot'
-export {emojify} from './emojify'
-export {normalizeMessage} from './normalizeMessage'
-export {resolveMessage} from './resolveMessage'
-export {normalizeMessagePair} from './normalizeMessagePair'
+export { resolve } from './resolve'
+export { resolveDatabases } from './resolveDatabases'
+export { resolveRoot } from './resolveRoot'
+export { emojify } from './emojify'
+export { normalizeMessage } from './normalizeMessage'
+export { resolveMessage } from './resolveMessage'
+export { normalizeMessagePair } from './normalizeMessagePair'

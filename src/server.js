@@ -1,9 +1,9 @@
-import {app} from 'electron'
+import { app } from 'electron'
 if (require('electron-squirrel-startup')) {
-    app.quit();
+	app.quit()
 }
 
-import {ServerAPI} from './main/ServerAPI'
+import { ServerAPI } from './main/ServerAPI'
 
-const api = new ServerAPI();
-api.start();
+const api = new ServerAPI()
+api.start()
