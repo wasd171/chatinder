@@ -43,7 +43,10 @@
           "unpackDir": "databases"
         },
         "icon": "./icons/icon",
-        "ignore": "/databases/(.*)\\.db$",
+        "ignore": [
+          "/databases/(.*)\\.db$",
+          "/flow-typed/(.*)$"
+        ],
         "appBundleId": "com.wasd171.chatinder",
         "appCategoryType": "public.app-category.social-networking",
         "osxSign": {
