@@ -7,6 +7,7 @@ import { FB } from './FB'
 import { TinderAPI } from './TinderAPI'
 import { Refetcher } from './Refetcher'
 import { ipcMain } from 'electron'
+import { NotifierServer } from './NotifierServer'
 
 export default function startFactory(instance: ServerAPI) {
 	return async function start() {
@@ -21,6 +22,7 @@ export default function startFactory(instance: ServerAPI) {
 		instance.tinder = new TinderAPI()
 		instance.app = new AppManager()
 		instance.refetcher = new Refetcher(instance.app)
+		instance.notifierServer = new NotifierServer(instance.app)
 
 		ipcMain.on(GRAPHQL, instance.processRequest)
 		await instance.app.start()
