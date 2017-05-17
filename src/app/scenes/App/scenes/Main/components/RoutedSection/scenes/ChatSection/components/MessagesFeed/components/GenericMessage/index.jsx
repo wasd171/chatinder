@@ -13,7 +13,7 @@ const GenericMessageContainer = styled.div`
 `
 
 const mutationOptions = {
-	props: ({ ownProps, mutate }) => ({
+	props: ({ mutate }) => ({
 		resend: ({ id, messageId }) => {
 			return mutate({
 				variables: {
@@ -33,7 +33,8 @@ const mutationOptions = {
 						id: messageId,
 						fragment: statusFragment,
 						data: {
-							status: data.resendMessage.status
+							status: data.resendMessage.status,
+							__typename: data.resendMessage.__typename
 						}
 					})
 				}
