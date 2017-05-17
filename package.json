@@ -100,7 +100,6 @@
     "mobx-utils": "^2.0.1",
     "nedb": "^1.8.0",
     "node-fetch": "^1.6.3",
-    "node-notifier": "^5.1.2",
     "react": "^15.5.4",
     "react-addons-shallow-compare": "^15.5.2",
     "react-apollo": "^1.2.0",
