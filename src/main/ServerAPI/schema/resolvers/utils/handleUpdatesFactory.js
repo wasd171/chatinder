@@ -3,11 +3,10 @@ import { ServerAPI } from 'main/ServerAPI'
 import Bluebird from 'bluebird'
 import { normalizeMatch } from './normalizeMatch'
 import { normalizeMessage } from 'shared/utils'
-import notifier from 'node-notifier'
 
 export function handleUpdatesFactory(ctx: ServerAPI) {
 	return async function handleUpdates(updates: any): Promise<void> {
-		const { refetcher, db } = ctx
+		const { refetcher, db, notifierServer } = ctx
 
 		await Promise.all(
 			updates.matches.map(async match => {
@@ -20,17 +19,15 @@ export function handleUpdatesFactory(ctx: ServerAPI) {
 					await Bluebird.fromCallback(callback =>
 						db.matches.insert(newMatch, callback)
 					)
-					notifier.notify({
+					notifierServer.notify({
 						title: newMatch.person.name,
-						message: 'You have a new match!',
-						sound: true
+						body: 'You have a new match!'
 					})
 					newMatch.messages.forEach(message => {
 						if (message.from === newMatch.person._id) {
-							notifier.notify({
+							notifierServer.notify({
 								title: newMatch.person.name,
-								message: message.message,
-								sound: true
+								body: message.message
 							})
 						}
 					})
@@ -69,10 +66,9 @@ export function handleUpdatesFactory(ctx: ServerAPI) {
 					)
 					formattedMessages.forEach(message => {
 						if (message.from === oldMatch.person._id) {
-							notifier.notify({
+							notifierServer.notify({
 								title: oldMatch.person.name,
-								message: message.message,
-								sound: true
+								body: message.message
 							})
 						}
 					})
@@ -99,10 +95,9 @@ export function handleUpdatesFactory(ctx: ServerAPI) {
 				)
 
 				matches.forEach(match => {
-					notifier.notify({
+					notifierServer.notify({
 						title: match.person.name,
-						message: `${stop} BLOCKED ${stop}`,
-						sound: true
+						body: `${stop} BLOCKED ${stop}`
 					})
 
 					refetcher.notifyMatchBlocked(match._id)
