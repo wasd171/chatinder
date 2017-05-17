@@ -10,7 +10,9 @@
     "make": "cross-env NODE_ENV=production electron-forge make",
     "publish": "cross-env NODE_ENV=production electron-forge publish",
     "precommit": "lint-staged",
-    "postinstall": "flow-typed install"
+    "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\"",
+    "postinstall": "flow-typed install",
+    "postmerge": "yarn install"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
