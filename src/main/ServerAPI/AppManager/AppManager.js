@@ -8,9 +8,18 @@ import installExtensions from './installExtensions'
 
 export class AppManager {
 	_window
+	forceQuit
 
 	get window() {
 		return this._window
+	}
+
+	constructor() {
+		if (process.platform === 'darwin') {
+			this.forceQuit = false
+		} else {
+			this.forceQuit = true
+		}
 	}
 
 	start = startFactory(this)
