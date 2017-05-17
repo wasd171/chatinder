@@ -22,3 +22,5 @@ export const PSEUDO = 'PSEUDO'
 export const success = {
 	status: 'OK'
 }
+
+export const NOTIFICATION = 'NOTIFICATION'

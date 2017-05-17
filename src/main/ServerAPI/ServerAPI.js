@@ -3,6 +3,7 @@ import type { AppManager } from './AppManager'
 import type { FB } from './FB'
 import type { TinderAPI } from './TinderAPI'
 import type { Refetcher } from './Refetcher'
+import type { NotifierServer } from './NotifierServer'
 
 import { createSchema } from './schema'
 import Nedb from 'nedb'
@@ -27,6 +28,7 @@ export class ServerAPI {
 	fb: FB
 	tinder: TinderAPI
 	refetcher: Refetcher
+	notifierServer: NotifierServer
 	reloginInterval: number | null = null
 	reloginCallbacks: null | Array<Function> = null
 
