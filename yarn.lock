@@ -7006,9 +7006,9 @@ timed-out@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-4.0.1.tgz#f32eacac5a175bea25d7fab565ab3ed8741ef56f"
 
-tinder-modern@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/tinder-modern/-/tinder-modern-1.1.1.tgz#d846720123cb938ad10c1c612954bfc349f2fdd8"
+tinder-modern@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/tinder-modern/-/tinder-modern-1.1.2.tgz#a591a692f401f92e19994bad2f0732b8dfa150b9"
   dependencies:
     form-data "^2.1.4"
     node-fetch "^1.6.3"
