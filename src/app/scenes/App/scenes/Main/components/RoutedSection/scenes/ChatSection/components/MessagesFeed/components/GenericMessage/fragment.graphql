@@ -1,3 +1,4 @@
 fragment messageStatus on Message {
+    __typename
     status
 }

@@ -1,6 +1,7 @@
 // @flow
 import type { ServerAPI } from 'main/ServerAPI'
 import { relogin } from './relogin'
+import Bluebird from 'bluebird'
 
 export function getUpdatesFactory({
 	ctx,
@@ -10,28 +11,26 @@ export function getUpdatesFactory({
 	handler: Function
 }) {
 	return async function getUpdates(): Promise<void> {
-		const { tinder } = ctx
+		const { subscriptionPromise, getUpdates } = ctx.tinder
 
-		if (!tinder.subscriptionPending) {
-			tinder.subscriptionPending = true
-
-			const updates = await new Promise(async resolve => {
+		if (subscriptionPromise === null || subscriptionPromise.isFulfilled()) {
+			ctx.tinder.subscriptionPromise = new Bluebird(async resolve => {
 				let resolved = false
 				let updates
 
 				while (!resolved) {
 					try {
-						updates = await tinder.getUpdates()
+						updates = await getUpdates()
 						resolved = true
 					} catch (err) {
 						await relogin(ctx)
 					}
 				}
 
-				tinder.subscriptionPending = false
 				resolve(updates)
 			})
 
+			const updates = await ctx.tinder.subscriptionPromise
 			handler(updates)
 		}
 	}

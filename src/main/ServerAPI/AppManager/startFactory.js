@@ -1,26 +1,27 @@
 // @flow
 import { AppManager } from './AppManager'
 import { app, Menu } from 'electron'
-import Promise from 'bluebird'
 import { enableLiveReload } from 'electron-compile'
 import { updateApp, buildMenu } from './utils'
 
-export function onClosedFactory(instance: AppManager) {
-	return function onClosed() {
-		if (process.platform !== 'darwin') {
-			app.quit()
-		} else {
-			instance._window = null
+export function onBeforeQuitFactory(instance: AppManager) {
+	return function onBeforeQuit() {
+		instance.forceQuit = true
+	}
+}
+
+export function onCloseFactory(instance: AppManager) {
+	return function onClose(event: Event) {
+		if (!instance.forceQuit) {
+			event.preventDefault()
+			instance._window.hide()
 		}
 	}
 }
 
 export function onActivateFactory(instance: AppManager) {
 	return function onActivate() {
-		if (instance._window === null) {
-			instance.createWindow()
-			instance.reload()
-		}
+		instance._window.restore()
 	}
 }
 
@@ -64,15 +65,17 @@ export default function startFactory(instance: AppManager) {
 			})
 		}
 
-		const isWinOrMac =
-			process.platform === 'win32' || process.platform === 'darwin'
-		if (isWinOrMac && process.env.NODE_ENV !== 'development') {
-			instance._window.webContents.once('did-frame-finish-load', () => {
-				updateApp()
-			})
+		const { platform, env } = process
+		const isWinOrMac = platform === 'win32' || platform === 'darwin'
+		if (isWinOrMac && env.NODE_ENV !== 'development') {
+			instance._window.webContents.once(
+				'did-frame-finish-load',
+				updateApp
+			)
 		}
 
-		app.on('window-all-closed', onClosedFactory(instance))
+		app.on('before-quit', onBeforeQuitFactory(instance))
+		instance._window.on('close', onCloseFactory(instance))
 		app.on('activate', onActivateFactory(instance))
 	}
 }
