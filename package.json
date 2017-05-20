@@ -113,7 +113,7 @@
     "router5": "^4.5.2",
     "simplebar": "^2.4.1",
     "styled-components": "^1.4.6",
-    "tinder-modern": "^1.1.1",
+    "tinder-modern": "^1.1.2",
     "url-parse": "^1.1.8",
     "uuid": "^3.0.1"
   },
