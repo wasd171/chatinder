@@ -15,7 +15,7 @@ type Interval = number | null
 export class TinderAPI {
 	client: TinderClient
 	subscriptionInterval: Interval = null
-	subscriptionPending: boolean = false
+	subscriptionPromise: null | Promise<any> = null
 	authPromise: Promise<true> | null = null
 	authPromiseExternalResolve: null | ((arg: true) => void) = null
 
