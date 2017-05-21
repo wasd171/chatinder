@@ -1,7 +1,7 @@
 {
   "name": "chatinder",
   "productName": "Chatinder",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "Unofficial desktop messaging client for Tinder.",
   "main": "src/server.js",
   "scripts": {
