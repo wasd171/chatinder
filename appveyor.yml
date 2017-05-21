@@ -12,5 +12,5 @@ install:
   - npm install -g npm@4
   - set PATH=%APPDATA%\npm;%PATH%
   - npm install
-build:
+build_script:
   - npm run make
