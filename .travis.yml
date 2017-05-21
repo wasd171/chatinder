@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "node"
+env:
+  global:
+    secure: "ER7k0cD1vvxtCcFP2dYCop7CXzJwfe8RgiLer6WEnRQlwRwiDW3U2IdechTtd1kx+6UZdzgmDMGLrT9GRvM8JpiN8hlCRwQKznI0sBJzPmJ8/wPN11VuWvAP2zA1yTpIFQTVNQZD0n2qEsv8hrUzRAqZ+2n6M3jN6Z+8W2gT+ITcYnoMPCrpbrTwlta/BO6DMkKtmrkvxBECmgQO1N2YIO865tpca51DigENgTZr7gRMp0LjFq6TD5Ap+nrkWY0hhcgPyA4p7NYmWYQrs+X1bJG91RLpLnDfEeQaBn8Y5jcbWDdHxKJPW9/dhZmauBZjQxMqaokOy3v1KrZxvsNNJO3bJj1Le0W5DrkHZZ73Ofijth0YnZDCtUxBTXdtFUfEsna21tgUvdYrIZV5djzMcBsnc8H+aHAg8jIKxJmBI3a+b0iSRVH3ZWd2TNq7Q040fB8ADMEGvYE/8k4aaT+Mw07pGcUp0cBxCwlnv2YoyS5T6YbGK2BhMeuaFhB6CdC0a56o05RYgG0yR7rtQMFz+ZS9tq7K099wPToM7YfJtd6emsODvScc2yHYjXcc3udmY3uG+UHWySAp+DGBTp8W7fJbc2545DKXJ4UYF4mkX4UJ3ZLD//mn8jgsVCNN2DVgT5kheV26kDV2zU0KZiZPP5epQ72ipVrNe2EJijtLg/4="
+os:
+  - osx
+cache:
+  directories:
+  - ~/.npm
+  - ~/Library/Caches/electron/
+branches:
+  only:
+  - master
+script:
+  npm run publish
