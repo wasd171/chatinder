@@ -44,7 +44,6 @@ export class FB {
 				callback
 			)
 		)
-		// this.storage.setItem(LF_FB_TOKEN, token);
 	}
 
 	setExpiration = async (expiration: expiresAtType) => {
@@ -57,7 +56,6 @@ export class FB {
 				callback
 			)
 		)
-		// this.storage.setItem(LF_FB_TOKEN_EXPIRES_AT, expiration);
 	}
 
 	setId = async (id: idType) => {
@@ -70,6 +68,5 @@ export class FB {
 				callback
 			)
 		)
-		// this.storage.setItem(LF_FB_ID, id);
 	}
 }

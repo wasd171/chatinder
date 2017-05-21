@@ -1,0 +1,21 @@
+platform:
+- x64
+environment:
+  nodejs_version: "stable"
+  GITHUB_TOKEN:
+    secure: P3PUvll7sdLjanWtuI2fBxKqZi4dIKbzeokpLape1l9qm2PWB17/znIx4zcBvEgY
+cache:
+- '%APPDATA%\npm-cache'
+- '%USERPROFILE%\.electron'
+branches:
+  only:
+  - master
+install:
+  - ps: Install-Product node $env:nodejs_version $env:platform
+  - ps: $env:package_version = (Get-Content -Raw -Path package.json | ConvertFrom-Json).version
+  - ps: Update-AppveyorBuild -Version "$env:package_version-$env:APPVEYOR_BUILD_NUMBER"
+  - npm install -g npm@4
+  - set PATH=%APPDATA%\npm;%PATH%
+  - npm install
+build_script:
+  - npm run publish
