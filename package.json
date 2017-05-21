@@ -11,7 +11,7 @@
     "publish": "cross-env NODE_ENV=production electron-forge publish",
     "precommit": "lint-staged",
     "postinstall": "flow-typed install",
-    "postmerge": "yarn install"
+    "postmerge": "npm install"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
