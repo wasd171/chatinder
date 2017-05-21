@@ -6,4 +6,6 @@ install:
   - ps: Install-Product node $env:nodejs_version $env:platform
   - ps: $env:package_version = (Get-Content -Raw -Path package.json | ConvertFrom-Json).version
   - ps: Update-AppveyorBuild -Version "$env:package_version-$env:APPVEYOR_BUILD_NUMBER"
-  - yarn
+  - npm install -g npm@4
+  - set PATH=%APPDATA%\npm;%PATH%
+  - npm install
