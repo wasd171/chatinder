@@ -1,8 +1,7 @@
 // @flow
 import { count } from '../utils'
-import { VIEW_MATCHES, VIEW_AUTH } from 'shared/constants'
+import { VIEW_MATCHES, VIEW_AUTH, routes } from 'shared/constants'
 import type { ServerAPI } from 'main/ServerAPI'
-import { nameToPath } from 'shared/utils'
 
 type Arguments = {}
 
@@ -16,13 +15,13 @@ export async function initialRoute(
 	// TODO: implement proper first login when offline
 	const matchesCount = await count(ctx.db.matches, {})
 	if (matchesCount !== 0) {
-		return nameToPath(VIEW_MATCHES)
+		return routes[VIEW_MATCHES]
 	} else {
 		const { token, id } = ctx.fb
 		if (typeof token !== 'undefined' && typeof id !== 'undefined') {
-			return nameToPath(VIEW_MATCHES)
+			return routes[VIEW_MATCHES]
 		} else {
-			return nameToPath(VIEW_AUTH)
+			return routes[VIEW_AUTH]
 		}
 	}
 }
