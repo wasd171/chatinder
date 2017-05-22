@@ -1,6 +1,5 @@
 // @flow
 import parse from 'url-parse'
-import { VIEW_CHAT, VIEW_USER, VIEW_LOADING } from '../constants'
 
 export function isGIPHY(message: string) {
 	'use strict'
@@ -27,19 +26,7 @@ export function getNormalizedSizeOfGIPHY(message: string) {
 	return { height, width }
 }
 
-export function nameToPath(name: string) {
-	switch (name) {
-		case VIEW_CHAT:
-			return `/:id/${VIEW_CHAT}`
-		case VIEW_USER:
-			return `/:id/${VIEW_USER}`
-		case VIEW_LOADING:
-			return `/${VIEW_LOADING}/:title`
-		default:
-			return `/${name}`
-	}
-}
-
+export { nameToPath } from './nameToPath'
 export { resolve } from './resolve'
 export { resolveDatabases } from './resolveDatabases'
 export { resolveRoot } from './resolveRoot'
