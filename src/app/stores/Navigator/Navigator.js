@@ -11,18 +11,16 @@ import initialRouteQuery from './initialRoute.graphql'
 import showWindowMutation from './showWindow.graphql'
 
 export class Navigator {
-	router
-
 	start = async ({ client }) => {
 		const { data: { initialRoute } } = await client.query({
 			query: initialRouteQuery
 		})
-		history.replaceState({}, '', initialRoute)
+		history.replaceState({}, 'Chatinder', initialRoute)
 		await client.mutate({ mutation: showWindowMutation })
 	}
 
 	push(node: string, params: string | void) {
-		history.pushState({}, '', nameToPath(node, params))
+		history.pushState({}, 'Chatinder', nameToPath(node, params))
 	}
 
 	goToAuth() {
@@ -37,11 +35,11 @@ export class Navigator {
 		this.push(VIEW_MATCHES)
 	}
 
-	goToChat({ id }) {
+	goToChat(id) {
 		this.push(VIEW_CHAT, id)
 	}
 
-	goToUser({ id }) {
+	goToUser(id) {
 		this.push(VIEW_USER, id)
 	}
 

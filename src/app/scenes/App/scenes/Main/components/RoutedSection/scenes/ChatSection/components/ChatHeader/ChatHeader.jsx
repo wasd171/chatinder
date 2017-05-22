@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { inject } from 'mobx-react'
-import { computed } from 'mobx'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
 import { graphql } from 'react-apollo'
@@ -25,7 +24,7 @@ const NameSpan = styled.span`
 @muiThemeable()
 class ChatHeader extends Component {
 	handleClick = () => {
-		this.props.navigator.goToUser({ id: this.props.id })
+		this.props.navigator.goToUser(this.props.id)
 	}
 
 	render() {
