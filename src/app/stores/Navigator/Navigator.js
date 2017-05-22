@@ -1,4 +1,3 @@
-import { configureRouter } from './configureRouter'
 import {
 	VIEW_AUTH,
 	VIEW_MATCHES,
@@ -7,37 +6,46 @@ import {
 	VIEW_LOADING,
 	VIEW_PROFILE
 } from 'shared/constants'
+import { nameToPath } from 'shared/utils'
+import initialRouteQuery from './initialRoute.graphql'
 import showWindowMutation from './showWindow.graphql'
 
 export class Navigator {
 	router
 
-	start = async ({ view, client }) => {
-		this.router = await configureRouter({ view, client })
+	start = async ({ client }) => {
+		const { data: { initialRoute } } = await client.query({
+			query: initialRouteQuery
+		})
+		history.replaceState({}, '', initialRoute)
 		await client.mutate({ mutation: showWindowMutation })
 	}
 
+	push(node: string, params: string | void) {
+		history.pushState({}, '', nameToPath(node, params))
+	}
+
 	goToAuth() {
-		this.router.navigate(VIEW_AUTH)
+		this.push(VIEW_AUTH)
 	}
 
 	goToLoading(title) {
-		this.router.navigate(VIEW_LOADING, { title })
+		this.push(VIEW_LOADING, title)
 	}
 
 	goToMatches() {
-		this.router.navigate(VIEW_MATCHES)
+		this.push(VIEW_MATCHES)
 	}
 
-	goToChat({ id, index }) {
-		this.router.navigate(`${VIEW_MATCHES}.${VIEW_CHAT}`, { id, index })
+	goToChat({ id }) {
+		this.push(VIEW_CHAT, id)
 	}
 
 	goToUser({ id }) {
-		this.router.navigate(`${VIEW_MATCHES}.${VIEW_USER}`, { id })
+		this.push(VIEW_USER, id)
 	}
 
 	goToProfile() {
-		this.router.navigate(`${VIEW_MATCHES}.${VIEW_PROFILE}`)
+		this.push(VIEW_PROFILE)
 	}
 }
