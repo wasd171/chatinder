@@ -1,7 +1,7 @@
 import { configureRouter } from './configureRouter'
 import {
 	VIEW_AUTH,
-	VIEW_MAIN,
+	VIEW_MATCHES,
 	VIEW_CHAT,
 	VIEW_USER,
 	VIEW_LOADING,
@@ -25,19 +25,19 @@ export class Navigator {
 		this.router.navigate(VIEW_LOADING, { title })
 	}
 
-	goToMain() {
-		this.router.navigate(VIEW_MAIN)
+	goToMatches() {
+		this.router.navigate(VIEW_MATCHES)
 	}
 
 	goToChat({ id, index }) {
-		this.router.navigate(`${VIEW_MAIN}.${VIEW_CHAT}`, { id, index })
+		this.router.navigate(`${VIEW_MATCHES}.${VIEW_CHAT}`, { id, index })
 	}
 
 	goToUser({ id }) {
-		this.router.navigate(`${VIEW_MAIN}.${VIEW_USER}`, { id })
+		this.router.navigate(`${VIEW_MATCHES}.${VIEW_USER}`, { id })
 	}
 
 	goToProfile() {
-		this.router.navigate(`${VIEW_MAIN}.${VIEW_PROFILE}`)
+		this.router.navigate(`${VIEW_MATCHES}.${VIEW_PROFILE}`)
 	}
 }

@@ -1,6 +1,6 @@
 import {
 	VIEW_AUTH,
-	VIEW_MAIN,
+	VIEW_MATCHES,
 	VIEW_CHAT,
 	VIEW_USER,
 	VIEW_LOADING,
@@ -30,8 +30,8 @@ const profile = {
 }
 
 const main = {
-	name: VIEW_MAIN,
-	path: nameToPath(VIEW_MAIN),
+	name: VIEW_MATCHES,
+	path: nameToPath(VIEW_MATCHES),
 	children: [chat, user, profile]
 }
 

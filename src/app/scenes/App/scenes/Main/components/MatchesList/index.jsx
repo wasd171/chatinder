@@ -149,7 +149,7 @@ class MatchesList extends Component {
 			this.props.view.params.id != null &&
 			args.id === this.props.view.params.id
 		) {
-			this.props.navigator.goToMain()
+			this.props.navigator.goToMatches()
 		}
 	}
 

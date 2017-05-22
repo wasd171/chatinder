@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import FacebookLoginButton from './components/FacebookLoginButton'
-import { inject, observer } from 'mobx-react'
+import { inject } from 'mobx-react'
 import styled from 'styled-components'
 import { graphql } from 'react-apollo'
 import loginMutation from './loginMutation.graphql'
@@ -22,7 +22,7 @@ class Auth extends Component {
 		const { status } = res.data.login
 
 		if (status === success.status) {
-			this.props.navigator.goToMain()
+			this.props.navigator.goToMatches()
 		} else {
 			this.props.navigator.goToAuth()
 		}

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import { computed, toJS } from 'mobx'
 
-import { VIEW_AUTH, VIEW_MAIN, VIEW_LOADING } from 'shared/constants'
+import { VIEW_AUTH, VIEW_MATCHES, VIEW_LOADING } from 'shared/constants'
 import Auth from './scenes/Auth'
 import Main from './scenes/Main'
 import LoadingScreen from './scenes/LoadingScreen'
@@ -16,7 +15,7 @@ class App extends Component {
 				return <Auth />
 			case VIEW_LOADING:
 				return <LoadingScreen />
-			case VIEW_MAIN:
+			case VIEW_MATCHES:
 				return <Main />
 			default:
 				throw new Error(
