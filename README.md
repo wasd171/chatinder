@@ -9,4 +9,13 @@
 [![license](https://img.shields.io/github/license/wasd171/chatinder.svg)](https://github.com/wasd171/chatinder/blob/master/LICENSE.md)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-Unofficial desktop messaging client for Tinder.
+Chatinder is an open-source desktop application for Mac and Windows that allows you to chat with all your matches from your computer.
+
+* Secure: no third-party server for you to worry. Just you and Tinder.
+* Convenient: typing on a real keyboard is much simpler. Express your thoughts!
+* Open-source: app is completely free. You can even build it from sources yourself.
+
+<p align="center"><img src="https://wasd171.github.io/chatinder/assets/screenshot.png"></p>
+<p>&nbsp;</p>
+
+Give it a try *today*!
