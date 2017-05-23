@@ -11,8 +11,9 @@ import checkDoMatchesExist from './checkMutation.graphql'
 import startSubscription from './subscribeMutation.graphql'
 import LoadingStub from 'app/components/LoadingStub'
 import { Route } from 'react-router-dom'
-import { VIEW_MATCHES, routes } from 'shared/constants'
+import { VIEW_MATCHES, VIEW_CHAT, routes } from 'shared/constants'
 import Stub from './scenes/Stub'
+import ChatHeader from './scenes/ChatHeader'
 
 const MainContainer = styled.div`
 	height: 100vh;
@@ -46,6 +47,11 @@ const AsideWrapper = styled.div`
 const StubWrapper = styled.div`
 	grid-column: head-right;
 	grid-row: head-right / footer;
+`
+
+const RightHeaderWrapper = styled.div`
+	grid-area: head-right;
+	border-bottom: 1px solid ${props => props.theme.palette.borderColor};
 `
 
 @graphql(checkDoMatchesExist, { name: 'check' })
@@ -98,6 +104,12 @@ class Main extends Component {
 		</StubWrapper>
 	)
 
+	renderChatHeader = ({ match }) => (
+		<RightHeaderWrapper theme={this.props.muiTheme}>
+			<ChatHeader id={match.params.id} />
+		</RightHeaderWrapper>
+	)
+
 	get children() {
 		const { muiTheme } = this.props
 
@@ -115,6 +127,11 @@ class Main extends Component {
 				path={routes[VIEW_MATCHES]}
 				render={this.renderStub}
 				key="stub"
+			/>,
+			<Route
+				path={routes[VIEW_CHAT]}
+				render={this.renderChatHeader}
+				key="chat-header"
 			/>
 		]
 		/*return [
