@@ -1,7 +1,7 @@
 {
   "name": "chatinder",
   "productName": "Chatinder",
-  "version": "1.3.6",
+  "version": "1.4.0",
   "description": "Unofficial desktop messaging client for Tinder.",
   "main": "src/server.js",
   "scripts": {
@@ -62,7 +62,7 @@
         "iconUrl": "https://wasd171.github.io/chatinder/assets/icons/icon.ico",
         "name": "chatinder",
         "setupIcon": "./icons/icon.ico",
-        "remoteReleases": "https://chatinder.herokuapp.com/update/win32/1.3.1"
+        "remoteReleases": "https://chatinder.herokuapp.com/update/win32/1.3.6"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
