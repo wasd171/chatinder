@@ -41,8 +41,8 @@ const MainContainer = styled.div`
 `
 
 const FullPage = styled.div`
-	grid-column: 1 / 2;
-	grid-row: 1 / 3;
+	grid-column: 1 / span 2;
+	grid-row: 1 / span 3;
 `
 
 const LeftHeaderWrapper = styled.div`
