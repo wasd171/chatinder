@@ -37,26 +37,10 @@ const LeftHeaderWrapper = styled.div`
 	border-bottom: 1px solid ${props => props.theme.palette.borderColor};
 `
 
-function PositionedProfileHeader({ muiTheme }) {
-	return (
-		<LeftHeaderWrapper theme={muiTheme}>
-			<ProfileHeader />
-		</LeftHeaderWrapper>
-	)
-}
-
 const AsideWrapper = styled.div`
 	grid-area: aside;
 	border-right: 1px solid ${props => props.theme.palette.borderColor};
 `
-
-function PositionedMatchesList({ match, muiTheme }) {
-	return (
-		<AsideWrapper theme={muiTheme}>
-			<MatchesList match={match} />
-		</AsideWrapper>
-	)
-}
 
 @graphql(checkDoMatchesExist, { name: 'check' })
 @graphql(startSubscription, { name: 'subscribe' })
@@ -96,14 +80,22 @@ class Main extends Component {
 		}
 	}
 
+	renderMatchesList = ({ match }) => (
+		<AsideWrapper theme={this.props.muiTheme}>
+			<MatchesList match={match} />
+		</AsideWrapper>
+	)
+
 	get children() {
 		const { muiTheme } = this.props
 
 		return [
-			<PositionedProfileHeader key="profile" muiTheme={muiTheme} />,
+			<LeftHeaderWrapper theme={muiTheme} key="profile-header">
+				<ProfileHeader />
+			</LeftHeaderWrapper>,
 			<Route
 				path={`${routes[VIEW_MATCHES]}/:id?`}
-				component={muiThemeable()(PositionedMatchesList)}
+				render={this.renderMatchesList}
 				key="route-matches"
 			/>
 		]
