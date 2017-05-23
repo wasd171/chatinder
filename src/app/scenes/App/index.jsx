@@ -1,24 +1,25 @@
 import React, { Component } from 'react'
-import { HashRouter as Router, Switch, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
+import { inject } from 'mobx-react'
 import { VIEW_AUTH, VIEW_MATCHES, VIEW_LOADING, routes } from 'shared/constants'
 import Auth from './scenes/Auth'
 import Main from './scenes/Main'
 import LoadingScreen from './scenes/LoadingScreen'
 
+@inject('navigator')
 class App extends Component {
+	componentDidMount() {
+		this.props.navigator.setHistory(this.props.history)
+	}
+
 	render() {
 		return (
-			<Router hashType="slash">
-				<Switch>
-					<Route path={routes[VIEW_AUTH]} component={Auth} />
-					<Route
-						path={routes[VIEW_LOADING]}
-						component={LoadingScreen}
-					/>
-					<Route path={routes[VIEW_MATCHES]} component={Main} />
-				</Switch>
-			</Router>
+			<Switch>
+				<Route path={routes[VIEW_AUTH]} component={Auth} />
+				<Route path={routes[VIEW_LOADING]} component={LoadingScreen} />
+				<Route path={routes[VIEW_MATCHES]} component={Main} />
+			</Switch>
 		)
 	}
 }

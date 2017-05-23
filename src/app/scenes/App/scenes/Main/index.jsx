@@ -79,7 +79,7 @@ class Main extends Component {
 				<MatchesSection theme={muiTheme} key="matches">
 					<ProfileHeader />
 					<Route
-						path={routes[VIEW_MATCHES]}
+						path={`${routes[VIEW_MATCHES]}/:id?`}
 						component={MatchesList}
 					/>
 				</MatchesSection>,

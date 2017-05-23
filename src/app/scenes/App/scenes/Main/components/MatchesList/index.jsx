@@ -52,7 +52,19 @@ class MatchesList extends Component {
 	disposer
 	scrollbar
 	scrollHandler
-	index
+	_index
+
+	get index() {
+		if (this.props.match.params.id != null) {
+			return this._index
+		} else {
+			return undefined
+		}
+	}
+
+	set index(newIndex) {
+		this._index = newIndex
+	}
 
 	get forceUpdate() {
 		return this.props.sortedMatches
@@ -126,7 +138,7 @@ class MatchesList extends Component {
 
 		if (params.id !== undefined) {
 			isSelected = params.id === match._id
-			isPreviousSelected = params.index + 1 === index
+			isPreviousSelected = this.index + 1 === index
 		} else {
 			isSelected = false
 			isPreviousSelected = false
@@ -143,6 +155,7 @@ class MatchesList extends Component {
 				goToChat={this.goToChat}
 				isSelected={isSelected}
 				isPreviousSelected={isPreviousSelected}
+				index={index}
 			/>
 		)
 	}

@@ -5,7 +5,7 @@ import ChatHeader from './components/ChatHeader'
 import MessagesFeed from './components/MessagesFeed'
 import ChatInput from './components/ChatInput'
 import { Route } from 'react-router-dom'
-import { VIEW_MATCHES, VIEW_CHAT, routes } from 'shared/constants'
+import { VIEW_CHAT, routes } from 'shared/constants'
 
 class ChatSection extends Component {
 	renderHeader({ match }) {
@@ -25,12 +25,11 @@ class ChatSection extends Component {
 			<MainSection>
 				<HeaderContainer>
 					<Route
-						path={routes[VIEW_MATCHES]}
+						path={routes[VIEW_CHAT]}
 						render={this.renderHeader}
 					/>
 				</HeaderContainer>
 				<Route path={routes[VIEW_CHAT]} render={this.renderMessages} />
-				<MessagesFeed />
 				<Route path={routes[VIEW_CHAT]} render={this.renderInput} />
 			</MainSection>
 		)
