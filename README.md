@@ -8,3 +8,5 @@
 [![GitHub release](https://img.shields.io/github/release/wasd171/chatinder.svg)](https://github.com/wasd171/chatinder/releases/latest)
 [![license](https://img.shields.io/github/license/wasd171/chatinder.svg)](https://github.com/wasd171/chatinder/blob/master/LICENSE.md)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
+Unofficial desktop messaging client for Tinder.
