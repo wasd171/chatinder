@@ -126,6 +126,9 @@ class MatchesList extends Component {
 
 		if (params.id !== undefined && params.id !== VIEW_PROFILE) {
 			isSelected = params.id === match._id
+			if (isSelected) {
+				this.index = index
+			}
 			isPreviousSelected = this.index + 1 === index
 		} else {
 			isSelected = false
