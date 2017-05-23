@@ -1,29 +1,34 @@
 import React, { Component } from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import styled from 'styled-components'
+import { inject } from 'mobx-react'
+import { KEYCODE_ESC } from 'shared/constants'
+import GenericHeader from 'app/components/GenericHeader'
+import GenericNameSpan from 'app/components/GenericNameSpan'
 
-const OuterWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
-	width: 100%;
-`
-
-const HeaderSpan = styled.span`
-	color: ${props => props.theme.palette.textColor};
-`
-
+@inject('navigator')
 @muiThemeable()
 class ProfileHeader extends Component {
+	handleKeydown = e => {
+		if (e.keyCode === KEYCODE_ESC) {
+			this.props.navigator.goToMatches()
+		}
+	}
+
+	componentDidMount() {
+		document.addEventListener('keydown', this.handleKeydown)
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('keydown', this.handleKeydown)
+	}
+
 	render() {
 		return (
-			<OuterWrapper>
-				<HeaderSpan theme={this.props.muiTheme}>
+			<GenericHeader>
+				<GenericNameSpan theme={this.props.muiTheme}>
 					It is you!
-				</HeaderSpan>
-			</OuterWrapper>
+				</GenericNameSpan>
+			</GenericHeader>
 		)
 	}
 }
