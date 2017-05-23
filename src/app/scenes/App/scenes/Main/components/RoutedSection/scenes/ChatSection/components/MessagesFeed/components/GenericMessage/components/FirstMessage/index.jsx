@@ -35,7 +35,7 @@ const NameWrapper = styled.span`
 class FirstMessage extends Component {
 	handleClick = () => {
 		if (!this.props.me) {
-			this.props.navigator.goToUser({ id: this.props.matchId })
+			this.props.navigator.goToUser(this.props.matchId)
 		} else {
 			this.props.navigator.goToProfile()
 		}

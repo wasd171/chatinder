@@ -11,6 +11,8 @@ import RoutedSection from './components/RoutedSection'
 import checkDoMatchesExist from './checkMutation.graphql'
 import startSubscription from './subscribeMutation.graphql'
 import LoadingStub from 'app/components/LoadingStub'
+import { Route } from 'react-router-dom'
+import { VIEW_MATCHES, routes } from 'shared/constants'
 
 const MainContainer = styled.div`
 	display: flex;
@@ -76,7 +78,10 @@ class Main extends Component {
 			return [
 				<MatchesSection theme={muiTheme} key="matches">
 					<ProfileHeader />
-					<MatchesList />
+					<Route
+						path={`${routes[VIEW_MATCHES]}/:id?`}
+						component={MatchesList}
+					/>
 				</MatchesSection>,
 				<RoutedSection key="routed" />
 			]

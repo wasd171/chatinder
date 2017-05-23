@@ -7,7 +7,7 @@ import { graphql } from 'react-apollo'
 import profileQuery from './query.graphql'
 import { inject } from 'mobx-react'
 
-const StyledWrapper = styled.div`
+const StyledContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -49,11 +49,11 @@ class ProfileHeader extends Component {
 	render() {
 		return (
 			<HeaderContainer>
-				<StyledWrapper onClick={this.handleClick}>
+				<StyledContainer onClick={this.handleClick}>
 					{this.props.data.loading
 						? this.renderLoading()
 						: this.renderContent(this.props)}
-				</StyledWrapper>
+				</StyledContainer>
 			</HeaderContainer>
 		)
 	}

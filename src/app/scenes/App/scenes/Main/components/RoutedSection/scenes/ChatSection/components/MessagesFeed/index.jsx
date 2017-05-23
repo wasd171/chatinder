@@ -24,7 +24,9 @@ const MessagesList = styled(List)`
 	}
 `
 
+@inject('caches', 'navigator')
 @graphql(query)
+@observer
 class MessagesFeed extends Component {
 	list
 	scrollbar
@@ -91,14 +93,14 @@ class MessagesFeed extends Component {
 		}
 	}
 
-	get forceUpdateGetter() {
+	get forceUpdaterGetter() {
 		// Method for triggering updates in PureComponent
 		return this.props.data.match.messages
 	}
 
 	renderChildren = props => {
 		return (
-			<ScrollSync forceUpdate={this.forceUpdateGetter}>
+			<ScrollSync forceUpdater={this.forceUpdaterGetter}>
 				{this.renderMessages.bind(this, props)}
 			</ScrollSync>
 		)
@@ -151,7 +153,7 @@ class MessagesFeed extends Component {
 					scrollTop={scrollTop}
 					innerRef={linkref(this, 'list')}
 					scrollToIndex={this.scrollToIndex}
-					forceUpdate={this.forceUpdateGetter}
+					forceUpdater={this.forceUpdaterGetter}
 					overscanRowCount={overscanRowCount}
 				/>
 				<SimpleBarStandalone
@@ -166,20 +168,28 @@ class MessagesFeed extends Component {
 	}
 
 	render() {
+		let content
+
 		if (
 			this.props.data.loading ||
 			typeof this.props.data.match === 'undefined'
 		) {
-			return <LoadingStub size={40} />
+			content = <LoadingStub size={40} />
 		} else if (this.props.data.match.messages.length === 0) {
-			return <NoMessages />
+			content = <NoMessages />
 		} else {
-			return (
-				<AutoSizer forceUpdate={this.forceUpdateGetter}>
+			content = (
+				<AutoSizer forceUpdater={this.forceUpdaterGetter}>
 					{this.renderChildren}
 				</AutoSizer>
 			)
 		}
+
+		return (
+			<Container>
+				{content}
+			</Container>
+		)
 	}
 
 	handleUpdate = (event, args) => {
@@ -213,20 +223,4 @@ class MessagesFeed extends Component {
 	}
 }
 
-@inject('view', 'caches', 'navigator')
-@observer
-class MessagesFeedMobX extends Component {
-	render() {
-		return (
-			<Container>
-				<MessagesFeed
-					id={this.props.view.params.id}
-					caches={this.props.caches}
-					navigator={this.props.navigator}
-				/>
-			</Container>
-		)
-	}
-}
-
-export default MessagesFeedMobX
+export default MessagesFeed

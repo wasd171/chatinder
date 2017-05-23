@@ -46,14 +46,27 @@ const ListWithoutScrollbar = styled(List)`
 	}
 `
 
-@inject('view', 'navigator')
+@inject('navigator')
 @graphql(matchesQuery, queryOptions)
 class MatchesList extends Component {
 	disposer
 	scrollbar
 	scrollHandler
+	_index
 
-	get forceUpdate() {
+	get index() {
+		if (this.props.match.params.id != null) {
+			return this._index
+		} else {
+			return undefined
+		}
+	}
+
+	set index(newIndex) {
+		this._index = newIndex
+	}
+
+	get forceUpdater() {
 		return this.props.sortedMatches
 	}
 
@@ -74,8 +87,13 @@ class MatchesList extends Component {
 		this.scrollbar.showScrollbar()
 	}
 
+	goToChat = ({ id, index }) => {
+		this.index = index
+		this.props.navigator.goToChat(id)
+	}
+
 	renderAutoSizer = ({ clientHeight, onScroll, scrollHeight, scrollTop }) => (
-		<AutoSizer disableWidth={true} forceUpdate={this.forceUpdate}>
+		<AutoSizer disableWidth={true} forceUpdater={this.forceUpdater}>
 			{this.renderContent.bind(this, {
 				onScroll,
 				scrollTop,
@@ -99,7 +117,8 @@ class MatchesList extends Component {
 				innerRef={linkref(this, 'list')}
 				onScroll={this.createScrollHandler(onScroll)}
 				scrollTop={scrollTop}
-				forceUpdate={this.forceUpdate}
+				forceUpdater={this.forceUpdater}
+				location={this.props.location}
 			/>
 			<SimpleBarStandalone
 				onScroll={onScroll}
@@ -113,7 +132,17 @@ class MatchesList extends Component {
 
 	rowRenderer = ({ index, style }) => {
 		const match = this.props.sortedMatches[index]
+		const { params } = this.props.match
 		const firstVisible = index === 0
+		let isSelected, isPreviousSelected
+
+		if (params.id !== undefined) {
+			isSelected = params.id === match._id
+			isPreviousSelected = this.index + 1 === index
+		} else {
+			isSelected = false
+			isPreviousSelected = false
+		}
 
 		return (
 			<Match
@@ -122,8 +151,11 @@ class MatchesList extends Component {
 				style={style}
 				height={rowHeight}
 				width={widthNum}
-				index={index}
 				firstVisible={firstVisible}
+				goToChat={this.goToChat}
+				isSelected={isSelected}
+				isPreviousSelected={isPreviousSelected}
+				index={index}
 			/>
 		)
 	}
@@ -132,7 +164,7 @@ class MatchesList extends Component {
 		return (
 			<MatchesListContainer>
 				{!this.props.loading &&
-					<ScrollSync forceUpdate={this.forceUpdate}>
+					<ScrollSync forceUpdater={this.forceUpdater}>
 						{this.renderAutoSizer}
 					</ScrollSync>}
 			</MatchesListContainer>
@@ -144,12 +176,9 @@ class MatchesList extends Component {
 	}
 
 	handleBlock = (event, args) => {
-		if (
-			this.props.view.params != null &&
-			this.props.view.params.id != null &&
-			args.id === this.props.view.params.id
-		) {
-			this.props.navigator.goToMain()
+		const { params } = this.props.match
+		if (params != null && params.id != null && args.id === params.id) {
+			this.props.navigator.goToMatches()
 		}
 	}
 

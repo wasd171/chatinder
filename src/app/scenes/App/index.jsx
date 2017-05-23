@@ -1,28 +1,26 @@
 import React, { Component } from 'react'
-import { observer, inject } from 'mobx-react'
-import { computed, toJS } from 'mobx'
+import { Switch, Route } from 'react-router-dom'
 
-import { VIEW_AUTH, VIEW_MAIN, VIEW_LOADING } from 'shared/constants'
+import { inject } from 'mobx-react'
+import { VIEW_AUTH, VIEW_MATCHES, VIEW_LOADING, routes } from 'shared/constants'
 import Auth from './scenes/Auth'
 import Main from './scenes/Main'
 import LoadingScreen from './scenes/LoadingScreen'
 
-@inject('view')
-@observer
+@inject('navigator')
 class App extends Component {
+	componentDidMount() {
+		this.props.navigator.setHistory(this.props.history)
+	}
+
 	render() {
-		switch (this.props.view.pathNodes[0]) {
-			case VIEW_AUTH:
-				return <Auth />
-			case VIEW_LOADING:
-				return <LoadingScreen />
-			case VIEW_MAIN:
-				return <Main />
-			default:
-				throw new Error(
-					`Unknown routing node: ${this.props.view.pathNodes[0]}`
-				)
-		}
+		return (
+			<Switch>
+				<Route path={routes[VIEW_AUTH]} component={Auth} />
+				<Route path={routes[VIEW_LOADING]} component={LoadingScreen} />
+				<Route path={routes[VIEW_MATCHES]} component={Main} />
+			</Switch>
+		)
 	}
 }
 

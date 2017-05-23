@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import { ApolloProvider } from 'react-apollo'
 import { Provider } from 'mobx-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { HashRouter as Router, Route } from 'react-router-dom'
 
 import { useStrict } from 'mobx'
 import TapPlugin from 'react-tap-event-plugin'
@@ -27,7 +28,9 @@ async function configureAndRender() {
 			<MuiThemeProvider muiTheme={theme}>
 				<ApolloProvider client={client}>
 					<Provider {...stores}>
-						<App />
+						<Router hashType="slash">
+							<Route path="/" component={App} />
+						</Router>
 					</Provider>
 				</ApolloProvider>
 			</MuiThemeProvider>,

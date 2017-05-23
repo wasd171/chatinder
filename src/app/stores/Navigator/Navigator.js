@@ -1,43 +1,59 @@
-import { configureRouter } from './configureRouter'
 import {
 	VIEW_AUTH,
-	VIEW_MAIN,
+	VIEW_MATCHES,
 	VIEW_CHAT,
 	VIEW_USER,
 	VIEW_LOADING,
 	VIEW_PROFILE
 } from 'shared/constants'
+import { nameToPath } from 'shared/utils'
+import initialRouteQuery from './initialRoute.graphql'
 import showWindowMutation from './showWindow.graphql'
 
 export class Navigator {
-	router
+	history
 
-	start = async ({ view, client }) => {
-		this.router = await configureRouter({ view, client })
+	setHistory(history) {
+		this.history = history
+	}
+
+	start = async ({ client }) => {
+		const { data: { initialRoute } } = await client.query({
+			query: initialRouteQuery
+		})
+		history.replaceState(
+			{},
+			'Chatinder',
+			`${location.pathname}#${initialRoute}`
+		)
 		await client.mutate({ mutation: showWindowMutation })
 	}
 
+	push(node: string, params: string | void) {
+		this.history.push(nameToPath(node, params))
+	}
+
 	goToAuth() {
-		this.router.navigate(VIEW_AUTH)
+		this.push(VIEW_AUTH)
 	}
 
 	goToLoading(title) {
-		this.router.navigate(VIEW_LOADING, { title })
+		this.push(VIEW_LOADING, title)
 	}
 
-	goToMain() {
-		this.router.navigate(VIEW_MAIN)
+	goToMatches() {
+		this.push(VIEW_MATCHES)
 	}
 
-	goToChat({ id, index }) {
-		this.router.navigate(`${VIEW_MAIN}.${VIEW_CHAT}`, { id, index })
+	goToChat(id) {
+		this.push(VIEW_CHAT, id)
 	}
 
-	goToUser({ id }) {
-		this.router.navigate(`${VIEW_MAIN}.${VIEW_USER}`, { id })
+	goToUser(id) {
+		this.push(VIEW_USER, id)
 	}
 
 	goToProfile() {
-		this.router.navigate(`${VIEW_MAIN}.${VIEW_PROFILE}`)
+		this.push(VIEW_PROFILE)
 	}
 }

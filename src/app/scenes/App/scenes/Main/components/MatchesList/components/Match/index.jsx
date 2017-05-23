@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { computed } from 'mobx'
-import { inject, observer } from 'mobx-react'
 import Avatar from 'app/components/Avatar'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
@@ -45,49 +43,29 @@ const MessageContainer = styled.div`
 	font-size: 14px;
 `
 
-@inject('view', 'navigator')
 @muiThemeable()
-@observer
 class Match extends Component {
-	get isSelected() {
-		const { view, match } = this.props
-		if (view.params.id !== undefined) {
-			return view.params.id === match._id
-		} else {
-			return false
-		}
-	}
-
-	get isPreviousSelected() {
-		const { view, index } = this.props
-		if (view.params.index !== undefined) {
-			return view.params.index + 1 === index
-		} else {
-			return false
-		}
-	}
-
 	get showBorder() {
-		return !(this.isSelected ||
-			this.isPreviousSelected ||
+		return !(this.props.isSelected ||
+			this.props.isPreviousSelected ||
 			this.props.firstVisible)
 	}
 
 	handleClick = () => {
-		this.props.navigator.goToChat({
+		this.props.goToChat({
 			id: this.props.match._id,
 			index: this.props.index
 		})
 	}
 
 	render() {
-		const { match, style, muiTheme } = this.props
+		const { match, style, muiTheme, isSelected } = this.props
 
 		return (
 			<MatchContainer
 				theme={muiTheme}
 				style={style}
-				isSelected={this.isSelected}
+				isSelected={isSelected}
 				onClick={this.handleClick}
 			>
 				<Avatar src={match.person.smallPhoto} size={46} />
