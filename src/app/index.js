@@ -14,6 +14,10 @@ import configureTheme from './configureTheme'
 import configureClient from './configureClient'
 import { configureStores } from './stores'
 
+if (process.env.NODE_ENV === 'development') {
+	global.Perf = require('react-addons-perf')
+}
+
 async function configureAndRender() {
 	const container = document.getElementById('root')
 
