@@ -9,7 +9,8 @@ import { graphql } from 'react-apollo'
 import { ipcRenderer } from 'electron'
 import {
 	SUBSCRIPTION_MATCHES_ALL,
-	SUBSCRIPTION_MATCH_BLOCKED
+	SUBSCRIPTION_MATCH_BLOCKED,
+	VIEW_PROFILE
 } from 'shared/constants'
 import matchesQuery from './query.graphql'
 
@@ -136,7 +137,7 @@ class MatchesList extends Component {
 		const firstVisible = index === 0
 		let isSelected, isPreviousSelected
 
-		if (params.id !== undefined) {
+		if (params.id !== undefined && params.id !== VIEW_PROFILE) {
 			isSelected = params.id === match._id
 			isPreviousSelected = this.index + 1 === index
 		} else {
