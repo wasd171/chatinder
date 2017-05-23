@@ -1,0 +1,8 @@
+#import './fragment.graphql'
+
+
+mutation getUpdatedPersonInfo($id: String!) {
+    updatePerson(id: $id) {
+        ...personInfo
+    }
+}

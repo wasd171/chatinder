@@ -1,0 +1,11 @@
+#import './fragment.graphql'
+
+query getMatchInfo($id: String!) {
+    match(id: $id) {
+        _id
+        isSuperLike
+        person {
+            ...personInfo
+        }
+    }
+}

@@ -17,6 +17,7 @@ import ChatHeader from './scenes/ChatHeader'
 import MessagesFeed from './scenes/MessagesFeed'
 import ChatInput from './scenes/ChatInput'
 import UserHeader from './scenes/UserHeader'
+import UserSection from './scenes/UserSection'
 
 const MainContainer = styled.div`
 	height: 100vh;
@@ -64,6 +65,11 @@ const MainWrapper = styled.div`
 const FooterWrapper = styled.div`
 	grid-area: footer;
 	align-self: end;
+`
+
+const RightSection = styled.div`
+	grid-column: head-right;
+	grid-row: main / footer;
 `
 
 @graphql(checkDoMatchesExist, { name: 'check' })
@@ -140,6 +146,12 @@ class Main extends Component {
 		</RightHeaderWrapper>
 	)
 
+	renderUserSection = ({ match }) => (
+		<RightSection>
+			<UserSection id={match.params.id} />
+		</RightSection>
+	)
+
 	get children() {
 		const { muiTheme } = this.props
 
@@ -177,6 +189,11 @@ class Main extends Component {
 				path={routes[VIEW_USER]}
 				render={this.renderUserHeader}
 				key="user-header"
+			/>,
+			<Route
+				path={routes[VIEW_USER]}
+				render={this.renderUserSection}
+				key="user"
 			/>
 		]
 		/*return [
