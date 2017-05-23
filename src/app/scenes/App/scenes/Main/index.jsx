@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import NoMatches from './components/NoMatches'
-import ProfileHeader from './components/ProfileHeader'
+import ProfileHeaderLeft from './components/ProfileHeaderLeft'
 import MatchesList from './scenes/MatchesList'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
@@ -11,13 +11,21 @@ import checkDoMatchesExist from './checkMutation.graphql'
 import startSubscription from './subscribeMutation.graphql'
 import LoadingStub from 'app/components/LoadingStub'
 import { Route } from 'react-router-dom'
-import { VIEW_MATCHES, VIEW_CHAT, VIEW_USER, routes } from 'shared/constants'
+import {
+	VIEW_MATCHES,
+	VIEW_CHAT,
+	VIEW_USER,
+	VIEW_PROFILE,
+	routes
+} from 'shared/constants'
 import Stub from './scenes/Stub'
 import ChatHeader from './scenes/ChatHeader'
 import MessagesFeed from './scenes/MessagesFeed'
 import ChatInput from './scenes/ChatInput'
 import UserHeader from './scenes/UserHeader'
 import UserSection from './scenes/UserSection'
+import ProfileHeader from './scenes/ProfileHeader'
+import ProfileSection from './scenes/ProfileSection'
 
 const MainContainer = styled.div`
 	height: 100vh;
@@ -152,12 +160,24 @@ class Main extends Component {
 		</RightSection>
 	)
 
+	renderProfileHeader = () => (
+		<RightHeaderWrapper theme={this.props.muiTheme}>
+			<ProfileHeader />
+		</RightHeaderWrapper>
+	)
+
+	renderProfileSection = () => (
+		<RightSection>
+			<ProfileSection />
+		</RightSection>
+	)
+
 	get children() {
 		const { muiTheme } = this.props
 
 		return [
-			<LeftHeaderWrapper theme={muiTheme} key="profile-header">
-				<ProfileHeader />
+			<LeftHeaderWrapper theme={muiTheme} key="profile-header-left">
+				<ProfileHeaderLeft />
 			</LeftHeaderWrapper>,
 			<Route
 				path={`${routes[VIEW_MATCHES]}/:id?`}
@@ -194,6 +214,16 @@ class Main extends Component {
 				path={routes[VIEW_USER]}
 				render={this.renderUserSection}
 				key="user"
+			/>,
+			<Route
+				path={routes[VIEW_PROFILE]}
+				render={this.renderProfileHeader}
+				key="profile-header"
+			/>,
+			<Route
+				path={routes[VIEW_PROFILE]}
+				render={this.renderProfileSection}
+				key="profile-section"
 			/>
 		]
 		/*return [

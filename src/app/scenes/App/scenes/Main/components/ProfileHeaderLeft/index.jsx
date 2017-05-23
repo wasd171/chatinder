@@ -24,7 +24,7 @@ const NameWrapper = styled.span`
 @inject('navigator')
 @muiThemeable()
 @graphql(profileQuery)
-class ProfileHeader extends Component {
+class ProfileHeaderLeft extends Component {
 	handleClick = () => {
 		this.props.navigator.goToProfile()
 	}
@@ -56,4 +56,4 @@ class ProfileHeader extends Component {
 	}
 }
 
-export default ProfileHeader
+export default ProfileHeaderLeft

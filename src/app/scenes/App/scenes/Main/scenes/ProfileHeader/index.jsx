@@ -11,21 +11,21 @@ const OuterWrapper = styled.div`
 	width: 100%;
 `
 
-const NameSpan = styled.span`
+const HeaderSpan = styled.span`
 	color: ${props => props.theme.palette.textColor};
 `
 
 @muiThemeable()
-class UserHeader extends Component {
+class ProfileHeader extends Component {
 	render() {
 		return (
 			<OuterWrapper>
-				<NameSpan theme={this.props.muiTheme}>
-					Info
-				</NameSpan>
+				<HeaderSpan theme={this.props.muiTheme}>
+					It is you!
+				</HeaderSpan>
 			</OuterWrapper>
 		)
 	}
 }
 
-export default UserHeader
+export default ProfileHeader
