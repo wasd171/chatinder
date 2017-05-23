@@ -26,20 +26,7 @@ const queryOptions = {
 	})
 }
 
-const widthNum = 270
-const width = `${widthNum}px`
 const rowHeight = 63
-
-const MatchesListContainer = styled.div`
-	min-width: ${width};
-	width: ${width};
-	max-width: ${width};
-	max-height: 100%;
-	height: 100%;
-	box-sizing: border-box;
-	user-select: none;
-	padding-bottom: 10px;
-`
 
 const ListWithoutScrollbar = styled(List)`
 	&::-webkit-scrollbar {
@@ -94,7 +81,7 @@ class MatchesList extends Component {
 	}
 
 	renderAutoSizer = ({ clientHeight, onScroll, scrollHeight, scrollTop }) => (
-		<AutoSizer disableWidth={true} forceUpdater={this.forceUpdater}>
+		<AutoSizer forceUpdater={this.forceUpdater}>
 			{this.renderContent.bind(this, {
 				onScroll,
 				scrollTop,
@@ -106,15 +93,15 @@ class MatchesList extends Component {
 
 	renderContent = (
 		{ onScroll, scrollTop, clientHeight, scrollHeight },
-		{ height }
+		{ height, width }
 	) => (
 		<div onMouseEnter={this.handleMouseEnter}>
 			<ListWithoutScrollbar
 				height={height}
-				width={widthNum}
+				width={width}
 				rowCount={this.props.sortedMatches.length}
 				rowHeight={rowHeight}
-				rowRenderer={this.rowRenderer}
+				rowRenderer={this.rowRenderer.bind(this, { width })}
 				innerRef={linkref(this, 'list')}
 				onScroll={this.createScrollHandler(onScroll)}
 				scrollTop={scrollTop}
@@ -131,7 +118,7 @@ class MatchesList extends Component {
 		</div>
 	)
 
-	rowRenderer = ({ index, style }) => {
+	rowRenderer = ({ width }, { index, style }) => {
 		const match = this.props.sortedMatches[index]
 		const { params } = this.props.match
 		const firstVisible = index === 0
@@ -151,7 +138,7 @@ class MatchesList extends Component {
 				match={match}
 				style={style}
 				height={rowHeight}
-				width={widthNum}
+				width={width}
 				firstVisible={firstVisible}
 				goToChat={this.goToChat}
 				isSelected={isSelected}
@@ -162,14 +149,15 @@ class MatchesList extends Component {
 	}
 
 	render() {
-		return (
-			<MatchesListContainer>
-				{!this.props.loading &&
-					<ScrollSync forceUpdater={this.forceUpdater}>
-						{this.renderAutoSizer}
-					</ScrollSync>}
-			</MatchesListContainer>
-		)
+		if (!this.props.loading) {
+			return (
+				<ScrollSync forceUpdater={this.forceUpdater}>
+					{this.renderAutoSizer}
+				</ScrollSync>
+			)
+		} else {
+			return null
+		}
 	}
 
 	handleUpdate = () => {
