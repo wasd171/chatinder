@@ -12,7 +12,8 @@ export default function createWindowFactory(instance: AppManager) {
 			minHeight: 340,
 			webPreferences: {
 				nodeIntegration: true,
-				blinkFeatures: 'CSSScrollSnapPoints,CSSSnapSize,ScrollAnchoring,CSSOMSmoothScroll'
+				blinkFeatures: 'CSSScrollSnapPoints,CSSSnapSize,ScrollAnchoring,CSSOMSmoothScroll',
+				experimentalFeatures: true
 			},
 			icon: require.resolve('@root/icons/icon.png')
 		})
