@@ -30,7 +30,7 @@ class NoMatches extends Component {
 		return (
 			<Wrapper>
 				<Title theme={muiTheme}>
-					Looks like you don't have any matches yet! =(
+					Looks like you don not have any matches yet! =(
 				</Title>
 				<Message theme={muiTheme} primary={true}>
 					This app is for chatting purposes only. Use an official Tinder app on your phone to find your soulmates

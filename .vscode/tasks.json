@@ -14,7 +14,7 @@
                 "command": "./node_modules/.bin/eslint"
             },
             "isShellCommand": true,
-            "args": ["src/{main,shared}/**/*.{js,jsx}"],
+            "args": ["src/**/*.{js,jsx}"],
             "showOutput": "silent",
             "problemMatcher": "$eslint-stylish"
         }

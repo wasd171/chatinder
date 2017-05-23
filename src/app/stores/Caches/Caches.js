@@ -1,6 +1,5 @@
 import { CellMeasurerCache } from 'react-virtualized'
 import { observable, action } from 'mobx'
-import { SUCCESS, PENDING, FAILURE } from 'shared/constants'
 
 export class Caches {
 	_messages = new Map()
