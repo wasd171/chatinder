@@ -1,0 +1,6 @@
+mutation resendMessageMutation($id: String!, $messageId: String!) {
+    resendMessage(id: $id, messageId: $messageId) {
+        _id
+        status
+    }
+}

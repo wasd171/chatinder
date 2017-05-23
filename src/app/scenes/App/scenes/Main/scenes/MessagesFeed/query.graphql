@@ -1,0 +1,23 @@
+#import './fragment.graphql'
+
+
+query getMatchWithMessages($id: String!) {
+    match(id: $id) {
+        _id
+        person {
+            _id
+            name
+            smallPhoto
+        }
+        messages {
+            ...messageListFields
+        }
+    }
+    profile {
+        user {
+            _id
+            name
+            smallPhoto
+        }
+    }
+}

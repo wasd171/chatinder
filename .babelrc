@@ -23,7 +23,8 @@
                 "transform-class-properties",
                 "transform-object-rest-spread"
             ],
-            "sourceMaps": "inline"
+            "sourceMaps": "inline",
+            "retainLines": false
         },
         "production": {
             "presets": [

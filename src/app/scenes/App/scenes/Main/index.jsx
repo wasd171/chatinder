@@ -14,6 +14,8 @@ import { Route } from 'react-router-dom'
 import { VIEW_MATCHES, VIEW_CHAT, routes } from 'shared/constants'
 import Stub from './scenes/Stub'
 import ChatHeader from './scenes/ChatHeader'
+import MessagesFeed from './scenes/MessagesFeed'
+import ChatInput from './scenes/ChatInput'
 
 const MainContainer = styled.div`
 	height: 100vh;
@@ -22,7 +24,7 @@ const MainContainer = styled.div`
 	min-height: 100vh;
 	display: grid;
 	grid-template-columns: 270px auto;
-	grid-template-rows: 46px auto auto;
+	grid-template-rows: 46px 1fr fit-content(100%);
 	grid-template-areas: 	"head-left head-right"
 							"aside main"
 							"aside footer";
@@ -52,6 +54,15 @@ const StubWrapper = styled.div`
 const RightHeaderWrapper = styled.div`
 	grid-area: head-right;
 	border-bottom: 1px solid ${props => props.theme.palette.borderColor};
+`
+
+const MainWrapper = styled.div`
+	grid-area: main;
+`
+
+const FooterWrapper = styled.div`
+	grid-area: footer;
+	align-self: end;
 `
 
 @graphql(checkDoMatchesExist, { name: 'check' })
@@ -110,6 +121,18 @@ class Main extends Component {
 		</RightHeaderWrapper>
 	)
 
+	renderMessages = ({ match }) => (
+		<MainWrapper>
+			<MessagesFeed id={match.params.id} />
+		</MainWrapper>
+	)
+
+	renderInput = ({ match }) => (
+		<FooterWrapper>
+			<ChatInput id={match.params.id} />
+		</FooterWrapper>
+	)
+
 	get children() {
 		const { muiTheme } = this.props
 
@@ -132,6 +155,16 @@ class Main extends Component {
 				path={routes[VIEW_CHAT]}
 				render={this.renderChatHeader}
 				key="chat-header"
+			/>,
+			<Route
+				path={routes[VIEW_CHAT]}
+				render={this.renderMessages}
+				key="messages"
+			/>,
+			<Route
+				path={routes[VIEW_CHAT]}
+				render={this.renderInput}
+				key="input"
 			/>
 		]
 		/*return [
