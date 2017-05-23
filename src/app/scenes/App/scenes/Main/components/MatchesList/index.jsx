@@ -66,7 +66,7 @@ class MatchesList extends Component {
 		this._index = newIndex
 	}
 
-	get forceUpdate() {
+	get forceUpdater() {
 		return this.props.sortedMatches
 	}
 
@@ -93,7 +93,7 @@ class MatchesList extends Component {
 	}
 
 	renderAutoSizer = ({ clientHeight, onScroll, scrollHeight, scrollTop }) => (
-		<AutoSizer disableWidth={true} forceUpdate={this.forceUpdate}>
+		<AutoSizer disableWidth={true} forceUpdater={this.forceUpdater}>
 			{this.renderContent.bind(this, {
 				onScroll,
 				scrollTop,
@@ -117,7 +117,7 @@ class MatchesList extends Component {
 				innerRef={linkref(this, 'list')}
 				onScroll={this.createScrollHandler(onScroll)}
 				scrollTop={scrollTop}
-				forceUpdate={this.forceUpdate}
+				forceUpdater={this.forceUpdater}
 				location={this.props.location}
 			/>
 			<SimpleBarStandalone
@@ -164,7 +164,7 @@ class MatchesList extends Component {
 		return (
 			<MatchesListContainer>
 				{!this.props.loading &&
-					<ScrollSync forceUpdate={this.forceUpdate}>
+					<ScrollSync forceUpdater={this.forceUpdater}>
 						{this.renderAutoSizer}
 					</ScrollSync>}
 			</MatchesListContainer>

@@ -93,14 +93,14 @@ class MessagesFeed extends Component {
 		}
 	}
 
-	get forceUpdateGetter() {
+	get forceUpdaterGetter() {
 		// Method for triggering updates in PureComponent
 		return this.props.data.match.messages
 	}
 
 	renderChildren = props => {
 		return (
-			<ScrollSync forceUpdate={this.forceUpdateGetter}>
+			<ScrollSync forceUpdater={this.forceUpdaterGetter}>
 				{this.renderMessages.bind(this, props)}
 			</ScrollSync>
 		)
@@ -153,7 +153,7 @@ class MessagesFeed extends Component {
 					scrollTop={scrollTop}
 					innerRef={linkref(this, 'list')}
 					scrollToIndex={this.scrollToIndex}
-					forceUpdate={this.forceUpdateGetter}
+					forceUpdater={this.forceUpdaterGetter}
 					overscanRowCount={overscanRowCount}
 				/>
 				<SimpleBarStandalone
@@ -179,7 +179,7 @@ class MessagesFeed extends Component {
 			content = <NoMessages />
 		} else {
 			content = (
-				<AutoSizer forceUpdate={this.forceUpdateGetter}>
+				<AutoSizer forceUpdater={this.forceUpdaterGetter}>
 					{this.renderChildren}
 				</AutoSizer>
 			)
