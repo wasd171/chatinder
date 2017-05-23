@@ -3,8 +3,9 @@ import {
 	VIEW_CHAT,
 	VIEW_USER,
 	VIEW_LOADING,
-	VIEW_MATCHES
-} from 'shared/constants'
+	VIEW_MATCHES,
+	VIEW_PROFILE
+} from 'shared/constants/view'
 
 export function nameToPath(name: string, param: string | void) {
 	switch (name) {
@@ -14,6 +15,8 @@ export function nameToPath(name: string, param: string | void) {
 			return `${nameToPath(VIEW_MATCHES)}/${param || ':id'}/${VIEW_USER}`
 		case VIEW_LOADING:
 			return `/${VIEW_LOADING}/${param || ':title'}`
+		case VIEW_PROFILE:
+			return `${nameToPath(VIEW_MATCHES)}/${VIEW_PROFILE}`
 		default:
 			return `/${name}`
 	}

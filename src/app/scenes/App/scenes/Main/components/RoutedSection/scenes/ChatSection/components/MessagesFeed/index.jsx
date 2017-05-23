@@ -24,7 +24,9 @@ const MessagesList = styled(List)`
 	}
 `
 
+@inject('caches', 'navigator')
 @graphql(query)
+@observer
 class MessagesFeed extends Component {
 	list
 	scrollbar
@@ -166,20 +168,28 @@ class MessagesFeed extends Component {
 	}
 
 	render() {
+		let content
+
 		if (
 			this.props.data.loading ||
 			typeof this.props.data.match === 'undefined'
 		) {
-			return <LoadingStub size={40} />
+			content = <LoadingStub size={40} />
 		} else if (this.props.data.match.messages.length === 0) {
-			return <NoMessages />
+			content = <NoMessages />
 		} else {
-			return (
+			content = (
 				<AutoSizer forceUpdate={this.forceUpdateGetter}>
 					{this.renderChildren}
 				</AutoSizer>
 			)
 		}
+
+		return (
+			<Container>
+				{content}
+			</Container>
+		)
 	}
 
 	handleUpdate = (event, args) => {
@@ -213,20 +223,4 @@ class MessagesFeed extends Component {
 	}
 }
 
-@inject('view', 'caches', 'navigator')
-@observer
-class MessagesFeedMobX extends Component {
-	render() {
-		return (
-			<Container>
-				<MessagesFeed
-					id={this.props.view.params.id}
-					caches={this.props.caches}
-					navigator={this.props.navigator}
-				/>
-			</Container>
-		)
-	}
-}
-
-export default MessagesFeedMobX
+export default MessagesFeed

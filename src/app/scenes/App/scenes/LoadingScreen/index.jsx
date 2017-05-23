@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import { inject, observer } from 'mobx-react'
 import CircularProgress from 'material-ui/CircularProgress'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import compose from 'recompose/compose'
 import styled from 'styled-components'
 
 const OuterWrapper = styled.div`
@@ -24,18 +22,16 @@ const ProgressWrapper = styled.div`
 	margin: auto;
 `
 
-@inject('view')
 @muiThemeable()
-@observer
 class LoadingScreen extends Component {
 	render() {
-		const { muiTheme, title, view } = this.props
+		const { muiTheme, match } = this.props
 
 		return (
 			<OuterWrapper>
 				<div>
 					<TitleWrapper theme={muiTheme}>
-						{title || view.params.title}
+						{match.params.title}
 					</TitleWrapper>
 					<ProgressWrapper>
 						<CircularProgress size={100} thickness={3} />

@@ -4,7 +4,7 @@ import TextField from './components/TextField'
 import SendButton from './components/SendButton'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import transitions from 'material-ui/styles/transitions'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import styled from 'styled-components'
 import trim from 'lodash/trim'
 import { graphql } from 'react-apollo'
@@ -90,7 +90,6 @@ const mutationOptions = {
 	})
 }
 
-@inject(({ view }) => ({ id: view.params.id }))
 @muiThemeable()
 @graphql(sendMessageInfo)
 @graphql(sendMessageMutation, mutationOptions)
@@ -117,12 +116,6 @@ class ChatInput extends Component {
 				message,
 				messageId: uuid.v1()
 			})
-			// this.props.mutate({
-			// 	variables: {id, message}
-			// });
-			// const {view, tinder, api} = this.props.store;
-			// const currentMatch = tinder.matches.get(view.currentView.params.matchId);
-			// api.sendMessage(currentMatch['_id'], trim(this.value));
 			this.value = ''
 		}
 	}

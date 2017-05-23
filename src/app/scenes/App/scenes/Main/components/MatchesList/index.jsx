@@ -46,12 +46,13 @@ const ListWithoutScrollbar = styled(List)`
 	}
 `
 
-@inject('view', 'navigator')
+@inject('navigator')
 @graphql(matchesQuery, queryOptions)
 class MatchesList extends Component {
 	disposer
 	scrollbar
 	scrollHandler
+	index
 
 	get forceUpdate() {
 		return this.props.sortedMatches
@@ -72,6 +73,11 @@ class MatchesList extends Component {
 
 	handleMouseEnter = () => {
 		this.scrollbar.showScrollbar()
+	}
+
+	goToChat = ({ id, index }) => {
+		this.index = index
+		this.props.navigator.goToChat(id)
 	}
 
 	renderAutoSizer = ({ clientHeight, onScroll, scrollHeight, scrollTop }) => (
@@ -100,6 +106,7 @@ class MatchesList extends Component {
 				onScroll={this.createScrollHandler(onScroll)}
 				scrollTop={scrollTop}
 				forceUpdate={this.forceUpdate}
+				location={this.props.location}
 			/>
 			<SimpleBarStandalone
 				onScroll={onScroll}
@@ -113,7 +120,17 @@ class MatchesList extends Component {
 
 	rowRenderer = ({ index, style }) => {
 		const match = this.props.sortedMatches[index]
+		const { params } = this.props.match
 		const firstVisible = index === 0
+		let isSelected, isPreviousSelected
+
+		if (params.id !== undefined) {
+			isSelected = params.id === match._id
+			isPreviousSelected = params.index + 1 === index
+		} else {
+			isSelected = false
+			isPreviousSelected = false
+		}
 
 		return (
 			<Match
@@ -122,8 +139,10 @@ class MatchesList extends Component {
 				style={style}
 				height={rowHeight}
 				width={widthNum}
-				index={index}
 				firstVisible={firstVisible}
+				goToChat={this.goToChat}
+				isSelected={isSelected}
+				isPreviousSelected={isPreviousSelected}
 			/>
 		)
 	}
@@ -144,11 +163,8 @@ class MatchesList extends Component {
 	}
 
 	handleBlock = (event, args) => {
-		if (
-			this.props.view.params != null &&
-			this.props.view.params.id != null &&
-			args.id === this.props.view.params.id
-		) {
+		const { params } = this.props.match
+		if (params != null && params.id != null && args.id === params.id) {
 			this.props.navigator.goToMatches()
 		}
 	}

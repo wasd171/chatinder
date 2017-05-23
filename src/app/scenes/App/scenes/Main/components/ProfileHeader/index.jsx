@@ -6,8 +6,10 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 import { graphql } from 'react-apollo'
 import profileQuery from './query.graphql'
 import { inject } from 'mobx-react'
+import { Link } from 'react-router-dom'
+import { VIEW_PROFILE, routes } from 'shared/constants'
 
-const StyledWrapper = styled.div`
+const StyledLink = styled(Link)`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -49,11 +51,11 @@ class ProfileHeader extends Component {
 	render() {
 		return (
 			<HeaderContainer>
-				<StyledWrapper onClick={this.handleClick}>
+				<StyledLink to={routes[VIEW_PROFILE]}>
 					{this.props.data.loading
 						? this.renderLoading()
 						: this.renderContent(this.props)}
-				</StyledWrapper>
+				</StyledLink>
 			</HeaderContainer>
 		)
 	}

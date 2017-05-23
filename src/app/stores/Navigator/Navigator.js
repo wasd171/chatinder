@@ -15,12 +15,20 @@ export class Navigator {
 		const { data: { initialRoute } } = await client.query({
 			query: initialRouteQuery
 		})
-		history.replaceState({}, 'Chatinder', initialRoute)
+		history.replaceState(
+			{},
+			'Chatinder',
+			`${location.pathname}#${initialRoute}`
+		)
 		await client.mutate({ mutation: showWindowMutation })
 	}
 
 	push(node: string, params: string | void) {
-		history.pushState({}, 'Chatinder', nameToPath(node, params))
+		history.pushState(
+			{},
+			'Chatinder',
+			`${location.pathname}#${nameToPath(node, params)}`
+		)
 	}
 
 	goToAuth() {
