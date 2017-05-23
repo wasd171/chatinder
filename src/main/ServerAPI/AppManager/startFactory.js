@@ -12,7 +12,7 @@ export function onBeforeQuitFactory(instance: AppManager) {
 
 export function onCloseFactory(instance: AppManager) {
 	return function onClose(event: Event) {
-		if (!instance.forceQuit) {
+		if (!instance.forceQuit && !instance.updateAvailable) {
 			event.preventDefault()
 			instance._window.hide()
 		}
