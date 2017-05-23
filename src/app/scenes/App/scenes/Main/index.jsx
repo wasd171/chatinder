@@ -12,6 +12,7 @@ import startSubscription from './subscribeMutation.graphql'
 import LoadingStub from 'app/components/LoadingStub'
 import { Route } from 'react-router-dom'
 import { VIEW_MATCHES, routes } from 'shared/constants'
+import Stub from './scenes/Stub'
 
 const MainContainer = styled.div`
 	height: 100vh;
@@ -40,6 +41,11 @@ const LeftHeaderWrapper = styled.div`
 const AsideWrapper = styled.div`
 	grid-area: aside;
 	border-right: 1px solid ${props => props.theme.palette.borderColor};
+`
+
+const StubWrapper = styled.div`
+	grid-column: head-right;
+	grid-row: head-right / footer;
 `
 
 @graphql(checkDoMatchesExist, { name: 'check' })
@@ -86,6 +92,12 @@ class Main extends Component {
 		</AsideWrapper>
 	)
 
+	renderStub = () => (
+		<StubWrapper>
+			<Stub />
+		</StubWrapper>
+	)
+
 	get children() {
 		const { muiTheme } = this.props
 
@@ -96,7 +108,13 @@ class Main extends Component {
 			<Route
 				path={`${routes[VIEW_MATCHES]}/:id?`}
 				render={this.renderMatchesList}
-				key="route-matches"
+				key="matches"
+			/>,
+			<Route
+				exact
+				path={routes[VIEW_MATCHES]}
+				render={this.renderStub}
+				key="stub"
 			/>
 		]
 		/*return [
