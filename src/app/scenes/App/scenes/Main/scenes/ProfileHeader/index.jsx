@@ -1,29 +1,46 @@
 import React, { Component } from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import styled from 'styled-components'
+import { inject } from 'mobx-react'
+import { KEYCODE_ESC } from 'shared/constants'
+import GenericHeader from 'app/components/GenericHeader'
+import GenericIconWrapper from 'app/components/GenericIconWrapper'
+import GenericNameSpan from 'app/components/GenericNameSpan'
+import NavigationClose from 'material-ui/svg-icons/navigation/close'
 
-const OuterWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
-	width: 100%;
-`
-
-const HeaderSpan = styled.span`
-	color: ${props => props.theme.palette.textColor};
-`
-
+@inject('navigator')
 @muiThemeable()
 class ProfileHeader extends Component {
+	handleClose = () => {
+		this.props.navigator.goToMatches()
+	}
+
+	handleKeydown = e => {
+		if (e.keyCode === KEYCODE_ESC) {
+			this.handleClose()
+		}
+	}
+
+	componentDidMount() {
+		document.addEventListener('keydown', this.handleKeydown)
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('keydown', this.handleKeydown)
+	}
+
 	render() {
 		return (
-			<OuterWrapper>
-				<HeaderSpan theme={this.props.muiTheme}>
+			<GenericHeader>
+				<GenericIconWrapper />
+				<GenericNameSpan theme={this.props.muiTheme}>
 					It is you!
-				</HeaderSpan>
-			</OuterWrapper>
+				</GenericNameSpan>
+				<GenericIconWrapper activated onClick={this.handleClose}>
+					<NavigationClose
+						color={this.props.muiTheme.palette.primary1Color}
+					/>
+				</GenericIconWrapper>
+			</GenericHeader>
 		)
 	}
 }

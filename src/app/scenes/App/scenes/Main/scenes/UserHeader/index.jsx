@@ -1,29 +1,46 @@
 import React, { Component } from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import styled from 'styled-components'
+import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back'
+import { inject } from 'mobx-react'
+import { KEYCODE_ESC } from 'shared/constants'
+import GenericHeader from 'app/components/GenericHeader'
+import GenericIconWrapper from 'app/components/GenericIconWrapper'
+import GenericNameSpan from 'app/components/GenericNameSpan'
 
-const OuterWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
-	width: 100%;
-`
-
-const NameSpan = styled.span`
-	color: ${props => props.theme.palette.textColor};
-`
-
+@inject('navigator')
 @muiThemeable()
 class UserHeader extends Component {
+	handleClick = () => {
+		this.props.navigator.goBack()
+	}
+
+	handleKeydown = e => {
+		if (e.keyCode === KEYCODE_ESC) {
+			this.handleClick()
+		}
+	}
+
+	componentDidMount() {
+		document.addEventListener('keydown', this.handleKeydown)
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('keydown', this.handleKeydown)
+	}
+
 	render() {
 		return (
-			<OuterWrapper>
-				<NameSpan theme={this.props.muiTheme}>
+			<GenericHeader>
+				<GenericIconWrapper activated onClick={this.handleClick}>
+					<NavigationArrowBack
+						color={this.props.muiTheme.palette.primary1Color}
+					/>
+				</GenericIconWrapper>
+				<GenericNameSpan theme={this.props.muiTheme}>
 					Info
-				</NameSpan>
-			</OuterWrapper>
+				</GenericNameSpan>
+				<GenericIconWrapper />
+			</GenericHeader>
 		)
 	}
 }
