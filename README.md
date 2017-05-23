@@ -1,2 +1,2 @@
-<p align="center"><img src="https://wasd171.github.io/chatinder/assets/icons/icon.png" style="width: 250px;"></p>
+<p align="center"><img src="https://wasd171.github.io/chatinder/assets/icons/icon-small.png"></p>
 <p>&nbsp;</p>
