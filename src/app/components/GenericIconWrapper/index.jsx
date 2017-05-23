@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const GenericIconWrapper = styled.span`
-	width: 17px;
+	width: 25px;
 	${props => props.activated && 'cursor: pointer;'}
 `
 

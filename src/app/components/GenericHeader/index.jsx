@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const GenericHeader = styled.div`
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: ${props => (props.center ? 'center' : 'space-between')};
 	align-items: center;
 	height: 100%;
 	width: 100%;

@@ -5,19 +5,25 @@ import { graphql } from 'react-apollo'
 import queryName from './query.graphql'
 import { KEYCODE_ESC } from 'shared/constants'
 import GenericHeader from 'app/components/GenericHeader'
+import GenericIconWrapper from 'app/components/GenericIconWrapper'
 import GenericNameSpan from 'app/components/GenericNameSpan'
+import NavigationClose from 'material-ui/svg-icons/navigation/close'
 
 @inject('navigator')
 @graphql(queryName)
 @muiThemeable()
 class ChatHeader extends Component {
+	handleClose = () => {
+		this.props.navigator.goToMatches()
+	}
+
 	handleClick = () => {
 		this.props.navigator.goToUser(this.props.id)
 	}
 
 	handleKeydown = e => {
 		if (e.keyCode === KEYCODE_ESC) {
-			this.props.navigator.goToMatches()
+			this.handleClose()
 		}
 	}
 
@@ -35,8 +41,8 @@ class ChatHeader extends Component {
 			typeof this.props.data.match === 'undefined'
 		) {
 			return (
-				<GenericHeader>
-					<GenericNameSpan>
+				<GenericHeader center>
+					<GenericNameSpan theme={this.props.muiTheme}>
 						Loading...
 					</GenericNameSpan>
 				</GenericHeader>
@@ -45,6 +51,7 @@ class ChatHeader extends Component {
 
 		return (
 			<GenericHeader>
+				<GenericIconWrapper />
 				<GenericNameSpan
 					theme={this.props.muiTheme}
 					onClick={this.handleClick}
@@ -52,6 +59,11 @@ class ChatHeader extends Component {
 						__html: this.props.data.match.person.formattedName
 					}}
 				/>
+				<GenericIconWrapper activated onClick={this.handleClose}>
+					<NavigationClose
+						color={this.props.muiTheme.palette.primary1Color}
+					/>
+				</GenericIconWrapper>
 			</GenericHeader>
 		)
 	}
