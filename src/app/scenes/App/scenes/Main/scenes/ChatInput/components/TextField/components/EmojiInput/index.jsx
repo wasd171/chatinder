@@ -32,6 +32,7 @@ class EmojiInput extends Component {
 		if (nextProps.value === '') {
 			// For some reason, setting '' results in bug (cursor at the end)
 			this.area.setText(` `)
+			this.area.hidePicker()
 		}
 	}
 
