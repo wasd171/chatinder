@@ -7,7 +7,6 @@ import styled from 'styled-components'
 import { graphql } from 'react-apollo'
 import { observable, action } from 'mobx'
 import { observer } from 'mobx-react'
-import RoutedSection from './components/RoutedSection'
 import checkDoMatchesExist from './checkMutation.graphql'
 import startSubscription from './subscribeMutation.graphql'
 import LoadingStub from 'app/components/LoadingStub'
@@ -15,35 +14,49 @@ import { Route } from 'react-router-dom'
 import { VIEW_MATCHES, routes } from 'shared/constants'
 
 const MainContainer = styled.div`
-	display: flex;
-	flex-direction: row;
-	position: relative;
 	height: 100vh;
+	width: 100vw;
 	max-height: 100vh;
 	min-height: 100vh;
+	display: grid;
+	grid-template-columns: 270px auto;
+	grid-template-rows: 46px auto auto;
+	grid-template-areas: 	"head-left head-right"
+							"aside main"
+							"aside footer";
 `
 
-function BaseSection(el) {
-	return el`
-			height: 100vh;
-			max-height: 100vh;
-			position: relative;
-			display: flex;
-			flex-direction: column;
-			overflow-x: hidden;
-			&::-webkit-scrollbar {
-				display: none;
-			}
-		`
+const FullPage = styled.div`
+	grid-column: 1 / 2;
+	grid-row: 1 / 3;
+`
+
+const LeftHeaderWrapper = styled.div`
+	grid-area: head-left;
+	border-right: 1px solid ${props => props.theme.palette.borderColor};
+	border-bottom: 1px solid ${props => props.theme.palette.borderColor};
+`
+
+function PositionedProfileHeader({ muiTheme }) {
+	return (
+		<LeftHeaderWrapper theme={muiTheme}>
+			<ProfileHeader />
+		</LeftHeaderWrapper>
+	)
 }
 
-const MatchesSection = styled(BaseSection(styled.aside))`
-	background-color: ${props => props.theme.palette.canvasColor}
+const AsideWrapper = styled.div`
+	grid-area: aside;
 	border-right: 1px solid ${props => props.theme.palette.borderColor};
-	width: 270px;
-	min-width: 270px;
-	overflow: hidden;
 `
+
+function PositionedMatchesList({ match, muiTheme }) {
+	return (
+		<AsideWrapper theme={muiTheme}>
+			<MatchesList match={match} />
+		</AsideWrapper>
+	)
+}
 
 @graphql(checkDoMatchesExist, { name: 'check' })
 @graphql(startSubscription, { name: 'subscribe' })
@@ -65,33 +78,51 @@ class Main extends Component {
 		this.changeStatus(status)
 	}
 
-	renderChildren = () => {
-		const { muiTheme } = this.props
-
+	get stub() {
 		if (typeof this.shouldShowContent === 'undefined') {
-			return <LoadingStub size={40} />
+			return (
+				<FullPage>
+					<LoadingStub size={40} />
+				</FullPage>
+			)
 		}
 
 		if (!this.shouldShowContent) {
-			return <NoMatches />
-		} else {
-			return [
-				<MatchesSection theme={muiTheme} key="matches">
-					<ProfileHeader />
-					<Route
-						path={`${routes[VIEW_MATCHES]}/:id?`}
-						component={MatchesList}
-					/>
-				</MatchesSection>,
-				<RoutedSection key="routed" />
-			]
+			return (
+				<FullPage>
+					<NoMatches />
+				</FullPage>
+			)
 		}
+	}
+
+	get children() {
+		const { muiTheme } = this.props
+
+		return [
+			<PositionedProfileHeader key="profile" muiTheme={muiTheme} />,
+			<Route
+				path={`${routes[VIEW_MATCHES]}/:id?`}
+				component={muiThemeable()(PositionedMatchesList)}
+				key="route-matches"
+			/>
+		]
+		/*return [
+			<MatchesSection theme={muiTheme} key="matches">
+				<ProfileHeader />
+				<Route
+					path={`${routes[VIEW_MATCHES]}/:id?`}
+					component={MatchesList}
+				/>
+			</MatchesSection>,
+			<RoutedSection key="routed" />
+		]*/
 	}
 
 	render() {
 		return (
 			<MainContainer theme={this.props.muiTheme}>
-				{this.renderChildren()}
+				{this.stub != null ? this.stub : this.children}
 			</MainContainer>
 		)
 	}
