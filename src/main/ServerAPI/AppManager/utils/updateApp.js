@@ -1,12 +1,13 @@
 // @flow
 import os from 'os'
 import { app, autoUpdater, dialog } from 'electron'
+import type { AppManager } from '../AppManager'
 
 const version = app.getVersion()
 const platform = `${os.platform()}_${os.arch()}`
 const updateURL = `https://chatinder.herokuapp.com/update/${platform}/${version}`
 
-export function updateApp() {
+export function updateApp(instance: AppManager) {
 	autoUpdater.setFeedURL(updateURL)
 
 	// Ask the user if update is available
@@ -30,6 +31,7 @@ export function updateApp() {
 			},
 			response => {
 				if (response === 0) {
+					instance.forceQuit = true
 					setTimeout(() => autoUpdater.quitAndInstall(), 1)
 				}
 			}

@@ -1,7 +1,7 @@
 {
   "name": "chatinder",
   "productName": "Chatinder",
-  "version": "1.3.6",
+  "version": "1.4.0",
   "description": "Unofficial desktop messaging client for Tinder.",
   "main": "src/server.js",
   "scripts": {
@@ -62,7 +62,7 @@
         "iconUrl": "https://wasd171.github.io/chatinder/assets/icons/icon.ico",
         "name": "chatinder",
         "setupIcon": "./icons/icon.ico",
-        "remoteReleases": "https://chatinder.herokuapp.com/update/win32/1.3.1"
+        "remoteReleases": "https://chatinder.herokuapp.com/update/win32/1.3.6"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},
@@ -105,12 +105,13 @@
     "react-apollo": "^1.2.0",
     "react-dom": "^15.5.4",
     "react-image-gallery": "^0.7.16",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1",
     "react-virtualized": "^9.7.5",
     "react-waypoint": "^6.0.0",
     "redux": "^3.6.0",
     "roboto-fontface": "^0.7.0",
-    "router5": "^4.5.2",
     "simplebar": "^2.4.1",
     "styled-components": "^1.4.6",
     "tinder-modern": "^1.2.0",
@@ -124,7 +125,7 @@
     "babel-plugin-transform-decorators": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-env": "^1.4.0",
+    "babel-preset-env": "^1.5.1",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.24.1",
     "cross-env": "^4.0.0",
@@ -132,7 +133,7 @@
     "electron-debug": "^1.1.0",
     "electron-devtools-installer": "^2.2.0",
     "electron-forge": "^3.0.0",
-    "electron-prebuilt-compile": "1.6.6",
+    "electron-prebuilt-compile": "1.6.8",
     "eslint": "^3.19.0",
     "eslint-config-prettier": "^2.1.0",
     "eslint-plugin-prettier": "^2.0.1",
@@ -141,6 +142,7 @@
     "flow-typed": "^2.1.2",
     "husky": "^0.13.3",
     "lint-staged": "^3.4.1",
-    "prettier": "^1.3.1"
+    "prettier": "^1.3.1",
+    "react-addons-perf": "^15.4.2"
   }
 }
