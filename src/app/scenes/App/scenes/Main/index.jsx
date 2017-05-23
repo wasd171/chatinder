@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import NoMatches from './components/NoMatches'
 import ProfileHeader from './components/ProfileHeader'
-import MatchesList from './components/MatchesList'
+import MatchesList from './scenes/MatchesList'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
 import { graphql } from 'react-apollo'
