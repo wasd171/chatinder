@@ -40,7 +40,7 @@ export class ElectronInterface {
 		}
 	}
 
-	setListener(request, resolve, reject) {
+	setListener(request, resolve) {
 		const id = uuid.v1()
 		this.listeners.set(id, resolve)
 		const message = this.generateMessage(id, request)
