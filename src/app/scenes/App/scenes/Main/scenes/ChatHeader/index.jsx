@@ -4,6 +4,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
 import { graphql } from 'react-apollo'
 import queryName from './query.graphql'
+import { KEYCODE_ESC } from 'shared/constants'
 
 const OuterWrapper = styled.div`
 	display: flex;
@@ -25,6 +26,20 @@ const NameSpan = styled.span`
 class ChatHeader extends Component {
 	handleClick = () => {
 		this.props.navigator.goToUser(this.props.id)
+	}
+
+	handleKeydown = e => {
+		if (e.keyCode === KEYCODE_ESC) {
+			this.props.navigator.goToMatches()
+		}
+	}
+
+	componentDidMount() {
+		document.addEventListener('keydown', this.handleKeydown)
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('keydown', this.handleKeydown)
 	}
 
 	render() {
