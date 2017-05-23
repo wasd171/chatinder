@@ -4,6 +4,10 @@
   "version": "1.4.0",
   "description": "Unofficial desktop messaging client for Tinder.",
   "main": "src/server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wasd171/chatinder.git"
+  },
   "scripts": {
     "start": "cross-env NODE_ENV=development electron-forge start",
     "package": "cross-env NODE_ENV=production electron-forge package",
