@@ -30,7 +30,10 @@ export class Navigator {
 	}
 
 	push(node: string, params: string | void) {
-		this.history.push(nameToPath(node, params))
+		const hash = nameToPath(node, params)
+		if (`#${hash}` !== location.hash) {
+			this.history.push(hash)
+		}
 	}
 
 	goToAuth() {
@@ -55,5 +58,9 @@ export class Navigator {
 
 	goToProfile() {
 		this.push(VIEW_PROFILE)
+	}
+
+	goBack() {
+		this.history.goBack()
 	}
 }
