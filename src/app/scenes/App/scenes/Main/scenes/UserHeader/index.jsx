@@ -3,6 +3,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
 import NavigationArrowBack from 'material-ui/svg-icons/navigation/arrow-back'
 import { inject } from 'mobx-react'
+import { KEYCODE_ESC } from 'shared/constants'
 
 const OuterWrapper = styled.div`
 	display: flex;
@@ -29,6 +30,20 @@ const NameSpan = styled.span`
 class UserHeader extends Component {
 	handleClick = () => {
 		this.props.navigator.goBack()
+	}
+
+	handleKeydown = e => {
+		if (e.keyCode === KEYCODE_ESC) {
+			this.handleClick()
+		}
+	}
+
+	componentDidMount() {
+		document.addEventListener('keydown', this.handleKeydown)
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('keydown', this.handleKeydown)
 	}
 
 	render() {
