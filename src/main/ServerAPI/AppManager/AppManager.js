@@ -9,7 +9,6 @@ import installExtensions from './installExtensions'
 export class AppManager {
 	_window
 	forceQuit
-	updateAvailable = false
 
 	get window() {
 		return this._window
