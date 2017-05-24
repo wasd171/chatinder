@@ -31,7 +31,7 @@ export function updateApp(instance: AppManager) {
 			},
 			response => {
 				if (response === 0) {
-					instance.updateAvailable = true
+					instance.forceQuit = true
 					setTimeout(() => autoUpdater.quitAndInstall(), 1)
 				}
 			}

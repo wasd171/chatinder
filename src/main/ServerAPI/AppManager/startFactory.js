@@ -12,7 +12,7 @@ export function onBeforeQuitFactory(instance: AppManager) {
 
 export function onCloseFactory(instance: AppManager) {
 	return function onClose(event: Event) {
-		if (!instance.forceQuit && !instance.updateAvailable) {
+		if (!instance.forceQuit) {
 			event.preventDefault()
 			instance._window.hide()
 		}
@@ -68,10 +68,9 @@ export default function startFactory(instance: AppManager) {
 		const { platform, env } = process
 		const isWinOrMac = platform === 'win32' || platform === 'darwin'
 		if (isWinOrMac && env.NODE_ENV !== 'development') {
-			instance._window.webContents.once(
-				'did-frame-finish-load',
-				updateApp
-			)
+			instance._window.webContents.once('did-frame-finish-load', () => {
+				updateApp(instance)
+			})
 		}
 
 		app.on('before-quit', onBeforeQuitFactory(instance))
