@@ -53,6 +53,7 @@ class ChatHeader extends Component {
 			<GenericHeader>
 				<GenericIconWrapper />
 				<GenericNameSpan
+					clickable
 					theme={this.props.muiTheme}
 					onClick={this.handleClick}
 					dangerouslySetInnerHTML={{
