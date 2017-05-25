@@ -4,6 +4,7 @@ machine:
     - mkdir ~/Library/Caches/electron
 dependencies:
   cache_directories:
+    - ~/.npm
     - ~/Library/Caches/electron
 compile:
   override:
