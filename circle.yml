@@ -1,9 +1,10 @@
 machine:
   node: node
+  pre:
+    - mkdir ~/Library/Caches/electron
 dependencies:
   cache_directories:
-    - "~/.npm"
-    - "~/Library/Caches/electron/"
+    - ~/Library/Caches/electron
 compile:
   override:
     - npm run make
