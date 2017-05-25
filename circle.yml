@@ -3,6 +3,8 @@ machine:
   pre:
     - mkdir ~/Library/Caches/electron
 dependencies:
+  pre:
+    - npm run circle:clean
   cache_directories:
     - ~/.npm
     - ~/Library/Caches/electron
