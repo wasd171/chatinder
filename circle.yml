@@ -8,8 +8,8 @@ dependencies:
     - ~/Library/Caches/electron
 compile:
   override:
-    - npm run make
+    - npm run publish
 general:
   branches:
     only:
-      - feature/configure-circleci
+      - master
