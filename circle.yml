@@ -6,8 +6,7 @@ dependencies:
     - "~/Library/Caches/electron/"
 compile:
   override:
-    - npm run make:
-        timeout: 1200
+    - npm run make
 general:
   branches:
     only:
