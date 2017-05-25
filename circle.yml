@@ -1,0 +1,14 @@
+machine:
+  node: node
+dependencies:
+  cache_directories:
+    - "~/.npm"
+    - "~/Library/Caches/electron/"
+compile:
+  override:
+    - npm run make:
+        timeout: 1200
+general:
+  branches:
+    only:
+      - feature/configure-circleci
