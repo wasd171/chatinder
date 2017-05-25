@@ -1,0 +1,15 @@
+machine:
+  node: node
+  pre:
+    - mkdir ~/Library/Caches/electron
+dependencies:
+  cache_directories:
+    - ~/.npm
+    - ~/Library/Caches/electron
+compile:
+  override:
+    - npm run publish
+general:
+  branches:
+    only:
+      - master
