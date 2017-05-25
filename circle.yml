@@ -14,4 +14,4 @@ compile:
 general:
   branches:
     only:
-      - feature/check-ci
+      - feature/fix-ci
