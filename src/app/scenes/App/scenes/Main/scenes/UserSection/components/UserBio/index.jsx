@@ -5,7 +5,9 @@ import styled from 'styled-components'
 const BioWrapper = styled.div`
 	white-space: pre-wrap;
 	max-width: 100%;
-	color: ${props => props.theme.palette.textColor}
+	color: ${props => props.theme.palette.textColor};
+	user-select: text;
+	cursor: text;
 `
 
 @muiThemeable()
