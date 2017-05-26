@@ -12,6 +12,8 @@ const TextSpan = styled.span`
 	font-weight: normal;
 	color: ${props => props.theme.palette.textColor};
 	white-space: pre-line;
+	user-select: text;
+	cursor: text;
 `
 
 @muiThemeable()

@@ -21,6 +21,7 @@ const GenericColumn = styled.div`
 const TitleContainer = styled(GenericColumn)`
 	color: ${props => props.theme.palette.textColor};
 	width: 100%;
+	cursor: default;
 `
 
 const GenericRow = styled.div`

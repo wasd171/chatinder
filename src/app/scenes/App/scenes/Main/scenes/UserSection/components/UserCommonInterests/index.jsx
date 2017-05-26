@@ -6,6 +6,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 const ContentContainer = styled.div`
     display: flex;
     flex-direction: column;
+	cursor: default;
 `
 
 const InterestsCount = styled.span`

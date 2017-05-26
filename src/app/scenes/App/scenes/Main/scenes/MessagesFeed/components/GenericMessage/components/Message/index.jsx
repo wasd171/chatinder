@@ -19,6 +19,7 @@ const Timestamp = styled.span`
 	position: absolute;
 	top: ${props => (props.first ? '11' : '6')}px;
 	right: 20px;
+	cursor: default;
 `
 
 @muiThemeable()
