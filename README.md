@@ -17,6 +17,5 @@ Chatinder is an open-source desktop application for Mac and Windows that allows 
 * Open-source: app is completely free. You can even build it from sources yourself.
 
 <p align="center"><img src="https://wasd171.github.io/chatinder/assets/screenshot.png"></p>
-<p>&nbsp;</p>
 
 Give it a try *today*!
