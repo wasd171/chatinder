@@ -60,7 +60,8 @@
         "appBundleId": "com.wasd171.chatinder",
         "appCategoryType": "public.app-category.social-networking",
         "osxSign": {
-          "identity": "Developer ID Application: Konstantin Nesterov (WB9A3TN46Q)"
+          "identity": "Developer ID Application: Konstantin Nesterov (WB9A3TN46Q)",
+          "keychain": "circle.keychain"
         },
         "win32metadata": {
           "ProductName": "Chatinder"
