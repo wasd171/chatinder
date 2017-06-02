@@ -10,7 +10,7 @@ dependencies:
     - ~/Library/Caches/electron
 compile:
   override:
-    - npm run make
+    - DEBUG=* npm run make
   post:
     - npm run circle:artifacts
 general:
