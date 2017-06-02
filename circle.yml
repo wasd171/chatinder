@@ -10,10 +10,10 @@ dependencies:
     - ~/Library/Caches/electron
 compile:
   override:
-    - npm run make
+    - npm run publish
   post:
     - npm run circle:artifacts
 general:
   branches:
     only:
-      - feature/try-circle-build
+      - master
