@@ -14,4 +14,4 @@ compile:
 general:
   branches:
     only:
-      - master
+      - feature/try-circle-build
