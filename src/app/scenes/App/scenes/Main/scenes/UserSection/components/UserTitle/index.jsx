@@ -21,6 +21,7 @@ const GenericColumn = styled.div`
 const TitleContainer = styled(GenericColumn)`
 	color: ${props => props.theme.palette.textColor};
 	width: 100%;
+	cursor: default;
 `
 
 const GenericRow = styled.div`
@@ -50,6 +51,10 @@ const NameRow = styled(GenericRow)`
 
 const NameSpan = styled.span`
 	color: inherit;
+`
+
+const AgeSpan = styled.span`
+	margin-left: 1ex;
 `
 
 const PaleRow = styled(GenericRow)`
@@ -95,8 +100,7 @@ class UserTitle extends Component {
 					}}
 				/>
 				,
-				{' '}
-				{this.age}
+				<AgeSpan>{this.age}</AgeSpan>
 			</GenericRow>
 			{this.props.isUpdatePending &&
 				<CircularProgress size={nameRowHeight} />}

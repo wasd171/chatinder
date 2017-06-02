@@ -1,0 +1,19 @@
+machine:
+  node: node
+  pre:
+    - mkdir ~/Library/Caches/electron
+dependencies:
+  pre:
+    - npm run circle:clean
+  cache_directories:
+    - ~/.npm
+    - ~/Library/Caches/electron
+compile:
+  override:
+    - npm run publish
+  post:
+    - npm run circle:artifacts
+general:
+  branches:
+    only:
+      - master

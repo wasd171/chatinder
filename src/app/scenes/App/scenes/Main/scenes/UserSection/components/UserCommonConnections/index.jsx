@@ -11,6 +11,7 @@ const ContentContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: ${props => props.width}px;
+	cursor: default;
 `
 
 const ConnectionCount = styled.span`
