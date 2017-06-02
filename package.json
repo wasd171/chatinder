@@ -59,6 +59,7 @@
         ],
         "appBundleId": "com.wasd171.chatinder",
         "appCategoryType": "public.app-category.social-networking",
+        "osxSign": {},
         "win32metadata": {
           "ProductName": "Chatinder"
         }
