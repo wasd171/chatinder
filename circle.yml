@@ -10,10 +10,10 @@ dependencies:
     - ~/Library/Caches/electron
 compile:
   override:
-    - npm run publish
+    - npm run make
   post:
     - npm run circle:artifacts
 general:
   branches:
     only:
-      - master
+      - hotfix/v1.4.6
