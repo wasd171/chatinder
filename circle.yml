@@ -10,7 +10,7 @@ dependencies:
     - ~/Library/Caches/electron
 compile:
   override:
-    - npm run publish
+    - npm run make
 general:
   branches:
     only:
