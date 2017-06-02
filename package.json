@@ -16,11 +16,11 @@
     "precommit": "lint-staged",
     "circle:clean": "rimraf node_modules",
     "circle:artifacts": "cp ./out/make/* $CIRCLE_ARTIFACTS",
-    "ci:skip": "echo 'CI detected, script skipped'",
+    "ci:skip": "echo-cli 'CI detected, script skipped'",
     "install:types": "flow-typed install",
     "postinstall": "is-ci 'ci:skip' 'install:types'",
     "postmerge": "npm install",
-    "test": "echo 'Someday there would be tests, I promise'"
+    "test": "echo-cli 'Someday there would be tests, I promise'"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
@@ -136,6 +136,7 @@
     "babel-preset-react": "^6.24.1",
     "cross-env": "^4.0.0",
     "devtron": "^1.4.0",
+    "echo-cli": "^1.0.8",
     "electron-debug": "^1.1.0",
     "electron-devtools-installer": "^2.2.0",
     "electron-forge": "^3.0.0",
