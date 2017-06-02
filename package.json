@@ -15,6 +15,7 @@
     "publish": "cross-env NODE_ENV=production electron-forge publish",
     "precommit": "lint-staged",
     "circle:clean": "rimraf node_modules",
+    "circle:artifacts": "cp ./out/make/* $CIRCLE_ARTIFACTS",
     "ci:skip": "echo 'CI detected, script skipped'",
     "install:types": "flow-typed install",
     "postinstall": "is-ci 'ci:skip' 'install:types'",
@@ -58,9 +59,7 @@
         ],
         "appBundleId": "com.wasd171.chatinder",
         "appCategoryType": "public.app-category.social-networking",
-        "osxSign": {
-          "identity": "Developer ID Application: Konstantin Nesterov (WB9A3TN46Q)"
-        },
+        "osxSign": {},
         "win32metadata": {
           "ProductName": "Chatinder"
         }

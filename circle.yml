@@ -11,6 +11,8 @@ dependencies:
 compile:
   override:
     - npm run publish
+  post:
+    - npm run circle:artifacts
 general:
   branches:
     only:
