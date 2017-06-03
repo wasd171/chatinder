@@ -18,7 +18,7 @@
     "circle:artifacts": "cp ./out/make/* $CIRCLE_ARTIFACTS",
     "ci:skip": "echo-cli 'CI detected, script skipped'",
     "install:types": "flow-typed install",
-    "postinstall": "is-ci 'ci:skip' 'install:types'",
+    "postinstall": "is-ci ci:skip install:types",
     "postmerge": "npm install",
     "test": "echo-cli 'Someday there would be tests, I promise'"
   },
