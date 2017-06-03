@@ -19,4 +19,6 @@ install:
   - npm install
 build_script:
   - npm run make
+after_build:
+  - ps: Get-ChildItem .\out\make\* | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 test: off
