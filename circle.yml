@@ -16,4 +16,4 @@ compile:
 general:
   branches:
     only:
-      - hotfix/v1.4.6
+      - master
