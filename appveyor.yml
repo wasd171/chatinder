@@ -20,6 +20,6 @@ install:
 build_script:
   - npm run make
 after_build:
-  - ps: Get-ChildItem .\out\make
-  - ps: Get-ChildItem .\out\make\squirrel.windows | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  - ps: Get-ChildItem .\out\make –Recurse
+  - ps: Get-ChildItem .\out\make\squirrel.windows\x64 | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 test: off
