@@ -18,7 +18,7 @@ install:
   - set PATH=%APPDATA%\npm;%PATH%
   - npm install
 build_script:
-  - npm run make
+  - npm run publish
 after_build:
   - ps: Get-ChildItem .\out\make -File -Recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 test: off
