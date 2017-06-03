@@ -18,5 +18,5 @@ install:
   - set PATH=%APPDATA%\npm;%PATH%
   - npm install
 build_script:
-  - npm run publish
+  - npm run make
 test: off
