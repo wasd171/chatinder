@@ -1,7 +1,7 @@
 {
   "name": "chatinder",
   "productName": "Chatinder",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "Unofficial desktop messaging client for Tinder.",
   "main": "src/server.js",
   "repository": {
@@ -18,7 +18,7 @@
     "circle:artifacts": "cp ./out/make/* $CIRCLE_ARTIFACTS",
     "ci:skip": "echo 'CI detected, script skipped'",
     "install:types": "flow-typed install",
-    "postinstall": "is-ci 'ci:skip' 'install:types'",
+    "postinstall": "is-ci ci:skip install:types",
     "postmerge": "npm install",
     "test": "echo 'Someday there would be tests, I promise'"
   },
@@ -147,7 +147,7 @@
     "flow-bin": "^0.45.0",
     "flow-typed": "^2.1.2",
     "husky": "^0.13.3",
-    "is-ci-cli": "^1.1.0",
+    "is-ci-cli": "^1.1.1",
     "lint-staged": "^3.4.1",
     "prettier": "^1.3.1",
     "react-addons-perf": "^15.4.2",
