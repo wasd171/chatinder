@@ -3,7 +3,7 @@
   "productName": "Chatinder",
   "version": "1.4.6",
   "description": "Unofficial desktop messaging client for Tinder.",
-  "main": "src/server.js",
+  "main": "src/server.ts",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/wasd171/chatinder.git"
@@ -121,10 +121,13 @@
     "simplebar": "^2.4.1",
     "styled-components": "^1.4.6",
     "tinder-modern": "^1.2.0",
+    "tsconfig-paths": "^2.2.0",
+    "tslib": "^1.7.1",
     "url-parse": "^1.1.8",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
+    "@types/electron": "^1.4.38",
     "babel-eslint": "^7.2.3",
     "babel-plugin-module-resolver": "3.0.0-beta.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -151,6 +154,7 @@
     "lint-staged": "^3.4.1",
     "prettier": "^1.3.1",
     "react-addons-perf": "^15.4.2",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "typescript": "^2.3.4"
   }
 }
