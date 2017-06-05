@@ -4,5 +4,9 @@
     "files.autoSave": "onWindowChange",
     "eslint.autoFixOnSave": true,
     "flow.useNPMPackagedFlow": true,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "prettier.tabWidth": 4,
+    "prettier.singleQuote": true,
+    "prettier.semi": false,
+    "prettier.useTabs": true
 }
