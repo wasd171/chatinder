@@ -1,0 +1,118 @@
+{
+    "env": {
+        "development": {
+            "text/typescript": {
+                "baseUrl": "./src",
+                "removeComments": false,
+                "preserveConstEnums": true,
+                "sourceMap": true,
+                "inlineSourceMap": true,
+                "declaration": true,
+                "noImplicitAny": true,
+                "noImplicitReturns": true,
+                "suppressImplicitAnyIndexErrors": true,
+                "strictNullChecks": true,
+                "noUnusedLocals": true,
+                "noImplicitThis": true,
+                "noUnusedParameters": true,
+                "importHelpers": true,
+                "noEmitHelpers": true,
+                "module": "commonjs",
+                "moduleResolution": "node",
+                "pretty": true,
+                "target": "ES2016",
+                "jsx": "react",
+                "experimentalDecorators": true
+            },
+            "application/javascript": {
+                "presets": [
+                    [
+                        "env",
+                        {
+                            "targets": {
+                                "electron": "1.6.8"
+                            }
+                        }
+                    ],
+                    "react",
+                    "flow"
+                ],
+                "plugins": [
+                    [
+                        "module-resolver",
+                        {
+                            "alias": {
+                                "@root": ".",
+                                "@databases": "./databases"
+                            },
+                            "root": [
+                                "./src"
+                            ],
+                            "cwd": "packagejson"
+                        }
+                    ],
+                    "transform-decorators-legacy",
+                    "transform-class-properties",
+                    "transform-object-rest-spread"
+                ],
+                "sourceMaps": "inline"
+            }
+        },
+        "production": {
+            "text/typescript": {
+                "baseUrl": "./src",
+                "removeComments": true,
+                "preserveConstEnums": true,
+                "sourceMap": false,
+                "noImplicitAny": true,
+                "noImplicitReturns": true,
+                "suppressImplicitAnyIndexErrors": true,
+                "strictNullChecks": true,
+                "noUnusedLocals": true,
+                "noImplicitThis": true,
+                "noUnusedParameters": true,
+                "importHelpers": true,
+                "noEmitHelpers": true,
+                "module": "umd",
+                "moduleResolution": "node",
+                "pretty": false,
+                "target": "ES2016",
+                "jsx": "react",
+                "experimentalDecorators": true
+            },
+            "application/javascript": {
+                "presets": [
+                    [
+                        "env",
+                        {
+                            "targets": {
+                                "electron": "1.6.8"
+                            }
+                        }
+                    ],
+                    "react",
+                    "flow"
+                ],
+                "plugins": [
+                    [
+                        "module-resolver",
+                        {
+                            "alias": {
+                                "@root": ".",
+                                "@databases": "../app.asar.unpacked/databases"
+                            },
+                            "root": [
+                                "./src"
+                            ],
+                            "cwd": "packagejson"
+                        }
+                    ],
+                    "transform-decorators-legacy",
+                    "transform-class-properties",
+                    "transform-object-rest-spread"
+                ],
+                "sourceMaps": "none"
+            }
+        }
+    }
+}
