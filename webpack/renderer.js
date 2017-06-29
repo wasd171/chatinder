@@ -1,6 +1,7 @@
 const base = require('./base')
 const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const renderer = {
 	entry: './src/client.ts',
@@ -13,11 +14,11 @@ const renderer = {
 			{
 				test: /\.css$/,
 				use: ExtractTextPlugin.extract({
-					use: 'css-loader'
+					use: ['css-loader', 'resolve-url-loader']
 				})
 			},
 			{
-				test: /\.woff2(\?[a-z0-9=&.]+)?$/,
+				test: /\.(woff2)(\?[a-z0-9=&.]+)?$/,
 				loader: 'file-loader',
 				options: {
 					name: 'fonts/[name].[ext]?[hash]'
@@ -25,11 +26,19 @@ const renderer = {
 			},
 			{
 				test: /\.(ttf|eot|svg|woff)(\?[a-z0-9=&.]+)?$/, // Needs to be used with caution
-				loader: 'ignore-loader'
+				loader: 'skip-loader'
 			}
 		]
 	},
-	plugins: [new ExtractTextPlugin('styles.css')]
+	plugins: [
+		new ExtractTextPlugin('styles.css'),
+		new CopyWebpackPlugin([
+			{
+				from: './src/index.html',
+				to: 'index.html'
+			}
+		])
+	]
 }
 
 module.exports = merge(base, renderer)
