@@ -8,15 +8,14 @@
             "type": "node",
             "request": "launch",
             "name": "Electron Main",
-            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron-forge-vscode-nix",
+            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
             "windows": {
-                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron-forge-vscode-win.cmd"
+                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
             },
-            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}/dist/main.js",
+            "protocol": "legacy",
             "env": {
-                "NODE_ENV": "development",
-                "UPGRADE_EXTENSIONS": false,
-                "DEBUG": ""
+                "NODE_ENV": "development"
             }
         }
     ]
