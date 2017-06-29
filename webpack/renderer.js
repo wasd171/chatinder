@@ -34,8 +34,12 @@ const renderer = {
 		new ExtractTextPlugin('styles.css'),
 		new CopyWebpackPlugin([
 			{
-				from: './src/index.html',
+				from: 'src/index.html',
 				to: 'index.html'
+			},
+			{
+				from: 'node_modules/emojione/assets/png',
+				to: 'emoji'
 			}
 		])
 	]
