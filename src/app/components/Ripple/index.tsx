@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import { action, observable } from 'mobx'
 import { observer } from 'mobx-react'
-import Promise from 'bluebird'
 import linkref from '~/app/shims/linkref'
 import styled from 'styled-components'
 
@@ -18,7 +17,7 @@ const RippleCanvas = styled.canvas`
 `
 
 @observer
-class Ripple extends Component {
+class Ripple extends React.Component {
 	componentDidMount() {
 		this.configureCanvasSize()
 		this.setMounted(true)
@@ -102,7 +101,9 @@ class Ripple extends Component {
 
 	@action
 	configureCanvasSize = async () => {
-		await Promise.delay(20)
+		await new Promise(resolve => {
+			window.setTimeout(resolve, 20)
+		})
 
 		const positions = this.wrapper.getBoundingClientRect()
 		this.setCanvasSize(positions)
