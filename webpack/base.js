@@ -1,5 +1,9 @@
+const webpack = require('webpack')
 const { join } = require('path')
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader')
+
+const { NODE_ENV } = process.env
+const isDev = NODE_ENV === 'development'
 
 module.exports = {
 	output: {
@@ -7,7 +11,7 @@ module.exports = {
 	},
 
 	// Enable sourcemaps for debugging webpack's output.
-	devtool: 'source-map',
+	devtool: isDev ? 'source-map' : 'none',
 
 	resolve: {
 		// Add '.ts' and '.tsx' as resolvable extensions.
@@ -35,5 +39,14 @@ module.exports = {
 			// Handle .graphql
 			{ test: /\.graphql$/, loader: 'graphql-tag/loader' }
 		]
+	},
+	plugins: [
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify(NODE_ENV || 'production')
+		})
+	],
+	watch: isDev,
+	watchOptions: {
+		ignored: /node_modules/
 	}
 }
