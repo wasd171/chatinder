@@ -16,6 +16,7 @@ import {
 } from '~/shared/definitions'
 import TinderClient from 'tinder-modern'
 import { fromCallback } from '~/shared/utils'
+import * as Raven from 'raven'
 
 export class TinderAPI extends AbstractTinderAPIParams
 	implements AbstractTinderAPI {
@@ -66,16 +67,28 @@ export class TinderAPI extends AbstractTinderAPIParams
 		}
 	}
 
-	check({ data, schema }) {
+	check({ data, schema, name }: { data: any; schema: t.Any; name: string }) {
 		const validation = t.validate(data, schema)
 		const report = reporter(validation)
-		console.error(report)
+		if (report.length !== 0) {
+			Raven.captureBreadcrumb({
+				message: `Error in schema: ${name}`,
+				level: 'warning'
+			})
+			report.forEach(problem =>
+				Raven.captureException(new Error(problem))
+			)
+		}
 	}
 
 	getDefaults = (): TinderDefaultsType => {
 		const defaults = this.client.getDefaults()
 
-		this.check({ data: defaults, schema: ioTinderDefaults })
+		this.check({
+			data: defaults,
+			schema: ioTinderDefaults,
+			name: 'defaults'
+		})
 		return defaults
 	}
 
@@ -84,14 +97,18 @@ export class TinderAPI extends AbstractTinderAPIParams
 			.getUser({ userId: id })
 			.then(res => res.results)
 
-		this.check({ data: person, schema: ioTinderPerson })
+		this.check({ data: person, schema: ioTinderPerson, name: 'person' })
 		return person
 	}
 
 	getProfile = async (): Profile<ITinderProfile> => {
 		const profile = await this.client.getAccount()
 
-		this.check({ data: profile.user, schema: ioTinderProfileUser })
+		this.check({
+			data: profile.user,
+			schema: ioTinderProfileUser,
+			name: 'profile'
+		})
 		return profile
 	}
 
@@ -104,7 +121,11 @@ export class TinderAPI extends AbstractTinderAPIParams
 			message
 		})
 
-		this.check({ data: sentMessage, schema: ioTinderSendMessage })
+		this.check({
+			data: sentMessage,
+			schema: ioTinderSendMessage,
+			name: 'sendMessage'
+		})
 		return sentMessage
 	}
 
@@ -121,7 +142,7 @@ export class TinderAPI extends AbstractTinderAPIParams
 	getHistory = async (): Promise<TinderHistoryType> => {
 		const history = await this.client.getHistory()
 
-		this.check({ data: history, schema: ioTinderHistory })
+		this.check({ data: history, schema: ioTinderHistory, name: 'history' })
 		return history
 	}
 
@@ -131,7 +152,7 @@ export class TinderAPI extends AbstractTinderAPIParams
 			lastActivityDate: this.client.lastActivity
 		})
 
-		this.check({ data: updates, schema: ioTinderHistory })
+		this.check({ data: updates, schema: ioTinderHistory, name: 'updates' })
 		return updates
 	}
 }
