@@ -23,7 +23,7 @@ export class FB extends AbstractFB implements AbstractFB {
 				{ upsert: true },
 				callback
 			)
-		)
+		) as Promise<number>
 	}
 
 	setToken = (token: string) => {

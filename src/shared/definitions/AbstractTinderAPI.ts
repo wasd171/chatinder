@@ -31,7 +31,7 @@ export abstract class AbstractTinderAPI extends AbstractTinderAPIParams {
 	) => Promise<TinderSendMessageType>
 	abstract authorize: (
 		{ fbToken, fbId }: { fbToken: string; fbId: string }
-	) => Promise<undefined>
+	) => Promise<void>
 	abstract getHistory: () => Promise<TinderHistoryType>
 	abstract getUpdates: () => Promise<TinderHistoryType>
 }
