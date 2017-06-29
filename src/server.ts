@@ -2,6 +2,9 @@ import { app } from 'electron'
 if (require('electron-squirrel-startup')) {
 	app.quit()
 }
+import { ravenSetupMain } from '~/shared/utils'
+ravenSetupMain()
+
 import { ServerAPI } from './main/ServerAPI'
 
 async function main() {
