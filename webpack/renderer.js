@@ -24,7 +24,7 @@ const renderer = {
 				}
 			},
 			{
-				test: /\.(ttf|eot|svg|woff)(\?[a-z0-9=&.]+)?$/, //Needs to be used with caution
+				test: /\.(ttf|eot|svg|woff)(\?[a-z0-9=&.]+)?$/, // Needs to be used with caution
 				loader: 'ignore-loader'
 			}
 		]
