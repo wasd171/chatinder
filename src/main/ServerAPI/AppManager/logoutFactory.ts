@@ -1,5 +1,5 @@
-import { AbstractAppManager } from 'shared/definitions'
-import { fromCallback } from 'shared/utils'
+import { AbstractAppManager } from '~/shared/definitions'
+import { fromCallback } from '~/shared/utils'
 
 export default function logoutFactory(instance: AbstractAppManager) {
 	return async function logout() {

@@ -1,4 +1,3 @@
-// @flow
 import { join } from 'path'
 
 export function resolve(path: string): string {

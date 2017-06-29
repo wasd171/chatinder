@@ -1,6 +1,6 @@
-import { AbstractServerAPI, TinderPersonType } from 'shared/definitions'
+import { AbstractServerAPI, TinderPersonType } from '~/shared/definitions'
 import { normalizePerson, relogin } from '../utils'
-import { fromCallback } from 'shared/utils'
+import { fromCallback } from '~/shared/utils'
 
 interface IArguments {
 	id: string

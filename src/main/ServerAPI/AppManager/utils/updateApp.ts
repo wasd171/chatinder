@@ -1,4 +1,4 @@
-import { AbstractAppManager } from 'shared/definitions'
+import { AbstractAppManager } from '~/shared/definitions'
 import * as os from 'os'
 import { app, autoUpdater, dialog } from 'electron'
 

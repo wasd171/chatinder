@@ -1,6 +1,6 @@
-import { AbstractServerAPI, TinderSendMessageType } from 'shared/definitions'
-import { fromCallback } from 'shared/utils'
-import { SUCCESS, FAILURE } from 'shared/constants'
+import { AbstractServerAPI, TinderSendMessageType } from '~/shared/definitions'
+import { fromCallback } from '~/shared/utils'
+import { SUCCESS, FAILURE } from '~/shared/constants'
 
 interface IArguments {
 	id: string

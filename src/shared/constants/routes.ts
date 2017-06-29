@@ -6,7 +6,7 @@ import {
 	VIEW_AUTH,
 	VIEW_LOADING
 } from './view'
-import { nameToPath } from 'shared/utils'
+import { nameToPath } from '~/shared/utils'
 
 export const routes = [
 	VIEW_MATCHES,

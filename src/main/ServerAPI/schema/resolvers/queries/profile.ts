@@ -2,8 +2,8 @@ import {
 	AbstractServerAPI,
 	ITinderProfile,
 	TinderProfileUserType
-} from 'shared/definitions'
-import { fromCallback } from 'shared/utils'
+} from '~/shared/definitions'
+import { fromCallback } from '~/shared/utils'
 import { normalizePerson, relogin } from '../utils'
 
 export interface IArguments {}

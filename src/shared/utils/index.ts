@@ -10,9 +10,18 @@ export function getNormalizedSizeOfGIPHY(message: string) {
 	const maxWidth = 255
 	const url = new URL(message)
 
-	let height, width
-	height = parseInt(url.searchParams.get('height'), 10)
-	width = parseInt(url.searchParams.get('width'), 10)
+	const strHeight = url.searchParams.get('height')
+	const strWidth = url.searchParams.get('width')
+
+	if (strHeight === null || strWidth === null) {
+		throw new Error(
+			`Unable to get width and/or height for the following giphy: ${message}`
+		)
+	}
+
+	let height: number, width: number
+	height = parseInt(strHeight, 10)
+	width = parseInt(strWidth, 10)
 
 	if (height > maxHeight) {
 		width = width * (maxHeight / height)
@@ -32,6 +41,5 @@ export { resolveDatabases } from './resolveDatabases'
 export { resolveRoot } from './resolveRoot'
 export { emojify } from './emojify'
 export { normalizeMessage } from './normalizeMessage'
-export { resolveMessage } from './resolveMessage'
 export { normalizeMessagePair } from './normalizeMessagePair'
 export { fromCallback } from './fromCallback'

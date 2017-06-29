@@ -1,5 +1,5 @@
 import { success } from '../utils'
-import { AbstractServerAPI } from 'shared/definitions'
+import { AbstractServerAPI } from '~/shared/definitions'
 
 export interface IArguments {
 	silent: boolean

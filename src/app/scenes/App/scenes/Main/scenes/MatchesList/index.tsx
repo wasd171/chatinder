@@ -3,17 +3,17 @@ import { inject } from 'mobx-react'
 import Match from './components/Match'
 import { AutoSizer, List, ScrollSync } from 'react-virtualized'
 import styled from 'styled-components'
-import linkref, { ILinkedRefs } from 'app/shims/linkref'
-import SimpleBarStandalone from 'app/components/SimpleBarStandalone'
+import linkref, { ILinkedRefs } from '~/app/shims/linkref'
+import SimpleBarStandalone from '~/app/components/SimpleBarStandalone'
 import { graphql, OperationOption } from 'react-apollo'
 import { ipcRenderer } from 'electron'
 import {
 	SUBSCRIPTION_MATCHES_ALL,
 	SUBSCRIPTION_MATCH_BLOCKED,
 	VIEW_PROFILE
-} from 'shared/constants'
+} from '~/shared/constants'
 import * as matchesQuery from './query.graphql'
-import { Navigator } from 'app/stores/Navigator'
+import { Navigator } from '~/app/stores/Navigator'
 import { match } from 'react-router-dom'
 
 interface ISorter {

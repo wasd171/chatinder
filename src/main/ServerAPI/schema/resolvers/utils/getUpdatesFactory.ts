@@ -1,4 +1,4 @@
-import { AbstractServerAPI, TinderHistoryType } from 'shared/definitions'
+import { AbstractServerAPI, TinderHistoryType } from '~/shared/definitions'
 import { relogin } from './relogin'
 
 export function getUpdatesFactory({

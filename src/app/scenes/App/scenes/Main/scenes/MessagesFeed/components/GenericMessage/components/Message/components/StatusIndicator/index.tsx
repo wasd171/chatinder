@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SUCCESS, PENDING, FAILURE } from 'shared/constants'
+import { SUCCESS, PENDING, FAILURE } from '~/shared/constants'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
 import { CircularProgress } from 'material-ui'

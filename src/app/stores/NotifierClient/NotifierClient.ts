@@ -1,6 +1,6 @@
-import { NOTIFICATION } from 'shared/constants'
+import { NOTIFICATION } from '~/shared/constants'
 import { ipcRenderer } from 'electron'
-import { NotificationMessageType } from 'shared/definitions'
+import { NotificationMessageType } from '~/shared/definitions'
 
 export class NotifierClient {
 	constructor() {

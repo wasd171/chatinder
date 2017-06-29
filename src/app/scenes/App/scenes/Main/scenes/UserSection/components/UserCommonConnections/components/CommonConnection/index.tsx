@@ -1,7 +1,7 @@
 import * as React from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
-import Avatar from 'app/components/Avatar'
+import Avatar from '~/app/components/Avatar'
 import { MuiTheme } from 'material-ui/styles'
 
 const Container = styled.div`

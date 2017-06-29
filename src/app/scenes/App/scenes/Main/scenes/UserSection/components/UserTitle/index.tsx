@@ -10,7 +10,7 @@ import ToggleStar from 'material-ui/svg-icons/toggle/star'
 import ActionWork from 'material-ui/svg-icons/action/work'
 import ActionAccountBalance from 'material-ui/svg-icons/action/account-balance'
 import CommunicationLocationOn from 'material-ui/svg-icons/communication/location-on'
-import { Time } from 'app/stores/Time'
+import { Time } from '~/app/stores/Time'
 import { MuiTheme } from 'material-ui/styles'
 
 const GenericColumn = styled.div`

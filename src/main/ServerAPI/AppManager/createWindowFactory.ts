@@ -1,6 +1,6 @@
-import { AbstractAppManager } from 'shared/definitions'
+import { AbstractAppManager } from '~/shared/definitions'
 import { BrowserWindow } from 'electron'
-import { resolveRoot } from 'shared/utils'
+import { resolveRoot } from '~/shared/utils'
 
 export default function createWindowFactory(instance: AbstractAppManager) {
 	return function createWindow() {

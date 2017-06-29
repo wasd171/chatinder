@@ -13,9 +13,9 @@ import {
 	ITinderProfile,
 	TinderSendMessageType,
 	TinderHistoryType
-} from 'shared/definitions'
+} from '~/shared/definitions'
 import TinderClient from 'tinder-modern'
-import { fromCallback } from 'shared/utils'
+import { fromCallback } from '~/shared/utils'
 
 export class TinderAPI extends AbstractTinderAPIParams
 	implements AbstractTinderAPI {
@@ -108,7 +108,13 @@ export class TinderAPI extends AbstractTinderAPIParams
 		return sentMessage
 	}
 
-	authorize = async ({ fbToken, fbId }: { fbToken: string fbId: string }) => {
+	authorize = async ({
+		fbToken,
+		fbId
+	}: {
+		fbToken: string
+		fbId: string
+	}) => {
 		await this.client.authorize({ fbToken, fbId })
 	}
 

@@ -3,9 +3,9 @@ import {
 	FormattedMatchType,
 	TinderSendMessageType,
 	FormattedMessageType
-} from 'shared/definitions'
-import { FAILURE } from 'shared/constants'
-import { fromCallback, normalizeMessagePair } from 'shared/utils'
+} from '~/shared/definitions'
+import { FAILURE } from '~/shared/constants'
+import { fromCallback, normalizeMessagePair } from '~/shared/utils'
 
 interface IArguments {
 	id: string

@@ -1,4 +1,4 @@
-import { AbstractAppManager } from 'shared/definitions'
+import { AbstractAppManager } from '~/shared/definitions'
 
 export default function showFactory(instance: AbstractAppManager) {
 	return function show() {

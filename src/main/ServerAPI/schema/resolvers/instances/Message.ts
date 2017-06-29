@@ -1,6 +1,6 @@
-import { AbstractServerAPI, FormattedMessageType } from 'shared/definitions'
-import { fromCallback } from 'shared/utils'
-import { SUCCESS, PSEUDO } from 'shared/constants'
+import { AbstractServerAPI, FormattedMessageType } from '~/shared/definitions'
+import { fromCallback } from '~/shared/utils'
+import { SUCCESS, PSEUDO } from '~/shared/constants'
 import { property } from 'lodash'
 
 export const Message = {

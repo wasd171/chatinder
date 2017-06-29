@@ -1,6 +1,6 @@
-import { PSEUDO } from 'shared/constants'
+import { PSEUDO } from '~/shared/constants'
 import { property } from 'lodash'
-import { FormattedMatchType } from 'shared/definitions'
+import { FormattedMatchType } from '~/shared/definitions'
 
 export const Match = {
 	lastMessage: (match: FormattedMatchType) => {

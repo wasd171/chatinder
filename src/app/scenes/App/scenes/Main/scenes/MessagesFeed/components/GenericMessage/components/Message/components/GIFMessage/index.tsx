@@ -1,13 +1,13 @@
 import * as React from 'react'
 import CircularProgress from 'material-ui/CircularProgress'
-import { getNormalizedSizeOfGIPHY } from 'shared/utils'
+import { getNormalizedSizeOfGIPHY } from '~/shared/utils'
 import { observable, action } from 'mobx'
 import { inject, observer } from 'mobx-react'
-import linkref, { ILinkedRefs } from 'app/shims/linkref'
+import linkref, { ILinkedRefs } from '~/app/shims/linkref'
 import styled from 'styled-components'
 import * as Waypoint from 'react-waypoint'
-import { SUCCESS, PENDING, FAILURE } from 'shared/constants'
-import { Caches } from 'app/stores/Caches'
+import { SUCCESS, PENDING, FAILURE } from '~/shared/constants'
+import { Caches } from '~/app/stores/Caches'
 
 const OuterWrapper = styled.div`
 	padding-top: 10px;

@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { graphql } from 'react-apollo'
 import * as resendMessageMutation from './mutation.graphql'
 import * as statusFragment from './fragment.graphql'
-import { PENDING } from 'shared/constants'
+import { PENDING } from '~/shared/constants'
 
 const GenericMessageContainer = styled.div`overflow-anchor: auto;`
 

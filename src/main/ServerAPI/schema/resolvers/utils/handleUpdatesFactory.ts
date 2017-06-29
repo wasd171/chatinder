@@ -2,10 +2,10 @@ import {
 	AbstractServerAPI,
 	TinderHistoryType,
 	FormattedMatchType
-} from 'shared/definitions'
-import { fromCallback } from 'shared/utils'
+} from '~/shared/definitions'
+import { fromCallback } from '~/shared/utils'
 import { normalizeMatch } from './normalizeMatch'
-import { normalizeMessage } from 'shared/utils'
+import { normalizeMessage } from '~/shared/utils'
 
 export function handleUpdatesFactory(ctx: AbstractServerAPI) {
 	return async function handleUpdates(

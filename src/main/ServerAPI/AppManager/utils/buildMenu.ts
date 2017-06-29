@@ -1,6 +1,6 @@
 import { app, Menu } from 'electron'
 import openAboutWindow from 'about-window'
-import { resolveRoot } from 'shared/utils'
+import { resolveRoot } from '~/shared/utils'
 
 export function buildMenu() {
 	if (process.env.NODE_ENV !== 'development') {

@@ -1,4 +1,3 @@
-import 'tsconfig-paths/register'
 import { app } from 'electron'
 if (require('electron-squirrel-startup')) {
 	app.quit()

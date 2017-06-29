@@ -1,6 +1,6 @@
 import * as React from 'react'
-import linkref, { ILinkedRefs } from 'app/shims/linkref'
-import $ from 'app/shims/jquery'
+import linkref, { ILinkedRefs } from '~/app/shims/linkref'
+import $ from '~/app/shims/jquery'
 
 interface Editor extends HTMLDivElement {
 	emojioneArea: {

@@ -1,5 +1,5 @@
-import { emojify } from 'shared/utils'
-import { UnionUserType, FormattedUserType } from 'shared/definitions'
+import { emojify } from '~/shared/utils'
+import { UnionUserType, FormattedUserType } from '~/shared/definitions'
 
 export function normalizePerson(person: UnionUserType): FormattedUserType {
 	let formattedName = emojify(person.name)

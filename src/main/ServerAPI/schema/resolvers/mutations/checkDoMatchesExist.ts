@@ -1,5 +1,5 @@
 import { count, normalizeAllMatches, insert, relogin } from '../utils'
-import { AbstractServerAPI, TinderHistoryType } from 'shared/definitions'
+import { AbstractServerAPI, TinderHistoryType } from '~/shared/definitions'
 
 export async function checkDoMatchesExist(
 	_obj: undefined,

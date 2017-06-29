@@ -4,8 +4,8 @@ import { inject } from 'mobx-react'
 import styled from 'styled-components'
 import { graphql, MutationFunc } from 'react-apollo'
 import * as loginMutation from './loginMutation.graphql'
-import { success } from 'shared/constants'
-import { Navigator } from 'app/stores/Navigator'
+import { success } from '~/shared/constants'
+import { Navigator } from '~/app/stores/Navigator'
 import { RouteComponentProps } from 'react-router-dom'
 
 const AuthWrapper = styled.div`

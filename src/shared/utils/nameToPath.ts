@@ -4,7 +4,7 @@ import {
 	VIEW_LOADING,
 	VIEW_MATCHES,
 	VIEW_PROFILE
-} from 'shared/constants/view'
+} from '~/shared/constants/view'
 
 export function nameToPath(name: string, param?: string): string {
 	switch (name) {

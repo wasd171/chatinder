@@ -1,4 +1,4 @@
-import { AbstractFB } from 'shared/definitions'
+import { AbstractFB } from '~/shared/definitions'
 import fetch from 'node-fetch'
 
 export default function getIdFactory(instance: AbstractFB) {
