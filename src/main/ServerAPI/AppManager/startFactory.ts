@@ -1,6 +1,6 @@
-import { AbstractAppManager } from 'shared/definitions'
+import { AbstractAppManager } from '~/shared/definitions'
 import { app, Menu } from 'electron'
-import { enableLiveReload } from 'electron-compile'
+// import { enableLiveReload } from 'electron-compile'
 import { updateApp, buildMenu } from './utils'
 
 export function onBeforeQuitFactory(instance: AbstractAppManager) {
@@ -37,7 +37,7 @@ export default function startFactory(instance: AbstractAppManager) {
 		if (process.env.NODE_ENV === 'development') {
 			require('electron-debug')({ enabled: true })
 			require('devtron').install()
-			enableLiveReload()
+			// enableLiveReload()
 			await instance.installExtensions()
 		}
 

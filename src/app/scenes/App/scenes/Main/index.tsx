@@ -9,7 +9,7 @@ import { observable, action } from 'mobx'
 import { observer } from 'mobx-react'
 import * as checkDoMatchesExist from './checkMutation.graphql'
 import * as startSubscription from './subscribeMutation.graphql'
-import LoadingStub from 'app/components/LoadingStub'
+import LoadingStub from '~/app/components/LoadingStub'
 import { Route } from 'react-router-dom'
 import {
 	VIEW_MATCHES,
@@ -17,7 +17,7 @@ import {
 	VIEW_USER,
 	VIEW_PROFILE,
 	routes
-} from 'shared/constants'
+} from '~/shared/constants'
 import Stub from './scenes/Stub'
 import ChatHeader from './scenes/ChatHeader'
 import MessagesFeed from './scenes/MessagesFeed'

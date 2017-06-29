@@ -1,8 +1,8 @@
-import { AbstractServerAPI } from 'shared/definitions'
+import { AbstractServerAPI } from '~/shared/definitions'
 import { isOnline } from './isOnline'
 import { success } from './statuses'
 import { login } from '../mutations'
-import { fromCallback } from 'shared/utils'
+import { fromCallback } from '~/shared/utils'
 
 export function reloginCallback(
 	ctx: AbstractServerAPI,

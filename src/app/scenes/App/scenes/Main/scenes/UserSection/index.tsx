@@ -7,12 +7,12 @@ import UserCommonInterests from './components/UserCommonInterests'
 import { graphql } from 'react-apollo'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
-import SimpleBarWrapper from 'app/components/SimpleBarWrapper'
+import SimpleBarWrapper from '~/app/components/SimpleBarWrapper'
 import { observable, action } from 'mobx'
 import { observer } from 'mobx-react'
 import * as query from './query.graphql'
 import * as mutation from './mutation.graphql'
-import LoadingStub from 'app/components/LoadingStub'
+import LoadingStub from '~/app/components/LoadingStub'
 
 const UserInfoContainer = styled.div`
 	display: flex;

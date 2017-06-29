@@ -1,9 +1,9 @@
-import { AbstractRefetcher, AbstractRefetcherParams } from 'shared/definitions'
+import { AbstractRefetcher, AbstractRefetcherParams } from '~/shared/definitions'
 import {
 	SUBSCRIPTION_MATCHES_ALL,
 	SUBSCRIPTION_MATCH,
 	SUBSCRIPTION_MATCH_BLOCKED
-} from 'shared/constants'
+} from '~/shared/constants'
 
 export class Refetcher extends AbstractRefetcher implements AbstractRefetcher {
 	constructor(params: AbstractRefetcherParams) {

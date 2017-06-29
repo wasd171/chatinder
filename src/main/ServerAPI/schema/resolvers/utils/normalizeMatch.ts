@@ -1,6 +1,6 @@
-import { normalizeMessage } from 'shared/utils'
+import { normalizeMessage } from '~/shared/utils'
 import { normalizePerson } from './normalizePerson'
-import { TinderMatchType, FormattedMatchType } from 'shared/definitions'
+import { TinderMatchType, FormattedMatchType } from '~/shared/definitions'
 
 export function normalizeMatch(
 	match: TinderMatchType

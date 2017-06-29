@@ -1,4 +1,4 @@
-import { AbstractFB } from 'shared/definitions'
+import { AbstractFB } from '~/shared/definitions'
 
 export default function loginFactory(instance: AbstractFB) {
 	return async function login(silent: boolean) {

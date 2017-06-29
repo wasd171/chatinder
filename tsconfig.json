@@ -19,9 +19,12 @@
 		"pretty": true,
 		"target": "ES2016",
 		"jsx": "react",
-		"experimentalDecorators": true
+		"experimentalDecorators": true,
+		"paths": {
+			"~/*": ["*"]
+		}
 	},
-	"files": ["src/server.ts"],
+	"files": ["src/server.ts", "src/client.ts"],
 	"formatCodeOptions": {
 		"indentSize": 4,
 		"tabSize": 4

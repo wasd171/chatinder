@@ -5,8 +5,8 @@ import {
 	VIEW_USER,
 	VIEW_LOADING,
 	VIEW_PROFILE
-} from 'shared/constants'
-import { nameToPath } from 'shared/utils'
+} from '~/shared/constants'
+import { nameToPath } from '~/shared/utils'
 import * as initialRouteQuery from './initialRoute.graphql'
 import * as showWindowMutation from './showWindow.graphql'
 import { ApolloClient } from 'apollo-client'

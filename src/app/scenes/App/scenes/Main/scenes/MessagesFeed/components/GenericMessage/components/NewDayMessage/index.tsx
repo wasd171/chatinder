@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import * as isToday from 'date-fns/is_today'
 import * as isYesterday from 'date-fns/is_yesterday'
 import { MuiTheme } from 'material-ui/styles'
-import { Time } from 'app/stores/Time'
+import { Time } from '~/app/stores/Time'
 
 const Wrapper = styled.div`
 	display: flex;

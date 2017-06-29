@@ -1,5 +1,5 @@
 import { normalizeMatch } from './normalizeMatch'
-import { TinderMatchType, FormattedMatchType } from 'shared/definitions'
+import { TinderMatchType, FormattedMatchType } from '~/shared/definitions'
 
 function normalizeReducer(
 	accumulator: Array<FormattedMatchType>,

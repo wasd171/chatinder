@@ -2,12 +2,12 @@ import {
 	AbstractFB,
 	AbstractFBParams,
 	FBSaveQueryType
-} from 'shared/definitions'
+} from '~/shared/definitions'
 import getIdFactory from './getIdFactory'
 import getToken from './getToken'
 import loginForceFactory from './loginForceFactory'
 import loginFactory from './loginFactory'
-import { fromCallback } from 'shared/utils'
+import { fromCallback } from '~/shared/utils'
 
 export class FB extends AbstractFB implements AbstractFB {
 	constructor(params: AbstractFBParams) {

@@ -1,6 +1,6 @@
-import { AbstractServerAPI } from 'shared/definitions'
+import { AbstractServerAPI } from '~/shared/definitions'
 import { profile } from '../queries'
-import { fromCallback } from 'shared/utils'
+import { fromCallback } from '~/shared/utils'
 
 export async function updateProfile(
 	obj: undefined,

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import linkref, { ILinkedRefs } from 'app/shims/linkref'
+import linkref, { ILinkedRefs } from '~/app/shims/linkref'
 import * as Simplebar from 'simplebar'
 import styled from 'styled-components'
 

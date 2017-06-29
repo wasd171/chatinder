@@ -1,8 +1,8 @@
-import { emojify } from 'shared/utils'
+import { emojify } from '~/shared/utils'
 import * as format from 'date-fns/format'
-import { isGIPHY } from 'shared/utils'
-import { UnionMessageType, FormattedMessageType } from 'shared/definitions'
-import { SUCCESS } from 'shared/constants'
+import { isGIPHY } from '~/shared/utils'
+import { UnionMessageType, FormattedMessageType } from '~/shared/definitions'
+import { SUCCESS } from '~/shared/constants'
 
 export type MetaMessageType = (UnionMessageType | FormattedMessageType) & {
 	status?: string

@@ -1,9 +1,9 @@
-import { NOTIFICATION } from 'shared/constants'
+import { NOTIFICATION } from '~/shared/constants'
 import {
 	AbstractNotifierServer,
 	AbstractNotifierServerParams,
 	NotificationMessageType
-} from 'shared/definitions'
+} from '~/shared/definitions'
 
 export class NotifierServer extends AbstractNotifierServer
 	implements AbstractNotifierServer {

@@ -1,11 +1,11 @@
 import { ipcRenderer } from 'electron'
-import { GRAPHQL } from 'shared/constants'
+import { GRAPHQL } from '~/shared/constants'
 import * as uuid from 'uuid'
 import { print } from 'graphql/language/printer'
 import { NetworkInterface, Request } from 'apollo-client'
 import { ExecutionResult } from 'graphql'
 import { PrintedRequest } from 'apollo-client/transport/networkInterface'
-import { IGraphQLElectronMessage } from 'shared/definitions'
+import { IGraphQLElectronMessage } from '~/shared/definitions'
 
 export interface IArgumments {
 	id: string

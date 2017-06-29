@@ -1,1 +1,1 @@
-export { success } from 'shared/constants'
+export { success } from '~/shared/constants'

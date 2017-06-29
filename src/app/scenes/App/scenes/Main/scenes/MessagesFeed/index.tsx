@@ -10,16 +10,16 @@ import {
 	OnScrollParams
 } from 'react-virtualized'
 import GenericMessage from './components/GenericMessage'
-import SimpleBarStandalone from 'app/components/SimpleBarStandalone'
+import SimpleBarStandalone from '~/app/components/SimpleBarStandalone'
 import styled from 'styled-components'
-import linkref, { ILinkedRefs } from 'app/shims/linkref'
+import linkref, { ILinkedRefs } from '~/app/shims/linkref'
 import { ipcRenderer } from 'electron'
-import { SUBSCRIPTION_MATCH } from 'shared/constants'
+import { SUBSCRIPTION_MATCH } from '~/shared/constants'
 import * as query from './query.graphql'
-import LoadingStub from 'app/components/LoadingStub'
+import LoadingStub from '~/app/components/LoadingStub'
 import NoMessages from './components/NoMessages'
-import { Caches } from 'app/stores/Caches'
-import { Navigator } from 'app/stores/Navigator'
+import { Caches } from '~/app/stores/Caches'
+import { Navigator } from '~/app/stores/Navigator'
 
 const Container = styled.div`
 	height: 100%;

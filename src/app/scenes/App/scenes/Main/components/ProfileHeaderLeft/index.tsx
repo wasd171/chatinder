@@ -1,11 +1,11 @@
 import * as React from 'react'
-import Avatar from 'app/components/Avatar'
+import Avatar from '~/app/components/Avatar'
 import styled from 'styled-components'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import { graphql, DefaultChildProps } from 'react-apollo'
 import * as profileQuery from './query.graphql'
 import { inject } from 'mobx-react'
-import { Navigator } from 'app/stores/Navigator'
+import { Navigator } from '~/app/stores/Navigator'
 import { MuiTheme } from 'material-ui/styles'
 
 const StyledContainer = styled.div`

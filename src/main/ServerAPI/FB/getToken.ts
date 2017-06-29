@@ -1,6 +1,6 @@
 import { BrowserWindow } from 'electron'
 import { URL } from 'url'
-import { FBGetTokenType } from 'shared/definitions'
+import { FBGetTokenType } from '~/shared/definitions'
 
 export type WindowType = Electron.BrowserWindow | null
 

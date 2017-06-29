@@ -1,12 +1,12 @@
 import * as React from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import { inject } from 'mobx-react'
-import { KEYCODE_ESC } from 'shared/constants'
-import GenericHeader from 'app/components/GenericHeader'
-import GenericIconWrapper from 'app/components/GenericIconWrapper'
-import GenericNameSpan from 'app/components/GenericNameSpan'
+import { KEYCODE_ESC } from '~/shared/constants'
+import GenericHeader from '~/app/components/GenericHeader'
+import GenericIconWrapper from '~/app/components/GenericIconWrapper'
+import GenericNameSpan from '~/app/components/GenericNameSpan'
 import NavigationClose from 'material-ui/svg-icons/navigation/close'
-import { Navigator } from 'app/stores/Navigator'
+import { Navigator } from '~/app/stores/Navigator'
 import { MuiTheme } from 'material-ui/styles'
 
 export interface IProfileHeaderProps {

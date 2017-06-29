@@ -2,11 +2,11 @@ import * as React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import { inject } from 'mobx-react'
-import { VIEW_AUTH, VIEW_MATCHES, VIEW_LOADING, routes } from 'shared/constants'
+import { VIEW_AUTH, VIEW_MATCHES, VIEW_LOADING, routes } from '~/shared/constants'
 import Auth from './scenes/Auth'
 import Main from './scenes/Main'
 import LoadingScreen from './scenes/LoadingScreen'
-import { Navigator } from 'app/stores/Navigator'
+import { Navigator } from '~/app/stores/Navigator'
 import { History as CustomHistory } from 'history'
 
 export interface IAppProps {

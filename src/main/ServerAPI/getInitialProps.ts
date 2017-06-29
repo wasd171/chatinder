@@ -1,14 +1,14 @@
 import { createSchema } from './schema'
-import { resolveDatabases, fromCallback } from 'shared/utils'
+import { resolveDatabases, fromCallback } from '~/shared/utils'
 import * as Nedb from 'nedb'
-import { PENDING, FAILURE } from 'shared/constants'
+import { PENDING, FAILURE } from '~/shared/constants'
 import { FB } from './FB'
 import { TinderAPI } from './TinderAPI'
 import { AppManager } from './AppManager'
 import { Refetcher } from './Refetcher'
 import { NotifierServer } from './NotifierServer'
 import { GraphQLSchema } from 'graphql'
-import { AbstractFBSaved, AbstractTinderAPISaved } from 'shared/definitions'
+import { AbstractFBSaved, AbstractTinderAPISaved } from '~/shared/definitions'
 
 export async function getInitialProps() {
 	const schema = createSchema() as GraphQLSchema

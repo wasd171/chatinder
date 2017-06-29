@@ -1,6 +1,6 @@
 import { count } from '../utils'
-import { VIEW_MATCHES, VIEW_AUTH, routes } from 'shared/constants'
-import { AbstractServerAPI } from 'shared/definitions'
+import { VIEW_MATCHES, VIEW_AUTH, routes } from '~/shared/constants'
+import { AbstractServerAPI } from '~/shared/definitions'
 
 export interface IArguments {}
 

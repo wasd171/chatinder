@@ -2,10 +2,10 @@ import * as React from 'react'
 import styled from 'styled-components'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import { fade } from 'material-ui/utils/colorManipulator'
-import Avatar from 'app/components/Avatar'
+import Avatar from '~/app/components/Avatar'
 import { inject } from 'mobx-react'
 import { MuiTheme } from 'material-ui/styles'
-import { Navigator } from 'app/stores/Navigator'
+import { Navigator } from '~/app/stores/Navigator'
 
 const OuterWrapper = styled.div`
 	display: flex;

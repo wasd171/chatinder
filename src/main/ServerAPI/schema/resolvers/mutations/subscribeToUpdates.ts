@@ -1,4 +1,4 @@
-import { AbstractServerAPI } from 'shared/definitions'
+import { AbstractServerAPI } from '~/shared/definitions'
 import { success, getUpdatesFactory, handleUpdatesFactory } from '../utils'
 import { relogin } from '../utils'
 

@@ -2,9 +2,9 @@ import {
 	AbstractServerAPI,
 	AbstractServerAPIParams,
 	IGraphQLElectronMessage
-} from 'shared/definitions'
+} from '~/shared/definitions'
 import { ipcMain } from 'electron'
-import { GRAPHQL } from 'shared/constants'
+import { GRAPHQL } from '~/shared/constants'
 import { graphql, ExecutionResult } from 'graphql'
 import { PrintedRequest } from 'apollo-client/transport/networkInterface'
 

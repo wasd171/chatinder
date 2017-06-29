@@ -1,4 +1,4 @@
-import { AbstractAppManager } from 'shared/definitions'
+import { AbstractAppManager } from '~/shared/definitions'
 import createWindowFactory from './createWindowFactory'
 import installExtensions from './installExtensions'
 import logoutFactory from './logoutFactory'

@@ -1,4 +1,4 @@
-import { UnionUserType, TinderPersonType } from 'shared/definitions'
+import { UnionUserType, TinderPersonType } from '~/shared/definitions'
 import { property } from 'lodash'
 
 export const Person = {

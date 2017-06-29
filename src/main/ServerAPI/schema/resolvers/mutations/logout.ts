@@ -1,6 +1,6 @@
 import { success } from '../utils'
-import { fromCallback } from 'shared/utils'
-import { AbstractServerAPI } from 'shared/definitions'
+import { fromCallback } from '~/shared/utils'
+import { AbstractServerAPI } from '~/shared/definitions'
 import { app } from 'electron'
 
 export function logout(_obj: undefined, _args: {}, ctx: AbstractServerAPI) {

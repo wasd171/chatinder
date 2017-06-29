@@ -1,4 +1,4 @@
-import emojione from 'app/shims/emojione'
+import emojione from '~/app/shims/emojione'
 import * as he from 'he'
 
 export function emojify(text: string): string {

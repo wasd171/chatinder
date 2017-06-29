@@ -1,5 +1,5 @@
-import { AbstractServerAPI, FormattedMatchType } from 'shared/definitions'
-import { fromCallback } from 'shared/utils'
+import { AbstractServerAPI, FormattedMatchType } from '~/shared/definitions'
+import { fromCallback } from '~/shared/utils'
 
 export interface IArguments {}
 
