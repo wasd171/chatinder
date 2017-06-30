@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const { join } = require('path')
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader')
+const BabiliPlugin = require('babili-webpack-plugin')
 
 const { NODE_ENV } = process.env
 const isDev = NODE_ENV === 'development'
@@ -11,7 +12,7 @@ module.exports = {
 	},
 
 	// Enable sourcemaps for debugging webpack's output.
-	devtool: isDev ? 'source-map' : 'none',
+	devtool: 'source-map',
 
 	resolve: {
 		// Add '.ts' and '.tsx' as resolvable extensions.
@@ -41,6 +42,7 @@ module.exports = {
 		]
 	},
 	plugins: [
+		!isDev ? new BabiliPlugin() : null,
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(NODE_ENV || 'production')
 		})
