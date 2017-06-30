@@ -1,3 +1,9 @@
+import { app } from 'electron'
+
 export function resolveRoot(): string {
-	return process.cwd()
+	if (process.env.NODE_ENV !== 'production') {
+		return process.cwd()
+	} else {
+		return app.getAppPath()
+	}
 }
