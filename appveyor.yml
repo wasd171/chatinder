@@ -9,7 +9,7 @@ cache:
 - '%LOCALAPPDATA%\electron\Cache'
 branches:
   only:
-  - feature/tweak-ci
+  - master
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
   - ps: $env:package_version = (Get-Content -Raw -Path package.json | ConvertFrom-Json).version

@@ -16,4 +16,4 @@ compile:
 general:
   branches:
     only:
-      - feature/tweak-ci
+      - master
