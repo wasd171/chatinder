@@ -2,7 +2,7 @@ platform:
 - x64
 environment:
   nodejs_version: "stable"
-  GITHUB_TOKEN:
+  GH_TOKEN:
     secure: P3PUvll7sdLjanWtuI2fBxKqZi4dIKbzeokpLape1l9qm2PWB17/znIx4zcBvEgY
 cache:
 - '%APPDATA%\npm-cache'
@@ -20,5 +20,5 @@ install:
 build_script:
   - npm run publish
 after_build:
-  - ps: Get-ChildItem .\out\make -File -Recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  - ps: Get-ChildItem .\out\github -File | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 test: off

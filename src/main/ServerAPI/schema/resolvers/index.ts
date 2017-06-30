@@ -1,0 +1,1 @@
+export { resolverMap } from './resolverMap'

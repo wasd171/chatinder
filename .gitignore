@@ -1,7 +1,6 @@
 node_modules
 out
 databases/*.db
-.idea
-flow-typed/npm
 *.log
 docs/_site
+dist
