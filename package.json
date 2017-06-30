@@ -17,7 +17,7 @@
 		"build:dev": "concurrently \"npm run build:main:dev\" \"npm run build:renderer:dev\"",
 		"publish": "electron-builder",
 		"precommit": "lint-staged",
-		"circle:clean": "rimraf node_modules",
+		"circle:clean": "rm -rf node_modules",
 		"circle:artifacts": "cp ./out/make/* $CIRCLE_ARTIFACTS",
 		"postmerge": "npm install",
 		"postinstall": "electron-builder install-app-deps",
