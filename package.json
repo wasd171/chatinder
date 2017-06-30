@@ -20,8 +20,8 @@
 		"circle:clean": "rimraf node_modules",
 		"circle:artifacts": "cp ./out/make/* $CIRCLE_ARTIFACTS",
 		"postmerge": "npm install",
-		"test": "echo 'Someday there would be tests, I promise'",
-		"gql-to-ts": "apollo-codegen generate --schema src/main/ServerAPI/schema/typeDefs.js --output schema.ts"
+		"postinstall": "electron-builder install-app-deps",
+		"test": "echo 'Someday there would be tests, I promise'"
 	},
 	"lint-staged": {
 		"src/**/*.{ts,tsx}": [
