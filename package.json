@@ -24,7 +24,10 @@
 		"gql-to-ts": "apollo-codegen generate --schema src/main/ServerAPI/schema/typeDefs.js --output schema.ts"
 	},
 	"lint-staged": {
-		"src/**/*.{js,jsx}": ["eslint --fix", "git add"]
+		"src/**/*.{ts,tsx}": [
+			"prettier --tab-width 4 --use-tabs --no-semi --single-quote",
+			"git add"
+		]
 	},
 	"bugs": "https://github.com/wasd171/chatinder/issues",
 	"homepage": "https://github.com/wasd171/chatinder",
