@@ -1,170 +1,161 @@
 {
-  "name": "chatinder",
-  "productName": "Chatinder",
-  "version": "1.4.6",
-  "description": "Unofficial desktop messaging client for Tinder.",
-  "main": "dist/server.js",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/wasd171/chatinder.git"
-  },
-  "scripts": {
-    "build:main": "webpack --config=webpack/main.js",
-    "build:renderer": "webpack --config=webpack/renderer.js",
-    "build:main:dev": "cross-env NODE_ENV=development npm run build:main",
-    "build:renderer:dev": "cross-env NODE_ENV=development npm run build:renderer",
-    "build:prod": "rimraf dist && cross-env NODE_ENV=production npm run build:main && npm run build:renderer",
-    "build:dev": "concurrently \"npm run build:main:dev\" \"npm run build:renderer:dev\"",
-    "precommit": "lint-staged",
-    "circle:clean": "rimraf node_modules",
-    "circle:artifacts": "cp ./out/make/* $CIRCLE_ARTIFACTS",
-    "postmerge": "npm install",
-    "test": "echo 'Someday there would be tests, I promise'",
-    "gql-to-ts": "apollo-codegen generate --schema src/main/ServerAPI/schema/typeDefs.js --output schema.ts"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx}": [
-      "eslint --fix",
-      "git add"
-    ]
-  },
-  "bugs": "https://github.com/wasd171/chatinder/issues",
-  "homepage": "https://github.com/wasd171/chatinder",
-  "keywords": [],
-  "author": "wasd171",
-  "license": "MIT",
-  "config": {
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "darwin": [
-          "dmg",
-          "zip"
-        ],
-        "linux": [
-          "deb",
-          "rpm"
-        ]
-      },
-      "electronPackagerConfig": {
-        "asar": {
-          "unpackDir": "databases"
-        },
-        "icon": "./icons/icon",
-        "ignore": [
-          "/databases/(.*)\\.db$"
-        ],
-        "appBundleId": "com.wasd171.chatinder",
-        "appCategoryType": "public.app-category.social-networking",
-        "osxSign": {},
-        "win32metadata": {
-          "ProductName": "Chatinder"
-        }
-      },
-      "electronWinstallerConfig": {
-        "iconUrl": "https://wasd171.github.io/chatinder/assets/icons/icon.ico",
-        "name": "chatinder",
-        "setupIcon": "./icons/icon.ico",
-        "remoteReleases": "https://chatinder.herokuapp.com/update/win32/1.4.4"
-      },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
-      "github_repository": {
-        "owner": "wasd171",
-        "name": "chatinder"
-      },
-      "windowsStoreConfig": {
-        "packageName": "",
-        "name": "chatinder"
-      }
-    }
-  },
-  "dependencies": {
-    "about-window": "^1.6.1",
-    "apollo-client": "^1.2.2",
-    "date-fns": "^1.28.4",
-    "electron-squirrel-startup": "^1.0.0",
-    "graphql": "^0.9.6",
-    "graphql-tag": "^2.0.0",
-    "graphql-tools": "^0.11.0",
-    "he": "^1.1.1",
-    "io-ts": "^0.5.0",
-    "io-ts-reporters": "0.0.12",
-    "is-reachable": "^2.3.2",
-    "lodash": "^4.17.4",
-    "nedb": "^1.8.0",
-    "node-fetch": "^1.6.3",
-    "raven": "^2.1.0",
-    "tinder-modern": "^2.0.0",
-    "tslib": "^1.7.1"
-  },
-  "devDependencies": {
-    "@types/emojione": "^2.2.1",
-    "@types/he": "^0.5.29",
-    "@types/history": "^4.6.0",
-    "@types/jquery": "^3.2.5",
-    "@types/lodash": "^4.14.67",
-    "@types/material-ui": "^0.17.13",
-    "@types/nedb": "^1.8.3",
-    "@types/node": "^8.0.5",
-    "@types/node-fetch": "^1.6.7",
-    "@types/raven": "^1.2.2",
-    "@types/react": "^15.0.33",
-    "@types/react-dom": "^15.5.1",
-    "@types/react-router-dom": "^4.0.5",
-    "@types/react-tap-event-plugin": "0.0.30",
-    "@types/react-virtualized": "^9.7.2",
-    "@types/simplebar": "^2.4.0",
-    "@types/uuid": "^3.0.0",
-    "awesome-typescript-loader": "^3.2.1",
-    "concurrently": "^3.5.0",
-    "copy-webpack-plugin": "^4.0.1",
-    "cross-env": "^4.0.0",
-    "css-loader": "^0.28.4",
-    "devtron": "^1.4.0",
-    "electron": "^1.6.11",
-    "electron-debug": "^1.1.0",
-    "electron-devtools-installer": "^2.2.0",
-    "emojione": "2.2.7",
-    "emojionearea": "^3.1.5",
-    "extract-text-webpack-plugin": "^2.1.2",
-    "file-loader": "^0.11.2",
-    "font-awesome": "^4.7.0",
-    "history": "^4.6.3",
-    "husky": "^0.13.3",
-    "jquery": "^3.2.1",
-    "lint-staged": "^3.4.1",
-    "material-ui": "^0.18.0",
-    "mobx": "^3.1.9",
-    "mobx-react": "^4.1.8",
-    "mobx-utils": "^2.0.1",
-    "prettier": "^1.4.2",
-    "raven-js": "^3.16.0",
-    "react": "^15.5.4",
-    "react-addons-perf": "^15.4.2",
-    "react-addons-shallow-compare": "^15.5.2",
-    "react-apollo": "^1.2.0",
-    "react-dom": "^15.5.4",
-    "react-image-gallery": "^0.7.16",
-    "react-router": "^4.1.1",
-    "react-router-dom": "^4.1.1",
-    "react-tap-event-plugin": "^2.0.1",
-    "react-virtualized": "^9.7.5",
-    "react-waypoint": "^6.0.0",
-    "redux": "^3.6.0",
-    "resolve-url-loader": "^2.1.0",
-    "rimraf": "^2.6.1",
-    "roboto-fontface": "^0.7.0",
-    "simplebar": "^2.4.1",
-    "skip-loader": "^1.0.0",
-    "source-map-loader": "^0.2.1",
-    "styled-components": "^1.4.6",
-    "typescript": "^2.4.1",
-    "uuid": "^3.0.1",
-    "webpack": "^3.0.0",
-    "webpack-merge": "^4.1.0",
-    "webpack-node-externals": "^1.6.0"
-  }
+	"name": "chatinder",
+	"productName": "Chatinder",
+	"version": "1.4.6",
+	"description": "Unofficial desktop messaging client for Tinder.",
+	"main": "dist/main.js",
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com/wasd171/chatinder.git"
+	},
+	"scripts": {
+		"build:main": "webpack --config=webpack/main.js",
+		"build:renderer": "webpack --config=webpack/renderer.js",
+		"build:main:dev": "cross-env NODE_ENV=development npm run build:main",
+		"build:renderer:dev": "cross-env NODE_ENV=development npm run build:renderer",
+		"build:prod": "rimraf dist && cross-env NODE_ENV=production npm run build:main && npm run build:renderer",
+		"build:dev": "concurrently \"npm run build:main:dev\" \"npm run build:renderer:dev\"",
+		"make": "electron-builder",
+		"precommit": "lint-staged",
+		"circle:clean": "rimraf node_modules",
+		"circle:artifacts": "cp ./out/make/* $CIRCLE_ARTIFACTS",
+		"postmerge": "npm install",
+		"test": "echo 'Someday there would be tests, I promise'",
+		"gql-to-ts": "apollo-codegen generate --schema src/main/ServerAPI/schema/typeDefs.js --output schema.ts"
+	},
+	"lint-staged": {
+		"src/**/*.{js,jsx}": ["eslint --fix", "git add"]
+	},
+	"bugs": "https://github.com/wasd171/chatinder/issues",
+	"homepage": "https://github.com/wasd171/chatinder",
+	"keywords": [],
+	"author": "wasd171",
+	"license": "MIT",
+	"config": {
+		"forge": {
+			"make_targets": {
+				"win32": ["squirrel"],
+				"darwin": ["dmg", "zip"],
+				"linux": ["deb", "rpm"]
+			},
+			"electronPackagerConfig": {
+				"asar": {
+					"unpackDir": "databases"
+				},
+				"icon": "./icons/icon",
+				"ignore": ["/databases/(.*)\\.db$"],
+				"appBundleId": "com.wasd171.chatinder",
+				"appCategoryType": "public.app-category.social-networking",
+				"osxSign": {},
+				"win32metadata": {
+					"ProductName": "Chatinder"
+				}
+			},
+			"electronWinstallerConfig": {
+				"iconUrl": "https://wasd171.github.io/chatinder/assets/icons/icon.ico",
+				"name": "chatinder",
+				"setupIcon": "./icons/icon.ico",
+				"remoteReleases": "https://chatinder.herokuapp.com/update/win32/1.4.4"
+			},
+			"electronInstallerDebian": {},
+			"electronInstallerRedhat": {},
+			"github_repository": {
+				"owner": "wasd171",
+				"name": "chatinder"
+			},
+			"windowsStoreConfig": {
+				"packageName": "",
+				"name": "chatinder"
+			}
+		}
+	},
+	"dependencies": {
+		"about-window": "^1.6.1",
+		"apollo-client": "^1.2.2",
+		"date-fns": "^1.28.4",
+		"electron-squirrel-startup": "^1.0.0",
+		"emojione": "2.2.7",
+		"graphql": "^0.9.6",
+		"graphql-tag": "^2.0.0",
+		"graphql-tools": "^0.11.0",
+		"he": "^1.1.1",
+		"io-ts": "^0.5.0",
+		"io-ts-reporters": "0.0.12",
+		"is-reachable": "^2.3.2",
+		"lodash": "^4.17.4",
+		"nedb": "^1.8.0",
+		"node-fetch": "^1.6.3",
+		"raven": "^2.1.0",
+		"tinder-modern": "^2.0.0",
+		"tslib": "^1.7.1"
+	},
+	"devDependencies": {
+		"@types/emojione": "^2.2.1",
+		"@types/he": "^0.5.29",
+		"@types/history": "^4.6.0",
+		"@types/jquery": "^3.2.5",
+		"@types/lodash": "^4.14.67",
+		"@types/material-ui": "^0.17.13",
+		"@types/nedb": "^1.8.3",
+		"@types/node": "^8.0.5",
+		"@types/node-fetch": "^1.6.7",
+		"@types/raven": "^1.2.2",
+		"@types/react": "^15.0.33",
+		"@types/react-dom": "^15.5.1",
+		"@types/react-router-dom": "^4.0.5",
+		"@types/react-tap-event-plugin": "0.0.30",
+		"@types/react-virtualized": "^9.7.2",
+		"@types/simplebar": "^2.4.0",
+		"@types/uuid": "^3.0.0",
+		"awesome-typescript-loader": "^3.2.1",
+		"babili-webpack-plugin": "^0.1.2",
+		"concurrently": "^3.5.0",
+		"copy-webpack-plugin": "^4.0.1",
+		"cross-env": "^4.0.0",
+		"css-loader": "^0.28.4",
+		"devtron": "^1.4.0",
+		"electron": "^1.6.11",
+		"electron-builder": "^19.8.0",
+		"electron-builder-squirrel-windows": "^19.11.0",
+		"electron-debug": "^1.1.0",
+		"electron-devtools-installer": "^2.2.0",
+		"emojionearea": "^3.1.5",
+		"extract-text-webpack-plugin": "^2.1.2",
+		"file-loader": "^0.11.2",
+		"font-awesome": "^4.7.0",
+		"history": "^4.6.3",
+		"husky": "^0.13.3",
+		"jquery": "^3.2.1",
+		"lint-staged": "^3.4.1",
+		"material-ui": "^0.18.0",
+		"mobx": "^3.1.9",
+		"mobx-react": "^4.1.8",
+		"mobx-utils": "^2.0.1",
+		"prettier": "^1.4.2",
+		"raven-js": "^3.16.0",
+		"react": "^15.5.4",
+		"react-addons-perf": "^15.4.2",
+		"react-addons-shallow-compare": "^15.5.2",
+		"react-apollo": "^1.2.0",
+		"react-dom": "^15.5.4",
+		"react-image-gallery": "^0.7.16",
+		"react-router": "^4.1.1",
+		"react-router-dom": "^4.1.1",
+		"react-tap-event-plugin": "^2.0.1",
+		"react-virtualized": "^9.7.5",
+		"react-waypoint": "^6.0.0",
+		"redux": "^3.6.0",
+		"resolve-url-loader": "^2.1.0",
+		"rimraf": "^2.6.1",
+		"roboto-fontface": "^0.7.0",
+		"simplebar": "^2.4.1",
+		"skip-loader": "^1.0.0",
+		"source-map-loader": "^0.2.1",
+		"styled-components": "^1.4.6",
+		"typescript": "^2.4.1",
+		"uuid": "^3.0.1",
+		"webpack": "^3.0.0",
+		"webpack-merge": "^4.1.0",
+		"webpack-node-externals": "^1.6.0"
+	}
 }
