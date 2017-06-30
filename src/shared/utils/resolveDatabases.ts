@@ -8,7 +8,12 @@ interface IOutput {
 }
 
 export function resolveDatabases(): IOutput {
-	const dbBase = join(resolveRoot(), 'databases')
+	let dbBase: string
+	if (process.env.NODE_ENV === 'development') {
+		dbBase = join(resolveRoot(), 'databases')
+	} else {
+		dbBase = join(resolveRoot(), '..', 'databases')
+	}
 
 	const extraFile = join(dbBase, 'extra.db')
 	const matchesFile = join(dbBase, 'matches.db')
