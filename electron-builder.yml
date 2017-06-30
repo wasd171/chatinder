@@ -1,4 +1,5 @@
 appId: com.wasd171.chatinder
+productName: Chatinder
 directories:
   buildResources: dist
   output: out

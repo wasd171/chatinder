@@ -20,5 +20,5 @@ install:
 build_script:
   - npm run publish
 after_build:
-  - ps: Get-ChildItem .\out -File -Recurse | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+  - ps: Get-ChildItem .\out -File | % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
 test: off

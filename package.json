@@ -18,7 +18,7 @@
 		"publish": "npm run build:prod && electron-builder",
 		"precommit": "lint-staged",
 		"circle:clean": "rm -rf node_modules",
-		"circle:artifacts": "cp ./out/make/* $CIRCLE_ARTIFACTS",
+		"circle:artifacts": "cp ./out/* $CIRCLE_ARTIFACTS",
 		"postmerge": "npm install",
 		"postinstall": "electron-builder install-app-deps",
 		"test": "echo 'Someday there would be tests, I promise'"
