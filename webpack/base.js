@@ -1,5 +1,5 @@
 const webpack = require('webpack')
-const { join } = require('path')
+const path = require('path')
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader')
 const BabiliPlugin = require('babili-webpack-plugin')
 
@@ -8,7 +8,7 @@ const isDev = NODE_ENV === 'development'
 
 module.exports = {
 	output: {
-		path: join(__dirname, '..', 'dist')
+		path: path.join(__dirname, '..', 'dist')
 	},
 
 	// Enable sourcemaps for debugging webpack's output.
@@ -34,7 +34,7 @@ module.exports = {
 				enforce: 'pre',
 				test: /\.js$/,
 				loader: 'source-map-loader',
-				exclude: [/node_modules\/apollo-client/]
+				exclude: [new RegExp(`node_modules\\${path.sep}apollo-client`)]
 			},
 
 			// Handle .graphql
