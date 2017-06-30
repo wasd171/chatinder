@@ -31,44 +31,6 @@
 	"keywords": [],
 	"author": "wasd171",
 	"license": "MIT",
-	"config": {
-		"forge": {
-			"make_targets": {
-				"win32": ["squirrel"],
-				"darwin": ["dmg", "zip"],
-				"linux": ["deb", "rpm"]
-			},
-			"electronPackagerConfig": {
-				"asar": {
-					"unpackDir": "databases"
-				},
-				"icon": "./icons/icon",
-				"ignore": ["/databases/(.*)\\.db$"],
-				"appBundleId": "com.wasd171.chatinder",
-				"appCategoryType": "public.app-category.social-networking",
-				"osxSign": {},
-				"win32metadata": {
-					"ProductName": "Chatinder"
-				}
-			},
-			"electronWinstallerConfig": {
-				"iconUrl": "https://wasd171.github.io/chatinder/assets/icons/icon.ico",
-				"name": "chatinder",
-				"setupIcon": "./icons/icon.ico",
-				"remoteReleases": "https://chatinder.herokuapp.com/update/win32/1.4.4"
-			},
-			"electronInstallerDebian": {},
-			"electronInstallerRedhat": {},
-			"github_repository": {
-				"owner": "wasd171",
-				"name": "chatinder"
-			},
-			"windowsStoreConfig": {
-				"packageName": "",
-				"name": "chatinder"
-			}
-		}
-	},
 	"dependencies": {
 		"about-window": "^1.6.1",
 		"apollo-client": "^1.2.2",
