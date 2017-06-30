@@ -1,0 +1,18 @@
+appId: com.wasd171.chatinder
+directories:
+  buildResources: dist
+  output: out
+files: 
+  - dist/**/*
+  - icons/icon.png
+mac:
+  category: public.app-category.social-networking
+  icon: ./icons/icon.icns
+win:
+  target:
+    - squirrel
+    - zip
+  icon: ./icons/icon.ico
+squirrelWindows:
+  iconUrl: https://wasd171.github.io/chatinder/assets/icons/icon.ico
+  remoteReleases: https://chatinder.herokuapp.com/update/win32/1.4.6
