@@ -14,4 +14,4 @@ win:
   icon: ./icons/icon.ico
 squirrelWindows:
   iconUrl: https://wasd171.github.io/chatinder/assets/icons/icon.ico
-  remoteReleases: https://chatinder.herokuapp.com/update/win32/1.4.6
+  remoteReleases: https://chatinder.herokuapp.com/update/win32/1.5.0
