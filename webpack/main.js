@@ -8,7 +8,11 @@ const main = {
 		filename: 'main.js'
 	},
 	target: 'electron',
-	externals: [nodeExternals()]
+	externals: [
+		nodeExternals({
+			whitelist: ['emojione']
+		})
+	]
 }
 
 module.exports = merge(base, main)
