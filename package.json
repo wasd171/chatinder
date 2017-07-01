@@ -36,7 +36,6 @@
 	"license": "MIT",
 	"dependencies": {
 		"about-window": "^1.6.1",
-		"apollo-client": "^1.2.2",
 		"date-fns": "^1.28.4",
 		"electron-squirrel-startup": "^1.0.0",
 		"graphql": "^0.9.6",
@@ -71,6 +70,7 @@
 		"@types/react-virtualized": "^9.7.2",
 		"@types/simplebar": "^2.4.0",
 		"@types/uuid": "^3.0.0",
+		"apollo-client": "^1.2.2",
 		"awesome-typescript-loader": "^3.2.1",
 		"babili-webpack-plugin": "^0.1.2",
 		"concurrently": "^3.5.0",
