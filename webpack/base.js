@@ -6,6 +6,14 @@ const BabiliPlugin = require('babili-webpack-plugin')
 const { NODE_ENV } = process.env
 const isDev = NODE_ENV === 'development'
 
+const commonPlugins = [
+	new webpack.DefinePlugin({
+		'process.env.NODE_ENV': JSON.stringify(NODE_ENV || 'production')
+	})
+]
+const productionPlugins = [new BabiliPlugin()]
+const plugins = isDev ? commonPlugins : [...productionPlugins, ...commonPlugins]
+
 module.exports = {
 	output: {
 		path: path.join(__dirname, '..', 'dist')
@@ -41,12 +49,7 @@ module.exports = {
 			{ test: /\.graphql$/, loader: 'graphql-tag/loader' }
 		]
 	},
-	plugins: [
-		!isDev ? new BabiliPlugin() : null,
-		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': JSON.stringify(NODE_ENV || 'production')
-		})
-	],
+	plugins: plugins,
 	watch: isDev,
 	watchOptions: {
 		ignored: /node_modules/
