@@ -10,6 +10,7 @@ dependencies:
     - ~/Library/Caches/electron
 compile:
   override:
+    - unset GH_TOKEN
     - npm run publish
   post:
     - npm run circle:artifacts
@@ -17,3 +18,4 @@ general:
   branches:
     only:
       - master
+      - release/v1.6.0
