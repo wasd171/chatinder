@@ -6,7 +6,6 @@ import { inject, observer } from 'mobx-react'
 import { Navigator } from '~/app/stores/Navigator'
 import { MuiTheme } from 'material-ui/styles'
 import { StateType } from '~/shared/definitions'
-import ProfileStub from './components/ProfileStub'
 
 const StyledContainer = styled.div`
 	display: flex;
@@ -42,20 +41,16 @@ class ProfileHeaderLeft extends React.Component {
 	}
 
 	render() {
-		if (this.injected.state.defaults === null) {
-			return <ProfileStub />
-		} else {
-			const { user } = this.injected.state.defaults
-			return (
-				<StyledContainer onClick={this.handleClick}>
-					<Avatar src={user.smallPhoto} size={34} />
-					<NameWrapper
-						theme={this.injected.muiTheme}
-						dangerouslySetInnerHTML={{ __html: user.formattedName }}
-					/>
-				</StyledContainer>
-			)
-		}
+		const { user } = this.injected.state.defaults!
+		return (
+			<StyledContainer onClick={this.handleClick}>
+				<Avatar src={user.smallPhoto} size={34} />
+				<NameWrapper
+					theme={this.injected.muiTheme}
+					dangerouslySetInnerHTML={{ __html: user.formattedName }}
+				/>
+			</StyledContainer>
+		)
 	}
 }
 
