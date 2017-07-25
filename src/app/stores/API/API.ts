@@ -148,15 +148,12 @@ export class API implements AbstractAPI {
 	}
 
 	public subscribeToUpdates = async (): Promise<IAPIGenericReturn> => {
-		console.log('subscribeToUpdates')
-
 		if (this.tinder.subscriptionInterval !== null) {
 			clearInterval(this.tinder.subscriptionInterval)
 			this.tinder.subscriptionInterval = null
 		}
 
 		let defaults = this.state.defaults || this.tinder.getDefaults()
-		console.log({ defaults })
 		if (defaults === null) {
 			while (defaults === null) {
 				await this.relogin()
@@ -255,10 +252,9 @@ export class API implements AbstractAPI {
 			newMessage.changeStatus(SUCCESS)
 			this.state.addMessageToSent(newMessage)
 		} catch (err) {
-			console.log(err)
 			newMessage.changeStatus(FAILURE)
 		}
-		console.log(newMessage.toJSON())
+
 		this.state.addMessageToPending(newMessage)
 	}
 

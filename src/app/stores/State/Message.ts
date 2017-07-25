@@ -28,7 +28,7 @@ export interface IMessage {
 	destroy(): void
 }
 
-export const Message = types.model(
+export const Message: any = types.model(
 	'Message',
 	{
 		_id: types.identifier(types.string),

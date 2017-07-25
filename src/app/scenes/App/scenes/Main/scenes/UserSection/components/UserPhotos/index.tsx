@@ -1,5 +1,5 @@
 import * as React from 'react'
-import ImageGallery from 'react-image-gallery'
+import ImageGallery, { Item, ClickHandler } from 'react-image-gallery'
 import styled from 'styled-components'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import { MuiTheme } from 'material-ui/styles'
@@ -10,21 +10,15 @@ const GalleryNav = styled.button`
 	}
 `
 
-type onClickHandlerType = React.MouseEventHandler<HTMLButtonElement>
-
 interface IrenderGenericNavArgs {
 	className: string
 	disabled: boolean
-	onClick: onClickHandlerType
-}
-
-interface IImageGalleryItem {
-	original: string
+	onClick: ClickHandler
 }
 
 export interface IUserPhotosProps {
 	muiTheme?: MuiTheme
-	photos: Array<IImageGalleryItem>
+	photos: Item[]
 }
 
 @muiThemeable()
@@ -44,7 +38,7 @@ class UserPhotos extends React.Component<IUserPhotosProps> {
 		)
 	}
 
-	renderLeftNav = (onClick: onClickHandlerType, disabled: boolean) => {
+	renderLeftNav = (onClick: ClickHandler, disabled: boolean) => {
 		return this.renderGenericNav({
 			onClick,
 			disabled,
@@ -52,7 +46,7 @@ class UserPhotos extends React.Component<IUserPhotosProps> {
 		})
 	}
 
-	renderRightNav = (onClick: onClickHandlerType, disabled: boolean) => {
+	renderRightNav = (onClick: ClickHandler, disabled: boolean) => {
 		return this.renderGenericNav({
 			onClick,
 			disabled,

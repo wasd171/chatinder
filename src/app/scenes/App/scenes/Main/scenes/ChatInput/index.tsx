@@ -9,13 +9,6 @@ import styled from 'styled-components'
 import { trim } from 'lodash'
 import { AbstractAPI } from '~/shared/definitions'
 import { MuiTheme } from 'material-ui/styles'
-// import { graphql } from 'react-apollo'
-// import * as sendMessageInfo from './query.graphql'
-// import * as sendMessageMutation from './mutation.graphql'
-// import { normalizeMessagePair } from '~/shared/utils'
-// import { PENDING, PSEUDO } from '~/shared/constants'
-// import * as uuid from 'uuid'
-// import { Message } from '~/main/ServerAPI/schema/resolvers/instances'
 
 const padding = 10
 
@@ -39,59 +32,6 @@ const MiddleWrapper = styled.div`
 	width: 100%;
 `
 
-// const mutationOptions = {
-// 	props: ({ ownProps, mutate }) => ({
-// 		submit: ({ message, messageId }) => {
-// 			const input = {
-// 				_id: messageId,
-// 				from: ownProps.data.profile.user._id,
-// 				sent_date: new Date().toISOString(),
-// 				message,
-// 				status: PENDING
-// 			}
-
-// 			let optimisticMessage
-// 			const lastMessage = ownProps.data.match.lastMessage
-// 			if (lastMessage.status === PSEUDO) {
-// 				optimisticMessage = normalizeMessagePair(input)
-// 			} else {
-// 				optimisticMessage = normalizeMessagePair(input, lastMessage)
-// 			}
-// 			optimisticMessage.sentDate = Message.sentDate(optimisticMessage)
-
-// 			return mutate({
-// 				variables: {
-// 					id: ownProps.id,
-// 					rawMessage: input
-// 				},
-// 				optimisticResponse: {
-// 					__typename: 'Mutation',
-// 					sendMessage: {
-// 						__typename: 'Message',
-// 						...optimisticMessage
-// 					}
-// 				},
-// 				update: (proxy, { data }) => {
-// 					const cacheData = proxy.readQuery({
-// 						query: sendMessageInfo,
-// 						variables: { id: ownProps.id }
-// 					})
-
-// 					cacheData.match.lastMessage = data.sendMessage
-// 					cacheData.match.messages.push(data.sendMessage)
-// 					cacheData.match.lastActivityDate = data.sendMessage.sentDate
-
-// 					proxy.writeQuery({
-// 						query: sendMessageInfo,
-// 						data: cacheData,
-// 						variables: { id: ownProps.id }
-// 					})
-// 				}
-// 			})
-// 		}
-// 	})
-// }
-
 interface IChatInputProps {
 	id: string
 }
@@ -101,8 +41,6 @@ interface IInjectedProps extends IChatInputProps {
 	muiTheme: MuiTheme
 }
 
-// @graphql(sendMessageInfo)
-// @graphql(sendMessageMutation, mutationOptions)
 @inject('api')
 @muiThemeable()
 @observer
@@ -153,10 +91,8 @@ class ChatInput extends React.Component<IChatInputProps> {
 			<OuterWrapper theme={this.injected.muiTheme}>
 				<MiddleWrapper>
 					<TextField
-						fullWidth={true}
 						value={this.value}
 						hintText="Message"
-						multiLine={true}
 						onChange={this.handleChange}
 						hasValue={this.hasValue}
 						onSubmit={this.handleSubmit}

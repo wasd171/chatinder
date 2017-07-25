@@ -1,5 +1,4 @@
 import * as React from 'react'
-import muiThemeable from 'material-ui/styles/muiThemeable'
 import FlatButton from 'material-ui/FlatButton'
 
 const buttonStyle = {
@@ -24,4 +23,4 @@ function SendButton({ disabled, onClick }: ISendButtonProps) {
 	)
 }
 
-export default muiThemeable()(SendButton)
+export default SendButton

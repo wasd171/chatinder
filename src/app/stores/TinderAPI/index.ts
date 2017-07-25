@@ -1,1 +1,1 @@
-export { TinderAPI, TinderAPISavedType } from './TinderAPI'
+export { TinderAPI } from './TinderAPI'

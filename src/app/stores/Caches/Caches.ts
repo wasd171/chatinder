@@ -41,7 +41,7 @@ export class Caches {
 	}
 
 	@action
-	setGifStatus = (key: string, status) => {
+	setGifStatus = (key: string, status: string) => {
 		this._gifs.set(key, status)
 	}
 }

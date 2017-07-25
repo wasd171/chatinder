@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react'
 import {
 	CellMeasurer,
 	List,
+	ListProps,
 	CellMeasurerCache,
 	OnScrollParams,
 	ListRowProps
@@ -16,7 +17,7 @@ import { StateType, MessageType } from '~/shared/definitions'
 import SimpleBarRV, { IMergedProps } from '~/app/components/SimpleBarRV'
 import { getSnapshot } from 'mobx-state-tree'
 
-const MessagesList = styled(List)`
+const MessagesList = styled<ListProps>(List as any)`
 	overflow-anchor: auto;
 	&::-webkit-scrollbar {
 		display: none
@@ -112,7 +113,7 @@ class MessagesFeed extends React.Component<IMessagesFeedProps> {
 	}
 
 	rowRenderer = ({ cache, index, parent, style }: RendererProps) => {
-		const message: MessageType = this.match.messages[index]
+		const message = this.match.messages[index] as MessageType
 		const me = !(message.from === this.match.person._id)
 		const user = me ? this.injected.state.defaults!.user : this.match.person
 

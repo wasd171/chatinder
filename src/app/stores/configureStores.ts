@@ -31,7 +31,6 @@ export async function configureStores(client: ApolloClient) {
 	const state = State.create(snapshot, { notifier })
 	state.markAllPendingAsFailed()
 	onSnapshot(state, snapshot => {
-		console.log('saved')
 		storage.save(MST_SNAPSHOT, snapshot)
 	})
 

@@ -1,18 +1,33 @@
 const webpack = require('webpack')
 const path = require('path')
-const { TsConfigPathsPlugin } = require('awesome-typescript-loader')
+// const { TsConfigPathsPlugin } = require('awesome-typescript-loader')
 const BabiliPlugin = require('babili-webpack-plugin')
-
-const { NODE_ENV } = process.env
-const isDev = NODE_ENV === 'development'
+const isDev = require('./isDev')
+const HappyPack = require('happypack')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
 const commonPlugins = [
 	new webpack.DefinePlugin({
-		'process.env.NODE_ENV': JSON.stringify(NODE_ENV || 'production')
+		'process.env.NODE_ENV': JSON.stringify(
+			process.env.NODE_ENV || 'production'
+		)
+	}),
+	new HappyPack({
+		id: 'ts',
+		threads: 2,
+		loaders: [
+			{
+				path: 'ts-loader',
+				query: { happyPackMode: true }
+			}
+		]
 	})
 ]
+const devPlugins = [new ForkTsCheckerWebpackPlugin()]
 const productionPlugins = [new BabiliPlugin()]
-const plugins = isDev ? commonPlugins : [...productionPlugins, ...commonPlugins]
+const plugins = isDev
+	? [...commonPlugins, ...devPlugins]
+	: [...productionPlugins, ...commonPlugins]
 
 module.exports = {
 	output: {
@@ -20,12 +35,15 @@ module.exports = {
 	},
 
 	// Enable sourcemaps for debugging webpack's output.
-	devtool: 'source-map',
+	devtool: isDev ? 'source-map' : undefined,
 
 	resolve: {
 		// Add '.ts' and '.tsx' as resolvable extensions.
 		extensions: ['.ts', '.tsx', '.js', '.json'],
-		plugins: [new TsConfigPathsPlugin()]
+		// plugins: [new TsConfigPathsPlugin()]
+		alias: {
+			'~': path.resolve(__dirname, '..', 'src')
+		}
 	},
 
 	module: {
@@ -33,8 +51,8 @@ module.exports = {
 			// All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
 			{
 				test: /\.tsx?$/,
-				loader: 'awesome-typescript-loader',
-				options: { transpileOnly: true }
+				loader: 'happypack/loader?id=ts',
+				exclude: /node_modules/
 			},
 
 			// All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
@@ -42,7 +60,11 @@ module.exports = {
 				enforce: 'pre',
 				test: /\.js$/,
 				loader: 'source-map-loader',
-				exclude: [new RegExp(`node_modules\\${path.sep}apollo-client`)]
+				exclude: [
+					new RegExp(`node_modules\\${path.sep}apollo-client`),
+					new RegExp(`node_modules\\${path.sep}graphql-tools`),
+					new RegExp(`node_modules\\${path.sep}deprecated-decorator`)
+				]
 			},
 
 			// Handle .graphql
