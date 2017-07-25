@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
-const { TsConfigPathsPlugin } = require('awesome-typescript-loader')
+// const { TsConfigPathsPlugin } = require('awesome-typescript-loader')
 const BabiliPlugin = require('babili-webpack-plugin')
 const isDev = require('./isDev')
 const HappyPack = require('happypack')
@@ -35,12 +35,15 @@ module.exports = {
 	},
 
 	// Enable sourcemaps for debugging webpack's output.
-	// devtool: isDev ? 'cheap-module-eval-source-map' : undefined,
+	devtool: isDev ? 'source-map' : undefined,
 
 	resolve: {
 		// Add '.ts' and '.tsx' as resolvable extensions.
 		extensions: ['.ts', '.tsx', '.js', '.json'],
-		plugins: [new TsConfigPathsPlugin()]
+		// plugins: [new TsConfigPathsPlugin()]
+		alias: {
+			'~': path.resolve(__dirname, '..', 'src')
+		}
 	},
 
 	module: {
