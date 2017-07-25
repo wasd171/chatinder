@@ -11,7 +11,7 @@ const commonPlugins = [
 		context: '.',
 		manifest: require(path.join(base.output.path, 'shared-manifest.json')),
 		sourceType: 'commonjs2',
-		name: path.join(base.output.path, 'shared.js')
+		name: './shared.js'
 	})
 ]
 
