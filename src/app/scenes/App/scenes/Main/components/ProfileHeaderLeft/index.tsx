@@ -2,10 +2,11 @@ import * as React from 'react'
 import Avatar from '~/app/components/Avatar'
 import styled from 'styled-components'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import { inject } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import { Navigator } from '~/app/stores/Navigator'
 import { MuiTheme } from 'material-ui/styles'
 import { StateType } from '~/shared/definitions'
+import ProfileStub from './components/ProfileStub'
 
 const StyledContainer = styled.div`
 	display: flex;
@@ -30,6 +31,7 @@ export interface IInjectedProps {
 
 @inject('navigator', 'state')
 @muiThemeable()
+@observer
 class ProfileHeaderLeft extends React.Component {
 	get injected() {
 		return this.props as IInjectedProps
@@ -39,32 +41,21 @@ class ProfileHeaderLeft extends React.Component {
 		this.injected.navigator.goToProfile()
 	}
 
-	renderLoading() {
-		return 'Loading...'
-	}
-
-	renderContent(injected: IInjectedProps) {
-		const { user } = injected.state.defaults!
-		// const { formattedName, smallPhoto } = injected.data!.profile.user
-		return [
-			<Avatar src={user.smallPhoto} size={34} key="avatar" />,
-			<NameWrapper
-				theme={injected.muiTheme}
-				key="name"
-				dangerouslySetInnerHTML={{ __html: user.formattedName }}
-			/>
-		]
-	}
-
 	render() {
-		return (
-			<StyledContainer onClick={this.handleClick}>
-				{this.renderContent(this.injected)}
-				{/* {this.props.data!.loading
-					? this.renderLoading()
-					: this.renderContent(this.injected)} */}
-			</StyledContainer>
-		)
+		if (this.injected.state.defaults === null) {
+			return <ProfileStub />
+		} else {
+			const { user } = this.injected.state.defaults
+			return (
+				<StyledContainer onClick={this.handleClick}>
+					<Avatar src={user.smallPhoto} size={34} />
+					<NameWrapper
+						theme={this.injected.muiTheme}
+						dangerouslySetInnerHTML={{ __html: user.formattedName }}
+					/>
+				</StyledContainer>
+			)
+		}
 	}
 }
 
