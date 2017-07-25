@@ -1,0 +1,6 @@
+query getFB {
+	fb {
+		id
+		token
+	}
+}
