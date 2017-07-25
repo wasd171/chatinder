@@ -7,6 +7,7 @@ import * as profileQuery from './query.graphql'
 import { inject } from 'mobx-react'
 import { Navigator } from '~/app/stores/Navigator'
 import { MuiTheme } from 'material-ui/styles'
+import { StateType } from '~/shared/definitions'
 
 const StyledContainer = styled.div`
 	display: flex;
@@ -33,47 +34,48 @@ export interface IGQLRes {
 	}
 }
 
-export interface IProfileHeaderLeftProps {
-	navigator?: Navigator
-	muiTheme?: MuiTheme
+export type ProfileHeaderLeftPropsType = DefaultChildProps<{}, IGQLRes>
+export interface IInjectedProps extends ProfileHeaderLeftPropsType {
+	navigator: Navigator
+	muiTheme: MuiTheme
+	state: StateType
 }
 
-export type ProfileHeaderLeftPropsType = DefaultChildProps<
-	IProfileHeaderLeftProps,
-	IGQLRes
->
-
-@inject('navigator')
+@inject('navigator', 'state')
 @muiThemeable()
-@graphql(profileQuery)
-class ProfileHeaderLeft extends React.Component<ProfileHeaderLeftPropsType> {
+class ProfileHeaderLeft extends React.Component {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	handleClick = () => {
-		this.props.navigator!.goToProfile()
+		this.injected.navigator.goToProfile()
 	}
 
 	renderLoading() {
 		return 'Loading...'
 	}
 
-	renderContent(props: ProfileHeaderLeftPropsType) {
-		const { formattedName, smallPhoto } = props.data!.profile.user
+	renderContent(injected: IInjectedProps) {
+		const { user } = injected.state.defaults!
+		// const { formattedName, smallPhoto } = injected.data!.profile.user
 		return [
-			<Avatar src={smallPhoto} size={34} key="avatar" />,
+			<Avatar src={user.smallPhoto} size={34} key="avatar" />,
 			<NameWrapper
-				theme={props.muiTheme}
+				theme={injected.muiTheme}
 				key="name"
-				dangerouslySetInnerHTML={{ __html: formattedName }}
+				dangerouslySetInnerHTML={{ __html: user.formattedName }}
 			/>
 		]
 	}
 
 	render() {
-		console.log(this.props)
 		return (
 			<StyledContainer onClick={this.handleClick}>
-				{this.props.data!.loading
+				{this.renderContent(this.injected)}
+				{/* {this.props.data!.loading
 					? this.renderLoading()
-					: this.renderContent(this.props)}
+					: this.renderContent(this.injected)} */}
 			</StyledContainer>
 		)
 	}

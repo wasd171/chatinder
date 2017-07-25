@@ -33,8 +33,6 @@ const NameWrapper = styled.span`
 `
 
 export interface IFirstMessageProps {
-	muiTheme?: MuiTheme
-	navigator?: Navigator
 	me?: Object
 	matchId: string
 	user: {
@@ -43,26 +41,38 @@ export interface IFirstMessageProps {
 	}
 }
 
+interface IInjectedProps extends IFirstMessageProps {
+	muiTheme: MuiTheme
+	navigator: Navigator
+}
+
 @inject('navigator')
 @muiThemeable()
 class FirstMessage extends React.Component<IFirstMessageProps> {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	handleClick = () => {
 		if (!this.props.me) {
-			this.props.navigator!.goToUser(this.props.matchId)
+			this.injected.navigator.goToUser(this.props.matchId)
 		} else {
-			this.props.navigator!.goToProfile()
+			this.injected.navigator.goToProfile()
 		}
 	}
 
 	render() {
-		const { muiTheme, children, user } = this.props
+		const { children, user } = this.props
 
 		return (
 			<OuterWrapper>
 				<AvatarWrapper onClick={this.handleClick}>
 					<Avatar size={38} src={user.smallPhoto} />
 				</AvatarWrapper>
-				<NameWrapper theme={muiTheme} onClick={this.handleClick}>
+				<NameWrapper
+					theme={this.injected.muiTheme}
+					onClick={this.handleClick}
+				>
 					{user.name}
 				</NameWrapper>
 				{children}

@@ -5,6 +5,7 @@ import GIFMessage from './components/GIFMessage'
 import StatusIndicator from './components/StatusIndicator'
 import styled from 'styled-components'
 import { MuiTheme } from 'material-ui/styles'
+import { observer } from 'mobx-react'
 
 interface IMessageWrapperProps {
 	first: boolean
@@ -37,37 +38,46 @@ const Timestamp = styled.span`
 `
 
 export interface IMessageProps {
-	muiTheme?: MuiTheme
-	first: boolean
-	sentTime: string
-	formattedMessage: string
-	status: string
-	isGIPHY: boolean
+	message: {
+		first: boolean
+		sentTime: string
+		formattedMessage: string
+		status: string
+		isGIPHY: boolean
+	}
 	resend: React.EventHandler<React.MouseEvent<any>>
 }
 
+interface IInjectedProps extends IMessageProps {
+	muiTheme: MuiTheme
+}
+
 @muiThemeable()
+@observer
 class Message extends React.Component<IMessageProps> {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	render() {
 		const {
-			muiTheme,
 			first,
 			sentTime,
 			formattedMessage,
 			status,
-			isGIPHY,
-			resend
-		} = this.props
+			isGIPHY
+		} = this.props.message
+
 		const AppropriateWrapper = isGIPHY ? GIFMessage : TextMessage
 		return (
-			<MessageWrapper theme={muiTheme} first={first}>
+			<MessageWrapper theme={this.injected.muiTheme} first={first}>
 				<StatusIndicator
 					status={status}
 					first={first}
-					resend={resend}
+					resend={this.props.resend}
 				/>
 				<AppropriateWrapper formattedMessage={formattedMessage} />
-				<Timestamp theme={muiTheme} first={first}>
+				<Timestamp theme={this.injected.muiTheme} first={first}>
 					{sentTime}
 				</Timestamp>
 			</MessageWrapper>

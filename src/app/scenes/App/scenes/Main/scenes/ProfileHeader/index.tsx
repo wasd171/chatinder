@@ -9,16 +9,20 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close'
 import { Navigator } from '~/app/stores/Navigator'
 import { MuiTheme } from 'material-ui/styles'
 
-export interface IProfileHeaderProps {
-	navigator?: Navigator
+export interface IInjectedProps {
+	navigator: Navigator
 	muiTheme: MuiTheme
 }
 
 @inject('navigator')
 @muiThemeable()
-class ProfileHeader extends React.Component<IProfileHeaderProps> {
+class ProfileHeader extends React.Component {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	handleClose = () => {
-		this.props.navigator!.goToMatches()
+		this.injected.navigator.goToMatches()
 	}
 
 	handleKeydown = (event: KeyboardEvent) => {
@@ -39,12 +43,12 @@ class ProfileHeader extends React.Component<IProfileHeaderProps> {
 		return (
 			<GenericHeader>
 				<GenericIconWrapper />
-				<GenericNameSpan theme={this.props.muiTheme}>
+				<GenericNameSpan theme={this.injected.muiTheme}>
 					It is you!
 				</GenericNameSpan>
 				<GenericIconWrapper activated onClick={this.handleClose}>
 					<NavigationClose
-						color={this.props.muiTheme!.palette!.primary1Color}
+						color={this.injected.muiTheme.palette!.primary1Color}
 					/>
 				</GenericIconWrapper>
 			</GenericHeader>
