@@ -1,5 +1,4 @@
 import { success } from '~/shared/constants'
-import { fromCallback } from '~/shared/utils'
 import { AbstractServerAPI } from '~/shared/definitions'
 import { app } from 'electron'
 
