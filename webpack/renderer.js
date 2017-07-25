@@ -1,7 +1,46 @@
+const webpack = require('webpack')
+const path = require('path')
 const base = require('./base')
 const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const { StatsWriterPlugin } = require('webpack-stats-plugin')
+const isDev = require('./isDev')
+
+const commonPlugins = [
+	new webpack.DllReferencePlugin({
+		context: '.',
+		manifest: require(path.join(base.output.path, 'shared-manifest.json')),
+		sourceType: 'commonjs2',
+		name: path.join(base.output.path, 'shared.js')
+	}),
+	new webpack.DllReferencePlugin({
+		context: '.',
+		manifest: require(path.join(base.output.path, 'vendor-manifest.json')),
+		sourceType: 'commonjs2',
+		name: path.join(base.output.path, 'vendor.js')
+	}),
+	new ExtractTextPlugin('styles.css'),
+	new CopyWebpackPlugin([
+		{
+			from: 'src/index.html',
+			to: 'index.html'
+		},
+		{
+			from: 'node_modules/emojione/assets/png',
+			to: 'emoji'
+		}
+	])
+]
+const plugins = isDev
+	? [
+			...commonPlugins,
+			new StatsWriterPlugin({
+				filename: 'stats-renderer.json',
+				fields: null
+			})
+		]
+	: commonPlugins
 
 const renderer = {
 	entry: './src/client.ts',
@@ -30,19 +69,7 @@ const renderer = {
 			}
 		]
 	},
-	plugins: [
-		new ExtractTextPlugin('styles.css'),
-		new CopyWebpackPlugin([
-			{
-				from: 'src/index.html',
-				to: 'index.html'
-			},
-			{
-				from: 'node_modules/emojione/assets/png',
-				to: 'emoji'
-			}
-		])
-	]
+	plugins
 }
 
 module.exports = merge(base, renderer)
