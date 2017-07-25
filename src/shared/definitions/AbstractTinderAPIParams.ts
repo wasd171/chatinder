@@ -1,4 +1,6 @@
+import { AbstractStorage } from '.'
+
 export abstract class AbstractTinderAPIParams {
 	lastActivityDate: Date
-	db: Nedb
+	storage: AbstractStorage
 }

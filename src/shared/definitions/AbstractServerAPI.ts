@@ -9,7 +9,7 @@ export abstract class AbstractServerAPI extends AbstractServerAPIParams {
 	abstract start: () => Promise<void>
 	abstract callGraphQL: (payload: PrintedRequest) => Promise<ExecutionResult>
 	abstract processRequest: (
-		event: Electron.IpcMainEvent,
+		event: Electron.Event,
 		args: IGraphQLElectronMessage
 	) => Promise<void>
 }

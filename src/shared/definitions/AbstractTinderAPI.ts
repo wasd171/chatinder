@@ -1,37 +1,30 @@
 import {
-	AbstractTinderAPIParams,
-	TinderDefaultsType,
-	TinderPersonType,
-	ITinderProfile,
-	TinderSendMessageType,
-	TinderHistoryType
+	AbstractTinderAPIParams
+	// TinderDefaultsType,
+	// TinderPersonType,
+	// ITinderProfile,
+	// TinderSendMessageType,
+	// TinderHistoryType
 } from '.'
 import TinderClient from 'tinder-modern'
 
 export abstract class AbstractTinderAPI extends AbstractTinderAPIParams {
 	client: TinderClient
-	subscriptionInterval: NodeJS.Timer | null
+	subscriptionInterval: number | null
 	subscriptionPromise: Promise<any> | null
 	authPromise: Promise<true> | null
 	authPromiseExternalResolve: ((arg: true) => void) | null
 
 	abstract resetClient(): void
-	abstract setLastActivityTimestamp({
-		lastActivityDate
-	}: {
-		lastActivityDate: Date
-	}): Promise<any>
+	abstract setLastActivityTimestamp(lastActivityDate: Date): Promise<any>
 	abstract isAuthorized: () => Promise<boolean>
-	abstract getDefaults: () => TinderDefaultsType
-	abstract getPerson: (id: string) => Promise<TinderPersonType>
-	abstract getProfile: () => Promise<ITinderProfile>
-	abstract sendMessage: (
-		id: string,
-		message: string
-	) => Promise<TinderSendMessageType>
+	abstract getDefaults: () => any
+	abstract getPerson: (id: string) => Promise<any>
+	abstract getProfile: () => Promise<any>
+	abstract sendMessage: (id: string, message: string) => Promise<any>
 	abstract authorize: (
 		{ fbToken, fbId }: { fbToken: string; fbId: string }
 	) => Promise<void>
-	abstract getHistory: () => Promise<TinderHistoryType>
-	abstract getUpdates: () => Promise<TinderHistoryType>
+	abstract getHistory: () => Promise<any>
+	abstract getUpdates: () => Promise<any>
 }

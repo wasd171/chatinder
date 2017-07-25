@@ -1,9 +1,9 @@
 import {
 	AbstractAppManager,
-	AbstractFB,
-	AbstractRefetcher,
-	AbstractNotifierServer,
-	AbstractTinderAPI
+	AbstractFB
+	// AbstractRefetcher,
+	// AbstractNotifierServer,
+	// AbstractTinderAPI
 } from '.'
 import { GraphQLSchema } from 'graphql'
 
@@ -17,7 +17,7 @@ export abstract class AbstractServerAPIParams {
 
 	app: AbstractAppManager
 	fb: AbstractFB
-	tinder: AbstractTinderAPI
-	refetcher: AbstractRefetcher
-	notifierServer: AbstractNotifierServer
+	// tinder: AbstractTinderAPI
+	// refetcher: AbstractRefetcher
+	// notifierServer: AbstractNotifierServer
 }
