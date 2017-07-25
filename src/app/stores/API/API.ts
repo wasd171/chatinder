@@ -153,18 +153,16 @@ export class API implements AbstractAPI {
 			this.tinder.subscriptionInterval = null
 		}
 
-		let defaults = this.state.defaults || this.tinder.getDefaults()
-		if (defaults === null) {
-			while (defaults === null) {
+		if (this.state.defaults === null) {
+			while (this.tinder.getDefaults() === null) {
 				await this.relogin()
-				defaults = this.tinder.getDefaults()
 			}
-			// defaults.user = normalizePerson(defaults.user)
-			this.state.setDefaults(defaults)
+			this.state.setDefaults(this.tinder.getDefaults())
 		}
+		const { defaults } = this.state
 
-		const interval = defaults.globals.updates_interval
-		this.tinder.subscriptionInterval = setInterval(
+		const interval = defaults!.globals.updates_interval
+		this.tinder.subscriptionInterval = window.setInterval(
 			() => this.getUpdates(),
 			interval
 		)
