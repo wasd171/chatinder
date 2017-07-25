@@ -1,6 +1,6 @@
 node_modules
 out
-databases/*.db
+databases/*
 *.log
 docs/_site
 dist
