@@ -32,8 +32,8 @@ export interface ITextContainerProps {
 	theme: MuiTheme
 }
 const TextContainer = styled.div`
-	marginLeft: ${paddingNum}px;
-	paddingRight: ${paddingNum}px;
+	margin-left: ${paddingNum}px;
+	padding-right: ${paddingNum}px;
 	width: 100%;
 	overflow: hidden;
 	height: 100%;
