@@ -15,7 +15,7 @@ export interface IArgumments {
 export type ResolveType = (res: ExecutionResult) => any
 
 export class ElectronInterface implements NetworkInterface {
-	ipc
+	ipc: Electron.IpcRenderer
 	listeners = new Map<string, ResolveType>()
 
 	constructor(ipc = ipcRenderer) {
@@ -23,7 +23,7 @@ export class ElectronInterface implements NetworkInterface {
 		this.ipc.on(GRAPHQL, this.listener)
 	}
 
-	listener = (event, args: IArgumments) => {
+	listener = (_event: Electron.Event, args: IArgumments) => {
 		const { id, payload } = args
 		if (!id) {
 			throw new Error('Listener ID is not present!')

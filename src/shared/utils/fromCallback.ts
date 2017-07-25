@@ -1,7 +1,5 @@
-export type IfromCallbackInnerCallback = (
-	err: Error | undefined | null,
-	result?: any
-) => any
+type ErrorType = Error | undefined | null
+export type IfromCallbackInnerCallback = (err: ErrorType, result?: any) => any
 export type IfromCallbackParams = (done: IfromCallbackInnerCallback) => any
 
 export function fromCallback(func: IfromCallbackParams) {

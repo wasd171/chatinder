@@ -1,6 +1,0 @@
-fragment lastMessageMatchFields on Message {
-    formattedMessage
-    status
-    sentDay
-    _id
-}

@@ -10,7 +10,7 @@ export default function logoutFactory(instance: AbstractAppManager) {
 			)
 
 			await fromCallback(callback =>
-				session.clearStorageData({}, callback)
+				session.clearStorageData(undefined, callback)
 			)
 
 			instance._window.destroy()

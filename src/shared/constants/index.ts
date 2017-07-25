@@ -26,3 +26,5 @@ export const success = {
 
 export const NOTIFICATION = 'NOTIFICATION'
 export const KEYCODE_ESC = 27
+
+export const MST_SNAPSHOT = 'MST_SNAPSHOT'

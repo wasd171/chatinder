@@ -2,17 +2,19 @@ import * as React from 'react'
 import UserPhotos from '../UserSection/components/UserPhotos'
 import UserTitle from '../UserSection/components/UserTitle'
 import UserBio from '../UserSection/components/UserBio'
-import { graphql } from 'react-apollo'
+// import { graphql } from 'react-apollo'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
 import SimpleBarWrapper from '~/app/components/SimpleBarWrapper'
 import { observable, action } from 'mobx'
-import { observer } from 'mobx-react'
-import * as query from './query.graphql'
-import * as mutation from './mutation.graphql'
-import * as logoutMutation from './logoutMutation.graphql'
-import LoadingStub from '~/app/components/LoadingStub'
+import { inject, observer } from 'mobx-react'
+// import * as query from './query.graphql'
+// import * as mutation from './mutation.graphql'
+// import * as logoutMutation from './logoutMutation.graphql'
+// import LoadingStub from '~/app/components/LoadingStub'
 import { RaisedButton } from 'material-ui'
+import { AbstractAPI, StateType } from '~/shared/definitions'
+import { MuiTheme } from 'material-ui/styles'
 
 const ProfileInfoContainer = styled.div`
 	display: flex;
@@ -35,17 +37,26 @@ const Line = styled.hr`
 	background-color: ${props => props.theme.palette.borderColor};
 `
 
-@graphql(query)
-@graphql(mutation, { name: 'update' })
-@graphql(logoutMutation, { name: 'logout' })
+interface IInjectedProps {
+	api: AbstractAPI
+	muiTheme: MuiTheme
+	state: StateType
+}
+
+@inject('api', 'state')
 @muiThemeable()
 @observer
 class ProfileSection extends React.Component {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	shouldRequestUpdates = false
 	@observable isUpdatePending = true
 
 	get person() {
-		return this.props.data.profile.user
+		return this.injected.state.defaults!.user
+		// return this.props.data.profile.user
 	}
 
 	renderPhotos = () => {
@@ -53,14 +64,14 @@ class ProfileSection extends React.Component {
 	}
 
 	renderTitle = () => {
-		const { muiTheme } = this.props
+		const { muiTheme } = this.injected
 
 		return [
 			<Line theme={muiTheme} key="title-line" />,
 			<UserTitle
 				isSuperLike={false}
 				formattedName={this.person.formattedName}
-				birthDate={this.person.birthDate}
+				birthDate={this.person.birth_date}
 				isUpdatePending={this.isUpdatePending}
 				schools={this.person.schools}
 				distanceKm={this.person.distanceKm}
@@ -71,21 +82,24 @@ class ProfileSection extends React.Component {
 	}
 
 	renderBio = () => {
-		if (this.person.formattedBio === '') {
+		if (
+			this.person.formattedBio === '' ||
+			this.person.formattedBio === null
+		) {
 			return null
+		} else {
+			return [
+				<Line theme={this.injected.muiTheme} key="bio-line" />,
+				<UserBio formattedBio={this.person.formattedBio} key="bio" />
+			]
 		}
-
-		return [
-			<Line theme={this.props.muiTheme} key="bio-line" />,
-			<UserBio formattedBio={this.person.formattedBio} key="bio" />
-		]
 	}
 
 	renderLogout = () => {
 		return [
-			<Line theme={this.props.muiTheme} key="logout-line" />,
+			<Line theme={this.injected.muiTheme} key="logout-line" />,
 			<RaisedButton
-				onClick={this.props.logout}
+				onClick={this.injected.api.logout}
 				label="log out"
 				primary={true}
 				key="logout"
@@ -93,20 +107,13 @@ class ProfileSection extends React.Component {
 		]
 	}
 
-	renderContent = () => {
-		const { data } = this.props
-		if (data.loading) {
-			return <LoadingStub size={40} />
-		}
-		return (
-			<ProfileInfoContainer>
-				{this.renderPhotos()}
-				{this.renderTitle()}
-				{this.renderBio()}
-				{this.renderLogout()}
-			</ProfileInfoContainer>
-		)
-	}
+	renderContent = () =>
+		<ProfileInfoContainer>
+			{this.renderPhotos()}
+			{this.renderTitle()}
+			{this.renderBio()}
+			{this.renderLogout()}
+		</ProfileInfoContainer>
 
 	render() {
 		return (
@@ -117,31 +124,29 @@ class ProfileSection extends React.Component {
 	}
 
 	@action
-	setUpdateStatus = status => {
+	setUpdateStatus = (status: boolean) => {
 		this.isUpdatePending = status
 	}
 
-	requestUpdates = () => {
-		return this.props.update()
-	}
-
 	async componentDidMount() {
-		if (this.props.data.loading) {
-			this.shouldRequestUpdates = true
-		} else {
-			await this.requestUpdates()
-			this.setUpdateStatus(false)
-		}
+		await this.injected.api.updateProfile()
+		this.setUpdateStatus(false)
+		// if (this.props.data.loading) {
+		// 	this.shouldRequestUpdates = true
+		// } else {
+		// 	await this.requestUpdates()
+		// 	this.setUpdateStatus(false)
+		// }
 	}
 
-	async componentDidUpdate() {
-		if (!this.props.data.loading && this.shouldRequestUpdates) {
-			this.shouldRequestUpdates = false
-			this.setUpdateStatus(true)
-			await this.requestUpdates()
-			this.setUpdateStatus(false)
-		}
-	}
+	// async componentDidUpdate() {
+	// 	if (!this.props.data.loading && this.shouldRequestUpdates) {
+	// 		this.shouldRequestUpdates = false
+	// 		this.setUpdateStatus(true)
+	// 		await this.requestUpdates()
+	// 		this.setUpdateStatus(false)
+	// 	}
+	// }
 }
 
 export default ProfileSection

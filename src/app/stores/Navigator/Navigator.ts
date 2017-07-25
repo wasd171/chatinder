@@ -7,9 +7,7 @@ import {
 	VIEW_PROFILE
 } from '~/shared/constants'
 import { nameToPath } from '~/shared/utils'
-import * as initialRouteQuery from './initialRoute.graphql'
-import * as showWindowMutation from './showWindow.graphql'
-import { ApolloClient } from 'apollo-client'
+import { AbstractAPI } from '~/shared/definitions'
 import { History as CustomHistory } from 'history'
 
 export interface IGQLResponce {
@@ -23,16 +21,14 @@ export class Navigator {
 		this.history = history
 	}
 
-	start = async ({ client }: { client: ApolloClient }) => {
-		const { data: { initialRoute } } = await client.query<IGQLResponce>({
-			query: initialRouteQuery
-		})
+	start = async ({ api }: { api: AbstractAPI }) => {
+		const initialRoute = await api.getInitialRoute()
 		history.replaceState(
 			{},
 			'Chatinder',
 			`${location.pathname}#${initialRoute}`
 		)
-		await client.mutate({ mutation: showWindowMutation })
+		await api.showWindow()
 	}
 
 	push(node: string, params?: string) {

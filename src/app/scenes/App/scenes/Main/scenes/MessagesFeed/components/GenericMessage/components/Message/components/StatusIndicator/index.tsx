@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { CircularProgress } from 'material-ui'
 import AlertError from 'material-ui/svg-icons/alert/error'
 import { MuiTheme } from 'material-ui/styles'
+import { observer } from 'mobx-react'
 
 interface IWrapperProps {
 	first: boolean
@@ -19,14 +20,22 @@ const Wrapper = styled.div`
 `
 
 export interface IStatusIndicatorProps {
-	muiTheme?: MuiTheme
 	resend: React.EventHandler<React.MouseEvent<AlertError>>
 	status: string
 	first: boolean
 }
 
+interface IInjectedProps extends IStatusIndicatorProps {
+	muiTheme: MuiTheme
+}
+
 @muiThemeable()
+@observer
 class StatusIndicator extends React.Component<IStatusIndicatorProps> {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	renderLoader() {
 		return <CircularProgress size={17} />
 	}
@@ -34,7 +43,7 @@ class StatusIndicator extends React.Component<IStatusIndicatorProps> {
 	renderError = () => {
 		return (
 			<AlertError
-				color={this.props.muiTheme!.palette!.primary1Color!}
+				color={this.injected.muiTheme.palette!.primary1Color!}
 				style={{ height: 17, width: 17, cursor: 'pointer' }}
 				onClick={this.props.resend}
 			/>

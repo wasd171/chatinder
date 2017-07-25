@@ -3,51 +3,32 @@ import Message from './components/Message'
 import FirstMessage from './components/FirstMessage'
 import NewDayMessage from './components/NewDayMessage'
 import styled from 'styled-components'
-import { graphql } from 'react-apollo'
-import * as resendMessageMutation from './mutation.graphql'
-import * as statusFragment from './fragment.graphql'
-import { PENDING } from '~/shared/constants'
+import { inject, observer } from 'mobx-react'
+import { AbstractAPI, MessageType, PersonType } from '~/shared/definitions'
 
 const GenericMessageContainer = styled.div`overflow-anchor: auto;`
 
-const mutationOptions = {
-	props: ({ mutate }) => ({
-		resend: ({ id, messageId }) => {
-			return mutate({
-				variables: {
-					id,
-					messageId
-				},
-				optimisticResponse: {
-					__typename: 'Mutation',
-					resendMessage: {
-						__typename: 'Message',
-						_id: messageId,
-						status: PENDING
-					}
-				},
-				update: (proxy, { data }) => {
-					proxy.writeFragment({
-						id: messageId,
-						fragment: statusFragment,
-						data: {
-							status: data.resendMessage.status,
-							__typename: data.resendMessage.__typename
-						}
-					})
-				}
-			})
-		}
-	})
+interface IGenericMessageProps {
+	style: {}
+	matchId: string
+	message: MessageType
+	user: PersonType
+	me: boolean
 }
 
-@graphql(resendMessageMutation, mutationOptions)
-class GenericMessage extends React.Component {
+interface IInjectedProps extends IGenericMessageProps {
+	api: AbstractAPI
+}
+
+@inject('api')
+@observer
+class GenericMessage extends React.Component<IGenericMessageProps> {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	handleClick = () => {
-		this.props.resend({
-			id: this.props.matchId,
-			messageId: this.props.message._id
-		})
+		this.injected.api.resendMessage(this.props.message._id)
 	}
 
 	renderContent = () => {
@@ -58,19 +39,22 @@ class GenericMessage extends React.Component {
 				return (
 					<NewDayMessage message={message}>
 						<FirstMessage user={user} me={me} matchId={matchId}>
-							<Message {...message} resend={this.handleClick} />
+							<Message
+								message={message}
+								resend={this.handleClick}
+							/>
 						</FirstMessage>
 					</NewDayMessage>
 				)
 			} else {
 				return (
 					<FirstMessage user={user} me={me} matchId={matchId}>
-						<Message {...message} resend={this.handleClick} />
+						<Message message={message} resend={this.handleClick} />
 					</FirstMessage>
 				)
 			}
 		} else {
-			return <Message {...message} resend={this.handleClick} />
+			return <Message message={message} resend={this.handleClick} />
 		}
 	}
 

@@ -1,8 +1,0 @@
-#import '../MessagesFeed/fragment.graphql'
-
-
-mutation sendMessageMutation($id: String!, $rawMessage: MessageInput!) {
-    sendMessage(id: $id, rawMessage: $rawMessage) {
-        ...messageListFields
-    }
-}

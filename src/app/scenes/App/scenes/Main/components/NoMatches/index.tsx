@@ -2,9 +2,9 @@ import * as React from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
 import { RaisedButton } from 'material-ui'
-import { graphql, MutationFunc } from 'react-apollo'
-import * as logoutMutation from './mutation.graphql'
 import { MuiTheme } from 'material-ui/styles'
+import { inject } from 'mobx-react'
+import { AbstractAPI } from '~/shared/definitions'
 
 const Wrapper = styled.div`
 	height: 100%;
@@ -35,20 +35,24 @@ export interface IGQLRes {
 	}
 }
 
-export interface INoMatchesProps {
-	muiTheme?: MuiTheme
-	mutate?: MutationFunc<IGQLRes>
+export interface IInjectedProps {
+	muiTheme: MuiTheme
+	api: AbstractAPI
 }
 
-@graphql(logoutMutation)
+@inject('api')
 @muiThemeable()
-class NoMatches extends React.Component<INoMatchesProps> {
+class NoMatches extends React.Component {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	handleClick = () => {
-		this.props.mutate!({})
+		this.injected.api.logout()
 	}
 
 	render() {
-		const { muiTheme } = this.props
+		const { muiTheme } = this.injected
 		return (
 			<Wrapper>
 				<Title theme={muiTheme}>

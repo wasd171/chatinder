@@ -43,15 +43,22 @@ interface IUserCommonConnectionData extends ICommonConnectionData {
 }
 
 export interface IUserCommonConnections {
-	muiTheme?: MuiTheme
 	connectionCount: number
 	commonConnections: Array<IUserCommonConnectionData>
+}
+
+interface IInjectedProps extends IUserCommonConnections {
+	muiTheme: MuiTheme
 }
 
 @muiThemeable()
 @observer
 class UserCommonConnections extends React.Component<IUserCommonConnections> {
-	@observable open = false
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
+	@observable open: boolean = false
 
 	@action
 	toggleOpen = () => {
@@ -63,7 +70,7 @@ class UserCommonConnections extends React.Component<IUserCommonConnections> {
 	}
 
 	renderContent = ({ width }: { width: number }) => {
-		const { muiTheme, connectionCount, commonConnections } = this.props
+		const { connectionCount, commonConnections } = this.props
 
 		let connections, stick
 
@@ -101,7 +108,7 @@ class UserCommonConnections extends React.Component<IUserCommonConnections> {
 
 		return (
 			<ContentContainer width={width}>
-				<ConnectionCount theme={muiTheme}>
+				<ConnectionCount theme={this.injected.muiTheme}>
 					Common connections: {connectionCount}
 				</ConnectionCount>
 				<ConnectionsContainer stick={stick}>
@@ -121,7 +128,7 @@ class UserCommonConnections extends React.Component<IUserCommonConnections> {
 		return (
 			<AutoSizer
 				disableHeight={true}
-				commonConnections={this.props.commonConnections}
+				forceUpdater={this.props.commonConnections}
 				open={this.open}
 			>
 				{this.renderContent}

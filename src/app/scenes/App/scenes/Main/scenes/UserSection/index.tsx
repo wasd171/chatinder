@@ -4,15 +4,13 @@ import UserTitle from './components/UserTitle'
 import UserBio from './components/UserBio'
 import UserCommonConnections from './components/UserCommonConnections'
 import UserCommonInterests from './components/UserCommonInterests'
-import { graphql } from 'react-apollo'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
 import SimpleBarWrapper from '~/app/components/SimpleBarWrapper'
 import { observable, action } from 'mobx'
-import { observer } from 'mobx-react'
-import * as query from './query.graphql'
-import * as mutation from './mutation.graphql'
-import LoadingStub from '~/app/components/LoadingStub'
+import { inject, observer } from 'mobx-react'
+import { AbstractAPI, StateType } from '~/shared/definitions'
+import { MuiTheme } from 'material-ui/styles'
 
 const UserInfoContainer = styled.div`
 	display: flex;
@@ -35,16 +33,32 @@ const Line = styled.hr`
 	background-color: ${props => props.theme.palette.borderColor};
 `
 
-@graphql(query)
-@graphql(mutation)
+interface IUserSectionProps {
+	id: string
+}
+
+interface IInjectedProps extends IUserSectionProps {
+	state: StateType
+	muiTheme: MuiTheme
+	api: AbstractAPI
+}
+
+@inject('api', 'state')
 @muiThemeable()
 @observer
-export class UserSection extends React.Component {
-	shouldRequestUpdates = false
+export class UserSection extends React.Component<IUserSectionProps> {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	@observable isUpdatePending = true
 
+	get match() {
+		return this.injected.state.matches.get(this.props.id)!
+	}
+
 	get person() {
-		return this.props.data.match.person
+		return this.match.person
 	}
 
 	renderPhotos = () => {
@@ -52,14 +66,15 @@ export class UserSection extends React.Component {
 	}
 
 	renderTitle = () => {
-		const { data, muiTheme } = this.props
+		const { is_super_like } = this.match
+		const isSuperLike = is_super_like === null ? false : is_super_like
 
 		return [
-			<Line theme={muiTheme} key="title-line" />,
+			<Line theme={this.injected.muiTheme} key="title-line" />,
 			<UserTitle
-				isSuperLike={data.match.isSuperLike}
+				isSuperLike={isSuperLike}
 				formattedName={this.person.formattedName}
-				birthDate={this.person.birthDate}
+				birthDate={this.person.birth_date}
 				isUpdatePending={this.isUpdatePending}
 				schools={this.person.schools}
 				distanceKm={this.person.distanceKm}
@@ -70,53 +85,55 @@ export class UserSection extends React.Component {
 	}
 
 	renderBio = () => {
-		if (this.person.formattedBio === '') {
+		if (
+			this.person.formattedBio === '' ||
+			this.person.formattedBio === null
+		) {
 			return null
 		}
 
 		return [
-			<Line theme={this.props.muiTheme} key="bio-line" />,
+			<Line theme={this.injected.muiTheme} key="bio-line" />,
 			<UserBio formattedBio={this.person.formattedBio} key="bio" />
 		]
 	}
 
 	renderConnections = () => {
-		const { connectionCount, commonConnections } = this.person
-		if (connectionCount === null || connectionCount === 0) {
+		const { connection_count, common_connections } = this.person
+		if (
+			connection_count === null ||
+			connection_count === 0 ||
+			common_connections === null
+		) {
 			return null
 		}
 
 		return [
-			<Line theme={this.props.muiTheme} key="connections-line" />,
+			<Line theme={this.injected.muiTheme} key="connections-line" />,
 			<UserCommonConnections
-				connectionCount={connectionCount}
-				commonConnections={commonConnections}
+				connectionCount={connection_count}
+				commonConnections={common_connections}
 				key="connections"
 			/>
 		]
 	}
 
 	renderInterests = () => {
-		const { commonInterests } = this.person
-		if (commonInterests === null || commonInterests.length === 0) {
+		const { common_interests } = this.person
+		if (common_interests === null || common_interests.length === 0) {
 			return null
 		}
 
 		return [
-			<Line theme={this.props.muiTheme} key="interests-line" />,
+			<Line theme={this.injected.muiTheme} key="interests-line" />,
 			<UserCommonInterests
-				commonInterests={commonInterests}
+				commonInterests={common_interests}
 				key="interests"
 			/>
 		]
 	}
 
 	renderContent = () => {
-		const { data } = this.props
-		if (data.loading) {
-			return <LoadingStub size={40} />
-		}
-
 		return (
 			<UserInfoContainer>
 				{this.renderPhotos()}
@@ -137,35 +154,13 @@ export class UserSection extends React.Component {
 	}
 
 	@action
-	setUpdateStatus = status => {
+	setUpdateStatus = (status: boolean) => {
 		this.isUpdatePending = status
 	}
 
-	requestUpdates = () => {
-		const { data, mutate } = this.props
-		return mutate({
-			variables: {
-				id: data.match.person._id
-			}
-		})
-	}
-
 	async componentDidMount() {
-		if (this.props.data.loading) {
-			this.shouldRequestUpdates = true
-		} else {
-			await this.requestUpdates()
-			this.setUpdateStatus(false)
-		}
-	}
-
-	async componentDidUpdate() {
-		if (!this.props.data.loading && this.shouldRequestUpdates) {
-			this.shouldRequestUpdates = false
-			this.setUpdateStatus(true)
-			await this.requestUpdates()
-			this.setUpdateStatus(false)
-		}
+		await this.injected.api.updatePerson(this.person)
+		this.setUpdateStatus(false)
 	}
 }
 

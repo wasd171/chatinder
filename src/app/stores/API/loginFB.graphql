@@ -1,0 +1,6 @@
+mutation loginFB {
+	loginFB {
+		id
+		token
+	}
+}

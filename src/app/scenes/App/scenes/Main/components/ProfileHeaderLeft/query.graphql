@@ -1,9 +1,0 @@
-query ProfileQuery {
-    profile {
-        user {
-            _id
-            smallPhoto
-            formattedName
-        }
-    }
-}
