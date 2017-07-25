@@ -21,11 +21,13 @@ const commonPlugins = [
 				query: { happyPackMode: true }
 			}
 		]
-	}),
-	new ForkTsCheckerWebpackPlugin()
+	})
 ]
+const devPlugins = [new ForkTsCheckerWebpackPlugin()]
 const productionPlugins = [new BabiliPlugin()]
-const plugins = isDev ? commonPlugins : [...productionPlugins, ...commonPlugins]
+const plugins = isDev
+	? [...commonPlugins, ...devPlugins]
+	: [...productionPlugins, ...commonPlugins]
 
 module.exports = {
 	output: {
