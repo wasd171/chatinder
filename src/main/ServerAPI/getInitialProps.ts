@@ -3,15 +3,11 @@ import { resolveDatabases, fromCallback } from '~/shared/utils'
 import * as Nedb from 'nedb'
 import { PENDING, FAILURE } from '~/shared/constants'
 import { FB } from './FB'
-import { TinderAPI } from './TinderAPI'
 import { AppManager } from './AppManager'
-import { Refetcher } from './Refetcher'
-import { NotifierServer } from './NotifierServer'
-import { GraphQLSchema } from 'graphql'
 import { AbstractFBSaved, AbstractTinderAPISaved } from '~/shared/definitions'
 
 export async function getInitialProps() {
-	const schema = createSchema() as GraphQLSchema
+	const schema = createSchema()
 
 	const { extraFile, matchesFile, pendingFile } = resolveDatabases()
 	const extra = new Nedb({ filename: extraFile })
@@ -44,27 +40,13 @@ export async function getInitialProps() {
 	])) as [AbstractFBSaved | null, AbstractTinderAPISaved | null]
 	const fbProps = Object.assign({}, fbParams, { db: extra })
 
-	let lastActivityDate
-	if (tinderParams != null && tinderParams.lastActivityTimestamp != null) {
-		lastActivityDate = new Date(tinderParams.lastActivityTimestamp)
-	} else {
-		lastActivityDate = new Date()
-	}
-	const tinderProps = { lastActivityDate, db: extra }
-
 	const fb = new FB(fbProps)
-	const tinder = new TinderAPI(tinderProps)
 	const app = new AppManager()
-	const refetcher = new Refetcher({ app })
-	const notifierServer = new NotifierServer({ app })
 
 	return {
 		schema,
 		db,
 		fb,
-		tinder,
-		app,
-		refetcher,
-		notifierServer
+		app
 	}
 }

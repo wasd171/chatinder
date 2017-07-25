@@ -41,7 +41,7 @@ export class ServerAPI extends AbstractServerAPI implements AbstractServerAPI {
 	}
 
 	processRequest = async (
-		_event: Electron.IpcMainEvent,
+		_event: Electron.Event,
 		{ id, payload }: IGraphQLElectronMessage
 	) => {
 		const res = await this.callGraphQL(payload)
