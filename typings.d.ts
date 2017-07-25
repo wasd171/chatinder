@@ -80,3 +80,34 @@ declare module 'material-ui/TextField/TextFieldUnderline' {
 
 	export default TextFieldUnderline
 }
+
+declare module 'react-content-loader' {
+	import * as React from 'react'
+
+	interface ILoaderProps {
+		style?: Object
+		type?: string
+		speed?: number
+		width?: number
+		height?: number
+		primaryColor?: string
+		secondaryColor?: string
+	}
+
+	export default class ContentLoader extends React.Component<ILoaderProps> {}
+
+	interface ICircleProps {
+		x: number
+		y: number
+		radius: number
+	}
+
+	export class Circle extends React.Component<ICircleProps> {}
+
+	interface IRectProps extends ICircleProps {
+		width: number
+		height: number
+	}
+
+	export class Rect extends React.Component<IRectProps> {}
+}
