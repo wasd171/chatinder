@@ -1,16 +1,6 @@
 import {
 	AbstractTinderAPI,
-	AbstractTinderAPIParams,
-	ioTinderDefaults,
-	ioTinderPerson,
-	ioTinderProfileUser,
-	ioTinderSendMessage,
-	ioTinderHistory,
-	TinderDefaultsType,
-	TinderPersonType,
-	ITinderProfile,
-	TinderSendMessageType,
-	TinderHistoryType
+	AbstractTinderAPIParams
 } from '~/shared/definitions'
 import TinderClient from 'tinder-modern'
 

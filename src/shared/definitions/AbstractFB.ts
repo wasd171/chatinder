@@ -1,13 +1,24 @@
-import { AbstractFBParams, FBSaveQueryType, FBGetTokenType } from '.'
+import { FBGetTokenType } from '.'
+
+export abstract class AbstractFBSaved {
+	token?: string
+	expiresAt?: number
+	id?: string
+}
+
+export abstract class AbstractFBParams extends AbstractFBSaved {
+	fbPath: string
+}
 
 export abstract class AbstractFB extends AbstractFBParams {
-	abstract save: (query: FBSaveQueryType) => Promise<number>
-	abstract setToken: (token: string) => Promise<number>
-	abstract setExpiration: (expiresAt: number) => Promise<number>
-	abstract setId: (id: string) => Promise<number>
+	abstract save: () => Promise<{}>
+	abstract setToken: (token: string) => Promise<{}>
+	abstract setExpiration: (expiresAt: number) => Promise<{}>
+	abstract setId: (id: string) => Promise<{}>
 
 	abstract getId: () => Promise<string>
 	abstract getToken: (silent: boolean) => Promise<FBGetTokenType>
 	abstract loginForce: (silent: boolean) => Promise<void>
 	abstract login: (silent: boolean) => Promise<void>
+	abstract clear: () => Promise<{}>
 }

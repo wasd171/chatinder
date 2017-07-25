@@ -258,7 +258,7 @@ export class API implements AbstractAPI {
 			console.log(err)
 			newMessage.changeStatus(FAILURE)
 		}
-		console.log(newMessage.toJSON())
+
 		this.state.addMessageToPending(newMessage)
 	}
 

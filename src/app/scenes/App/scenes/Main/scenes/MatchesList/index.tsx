@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import Match from './components/Match'
-import { List, ListRowProps } from 'react-virtualized'
+import { List, ListRowProps, ListProps } from 'react-virtualized'
 import styled from 'styled-components'
 import { VIEW_PROFILE } from '~/shared/constants'
 import { Navigator } from '~/app/stores/Navigator'
@@ -12,7 +12,7 @@ import { Location } from 'history'
 
 const rowHeight = 63
 
-const ListWithoutScrollbar = styled(List)`
+const ListWithoutScrollbar = styled<ListProps>(List as any)`
 	&::-webkit-scrollbar {
 		display: none
 	}

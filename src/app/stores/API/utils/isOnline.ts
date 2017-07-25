@@ -1,4 +1,4 @@
-import * as isReachable from 'is-reachable'
+const isReachable = require('is-reachable')
 import TinderClient from 'tinder-modern'
 
 export async function isOnline(): Promise<boolean> {

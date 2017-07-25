@@ -1,6 +1,6 @@
 import * as React from 'react'
 import linkref, { ILinkedRefs } from '~/app/shims/linkref'
-import * as Simplebar from 'simplebar'
+const Simplebar = require('simplebar')
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
@@ -8,9 +8,13 @@ const Wrapper = styled.div`
 	max-width: 100%;
 `
 
+interface ProperSimplebar extends SimpleBar {
+	unMount(): void
+}
+
 class SimpleBarWrapper extends React.Component {
 	_linkedRefs: ILinkedRefs
-	simplebar: SimpleBar
+	simplebar: ProperSimplebar
 	root: HTMLDivElement
 
 	componentDidMount() {

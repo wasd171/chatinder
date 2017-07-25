@@ -1,4 +1,4 @@
-import { types, getEnv, destroy, getSnapshot } from 'mobx-state-tree'
+import { types, getEnv, destroy } from 'mobx-state-tree'
 import { Match, Defaults, Message } from '.'
 import { Notifier } from '../Notifier'
 import { MatchType, MessageType } from '~/shared/definitions'
