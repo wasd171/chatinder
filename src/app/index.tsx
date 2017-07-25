@@ -9,7 +9,6 @@ import './app.global.css'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
-import { ApolloProvider } from 'react-apollo'
 import { Provider } from 'mobx-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { HashRouter as Router, Route } from 'react-router-dom'
@@ -38,13 +37,11 @@ async function configureAndRender() {
 		const App = require('./scenes/App/index').default
 		ReactDOM.render(
 			<MuiThemeProvider muiTheme={theme}>
-				<ApolloProvider client={client}>
-					<Provider {...stores}>
-						<Router hashType="slash">
-							<Route path="/" component={App} />
-						</Router>
-					</Provider>
-				</ApolloProvider>
+				<Provider {...stores}>
+					<Router hashType="slash">
+						<Route path="/" component={App} />
+					</Router>
+				</Provider>
 			</MuiThemeProvider>,
 			container,
 			() => {}
