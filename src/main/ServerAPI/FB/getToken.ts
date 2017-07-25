@@ -115,6 +115,6 @@ export function asyncExecute(win: WindowType, script: string) {
 	if (win !== null) {
 		return win.webContents.executeJavaScript(script, false)
 	} else {
-		throw new Error('asyncExecute received null window')
+		return Promise.resolve()
 	}
 }
