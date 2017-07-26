@@ -44,8 +44,11 @@ export default function startFactory(instance: AbstractAppManager) {
 		instance.createWindow()
 		buildMenu()
 
-		// if (process.env.NODE_ENV === 'production' && instance.window !== null) {
-		if (true && instance.window !== null) {
+		if (
+			process.env.NODE_ENV === 'development' &&
+			instance.window !== null
+		) {
+			// if (true && instance.window !== null) {
 			instance.window.webContents.openDevTools()
 			instance.window.webContents.on('context-menu', (_event, props) => {
 				const { x, y } = props
