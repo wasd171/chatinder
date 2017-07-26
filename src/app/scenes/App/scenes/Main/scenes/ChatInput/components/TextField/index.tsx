@@ -17,7 +17,6 @@ const OuterWrapper = styled.div`
 `
 export { onSubmitType }
 export interface ITextFieldProps {
-	muiTheme?: MuiTheme
 	hasValue: boolean
 	hintText: string
 	value: string
@@ -25,9 +24,17 @@ export interface ITextFieldProps {
 	onSubmit: onSubmitType
 }
 
+interface IInjectedProps extends ITextFieldProps {
+	muiTheme: MuiTheme
+}
+
 @muiThemeable()
 @observer
 class TextField extends React.Component<ITextFieldProps> {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	@observable isFocused = false
 
 	@action
@@ -48,7 +55,7 @@ class TextField extends React.Component<ITextFieldProps> {
 		return (
 			<OuterWrapper>
 				<TextFieldHint
-					muiTheme={this.props.muiTheme}
+					muiTheme={this.injected.muiTheme}
 					show={!this.props.hasValue}
 					text={this.props.hintText}
 				/>
@@ -62,7 +69,7 @@ class TextField extends React.Component<ITextFieldProps> {
 				<TextFieldUnderline
 					disabled={false}
 					focus={this.isFocused}
-					muiTheme={this.props.muiTheme}
+					muiTheme={this.injected.muiTheme}
 				/>
 			</OuterWrapper>
 		)

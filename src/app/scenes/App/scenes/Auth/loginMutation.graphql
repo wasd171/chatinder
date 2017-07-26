@@ -1,5 +1,0 @@
-mutation loginMutation {
-    login(silent: false) {
-        status
-    }
-}

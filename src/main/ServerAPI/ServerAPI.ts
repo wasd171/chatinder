@@ -1,63 +1,46 @@
 import {
 	AbstractServerAPI,
-	AbstractServerAPIParams,
-	IGraphQLElectronMessage
+	AbstractAppManager,
+	GetFBTokenType
 } from '~/shared/definitions'
-import { ipcMain } from 'electron'
-import { GRAPHQL } from '~/shared/constants'
-import { graphql, ExecutionResult } from 'graphql'
-import { PrintedRequest } from 'apollo-client/transport/networkInterface'
+import { ipcMain, app } from 'electron'
+import {
+	IPC_GET_FB_TOKEN_REQ,
+	IPC_GET_FB_TOKEN_RES,
+	IPC_SHOW_WINDOW,
+	IPC_LOGOUT
+} from '~/shared/constants'
+import getToken from './getToken'
+import { AppManager } from './AppManager'
 
-import { getInitialProps } from './getInitialProps'
+export class ServerAPI implements AbstractServerAPI {
+	private app: AbstractAppManager = new AppManager()
 
-export class ServerAPI extends AbstractServerAPI implements AbstractServerAPI {
-	reloginInterval: null | NodeJS.Timer = null
-	reloginCallbacks: null | Array<Function> = null
-
-	constructor(params: AbstractServerAPIParams) {
-		super()
-		Object.assign(this, params)
-	}
-
-	start = async () => {
-		ipcMain.on(GRAPHQL, this.processRequest)
+	public start = async () => {
+		ipcMain.on(IPC_GET_FB_TOKEN_REQ, this.getFBToken)
+		ipcMain.on(IPC_SHOW_WINDOW, this.showWindow)
+		ipcMain.on(IPC_LOGOUT, this.logout)
 		await this.app.start()
 		this.app.reload()
 	}
 
-	callGraphQL = (payload: PrintedRequest): Promise<ExecutionResult> => {
-		const { query, variables, operationName } = payload
-		if (query == null) {
-			throw new Error('Got empty query from IPC')
+	private async getFBToken(event: Electron.IpcMessageEvent, silent: boolean) {
+		let res: GetFBTokenType
+		try {
+			res = await getToken(silent)
+		} catch (err) {
+			res = { err }
 		}
-		return graphql(
-			this.schema,
-			query,
-			null,
-			this,
-			variables,
-			operationName != null ? operationName : undefined
-		)
+		event.sender.send(IPC_GET_FB_TOKEN_RES, res)
 	}
 
-	processRequest = async (
-		_event: Electron.IpcMainEvent,
-		{ id, payload }: IGraphQLElectronMessage
-	) => {
-		const res = await this.callGraphQL(payload)
-		const message = ServerAPI.generateMessage(id, res)
-
-		if (this.app.window !== null) {
-			this.app.window.webContents.send(GRAPHQL, message)
-		}
+	private showWindow = () => {
+		this.app.show()
 	}
 
-	static generateMessage(id: string, payload: ExecutionResult) {
-		return {
-			id,
-			payload
-		}
+	private logout = async () => {
+		await this.app.logout()
+		app.relaunch()
+		app.exit(0)
 	}
-
-	static getInitialProps = getInitialProps
 }

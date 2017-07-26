@@ -1,0 +1,1 @@
+export { TinderAPI } from './TinderAPI'

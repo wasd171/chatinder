@@ -4,6 +4,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
 import { fade } from 'material-ui/utils/colorManipulator'
 import { MuiTheme } from 'material-ui/styles'
+import { observer } from 'mobx-react'
 
 const paddingNum = 12
 
@@ -31,8 +32,8 @@ export interface ITextContainerProps {
 	theme: MuiTheme
 }
 const TextContainer = styled.div`
-	marginLeft: ${paddingNum}px;
-	paddingRight: ${paddingNum}px;
+	margin-left: ${paddingNum}px;
+	padding-right: ${paddingNum}px;
 	width: 100%;
 	overflow: hidden;
 	height: 100%;
@@ -73,12 +74,14 @@ export interface IMatchProps {
 		}
 		lastMessage: {
 			formattedMessage: string
-		}
+			isGIPHY: boolean
+		} | null
 	}
 	index: number
 }
 
 @muiThemeable()
+@observer
 class Match extends React.Component<IMatchProps> {
 	get showBorder(): boolean {
 		return !(
@@ -97,6 +100,16 @@ class Match extends React.Component<IMatchProps> {
 
 	render() {
 		const { match, style, muiTheme, isSelected } = this.props
+		let message: string
+		if (match.lastMessage !== null) {
+			if (match.lastMessage.isGIPHY) {
+				message = 'GIPHY'
+			} else {
+				message = match.lastMessage.formattedMessage
+			}
+		} else {
+			message = "It's a match!"
+		}
 
 		return (
 			<MatchContainer
@@ -116,7 +129,7 @@ class Match extends React.Component<IMatchProps> {
 					<MessageContainer theme={muiTheme}>
 						<span
 							dangerouslySetInnerHTML={{
-								__html: match.lastMessage.formattedMessage
+								__html: message
 							}}
 						/>
 					</MessageContainer>

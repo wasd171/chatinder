@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { inject } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import { graphql, DefaultChildProps } from 'react-apollo'
-import * as queryName from './query.graphql'
+// import { graphql, DefaultChildProps } from 'react-apollo'
+// import * as queryName from './query.graphql'
 import { KEYCODE_ESC } from '~/shared/constants'
 import GenericHeader from '~/app/components/GenericHeader'
 import GenericIconWrapper from '~/app/components/GenericIconWrapper'
@@ -10,6 +10,7 @@ import GenericNameSpan from '~/app/components/GenericNameSpan'
 import NavigationClose from 'material-ui/svg-icons/navigation/close'
 import { Navigator } from '~/app/stores/Navigator'
 import { MuiTheme } from 'material-ui/styles'
+import { StateType } from '~/shared/definitions'
 
 export interface IChatHeaderProps {
 	navigator?: Navigator
@@ -27,18 +28,35 @@ export interface IGQLRes {
 	}
 }
 
-export type ChatHeaderPropsType = DefaultChildProps<IChatHeaderProps, IGQLRes>
+// export type ChatHeaderPropsType = DefaultChildProps<IChatHeaderProps, IGQLRes>
+export interface IChatHeaderProps {
+	id: string
+}
 
-@inject('navigator')
-@graphql(queryName)
+interface IInjectedProps extends IChatHeaderProps {
+	navigator: Navigator
+	muiTheme: MuiTheme
+	state: StateType
+}
+
+@inject('navigator', 'state')
 @muiThemeable()
-class ChatHeader extends React.Component<ChatHeaderPropsType> {
+@observer
+class ChatHeader extends React.Component<IChatHeaderProps> {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
+	get user() {
+		return this.injected.state.matches.get(this.props.id)!.person
+	}
+
 	handleClose = () => {
-		this.props.navigator!.goToMatches()
+		this.injected.navigator.goToMatches()
 	}
 
 	handleClick = () => {
-		this.props.navigator!.goToUser(this.props.id)
+		this.injected.navigator.goToUser(this.props.id)
 	}
 
 	handleKeydown = (e: KeyboardEvent) => {
@@ -56,19 +74,6 @@ class ChatHeader extends React.Component<ChatHeaderPropsType> {
 	}
 
 	render() {
-		if (
-			this.props.data!.loading &&
-			typeof this.props.data!.match === 'undefined'
-		) {
-			return (
-				<GenericHeader center>
-					<GenericNameSpan theme={this.props.muiTheme}>
-						Loading...
-					</GenericNameSpan>
-				</GenericHeader>
-			)
-		}
-
 		return (
 			<GenericHeader>
 				<GenericIconWrapper />
@@ -77,12 +82,12 @@ class ChatHeader extends React.Component<ChatHeaderPropsType> {
 					theme={this.props.muiTheme}
 					onClick={this.handleClick}
 					dangerouslySetInnerHTML={{
-						__html: this.props.data!.match!.person.formattedName
+						__html: this.user.formattedName
 					}}
 				/>
 				<GenericIconWrapper activated onClick={this.handleClose}>
 					<NavigationClose
-						color={this.props.muiTheme!.palette!.primary1Color}
+						color={this.injected.muiTheme.palette!.primary1Color}
 					/>
 				</GenericIconWrapper>
 			</GenericHeader>

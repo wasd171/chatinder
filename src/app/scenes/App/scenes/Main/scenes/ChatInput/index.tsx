@@ -4,16 +4,11 @@ import TextField from './components/TextField'
 import SendButton from './components/SendButton'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import transitions from 'material-ui/styles/transitions'
-import { observer } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import styled from 'styled-components'
-import { trim } from 'lodash'
-import { graphql } from 'react-apollo'
-import * as sendMessageInfo from './query.graphql'
-import * as sendMessageMutation from './mutation.graphql'
-import { normalizeMessagePair } from '~/shared/utils'
-import { PENDING, PSEUDO } from '~/shared/constants'
-import * as uuid from 'uuid'
-import { Message } from '~/main/ServerAPI/schema/resolvers/instances'
+const trim = require('lodash.trim')
+import { AbstractAPI } from '~/shared/definitions'
+import { MuiTheme } from 'material-ui/styles'
 
 const padding = 10
 
@@ -37,65 +32,24 @@ const MiddleWrapper = styled.div`
 	width: 100%;
 `
 
-const mutationOptions = {
-	props: ({ ownProps, mutate }) => ({
-		submit: ({ message, messageId }) => {
-			const input = {
-				_id: messageId,
-				from: ownProps.data.profile.user._id,
-				sent_date: new Date().toISOString(),
-				message,
-				status: PENDING
-			}
-
-			let optimisticMessage
-			const lastMessage = ownProps.data.match.lastMessage
-			if (lastMessage.status === PSEUDO) {
-				optimisticMessage = normalizeMessagePair(input)
-			} else {
-				optimisticMessage = normalizeMessagePair(input, lastMessage)
-			}
-			optimisticMessage.sentDate = Message.sentDate(optimisticMessage)
-
-			return mutate({
-				variables: {
-					id: ownProps.id,
-					rawMessage: input
-				},
-				optimisticResponse: {
-					__typename: 'Mutation',
-					sendMessage: {
-						__typename: 'Message',
-						...optimisticMessage
-					}
-				},
-				update: (proxy, { data }) => {
-					const cacheData = proxy.readQuery({
-						query: sendMessageInfo,
-						variables: { id: ownProps.id }
-					})
-
-					cacheData.match.lastMessage = data.sendMessage
-					cacheData.match.messages.push(data.sendMessage)
-					cacheData.match.lastActivityDate = data.sendMessage.sentDate
-
-					proxy.writeQuery({
-						query: sendMessageInfo,
-						data: cacheData,
-						variables: { id: ownProps.id }
-					})
-				}
-			})
-		}
-	})
+interface IChatInputProps {
+	id: string
 }
 
+interface IInjectedProps extends IChatInputProps {
+	api: AbstractAPI
+	muiTheme: MuiTheme
+}
+
+@inject('api')
 @muiThemeable()
-@graphql(sendMessageInfo)
-@graphql(sendMessageMutation, mutationOptions)
 @observer
-class ChatInput extends React.Component {
-	@observable value = ''
+class ChatInput extends React.Component<IChatInputProps> {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
+	@observable value: string = ''
 
 	@computed
 	get hasValue() {
@@ -103,11 +57,11 @@ class ChatInput extends React.Component {
 	}
 
 	get disabled() {
-		return this.props.data.loading || !this.hasValue
+		return !this.hasValue
 	}
 
 	@action
-	handleChange = text => {
+	handleChange = (text: string) => {
 		this.value = text
 	}
 
@@ -115,30 +69,30 @@ class ChatInput extends React.Component {
 	handleSubmit = () => {
 		if (!this.disabled) {
 			const message = trim(this.value)
-			this.props.submit({
+			this.injected.api.sendMessage({
 				message,
-				messageId: uuid.v1()
+				matchId: this.props.id
 			})
+			// this.props.submit({
+			// 	message,
+			// 	messageId: uuid.v1()
+			// })
 			this.value = ''
 		}
 	}
 
-	isValid(value) {
+	isValid(value: string) {
 		const normValue = trim(value)
 		return normValue !== '' && normValue !== undefined && normValue !== null
 	}
 
 	render() {
 		return (
-			<OuterWrapper height={this.height} theme={this.props.muiTheme}>
+			<OuterWrapper theme={this.injected.muiTheme}>
 				<MiddleWrapper>
 					<TextField
-						fullWidth={true}
 						value={this.value}
 						hintText="Message"
-						rows={this.rows}
-						maxRows={this.maxRows}
-						multiLine={true}
 						onChange={this.handleChange}
 						hasValue={this.hasValue}
 						onSubmit={this.handleSubmit}
@@ -154,3 +108,8 @@ class ChatInput extends React.Component {
 }
 
 export default ChatInput
+
+// {
+// 	/* rows={this.rows}
+// 						maxRows={this.maxRows} */
+// }

@@ -27,23 +27,30 @@ const DateWrapper = styled.div`
 `
 
 export interface INewDayMessageProps {
-	muiTheme?: MuiTheme
-	time?: Time
 	message: {
 		sentDate: string
 		sentDay: string
 	}
 }
 
+interface IInjectedProps extends INewDayMessageProps {
+	muiTheme: MuiTheme
+	time: Time
+}
+
 @inject('time')
 @muiThemeable()
 @observer
 class NewDayMessage extends React.Component<INewDayMessageProps> {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	@computed
 	get formattedDay() {
 		// For auto-recalc
-		const { time, message } = this.props
-		time!.now
+		const { message } = this.props
+		this.injected.time.now
 		if (isToday(message.sentDate)) {
 			return 'Today'
 		} else if (isYesterday(message.sentDate)) {
@@ -57,7 +64,7 @@ class NewDayMessage extends React.Component<INewDayMessageProps> {
 		return (
 			<Wrapper>
 				<DateBanner>
-					<DateWrapper theme={this.props.muiTheme}>
+					<DateWrapper theme={this.injected.muiTheme}>
 						{this.formattedDay}
 					</DateWrapper>
 				</DateBanner>

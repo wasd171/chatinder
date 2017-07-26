@@ -1,6 +1,5 @@
 import { AbstractAppManager } from '~/shared/definitions'
-import { app, Menu } from 'electron'
-// import { enableLiveReload } from 'electron-compile'
+import { app } from 'electron'
 import { updateApp, buildMenu } from './utils'
 
 export function onBeforeQuitFactory(instance: AbstractAppManager) {
@@ -35,40 +34,13 @@ export default function startFactory(instance: AbstractAppManager) {
 		}
 
 		if (process.env.NODE_ENV === 'development') {
-			require('electron-debug')({ enabled: true })
-			require('devtron').install()
-			// enableLiveReload()
 			await instance.installExtensions()
+			require('electron-debug')({ showDevTools: true })
+			require('electron-context-menu')()
 		}
 
 		instance.createWindow()
 		buildMenu()
-
-		if (
-			process.env.NODE_ENV === 'development' &&
-			instance.window !== null
-		) {
-			instance.window.webContents.openDevTools()
-			instance.window.webContents.on('context-menu', (_event, props) => {
-				const { x, y } = props
-
-				if (instance.window != null) {
-					Menu.buildFromTemplate([
-						{
-							label: 'Inspect element',
-							click() {
-								if (instance.window !== null) {
-									instance.window.webContents.inspectElement(
-										x,
-										y
-									)
-								}
-							}
-						}
-					]).popup(instance.window)
-				}
-			})
-		}
 
 		const { platform, env } = process
 		const isWinOrMac = platform === 'win32' || platform === 'darwin'

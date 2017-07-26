@@ -2,11 +2,10 @@ import * as React from 'react'
 import Avatar from '~/app/components/Avatar'
 import styled from 'styled-components'
 import muiThemeable from 'material-ui/styles/muiThemeable'
-import { graphql, DefaultChildProps } from 'react-apollo'
-import * as profileQuery from './query.graphql'
-import { inject } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import { Navigator } from '~/app/stores/Navigator'
 import { MuiTheme } from 'material-ui/styles'
+import { StateType } from '~/shared/definitions'
 
 const StyledContainer = styled.div`
 	display: flex;
@@ -23,57 +22,33 @@ const NameWrapper = styled.span`
 	color: ${props => props.theme.palette.textColor};
 `
 
-export interface IGQLRes {
-	profile: {
-		user: {
-			_id: string
-			smallPhoto: string
-			formattedName: string
-		}
-	}
+export interface IInjectedProps {
+	navigator: Navigator
+	muiTheme: MuiTheme
+	state: StateType
 }
 
-export interface IProfileHeaderLeftProps {
-	navigator?: Navigator
-	muiTheme?: MuiTheme
-}
-
-export type ProfileHeaderLeftPropsType = DefaultChildProps<
-	IProfileHeaderLeftProps,
-	IGQLRes
->
-
-@inject('navigator')
+@inject('navigator', 'state')
 @muiThemeable()
-@graphql(profileQuery)
-class ProfileHeaderLeft extends React.Component<ProfileHeaderLeftPropsType> {
+@observer
+class ProfileHeaderLeft extends React.Component {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	handleClick = () => {
-		this.props.navigator!.goToProfile()
-	}
-
-	renderLoading() {
-		return 'Loading...'
-	}
-
-	renderContent(props: ProfileHeaderLeftPropsType) {
-		const { formattedName, smallPhoto } = props.data!.profile.user
-		return [
-			<Avatar src={smallPhoto} size={34} key="avatar" />,
-			<NameWrapper
-				theme={props.muiTheme}
-				key="name"
-				dangerouslySetInnerHTML={{ __html: formattedName }}
-			/>
-		]
+		this.injected.navigator.goToProfile()
 	}
 
 	render() {
-		console.log(this.props)
+		const { user } = this.injected.state.defaults!
 		return (
 			<StyledContainer onClick={this.handleClick}>
-				{this.props.data!.loading
-					? this.renderLoading()
-					: this.renderContent(this.props)}
+				<Avatar src={user.smallPhoto} size={34} />
+				<NameWrapper
+					theme={this.injected.muiTheme}
+					dangerouslySetInnerHTML={{ __html: user.formattedName }}
+				/>
 			</StyledContainer>
 		)
 	}

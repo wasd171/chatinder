@@ -65,7 +65,7 @@ const SchoolRow = PaleRow
 const LocationRow = PaleRow
 
 interface ISchool {
-	id: string
+	id: string | null
 	name: string
 }
 
@@ -167,9 +167,10 @@ class UserTitle extends React.Component<IUserTitleProps> {
 		)
 	}
 
-	renderSchool(school: ISchool) {
+	renderSchool(school: ISchool, index: number) {
+		const key = school.id !== null ? school.id : `${school.name}_${index}`
 		return (
-			<GenericSpan key={school.id}>
+			<GenericSpan key={key}>
 				{school.name}
 			</GenericSpan>
 		)

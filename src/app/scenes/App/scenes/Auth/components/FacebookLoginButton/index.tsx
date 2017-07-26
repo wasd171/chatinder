@@ -1,5 +1,4 @@
 import * as React from 'react'
-// import Ripple from '~/app/components/Ripple'
 import styled from 'styled-components'
 
 const base = {
@@ -61,16 +60,16 @@ const IconSpan = styled.span`
 `
 
 const TextSpan = styled.span`
-	position: relative
-	opacity: 1
-	font-size: 14px
-	letter-spacing: 0px
-	text-transform: uppercase
-	font-weight: 500
-	margin: 0px
-	padding-left: 8px
-	padding-right: 16px
-	color: rgb(255, 255, 255)
+	position: relative;
+	opacity: 1;
+	font-size: 14px;
+	letter-spacing: 0px;
+	text-transform: uppercase;
+	font-weight: 500;
+	margin: 0px;
+	padding-left: 8px;
+	padding-right: 16px;
+	color: rgb(255, 255, 255);
 `
 
 export interface IFacebookLoginButtonProps {

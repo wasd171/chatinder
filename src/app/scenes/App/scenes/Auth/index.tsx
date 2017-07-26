@@ -2,10 +2,9 @@ import * as React from 'react'
 import FacebookLoginButton from './components/FacebookLoginButton'
 import { inject } from 'mobx-react'
 import styled from 'styled-components'
-import { graphql, MutationFunc } from 'react-apollo'
-import * as loginMutation from './loginMutation.graphql'
 import { success } from '~/shared/constants'
 import { Navigator } from '~/app/stores/Navigator'
+import { AbstractAPI } from '~/shared/definitions'
 import { RouteComponentProps } from 'react-router-dom'
 
 const AuthWrapper = styled.div`
@@ -21,23 +20,27 @@ export interface IGQLRes {
 	}
 }
 
-export interface IAuthProps extends RouteComponentProps<any> {
-	navigator?: Navigator
-	mutate?: MutationFunc<IGQLRes>
+interface IAuthProps extends RouteComponentProps<{}> {}
+interface IInjectedProps extends IAuthProps {
+	navigator: Navigator
+	api: AbstractAPI
 }
 
-@inject('navigator')
-@graphql(loginMutation)
+@inject('navigator', 'api')
 class Auth extends React.Component<IAuthProps> {
-	handleClick = async () => {
-		this.props.navigator!.goToLoading('Performing login')
-		const res = await this.props.mutate!({})
-		const { status } = res.data.login
+	get injected() {
+		return this.props as IInjectedProps
+	}
 
-		if (status === success.status) {
-			this.props.navigator!.goToMatches()
+	handleClick = async () => {
+		const { navigator, api } = this.injected
+		navigator.goToLoading('Performing login')
+		const res = await api.login(false)
+
+		if (res.status === success.status) {
+			navigator.goToMatches()
 		} else {
-			this.props.navigator!.goToAuth()
+			navigator.goToAuth()
 		}
 	}
 

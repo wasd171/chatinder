@@ -18,16 +18,20 @@ const Wrapper = styled.div`
 	color: ${props => props.theme.palette.secondaryTextColor};
 `
 
-export interface INoMessagesProps {
+export interface IInjectedProps {
 	muiTheme: MuiTheme
 }
 
 @muiThemeable()
-class NoMessages extends React.Component<INoMessagesProps> {
+class NoMessages extends React.Component {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	render() {
 		return (
 			<Container>
-				<Wrapper theme={this.props.muiTheme}>
+				<Wrapper theme={this.injected.muiTheme}>
 					<span>You do not have any messages with this user yet</span>
 					<span>Be brave and fix it ;)</span>
 				</Wrapper>

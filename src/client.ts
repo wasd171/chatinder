@@ -1,3 +1,3 @@
-import { ravenSetupRenderer } from '~/shared/utils'
+import { ravenSetupRenderer } from './app/ravenSetupRenderer'
 ravenSetupRenderer()
 import './app/index'

@@ -4,13 +4,10 @@ import ProfileHeaderLeft from './components/ProfileHeaderLeft'
 import MatchesList from './scenes/MatchesList'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 import styled from 'styled-components'
-import { graphql, MutationFunc } from 'react-apollo'
 import { observable, action } from 'mobx'
-import { observer } from 'mobx-react'
-import * as checkDoMatchesExist from './checkMutation.graphql'
-import * as startSubscription from './subscribeMutation.graphql'
+import { inject, observer } from 'mobx-react'
 import LoadingStub from '~/app/components/LoadingStub'
-import { Route } from 'react-router-dom'
+import { Route, RouteComponentProps } from 'react-router-dom'
 import {
 	VIEW_MATCHES,
 	VIEW_CHAT,
@@ -27,7 +24,7 @@ import UserSection from './scenes/UserSection'
 import ProfileHeader from './scenes/ProfileHeader'
 import ProfileSection from './scenes/ProfileSection'
 import { MuiTheme } from 'material-ui/styles'
-import { RouteComponentProps, match } from 'react-router-dom'
+import { AbstractAPI } from '~/shared/definitions'
 
 const MainContainer = styled.div`
 	height: 100vh;
@@ -78,35 +75,30 @@ const RightSection = styled.div`
 	grid-row: main / footer;
 `
 
-export interface IGQLCheckRes {
-	checkDoMatchesExist: boolean
-}
-
-export interface IGQLSubscribeRes {
-	subscribeToUpdates: {
-		status: string
-	}
-}
-
 export interface IRRParams {
 	id: string
 }
 
-export interface IRenderSignature {
-	match: match<IRRParams>
-}
+type RenderType = RouteComponentProps<IRRParams>
+// export interface IRenderSignature {
+// 	match: match<IRRParams>
+// }
 
-export interface IMainProps extends RouteComponentProps<IRRParams> {
+export interface IMainProps extends RouteComponentProps<IRRParams> {}
+
+export interface IInjectedProps extends IMainProps {
 	muiTheme: MuiTheme
-	check: MutationFunc<IGQLCheckRes>
-	subscribe: MutationFunc<IGQLSubscribeRes>
+	api: AbstractAPI
 }
 
-@graphql(checkDoMatchesExist, { name: 'check' })
-@graphql(startSubscription, { name: 'subscribe' })
+@inject('api')
 @muiThemeable()
 @observer
 class Main extends React.Component<IMainProps> {
+	get injected() {
+		return this.props as IInjectedProps
+	}
+
 	@observable shouldShowContent: boolean | null = null
 
 	@action
@@ -115,12 +107,16 @@ class Main extends React.Component<IMainProps> {
 	}
 
 	async componentDidMount() {
-		const res = await this.props.check({})
-		const status = res.data.checkDoMatchesExist
-		if (status) {
-			this.props.subscribe({})
+		console.log('Main didMount')
+
+		const { checkDoMatchesExist, subscribeToUpdates } = this.injected.api
+		const res = await checkDoMatchesExist()
+
+		console.log({ res })
+		if (res) {
+			await subscribeToUpdates()
 		}
-		this.changeStatus(status)
+		this.changeStatus(res)
 	}
 
 	get stub(): JSX.Element | null {
@@ -143,9 +139,9 @@ class Main extends React.Component<IMainProps> {
 		return null
 	}
 
-	renderMatchesList = ({ match }: IRenderSignature) =>
-		<AsideWrapper theme={this.props.muiTheme}>
-			<MatchesList match={match} />
+	renderMatchesList = ({ match, location }: RenderType) =>
+		<AsideWrapper theme={this.injected.muiTheme}>
+			<MatchesList match={match} location={location} />
 		</AsideWrapper>
 
 	renderStub = () =>
@@ -153,33 +149,33 @@ class Main extends React.Component<IMainProps> {
 			<Stub />
 		</StubWrapper>
 
-	renderChatHeader = ({ match }: IRenderSignature) =>
-		<RightHeaderWrapper theme={this.props.muiTheme}>
+	renderChatHeader = ({ match }: RenderType) =>
+		<RightHeaderWrapper theme={this.injected.muiTheme}>
 			<ChatHeader id={match.params.id} />
 		</RightHeaderWrapper>
 
-	renderMessages = ({ match }: IRenderSignature) =>
+	renderMessages = ({ match }: RenderType) =>
 		<MainWrapper>
 			<MessagesFeed id={match.params.id} />
 		</MainWrapper>
 
-	renderInput = ({ match }: IRenderSignature) =>
+	renderInput = ({ match }: RenderType) =>
 		<FooterWrapper>
 			<ChatInput id={match.params.id} />
 		</FooterWrapper>
 
 	renderUserHeader = () =>
-		<RightHeaderWrapper theme={this.props.muiTheme}>
+		<RightHeaderWrapper theme={this.injected.muiTheme}>
 			<UserHeader />
 		</RightHeaderWrapper>
 
-	renderUserSection = ({ match }: IRenderSignature) =>
+	renderUserSection = ({ match }: RenderType) =>
 		<RightSection>
 			<UserSection id={match.params.id} />
 		</RightSection>
 
 	renderProfileHeader = () =>
-		<RightHeaderWrapper theme={this.props.muiTheme}>
+		<RightHeaderWrapper theme={this.injected.muiTheme}>
 			<ProfileHeader />
 		</RightHeaderWrapper>
 
@@ -189,7 +185,7 @@ class Main extends React.Component<IMainProps> {
 		</RightSection>
 
 	get children() {
-		const { muiTheme } = this.props
+		const { muiTheme } = this.injected
 
 		return [
 			<LeftHeaderWrapper theme={muiTheme} key="profile-header-left">
@@ -246,7 +242,7 @@ class Main extends React.Component<IMainProps> {
 
 	render() {
 		return (
-			<MainContainer theme={this.props.muiTheme}>
+			<MainContainer theme={this.injected.muiTheme}>
 				{this.stub != null ? this.stub : this.children}
 			</MainContainer>
 		)
