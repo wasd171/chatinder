@@ -31,6 +31,5 @@ export function getNormalizedSizeOfGIPHY(message: string) {
 }
 
 export { nameToPath } from './nameToPath'
-export { resolveDatabases } from './resolveDatabases'
 export { resolveRoot } from './resolveRoot'
 export { fromCallback } from './fromCallback'

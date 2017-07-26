@@ -1,12 +1,14 @@
-import {
-	AbstractTinderAPIParams
-	// TinderDefaultsType,
-	// TinderPersonType,
-	// ITinderProfile,
-	// TinderSendMessageType,
-	// TinderHistoryType
-} from '.'
+import { AbstractStorage } from '.'
 import TinderClient from 'tinder-modern'
+
+export abstract class AbstractTinderAPISaved {
+	lastActivityTimestamp?: number
+}
+
+export abstract class AbstractTinderAPIParams {
+	lastActivityDate: Date
+	storage: AbstractStorage
+}
 
 export abstract class AbstractTinderAPI extends AbstractTinderAPIParams {
 	client: TinderClient

@@ -10,15 +10,9 @@ const isDev = require('./isDev')
 const commonPlugins = [
 	new webpack.DllReferencePlugin({
 		context: '.',
-		manifest: require(path.join(base.output.path, 'shared-manifest.json')),
-		sourceType: 'commonjs2',
-		name: path.join(base.output.path, 'shared.js')
-	}),
-	new webpack.DllReferencePlugin({
-		context: '.',
 		manifest: require(path.join(base.output.path, 'vendor-manifest.json')),
 		sourceType: 'commonjs2',
-		name: path.join(base.output.path, 'vendor.js')
+		name: './vendor.js'
 	}),
 	new ExtractTextPlugin('styles.css'),
 	new CopyWebpackPlugin([

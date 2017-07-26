@@ -111,3 +111,13 @@ declare module 'react-content-loader' {
 
 	export class Rect extends React.Component<IRectProps> {}
 }
+
+declare module 'electron-is-dev' {
+	const isDev: boolean
+	export default isDev
+}
+
+declare module 'app-root-path' {
+	const path: string
+	export = { path }
+}

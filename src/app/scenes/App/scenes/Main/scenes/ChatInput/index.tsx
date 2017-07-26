@@ -6,7 +6,7 @@ import muiThemeable from 'material-ui/styles/muiThemeable'
 import transitions from 'material-ui/styles/transitions'
 import { inject, observer } from 'mobx-react'
 import styled from 'styled-components'
-import { trim } from 'lodash'
+const trim = require('lodash.trim')
 import { AbstractAPI } from '~/shared/definitions'
 import { MuiTheme } from 'material-ui/styles'
 

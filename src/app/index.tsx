@@ -18,7 +18,6 @@ import * as TapPlugin from 'react-tap-event-plugin'
 TapPlugin()
 
 import configureTheme from './configureTheme'
-import configureClient from './configureClient'
 import { configureStores } from './stores'
 
 if (process.env.NODE_ENV === 'development') {
@@ -29,8 +28,7 @@ async function configureAndRender() {
 	const container = document.getElementById('root')
 
 	const theme = configureTheme()
-	const client = configureClient()
-	const stores = await configureStores(client)
+	const stores = await configureStores()
 	useStrict(true)
 
 	function render() {

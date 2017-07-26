@@ -4,20 +4,14 @@ import { Caches } from './Caches'
 import { Notifier } from './Notifier'
 import { API } from './API'
 import { TinderAPI } from './TinderAPI'
-import { ApolloClient } from 'apollo-client'
 import { Storage } from './Storage'
 import { State } from './State'
+import { FB } from './FB'
 import { MST_SNAPSHOT } from '~/shared/constants'
-import { AbstractTinderAPISaved } from '~/shared/definitions'
+import { AbstractTinderAPISaved, AbstractFBSaved } from '~/shared/definitions'
 import { onSnapshot } from 'mobx-state-tree'
 
-export async function configureStores(client: ApolloClient) {
-	const storage = new Storage()
-	const time = new Time()
-	const navigator = new Navigator()
-	const caches = new Caches()
-	const notifier = new Notifier()
-
+async function getMSTSnapshot(storage: Storage) {
 	const snapshot = (await storage.get(MST_SNAPSHOT)) as any
 	if (snapshot.matches == null) {
 		snapshot.matches = {}
@@ -28,12 +22,11 @@ export async function configureStores(client: ApolloClient) {
 	if (snapshot.sentMessages == null) {
 		snapshot.sentMessages = {}
 	}
-	const state = State.create(snapshot, { notifier })
-	state.markAllPendingAsFailed()
-	onSnapshot(state, snapshot => {
-		storage.save(MST_SNAPSHOT, snapshot)
-	})
 
+	return snapshot
+}
+
+async function getTinderSnapshot(storage: Storage) {
 	const { lastActivityTimestamp } = (await storage.get(
 		'tinder'
 	)) as AbstractTinderAPISaved
@@ -43,9 +36,35 @@ export async function configureStores(client: ApolloClient) {
 	} else {
 		lastActivityDate = new Date()
 	}
-	const tinder = new TinderAPI({ storage, lastActivityDate })
 
-	const api = new API({ client, state, tinder })
+	return { lastActivityDate }
+}
+
+function getFBSnapshot(storage: Storage): Promise<AbstractFBSaved> {
+	return storage.get('fb')
+}
+
+export async function configureStores() {
+	const storage = new Storage()
+	const time = new Time()
+	const navigator = new Navigator()
+	const caches = new Caches()
+	const notifier = new Notifier()
+
+	const snapshot = await getMSTSnapshot(storage)
+	const state = State.create(snapshot, { notifier })
+	state.markAllPendingAsFailed()
+	onSnapshot(state, snapshot => {
+		storage.save(MST_SNAPSHOT, snapshot)
+	})
+
+	const tinderProps = await getTinderSnapshot(storage)
+	const tinder = new TinderAPI({ storage, ...tinderProps })
+
+	const fbProps = await getFBSnapshot(storage)
+	const fb = new FB({ storage, ...fbProps })
+
+	const api = new API({ state, tinder, fb })
 	await navigator.start({ api })
 
 	return { navigator, time, caches, api, state }

@@ -75,5 +75,12 @@ module.exports = {
 	watch: isDev,
 	watchOptions: {
 		ignored: /node_modules/
+	},
+	externals: (context, request, callback) => {
+		if (/(about-window|app-root-path)/.test(request)) {
+			callback(null, 'commonjs ' + request)
+		} else {
+			callback()
+		}
 	}
 }

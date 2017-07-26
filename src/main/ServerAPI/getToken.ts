@@ -77,8 +77,12 @@ export default function getToken(silent: boolean): Promise<FBGetTokenType> {
 					form = await asyncExecute(win, script)
 					if (typeof form !== 'undefined') {
 						action = await asyncExecute(win, `${script}.action`)
-						const url = new URL(action)
-						action = `${url.origin}${url.pathname}`
+						try {
+							const url = new URL(action)
+							action = `${url.origin}${url.pathname}`
+						} catch (err) {
+							action = null
+						}
 					}
 
 					if (
@@ -115,6 +119,6 @@ export function asyncExecute(win: WindowType, script: string) {
 	if (win !== null) {
 		return win.webContents.executeJavaScript(script, false)
 	} else {
-		throw new Error('asyncExecute received null window')
+		return Promise.resolve()
 	}
 }
