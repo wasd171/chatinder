@@ -21,13 +21,6 @@ const main = {
 		filename: 'main.js'
 	},
 	target: 'electron',
-	externals: (context, request, callback) => {
-		if (/about-window/.test(request)) {
-			callback(null, 'commonjs ' + request)
-		} else {
-			callback()
-		}
-	},
 	plugins
 }
 

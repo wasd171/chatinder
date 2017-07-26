@@ -36,7 +36,8 @@
   "author": "wasd171",
   "license": "MIT",
   "dependencies": {
-    "about-window": "^1.6.1"
+    "about-window": "^1.6.1",
+    "app-root-path": "^2.0.1"
   },
   "devDependencies": {
     "@types/emojione": "^2.2.1",
