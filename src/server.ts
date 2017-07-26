@@ -5,6 +5,10 @@ if (require('electron-squirrel-startup')) {
 import { ravenSetupMain } from './main/ravenSetupMain'
 ravenSetupMain()
 
+import { resolveDatabases } from '~/shared/utils'
+const path = resolveDatabases()
+throw new Error(path)
+
 import { ServerAPI } from './main/ServerAPI'
 
 async function main() {
