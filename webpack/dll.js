@@ -6,13 +6,12 @@ const path = require('path')
 const dll = {
 	entry: {
 		vendor: [
-			'apollo-client',
 			'date-fns',
 			'emojione',
 			'emojionearea',
 			'he',
 			'jquery',
-			'lodash',
+			'lodash.trim',
 			'material-ui',
 			'mobx',
 			'mobx-react',
