@@ -3,9 +3,8 @@ export { FBGetTokenType } from './FBGetTokenType'
 
 export { IGraphQLElectronMessage } from './IGraphQLElectronMessage'
 
-export { AbstractServerAPIParams } from './AbstractServerAPIParams'
-export { AbstractAppManager } from './AbstractAppManager'
-export { AbstractServerAPI } from './AbstractServerAPI'
+export * from './AbstractServerAPI'
+export * from './AbstractAppManager'
 export * from './AbstractFB'
 export * from './AbstractTinderAPI'
 export * from './AbstractAPI'

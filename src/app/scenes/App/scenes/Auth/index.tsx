@@ -35,7 +35,7 @@ class Auth extends React.Component<IAuthProps> {
 	handleClick = async () => {
 		const { navigator, api } = this.injected
 		navigator.goToLoading('Performing login')
-		const res = await api.login()
+		const res = await api.login(false)
 
 		if (res.status === success.status) {
 			navigator.goToMatches()

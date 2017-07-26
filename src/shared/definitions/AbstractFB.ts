@@ -1,4 +1,4 @@
-import { FBGetTokenType } from '.'
+import { FBGetTokenType, AbstractStorage } from '.'
 
 export abstract class AbstractFBSaved {
 	token?: string
@@ -7,7 +7,7 @@ export abstract class AbstractFBSaved {
 }
 
 export abstract class AbstractFBParams extends AbstractFBSaved {
-	fbPath: string
+	storage: AbstractStorage
 }
 
 export abstract class AbstractFB extends AbstractFBParams {

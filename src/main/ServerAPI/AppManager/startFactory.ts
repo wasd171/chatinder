@@ -1,6 +1,5 @@
 import { AbstractAppManager } from '~/shared/definitions'
 import { app, Menu } from 'electron'
-// import { enableLiveReload } from 'electron-compile'
 import { updateApp, buildMenu } from './utils'
 
 export function onBeforeQuitFactory(instance: AbstractAppManager) {

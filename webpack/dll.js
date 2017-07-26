@@ -5,7 +5,6 @@ const path = require('path')
 
 const dll = {
 	entry: {
-		shared: ['lodash', 'node-fetch', 'graphql'],
 		vendor: [
 			'apollo-client',
 			'date-fns',
@@ -13,6 +12,7 @@ const dll = {
 			'emojionearea',
 			'he',
 			'jquery',
+			'lodash',
 			'material-ui',
 			'mobx',
 			'mobx-react',

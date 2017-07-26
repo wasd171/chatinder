@@ -77,8 +77,12 @@ export default function getToken(silent: boolean): Promise<FBGetTokenType> {
 					form = await asyncExecute(win, script)
 					if (typeof form !== 'undefined') {
 						action = await asyncExecute(win, `${script}.action`)
-						const url = new URL(action)
-						action = `${url.origin}${url.pathname}`
+						try {
+							const url = new URL(action)
+							action = `${url.origin}${url.pathname}`
+						} catch (err) {
+							action = null
+						}
 					}
 
 					if (

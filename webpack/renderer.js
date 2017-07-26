@@ -10,12 +10,6 @@ const isDev = require('./isDev')
 const commonPlugins = [
 	new webpack.DllReferencePlugin({
 		context: '.',
-		manifest: require(path.join(base.output.path, 'shared-manifest.json')),
-		sourceType: 'commonjs2',
-		name: './shared.js'
-	}),
-	new webpack.DllReferencePlugin({
-		context: '.',
 		manifest: require(path.join(base.output.path, 'vendor-manifest.json')),
 		sourceType: 'commonjs2',
 		name: './vendor.js'
