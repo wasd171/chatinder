@@ -84,8 +84,9 @@ export class FB extends AbstractFB implements AbstractFB {
 			ipcRenderer.once(
 				IPC_GET_FB_TOKEN_RES,
 				(_event: Electron.IpcMessageEvent, res: GetFBTokenType) => {
-					if ((res as IGetFBTokenFailure).err) {
-						reject((res as IGetFBTokenFailure).err)
+					const { err } = res as IGetFBTokenFailure
+					if (err) {
+						reject(err)
 					} else {
 						resolve(res as IGetFBTokenSuccess)
 					}
