@@ -1,5 +1,0 @@
-mutation showWindow {
-    showWindow {
-        status
-    }
-}
