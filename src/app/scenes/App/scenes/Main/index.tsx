@@ -107,12 +107,9 @@ class Main extends React.Component<IMainProps> {
 	}
 
 	async componentDidMount() {
-		console.log('Main didMount')
-
 		const { checkDoMatchesExist, subscribeToUpdates } = this.injected.api
 		const res = await checkDoMatchesExist()
 
-		console.log({ res })
 		if (res) {
 			await subscribeToUpdates()
 		}

@@ -2,21 +2,14 @@ import {
 	AbstractFB,
 	AbstractFBParams,
 	AbstractFBSaved,
-	IGetFBTokenFailure,
-	IGetFBTokenSuccess,
-	GetFBTokenType
+	FBGetTokenType
 } from '~/shared/definitions'
 import fetch from 'node-fetch'
-import { ipcRenderer } from 'electron'
-import { IPC_GET_FB_TOKEN_REQ, IPC_GET_FB_TOKEN_RES } from '~/shared/constants'
-// import getIdFactory from './getIdFactory'
-// import getToken from './getToken'
-// import loginForceFactory from './loginForceFactory'
-// import loginFactory from './loginFactory'
-// import { fromCallback } from '~/shared/utils'
-// import * as fs from 'fs'
+import FbWebView from '~/app/scenes/App/components/FBWebView'
 
 export class FB extends AbstractFB implements AbstractFB {
+	private component?: FbWebView
+
 	constructor(params: AbstractFBParams) {
 		super()
 		Object.assign(this, params)
@@ -30,14 +23,10 @@ export class FB extends AbstractFB implements AbstractFB {
 		}
 
 		return this.storage.save('fb', data)
-		// return fromCallback(callback =>
-		// 	fs.writeFile(this.fbPath, JSON.stringify(data), callback)
-		// )
 	}
 
 	clear = () => {
 		return this.storage.save('fb', {})
-		// return fromCallback(callback => fs.unlink(this.fbPath, callback))
 	}
 
 	setToken = (token: string) => {
@@ -77,26 +66,17 @@ export class FB extends AbstractFB implements AbstractFB {
 
 		return json.id as string
 	}
-	// getId = getIdFactory(this)
-	// getToken = getToken
+
 	getToken = (silent: boolean) => {
-		const promise = new Promise<IGetFBTokenSuccess>((resolve, reject) => {
-			ipcRenderer.once(
-				IPC_GET_FB_TOKEN_RES,
-				(_event: Electron.IpcMessageEvent, res: GetFBTokenType) => {
-					if ((res as IGetFBTokenFailure).err) {
-						reject((res as IGetFBTokenFailure).err)
-					} else {
-						resolve(res as IGetFBTokenSuccess)
-					}
-				}
-			)
+		return new Promise<FBGetTokenType>((resolve, reject) => {
+			if (!this.component) {
+				reject('Not possible to get token without component')
+			} else {
+				this.component.getToken({ silent, resolve, reject })
+			}
 		})
-		ipcRenderer.send(IPC_GET_FB_TOKEN_REQ, silent)
-		return promise
 	}
 
-	// loginForce = loginForceFactory(this)
 	loginForce = async (silent: boolean) => {
 		const { token, expiresIn } = await this.getToken(silent)
 		this.setToken(token)
@@ -105,12 +85,15 @@ export class FB extends AbstractFB implements AbstractFB {
 		this.setId(id)
 	}
 
-	// login = loginFactory(this)
 	login = async (silent: boolean) => {
 		try {
 			await this.getId()
 		} catch (err) {
 			return this.loginForce(silent)
 		}
+	}
+
+	setComponent = (component: FbWebView) => {
+		this.component = component
 	}
 }

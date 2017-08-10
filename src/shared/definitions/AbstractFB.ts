@@ -1,4 +1,5 @@
-import { FBGetTokenType, AbstractStorage } from '.'
+import { AbstractStorage } from '.'
+import FbWebView from '~/app/scenes/App/components/FBWebView'
 
 export abstract class AbstractFBSaved {
 	token?: string
@@ -8,6 +9,11 @@ export abstract class AbstractFBSaved {
 
 export abstract class AbstractFBParams extends AbstractFBSaved {
 	storage: AbstractStorage
+}
+
+export interface FBGetTokenType {
+	token: string
+	expiresIn: number
 }
 
 export abstract class AbstractFB extends AbstractFBParams {
@@ -21,4 +27,5 @@ export abstract class AbstractFB extends AbstractFBParams {
 	abstract loginForce: (silent: boolean) => Promise<void>
 	abstract login: (silent: boolean) => Promise<void>
 	abstract clear: () => Promise<{}>
+	abstract setComponent: (component: FbWebView) => void
 }

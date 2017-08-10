@@ -13,6 +13,14 @@ import Main from './scenes/Main'
 import LoadingScreen from './scenes/LoadingScreen'
 import { Navigator } from '~/app/stores/Navigator'
 import { History as CustomHistory } from 'history'
+import FBWebView from './components/FBWebView'
+import styled from 'styled-components'
+
+const Container = styled.div`
+	width: 100vw;
+	height: 100vh;
+	position: relative;
+`
 
 export interface IAppProps {
 	history: CustomHistory
@@ -34,11 +42,17 @@ class App extends React.Component<IAppProps> {
 
 	render() {
 		return (
-			<Switch>
-				<Route path={routes[VIEW_AUTH]} component={Auth} />
-				<Route path={routes[VIEW_LOADING]} component={LoadingScreen} />
-				<Route path={routes[VIEW_MATCHES]} component={Main} />
-			</Switch>
+			<Container>
+				<Switch>
+					<Route path={routes[VIEW_AUTH]} component={Auth} />
+					<Route
+						path={routes[VIEW_LOADING]}
+						component={LoadingScreen}
+					/>
+					<Route path={routes[VIEW_MATCHES]} component={Main} />
+				</Switch>
+				<FBWebView />
+			</Container>
 		)
 	}
 }

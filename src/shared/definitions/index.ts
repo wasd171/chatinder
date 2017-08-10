@@ -1,7 +1,4 @@
 export { NotificationMessageType } from './NotificationMessageType'
-export { FBGetTokenType } from './FBGetTokenType'
-
-export { IGraphQLElectronMessage } from './IGraphQLElectronMessage'
 
 export * from './AbstractServerAPI'
 export * from './AbstractAppManager'
