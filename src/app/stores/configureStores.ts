@@ -67,5 +67,5 @@ export async function configureStores() {
 	const api = new API({ state, tinder, fb })
 	await navigator.start({ api })
 
-	return { navigator, time, caches, api, state }
+	return { navigator, time, caches, api, state, fb }
 }

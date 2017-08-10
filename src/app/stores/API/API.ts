@@ -57,12 +57,10 @@ export class API implements AbstractAPI {
 		try {
 			await this.fb.login(silent)
 
-			await this.tinder.authorize(
-				{ fbToken: this.fb.token, fbId: this.fb.id } as {
-					fbToken: string
-					fbId: string
-				}
-			)
+			await this.tinder.authorize({
+				fbToken: this.fb.token!,
+				fbId: this.fb.id!
+			})
 			return success
 		} catch (err) {
 			return { status: 'Unauthorized' }
