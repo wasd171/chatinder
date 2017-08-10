@@ -1,1 +1,0 @@
-export { createElectronInterface } from './createElectronInterface'
