@@ -69,7 +69,6 @@ export class API implements AbstractAPI {
 
 	public checkDoMatchesExist = async (): Promise<boolean> => {
 		const matchesCount = this.state.matches.size
-		console.log('checkDoMatchesExist', matchesCount)
 
 		if (matchesCount !== 0) {
 			return true
@@ -156,12 +155,10 @@ export class API implements AbstractAPI {
 
 	public getInitialRoute = async (): Promise<string> => {
 		const matchesCount = this.state.matches.size
-		console.log({ matchesCount })
 		if (matchesCount !== 0) {
 			return routes[VIEW_MATCHES]
 		} else {
 			const { token, id } = this.fb
-			console.log({ token, id })
 			if (token !== undefined && id !== undefined) {
 				return routes[VIEW_MATCHES]
 			} else {
