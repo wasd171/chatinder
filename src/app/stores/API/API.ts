@@ -1,5 +1,3 @@
-// import { ApolloClient } from 'apollo-client'
-// import { DocumentNode } from 'graphql'
 import {
 	AbstractAPI,
 	StateType,
@@ -10,17 +8,6 @@ import {
 	AbstractFB
 } from '~/shared/definitions'
 
-// import * as logoutMutation from './logout.graphql'
-// import * as getFBQuery from './getFB.graphql'
-// import * as showWindow from './showWindow.graphql'
-// import * as loginFB from './loginFB.graphql'
-
-// import {
-// GetFbQuery,
-// ShowWindowMutation,
-// LoginFbMutation,
-// LogoutMutation
-// } from '~/schema'
 import {
 	VIEW_MATCHES,
 	VIEW_AUTH,
@@ -44,7 +31,6 @@ export interface IAPIProps {
 }
 
 export class API implements AbstractAPI {
-	// private client: ApolloClient
 	private reloginPromise: Promise<void> | null = null
 	private state: StateType
 	private tinder: AbstractTinderAPI
@@ -54,17 +40,9 @@ export class API implements AbstractAPI {
 		Object.assign(this, props)
 	}
 
-	// mutate = async <R = {}>(mutation: DocumentNode, variables?: Object) => {
-	// 	return (await this.client.mutate<R>({ mutation, variables })).data as R
-	// }
-
-	// query = async <R = {}>(query: DocumentNode, variables?: Object) => {
-	// 	return (await this.client.query<R>({ query, variables })).data
-	// }
-
 	public login = async (silent: boolean): Promise<IAPIGenericReturn> => {
 		this.tinder.resetClient()
-		// let fb = (await this.query<GetFbQuery>(getFBQuery)).fb
+
 		try {
 			if (this.fb.token === undefined || this.fb.id === undefined) {
 				throw new Error('fbToken or fbId is not present')
@@ -78,9 +56,6 @@ export class API implements AbstractAPI {
 
 		try {
 			await this.fb.login(silent)
-			// fb = (await this.mutate<LoginFbMutation>(loginFB, {
-			// 	silent
-			// })).loginFB
 
 			await this.tinder.authorize(
 				{ fbToken: this.fb.token, fbId: this.fb.id } as {
@@ -179,13 +154,7 @@ export class API implements AbstractAPI {
 
 	public logout = () => {
 		ipcRenderer.send(IPC_LOGOUT)
-		// const res = await this.mutate<LogoutMutation>(logoutMutation)
-		// return res.logout
 	}
-
-	// public getFB = () => {
-	// 	return this.query<GetFbQuery>(getFBQuery)
-	// }
 
 	public getInitialRoute = async (): Promise<string> => {
 		const matchesCount = this.state.matches.size
@@ -205,7 +174,6 @@ export class API implements AbstractAPI {
 
 	public showWindow = () => {
 		ipcRenderer.send(IPC_SHOW_WINDOW)
-		// return this.mutate<ShowWindowMutation>(showWindow)
 	}
 
 	public relogin = async () => {
